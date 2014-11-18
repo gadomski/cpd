@@ -9,6 +9,11 @@ namespace registration
 {
 
 
+Base::Base(double tol)
+    : m_tol(tol)
+{}
+
+
 SpResult Base::operator()(arma::mat& X, arma::mat& Y) const
 {
     if (X.n_cols != Y.n_cols)
