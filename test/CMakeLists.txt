@@ -1,9 +1,10 @@
 include_directories(
-    ${CPD_INCLUDE}
+    ${CPD_INCLUDE_DIR}
     ${gtest_SOURCE_DIR}/include
     )
 
 set(SRC
+    registration/nonrigid_test.cpp
     )
 
 set(CPD_TEST_LINK_LIBRARIES
@@ -11,5 +12,5 @@ set(CPD_TEST_LINK_LIBRARIES
     gtest_main
     )
 
-add_executable(${CPD_TARGET_TEST} ${SRC})
-target_link_libraries(${CPD_TARGET_TEST} ${CPD_TEST_LINK_LIBRARIES})
+add_executable(${CPD_TEST_TARGET} ${SRC})
+target_link_libraries(${CPD_TEST_TARGET} ${CPD_TEST_LINK_LIBRARIES})
