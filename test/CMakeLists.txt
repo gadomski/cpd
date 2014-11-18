@@ -5,6 +5,8 @@ include_directories(
     )
 
 set(SRC
+    sigma2_test.cpp
+
     registration/nonrigid_test.cpp
     registration/rigid_test.cpp
     )
