@@ -9,7 +9,7 @@ namespace registration
 {
 
 
-Rigid::Rigid(float tol, int max_it, float outliers, bool use_fgt, bool strict_rot,
+Rigid::Rigid(double tol, int max_it, double outliers, bool use_fgt, bool strict_rot,
              bool use_scaling)
     : Base(tol, max_it, outliers, use_fgt)
     , m_strict_rot(strict_rot)
@@ -48,12 +48,14 @@ SpResult Rigid::execute(const arma::mat& X, const arma::mat& Y) const
         ntol = std::abs((L - L_old) / L);
 
         // TODO logging
+        //std::cerr << "dL= " << ntol << ", iter= " << iter << ", sigma2= " << sigma2 << std::endl;
         
         Np = arma::sum(Pt1);
         mu_x = X.t() * Pt1 / Np;
         mu_y = Y.t() * P1 / Np;
 
         A = PX.t() * Y - Np * (mu_x * mu_y.t());
+        break;
 
         arma::mat U(D, D), V(D, D);
         arma::mat C = arma::eye<arma::mat>(D, D);

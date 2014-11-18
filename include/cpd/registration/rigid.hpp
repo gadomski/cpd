@@ -14,9 +14,9 @@ class Rigid : public Base
 public:
 
     explicit Rigid(
-            float tol = 1e-5,
+            double tol = 1e-5,
             int max_it = 150,
-            float outliers = 0.1,
+            double outliers = 0.1,
             bool use_fgt = false,
             bool strict_rot = true,
             bool use_scaling = true

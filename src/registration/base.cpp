@@ -10,7 +10,7 @@ namespace registration
 {
 
 
-Base::Base(float tol, int max_it, float outliers, bool use_fgt)
+Base::Base(double tol, int max_it, double outliers, bool use_fgt)
     : m_tol(tol)
     , m_max_it(max_it)
     , m_outliers(outliers)
@@ -55,14 +55,16 @@ Normalization Base::normalize(arma::mat& X, arma::mat& Y) const
 
 
 void Base::denormalize(SpResult& result, const Normalization& normal) const
-{}
+{
+    result->Y = result->Y * normal.xscale + arma::repmat(normal.xd, result->Y.n_rows, 1);
+}
 
 
 double Base::find_P(
         const arma::mat& X,
         const arma::mat& Y,
         double sigma2,
-        float outliers,
+        double outliers,
         arma::vec& P1,
         arma::vec& Pt1,
         arma::mat& PX

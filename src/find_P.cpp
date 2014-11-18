@@ -11,7 +11,7 @@ double find_P(
         const arma::mat& X,
         const arma::mat& Y,
         double sigma2,
-        float outliers,
+        double outliers,
         arma::vec& P1,
         arma::vec& Pt1,
         arma::mat& PX,
@@ -30,7 +30,7 @@ double find_P(
 
     arma::vec denomP(N);
 
-    const double h = std::sqrt(2 * sigma2);
+    const double h = std::sqrt(2) * sigma2;
     const double ndi = outliers / (1 - outliers) * M / N * std::pow(2 * M_PI * sigma2, 0.5 * D);
     const int W = 1;
     arma::vec q = arma::ones<arma::vec>(M);
@@ -39,12 +39,13 @@ double find_P(
     arma::mat Yt = Y.t();
 
     figtree(D, M, N, W, Xt.memptr(), h, q.memptr(), Yt.memptr(), outliers, denomP.memptr(), eval_method);
+    std::cout << denomP << std::endl;
 
     denomP = denomP + ndi;
-    Pt1 = arma::flipud(1 - ndi / denomP);
+    Pt1 = 1 - ndi / denomP;
     q = 1 / denomP;
 
-    figtree(D, M, N, W, Xt.memptr(), h, q.memptr(), Yt.memptr(), outliers, P1.memptr(), eval_method);
+    figtree(D, M, N, W, Yt.memptr(), h, q.memptr(), Xt.memptr(), outliers, P1.memptr(), eval_method);
 
     for (int i = 0; i < D; ++i)
     {
