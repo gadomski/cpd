@@ -1,0 +1,16 @@
+# Ninja
+.ninja_deps
+.ninja_log
+build.ninja
+rules.ninja
+
+# CMake
+CMakeCache.txt
+CMakeFiles
+Makefile
+cmake_install.cmake
+install_manifest.txt
+
+# GTest
+libgtest.a
+libgtest_main.a

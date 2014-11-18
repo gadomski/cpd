@@ -1,0 +1,12 @@
+language: cpp
+
+compiler:
+    - clang
+    - gcc
+
+install:
+    - sudo apt-get install libarmadillo-dev
+    - scripts/install_figtree.sh
+
+script:
+    - scripts/build_and_test.sh
