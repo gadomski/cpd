@@ -26,6 +26,8 @@ SpResult Rigid::execute(const arma::mat& X, const arma::mat& Y) const
     double L = 0;
 
     double L_old;
+    arma::vec P1, Pt1;
+    arma::mat PX;
 
     while (iter < get_max_it() &&
             ntol > get_tol() &&
@@ -33,6 +35,8 @@ SpResult Rigid::execute(const arma::mat& X, const arma::mat& Y) const
     {
         L_old = L;
         L = find_P(X, T, sigma2, get_outliers(), P1, Pt1, PX);
+
+        break;
     }
 
     SpResult result(new Result());
