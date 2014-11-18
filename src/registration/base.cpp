@@ -1,6 +1,7 @@
 #include <cpd/registration/base.hpp>
 
 #include <cpd/exceptions.hpp>
+#include <cpd/find_P.hpp>
 
 
 namespace cpd
@@ -51,7 +52,7 @@ double Base::find_P(
         arma::mat& PX
         ) const
 {
-    return 0;
+    return cpd::find_P(X, Y, sigma2, outliers, P1, Pt1, PX, use_fgt());
 }
 
 

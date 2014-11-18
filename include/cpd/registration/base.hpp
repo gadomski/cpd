@@ -40,6 +40,7 @@ public:
     inline float get_tol() const { return m_tol; }
     inline int get_max_it() const { return m_max_it; }
     inline float get_outliers() const { return m_outliers; }
+    inline bool use_fgt() const { return m_use_fgt; }
 
 private:
 

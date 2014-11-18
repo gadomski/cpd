@@ -5,6 +5,7 @@ include_directories(
     )
 
 set(SRC
+    find_P_test.cpp
     sigma2_test.cpp
 
     registration/nonrigid_test.cpp

@@ -26,8 +26,8 @@ SpResult Rigid::execute(const arma::mat& X, const arma::mat& Y) const
     double L = 0;
 
     double L_old;
-    arma::vec P1, Pt1;
-    arma::mat PX;
+    arma::vec P1(M), Pt1(M);
+    arma::mat PX(M, D);
 
     while (iter < get_max_it() &&
             ntol > get_tol() &&
