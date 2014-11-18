@@ -17,6 +17,11 @@ set(CPD_TEST_TARGET cpd-test)
 set(CPD_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/include")
 
 
+# Output paths
+set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
+set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib)
+
+
 # Dependencies
 find_package(Armadillo REQUIRED)
 include_directories(${ARMADILLO_INCLUDE_DIRS})
