@@ -35,7 +35,7 @@ SpResult Rigid::execute(const arma::mat& X, const arma::mat& Y) const
     double L = 0;
 
     double L_old, Np;
-    arma::vec P1(M), Pt1(M), mu_x(D), mu_y(D);
+    arma::vec P1(M), Pt1(M), mu_x(D), mu_y(D), t(D);
     arma::mat PX(M, D), A(D, D);
 
     while (iter < get_max_it() &&
@@ -70,17 +70,34 @@ SpResult Rigid::execute(const arma::mat& X, const arma::mat& Y) const
 
         if (use_scaling())
         {
-             
+            s = arma::trace(S * C) /
+                (arma::accu(arma::pow(Y, 2) % arma::repmat(P1, 1, D)) -
+                 Np * arma::as_scalar(mu_y.t() * mu_y));
+            sigma2 = std::abs(
+                    arma::accu(arma::pow(Y, 2) % arma::repmat(Pt1, 1, D)) -
+                    Np * arma::as_scalar(mu_x.t() * mu_x) -
+                    s * arma::trace(S * C)) /
+                (Np * D);
         }
         else
         {
-
+            sigma2 = std::abs((
+                    arma::accu(arma::pow(X, 2) % arma::repmat(Pt1, 1, D)) -
+                    Np * arma::as_scalar(mu_x.t() * mu_x) -
+                    arma::accu(arma::pow(Y, 2) % arma::repmat(P1, 1, D)) -
+                    Np * arma::as_scalar(mu_y.t() * mu_y) -
+                    2 * arma::trace(S * C)) /
+                    (Np * D));
         }
 
-        break;
+        t = mu_x - s * R * mu_y;
+        T = s * Y * R.t() + arma::repmat(t.t(), M, 1);
+
+        iter++;
     }
 
     SpResult result(new Result());
+    result->Y = T;
     return result;
 }
 
