@@ -9,10 +9,11 @@ namespace registration
 {
 
 
-Base::Base(float tol, int max_it, float outliers)
+Base::Base(float tol, int max_it, float outliers, bool use_fgt)
     : m_tol(tol)
     , m_max_it(max_it)
     , m_outliers(outliers)
+    , m_use_fgt(use_fgt)
 {}
 
 

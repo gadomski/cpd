@@ -19,7 +19,8 @@ public:
     explicit Base(
             float tol = 1e-5,
             int max_it = 150,
-            float outliers = 0.1
+            float outliers = 0.1,
+            bool use_fgt = false
             );
 
     SpResult operator()(arma::mat& X, arma::mat& Y) const;
@@ -44,10 +45,10 @@ private:
 
     virtual SpResult execute(const arma::mat& X, const arma::mat& Y) const = 0;
 
-
     float m_tol;
     int m_max_it;
     float m_outliers;
+    bool m_use_fgt;
 
 };
 
