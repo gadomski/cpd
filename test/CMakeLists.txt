@@ -1,14 +1,16 @@
 include_directories(
     ${CPD_INCLUDE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}
     ${gtest_SOURCE_DIR}/include
     )
 
 set(SRC
     registration/nonrigid_test.cpp
+    registration/rigid_test.cpp
     )
 
 set(CPD_TEST_LINK_LIBRARIES
-    ${CPD_TARGET_LIB}
+    ${CPD_LIB_TARGET}
     gtest_main
     )
 
