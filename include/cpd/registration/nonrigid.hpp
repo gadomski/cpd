@@ -1,3 +1,6 @@
+#pragma once
+
+
 namespace cpd
 {
 namespace registration
