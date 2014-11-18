@@ -9,9 +9,10 @@ namespace registration
 {
 
 
-Base::Base(double tol, int max_it)
+Base::Base(float tol, int max_it, float outliers)
     : m_tol(tol)
     , m_max_it(max_it)
+    , m_outliers(outliers)
 {}
 
 

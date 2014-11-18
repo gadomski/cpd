@@ -25,11 +25,14 @@ SpResult Rigid::execute(const arma::mat& X, const arma::mat& Y) const
     double ntol = get_tol() + 10;
     double L = 0;
 
+    double L_old;
+
     while (iter < get_max_it() &&
             ntol > get_tol() &&
             sigma2 > 10 * std::numeric_limits<double>::epsilon())
     {
-
+        L_old = L;
+        L = find_P(X, T, sigma2, get_outliers(), P1, Pt1, PX);
     }
 
     SpResult result(new Result());

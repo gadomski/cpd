@@ -16,21 +16,25 @@ class Base
 {
 public:
 
-    explicit Base(double tol = 1e-5, int max_it = 150);
+    explicit Base(float tol = 1e-5,
+            int max_it = 150,
+            float outliers = 0.1);
 
     SpResult operator()(arma::mat& X, arma::mat& Y) const;
     Normalization normalize(arma::mat& X, arma::mat& Y) const;
     void denormalize(SpResult& result, const Normalization& normal) const;
 
-    inline double get_tol() const { return m_tol; }
+    inline float get_tol() const { return m_tol; }
     inline int get_max_it() const { return m_max_it; }
+    inline float get_outliers() const { return m_outliers; }
 
 private:
 
     virtual SpResult execute(const arma::mat& X, const arma::mat& Y) const = 0;
 
-    double m_tol;
+    float m_tol;
     int m_max_it;
+    float m_outliers;
 
 };
 
