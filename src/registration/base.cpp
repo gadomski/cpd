@@ -9,8 +9,9 @@ namespace registration
 {
 
 
-Base::Base(double tol)
+Base::Base(double tol, int max_it)
     : m_tol(tol)
+    , m_max_it(max_it)
 {}
 
 

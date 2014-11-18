@@ -25,6 +25,13 @@ SpResult Rigid::execute(const arma::mat& X, const arma::mat& Y) const
     double ntol = get_tol() + 10;
     double L = 0;
 
+    while (iter < get_max_it() &&
+            ntol > get_tol() &&
+            sigma2 > 10 * std::numeric_limits<double>::epsilon())
+    {
+
+    }
+
     SpResult result(new Result());
     return result;
 }
