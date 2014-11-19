@@ -5,7 +5,8 @@ compiler:
     - gcc
 
 install:
-    - sudo apt-get install libopenblas-dev liblapack-dev libarpack++2-dev
+    - scripts/install_compilers.sh
+    - sudo apt-get install liblapack-dev
     - scripts/install_armadillo.sh
     - scripts/install_figtree.sh
 

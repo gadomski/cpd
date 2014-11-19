@@ -2,6 +2,8 @@
 cmake_minimum_required(VERSION 2.8.7 FATAL_ERROR)
 project(cpd CXX)
 
+set(CMAKE_CXX_FLAGS "-std=c++0x ${CMAKE_CXX_FLAGS}")
+
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/Modules")
 set(CMAKE_MACOSX_RPATH ON)
 
