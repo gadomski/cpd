@@ -5,11 +5,13 @@ include_directories(
     )
 
 set(SRC
+    affinity_eigenvectors_test.cpp
     affinity_matrix_test.cpp
     find_P_test.cpp
     sigma2_test.cpp
 
     registration/nonrigid_test.cpp
+    registration/nonrigid_lowrank_test.cpp
     registration/rigid_test.cpp
     )
 
