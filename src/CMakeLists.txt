@@ -13,6 +13,7 @@ set(SRC
     )
 
 add_library(${CPD_LIB_TARGET} ${SRC})
+set_property(TARGET ${CPD_LIB_TARGET} PROPERTY OUTPUT_NAME cpd)
 target_link_libraries(${CPD_LIB_TARGET}
     ${ARMADILLO_LIBRARIES}
     ${FIGTREE_LIBRARY}
