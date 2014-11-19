@@ -1,6 +1,6 @@
 #include <cpd/find_P.hpp>
 
-#include <figtree.h>
+#include <cpd/figtree.hpp>
 
 
 namespace cpd
@@ -39,18 +39,19 @@ double find_P(
     arma::mat Xt = X.t();
     arma::mat Yt = Y.t();
 
-    figtree(D, M, N, W, Yt.memptr(), h, q.memptr(), Xt.memptr(), epsilon, denomP.memptr(), eval_method);
+    figtree_wrap(Yt, Xt, q, h, epsilon, denomP, eval_method);
 
     denomP = denomP + ndi;
     Pt1 = 1 - ndi / denomP;
     q = 1 / denomP;
 
-    figtree(D, N, M, W, Xt.memptr(), h, q.memptr(), Yt.memptr(), epsilon, P1.memptr(), eval_method);
+    figtree_wrap(Xt, Yt, q, h, epsilon, P1, eval_method);
 
     for (int i = 0; i < D; ++i)
     {
         q = X.col(i) / denomP;
-        figtree(D, N, M, W, Xt.memptr(), h, q.memptr(), Yt.memptr(), epsilon, PX.colptr(i), eval_method);
+        arma::vec c = PX.unsafe_col(i);
+        figtree_wrap(Xt, Yt, q, h, epsilon, c, eval_method);
     }
 
     return -arma::sum(arma::log(denomP)) + D * N * std::log(sigma2) / 2;
