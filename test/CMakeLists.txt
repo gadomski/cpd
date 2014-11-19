@@ -5,6 +5,7 @@ include_directories(
     )
 
 set(SRC
+    affinity_matrix_test.cpp
     find_P_test.cpp
     sigma2_test.cpp
 

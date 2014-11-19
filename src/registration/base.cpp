@@ -65,13 +65,12 @@ double Base::find_P(
         const arma::mat& X,
         const arma::mat& Y,
         double sigma2,
-        double outliers,
         arma::vec& P1,
         arma::vec& Pt1,
         arma::mat& PX
         ) const
 {
-    return cpd::find_P(X, Y, sigma2, outliers, P1, Pt1, PX, use_fgt());
+    return cpd::find_P(X, Y, sigma2, get_outliers(), P1, Pt1, PX, use_fgt());
 }
 
 

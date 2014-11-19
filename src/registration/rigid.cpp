@@ -43,7 +43,7 @@ SpResult Rigid::execute(const arma::mat& X, arma::mat& Y) const
             sigma2 > 10 * std::numeric_limits<double>::epsilon())
     {
         L_old = L;
-        L = find_P(X, T, sigma2, get_outliers(), P1, Pt1, PX);
+        L = find_P(X, T, sigma2, P1, Pt1, PX);
 
         ntol = std::abs((L - L_old) / L);
 
