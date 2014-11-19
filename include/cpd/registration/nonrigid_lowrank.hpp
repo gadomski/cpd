@@ -27,6 +27,8 @@ public:
 
     inline void set_numeig(int numeig) { m_numeig = numeig; }
 
+    virtual ~NonrigidLowrank() {};
+
 private:
 
     virtual SpResult execute(const arma::mat& X, const arma::mat& Y) const;

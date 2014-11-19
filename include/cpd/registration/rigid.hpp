@@ -28,6 +28,8 @@ public:
     inline void strict_rot(bool strict_rot) { m_strict_rot = strict_rot; }
     inline void use_scaling(bool use_scaling) { m_use_scaling = use_scaling; }
 
+    virtual ~Rigid() {};
+
 private:
     virtual SpResult execute(const arma::mat& X, const arma::mat& Y) const;
 

@@ -28,6 +28,8 @@ public:
     inline void set_beta(double beta) { m_beta = beta; }
     inline void set_lambda(double lambda) { m_lambda = lambda; }
 
+    virtual ~Nonrigid() {};
+
 private:
 
     virtual SpResult execute(const arma::mat& X, const arma::mat& Y) const;

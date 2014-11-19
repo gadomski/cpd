@@ -46,6 +46,8 @@ public:
     inline void set_outliers(double outliers) { m_outliers = outliers; }
     inline void use_fgt(bool use_fgt) { m_use_fgt = use_fgt; }
 
+    virtual ~Base() {};
+
 private:
 
     virtual SpResult execute(const arma::mat& X, const arma::mat& Y) const = 0;
