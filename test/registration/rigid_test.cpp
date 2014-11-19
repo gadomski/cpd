@@ -24,7 +24,7 @@ TEST_F(RigidRegistration, RegistersData)
 {
     cpd::registration::Rigid reg;
     cpd::registration::SpResult result = reg(m_X, m_Y);
-    expect_matrices_near(m_X, result->Y, 0.001);
+    expect_matrices_near(m_X, m_Y, 0.001);
 }
 
 

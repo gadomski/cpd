@@ -23,9 +23,9 @@ public:
             bool use_fgt = false
             );
 
-    SpResult operator()(arma::mat& X, arma::mat& Y) const;
+    SpResult operator()(const arma::mat& X, arma::mat& Y) const;
     Normalization normalize(arma::mat& X, arma::mat& Y) const;
-    void denormalize(SpResult& result, const Normalization& normal) const;
+    void denormalize(arma::mat& Y, const Normalization& normal) const;
 
     double find_P(
             const arma::mat& X,
@@ -44,7 +44,7 @@ public:
 
 private:
 
-    virtual SpResult execute(const arma::mat& X, const arma::mat& Y) const = 0;
+    virtual SpResult execute(const arma::mat& X, arma::mat& Y) const = 0;
 
     double m_tol;
     int m_max_it;
