@@ -57,7 +57,7 @@ SpResult NonrigidLowrank::execute(const arma::mat& X, const arma::mat& Y) const
         ntol = std::abs((L - L_old) / L);
 
         // TODO logging
-        //std::cerr << "dL= " << ntol << ", iter= " << iter << ", sigma2= " << sigma2 << std::endl;
+        std::cerr << "dL= " << ntol << ", iter= " << iter << ", sigma2= " << sigma2 << std::endl;
 
         arma::sp_mat dP(spdiag_locations(M), P1);
         arma::mat dPQ = dP * Q;
