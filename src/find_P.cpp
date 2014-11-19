@@ -30,27 +30,27 @@ double find_P(
 
     arma::vec denomP(N);
 
-    const double h = std::sqrt(2) * sigma2;
-    const double ndi = outliers / (1 - outliers) * M / N * std::pow(2 * M_PI * sigma2, 0.5 * D);
+    const double h = std::sqrt(2 * sigma2);
+    const double ndi = (outliers * M * std::pow(2 * M_PI * sigma2, 0.5 * D)) / ((1 - outliers) * N);
     const int W = 1;
+    const double epsilon = 1e-2;
     arma::vec q = arma::ones<arma::vec>(M);
 
     arma::mat Xt = X.t();
     arma::mat Yt = Y.t();
 
-    figtree(D, M, N, W, Xt.memptr(), h, q.memptr(), Yt.memptr(), outliers, denomP.memptr(), eval_method);
-    std::cout << denomP << std::endl;
+    figtree(D, M, N, W, Yt.memptr(), h, q.memptr(), Xt.memptr(), epsilon, denomP.memptr(), eval_method);
 
     denomP = denomP + ndi;
     Pt1 = 1 - ndi / denomP;
     q = 1 / denomP;
 
-    figtree(D, M, N, W, Yt.memptr(), h, q.memptr(), Xt.memptr(), outliers, P1.memptr(), eval_method);
+    figtree(D, N, M, W, Xt.memptr(), h, q.memptr(), Yt.memptr(), epsilon, P1.memptr(), eval_method);
 
     for (int i = 0; i < D; ++i)
     {
         q = X.col(i) / denomP;
-        figtree(D, M, N, W, Xt.memptr(), h, q.memptr(), Yt.memptr(), outliers, PX.colptr(i), eval_method);
+        figtree(D, N, M, W, Xt.memptr(), h, q.memptr(), Yt.memptr(), epsilon, PX.colptr(i), eval_method);
     }
 
     return -arma::sum(arma::log(denomP)) + D * N * std::log(sigma2) / 2;
