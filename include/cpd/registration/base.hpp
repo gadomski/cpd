@@ -41,6 +41,11 @@ public:
     inline double get_outliers() const { return m_outliers; }
     inline bool use_fgt() const { return m_use_fgt; }
 
+    inline void set_tol(double tol) { m_tol = tol; }
+    inline void set_max_it(int max_it) { m_max_it = max_it; }
+    inline void set_outliers(double outliers) { m_outliers = outliers; }
+    inline void use_fgt(bool use_fgt) { m_use_fgt = use_fgt; }
+
 private:
 
     virtual SpResult execute(const arma::mat& X, const arma::mat& Y) const = 0;

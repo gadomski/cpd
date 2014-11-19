@@ -25,6 +25,8 @@ public:
 
     inline int get_numeig() const { return m_numeig; }
 
+    inline void set_numeig(int numeig) { m_numeig = numeig; }
+
 private:
 
     virtual SpResult execute(const arma::mat& X, const arma::mat& Y) const;
