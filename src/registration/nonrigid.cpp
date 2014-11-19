@@ -22,7 +22,7 @@ SpResult Nonrigid::execute(const arma::mat& X, arma::mat& Y) const
 {
     const arma::uword N = X.n_rows;
     const arma::uword M = Y.n_rows;
-    const arma::uword D = Y.n_rows;
+    const arma::uword D = Y.n_cols;
 
     double sigma2 = get_sigma2(X, Y);
     const double sigma2_init = sigma2;
