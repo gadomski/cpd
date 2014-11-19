@@ -23,7 +23,7 @@ public:
             bool use_fgt = false
             );
 
-    SpResult operator()(const arma::mat& X, arma::mat& Y) const;
+    SpResult operator()(const arma::mat& X, const arma::mat& Y) const;
     Normalization normalize(arma::mat& X, arma::mat& Y) const;
     void denormalize(arma::mat& Y, const Normalization& normal) const;
 
@@ -43,7 +43,7 @@ public:
 
 private:
 
-    virtual SpResult execute(const arma::mat& X, arma::mat& Y) const = 0;
+    virtual SpResult execute(const arma::mat& X, const arma::mat& Y) const = 0;
 
     double m_tol;
     int m_max_it;

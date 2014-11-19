@@ -18,16 +18,16 @@ Base::Base(double tol, int max_it, double outliers, bool use_fgt)
 {}
 
 
-SpResult Base::operator()(const arma::mat& X, arma::mat& Y) const
+SpResult Base::operator()(const arma::mat& X, const arma::mat& Y) const
 {
     if (X.n_cols != Y.n_cols)
     {
         throw cpd::dimension_mismatch("X and Y do not have the same number of columns");
     }
-    arma::mat Xn(X);
-    Normalization normal = normalize(Xn, Y);
-    SpResult result = execute(Xn, Y);
-    denormalize(Y, normal);
+    arma::mat Xn(X), Yn(Y);
+    Normalization normal = normalize(Xn, Yn);
+    SpResult result = execute(Xn, Yn);
+    denormalize(result->Y, normal);
     return result;
 }
 

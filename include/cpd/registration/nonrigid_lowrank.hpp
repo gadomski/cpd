@@ -27,7 +27,7 @@ public:
 
 private:
 
-    virtual SpResult execute(const arma::mat& X, arma::mat& Y) const;
+    virtual SpResult execute(const arma::mat& X, const arma::mat& Y) const;
 
     int m_numeig;
 

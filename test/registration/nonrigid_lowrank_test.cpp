@@ -24,7 +24,7 @@ TEST_F(NonrigidLowrankRegistration, RegistersData)
 {
     cpd::registration::NonrigidLowrank reg;
     cpd::registration::SpResult result = reg(m_X, m_Y);
-    expect_matrices_near(m_X, m_Y, 0.1);
+    expect_matrices_near(m_X, result->Y, 0.1);
 }
 
 

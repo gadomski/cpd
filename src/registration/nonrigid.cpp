@@ -18,7 +18,7 @@ Nonrigid::Nonrigid(double tol, int max_it, double outliers, bool use_fgt,
 {}
 
 
-SpResult Nonrigid::execute(const arma::mat& X, arma::mat& Y) const
+SpResult Nonrigid::execute(const arma::mat& X, const arma::mat& Y) const
 {
     const arma::uword N = X.n_rows;
     const arma::uword M = Y.n_rows;
@@ -72,8 +72,8 @@ SpResult Nonrigid::execute(const arma::mat& X, arma::mat& Y) const
         ++iter;
     }
 
-    Y = T;
     SpResult result(new Result());
+    result->Y = T;
     return result;
 }
 

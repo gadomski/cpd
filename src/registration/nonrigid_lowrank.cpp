@@ -19,7 +19,7 @@ NonrigidLowrank::NonrigidLowrank(double tol, int max_it, double outliers, bool u
 
 
 
-SpResult NonrigidLowrank::execute(const arma::mat& X, arma::mat& Y) const
+SpResult NonrigidLowrank::execute(const arma::mat& X, const arma::mat& Y) const
 {
     const arma::uword N = X.n_rows;
     const arma::uword M = Y.n_rows;
@@ -78,8 +78,8 @@ SpResult NonrigidLowrank::execute(const arma::mat& X, arma::mat& Y) const
         ++iter;
     }
 
-    Y = T;
     SpResult result(new Result());
+    result->Y = T;
     return result;
 }
 
