@@ -56,7 +56,7 @@ int main(int argc, char** argv)
 
     std::cout.precision(FLAGS_precision);
     std::cout << std::fixed;
-    arma::join_horiz(result->Y, result->Y - Y).raw_print(std::cout);
+    arma::join_horiz(result->Y, Y - result->Y).raw_print(std::cout);
 
     return 0;
 }
