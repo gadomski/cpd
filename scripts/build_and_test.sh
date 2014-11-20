@@ -8,3 +8,4 @@ cd build
 cmake .. -DBUILD_TESTS=true
 make
 bin/cpd-test
+sudo make install
