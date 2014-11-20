@@ -41,6 +41,11 @@ int main(int argc, char** argv)
 {
     gflags::SetUsageMessage("usage: cpd file1.txt file2.txt");
     gflags::ParseCommandLineFlags(&argc, &argv, true);
+    if (argc == 1)
+    {
+        gflags::ShowUsageWithFlags("cpd");
+        return 0;
+    }
     if (argc != 3)
     {
         std::cerr << "ERROR: cpd requires two input files" << std::endl;
