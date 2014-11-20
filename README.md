@@ -127,7 +127,7 @@ git clone https://github.com/gadomski/cpd.git
 mkdir cpd/build && cd cpd/build
 
 # you can omit the -DBUILD_CLI=ON part if you don't need the commandline app
-ccmake .. -DBUILD_CLI=ON
+cmake .. -DBUILD_CLI=ON
 
 make
 ```
