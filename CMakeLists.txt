@@ -40,6 +40,7 @@ include_directories(${FIGTREE_INCLUDE_DIRS})
 
 
 # Includes
+add_subdirectory(include)
 add_subdirectory(src)
 
 if (BUILD_TESTS)

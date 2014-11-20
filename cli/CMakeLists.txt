@@ -15,3 +15,6 @@ target_link_libraries(${CPD_CLI_TARGET}
     ${CPD_LIB_TARGET}
     ${GFLAGS_LIBRARIES}
     )
+install(TARGETS ${CPD_CLI_TARGET}
+    DESTINATION bin
+    )

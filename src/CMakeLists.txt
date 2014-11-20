@@ -18,3 +18,6 @@ target_link_libraries(${CPD_LIB_TARGET}
     ${ARMADILLO_LIBRARIES}
     ${FIGTREE_LIBRARY}
     )
+install(TARGETS ${CPD_LIB_TARGET}
+    LIBRARY DESTINATION lib
+    )
