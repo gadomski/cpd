@@ -5,7 +5,7 @@ fi
 
 mkdir build
 cd build
-cmake .. -DBUILD_TESTS=true
+cmake .. -DBUILD_TESTS=true -DBUILD_CLI=true -DCMAKE_BUILD_TYPE=Release
 make
 bin/cpd-test
 sudo make install
