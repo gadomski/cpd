@@ -41,6 +41,7 @@ public:
             int max_it = DEFAULT_MAX_ITERATIONS,
             float outliers = DEFAULT_OUTLIERS,
             bool use_fgt = DEFAULT_FGT,
+            float epsilon = DEFAULT_EPSILON,
             bool strict_rot = DEFAULT_STRICT_ROTATION,
             bool use_scaling = DEFAULT_USE_SCALING
             );

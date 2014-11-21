@@ -34,8 +34,8 @@ namespace registration
 
 
 Nonrigid::Nonrigid(float tol, int max_it, float outliers, bool use_fgt,
-                   float beta, float lambda)
-    : Base(tol, max_it, outliers, use_fgt)
+                   float epsilon, float beta, float lambda)
+    : Base(tol, max_it, outliers, use_fgt, epsilon)
     , m_beta(beta)
     , m_lambda(lambda)
 {}

@@ -34,6 +34,7 @@ const float DEFAULT_TOLERANCE = 1e-5;
 const int DEFAULT_MAX_ITERATIONS = 150;
 const float DEFAULT_OUTLIERS = 0.1;
 const bool DEFAULT_FGT = true;
+const float DEFAULT_EPSILON = 1e-4;
 
 // Rigid
 const bool DEFAULT_STRICT_ROTATION = true;

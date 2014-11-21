@@ -41,6 +41,7 @@ public:
             int max_it = DEFAULT_MAX_ITERATIONS,
             float outliers = DEFAULT_OUTLIERS,
             bool use_fgt = DEFAULT_FGT,
+            float epsilon = DEFAULT_EPSILON,
             float beta = DEFAULT_BETA,
             float lambda =  DEFAULT_LAMBDA,
             // Andriy's Matlab implementation recommends setting this to

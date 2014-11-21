@@ -38,7 +38,8 @@ double find_P(
         arma::vec& P1,
         arma::vec& Pt1,
         arma::mat& PX,
-        bool use_fgt
+        bool use_fgt,
+        const float epsilon
         )
 {
     P1.zeros();
@@ -55,7 +56,6 @@ double find_P(
 
     const double h = std::sqrt(2 * sigma2);
     const double ndi = (outliers * M * std::pow(2 * M_PI * sigma2, 0.5 * D)) / ((1 - outliers) * N);
-    const double epsilon = 1e-2;
     arma::vec q = arma::ones<arma::vec>(M);
 
     arma::mat Xt = X.t();

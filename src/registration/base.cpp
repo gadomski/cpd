@@ -33,11 +33,12 @@ namespace registration
 {
 
 
-Base::Base(float tol, int max_it, float outliers, bool use_fgt)
+Base::Base(float tol, int max_it, float outliers, bool use_fgt, float epsilon)
     : m_tol(tol)
     , m_max_it(max_it)
     , m_outliers(outliers)
     , m_use_fgt(use_fgt)
+    , m_epsilon(epsilon)
 {}
 
 
@@ -93,7 +94,7 @@ double Base::find_P(
         arma::mat& PX
         ) const
 {
-    return cpd::find_P(X, Y, sigma2, get_outliers(), P1, Pt1, PX, use_fgt());
+    return cpd::find_P(X, Y, sigma2, get_outliers(), P1, Pt1, PX, use_fgt(), get_epsilon());
 }
 
 

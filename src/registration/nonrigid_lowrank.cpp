@@ -35,8 +35,8 @@ namespace registration
 
 
 NonrigidLowrank::NonrigidLowrank(float tol, int max_it, float outliers, bool use_fgt,
-                                 float beta, float lambda, arma::uword numeig)
-    : Nonrigid(tol, max_it, outliers, use_fgt, beta, lambda)
+                                 float epsilon, float beta, float lambda, arma::uword numeig)
+    : Nonrigid(tol, max_it, outliers, use_fgt, epsilon, beta, lambda)
     , m_numeig(numeig)
 {}
 

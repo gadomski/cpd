@@ -38,7 +38,8 @@ double find_P(
         arma::vec& P1,
         arma::vec& Pt1,
         arma::mat& PX,
-        bool use_fgt
+        bool use_fgt,
+        const float epsilon
         );
 
 }

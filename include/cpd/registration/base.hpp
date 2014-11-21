@@ -41,10 +41,20 @@ class Base
 public:
 
     explicit Base(
+            // Tolerance criterium
             float tol = DEFAULT_TOLERANCE,
+
+            // Maximum number of iterations allowed
             int max_it = DEFAULT_MAX_ITERATIONS,
+
+            // The weight of noise and outliers
             float outliers = DEFAULT_OUTLIERS,
-            bool use_fgt = DEFAULT_FGT
+
+            // Use a Fast Gauss Transform (less accurate but faster)
+            bool use_fgt = DEFAULT_FGT,
+
+            // Tolerance level for the Fast Gauss Transform
+            float epsilon = DEFAULT_EPSILON
             );
 
     SpResult operator()(const arma::mat& X, const arma::mat& Y) const;
@@ -60,15 +70,17 @@ public:
             arma::mat& PX
             ) const;
 
-    inline double get_tol() const { return m_tol; }
+    inline float get_tol() const { return m_tol; }
     inline int get_max_it() const { return m_max_it; }
-    inline double get_outliers() const { return m_outliers; }
+    inline float get_outliers() const { return m_outliers; }
     inline bool use_fgt() const { return m_use_fgt; }
+    inline float get_epsilon() const { return m_epsilon; }
 
-    inline void set_tol(double tol) { m_tol = tol; }
+    inline void set_tol(float tol) { m_tol = tol; }
     inline void set_max_it(int max_it) { m_max_it = max_it; }
-    inline void set_outliers(double outliers) { m_outliers = outliers; }
+    inline void set_outliers(float outliers) { m_outliers = outliers; }
     inline void use_fgt(bool use_fgt) { m_use_fgt = use_fgt; }
+    inline void set_epsilon(float epsilon) { m_epsilon = epsilon; }
 
     virtual ~Base() {};
 
@@ -80,6 +92,7 @@ private:
     int m_max_it;
     float m_outliers;
     bool m_use_fgt;
+    float m_epsilon;
 
 };
 
