@@ -26,16 +26,19 @@
 #include <cpd/registration/nonrigid_lowrank.hpp>
 
 
+using namespace cpd::registration;
+
+
 DEFINE_int32(precision, 3, "Output precision");
 DEFINE_string(method, "nonrigid_lowrank", "Registration method");
-DEFINE_double(tol, 1e-5, "Tolerance ctriterium");
-DEFINE_int32(max_it, 150, "Maximum number of iterations");
-DEFINE_double(outliers, 0.1, "The weight of noise and outliers");
-DEFINE_bool(fgt, true, "Use a Fast Gauss Transform");
-DEFINE_double(epsilon, 1e-4, "The tolerance of the Fast Gauss Transform");
-DEFINE_double(beta, 2, "Std of Gaussian filter");
-DEFINE_double(lambda, 3, "Regularization weight");
-DEFINE_double(numeig, 100, "Number of the largest eigenvectors to use, try NumPoints^(1/2)");
+DEFINE_double(tol, DEFAULT_TOLERANCE, "Tolerance ctriterium");
+DEFINE_int32(max_it, DEFAULT_MAX_ITERATIONS, "Maximum number of iterations");
+DEFINE_double(outliers, DEFAULT_OUTLIERS, "The weight of noise and outliers");
+DEFINE_bool(fgt, DEFAULT_FGT, "Use a Fast Gauss Transform");
+DEFINE_double(epsilon, DEFAULT_EPSILON, "The tolerance of the Fast Gauss Transform");
+DEFINE_double(beta, DEFAULT_BETA, "Std of Gaussian filter");
+DEFINE_double(lambda, DEFAULT_LAMBDA, "Regularization weight");
+DEFINE_double(numeig, DEFAULT_NUMEIG, "Number of the largest eigenvectors to use, try NumPoints^(1/2)");
     
 
 int main(int argc, char** argv)
