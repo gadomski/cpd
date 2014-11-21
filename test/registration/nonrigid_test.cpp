@@ -46,6 +46,7 @@ TEST_F(NonrigidRegistration, InitializesWithDefaults)
 TEST_F(NonrigidRegistration, RegistersData)
 {
     cpd::registration::Nonrigid reg;
+    reg.use_fgt(false); // to tighten up our tolerances
     cpd::registration::SpResult result = reg(m_X, m_Y);
     expect_matrices_near(m_X, result->Y, 0.0001);
 }
