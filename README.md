@@ -53,12 +53,27 @@ Refer to the [**cpd** source](https://github.com/gadomski/cpd) and the
 information on the API and usage.
 
 
+## System requirements
+
+**cpd** has been tested on the following systems:
+
+- Mac OSX 10.10.1, x86_64-apple-darwin14.0.0 with
+- Ubuntu 12.04 LTS Server Edition 64 bit
+
+And the following compilers:
+
+- Apple LLVM verison 6.0 (clang-600.0.54) (based on LLVM 3.5svn)
+- Clang 3.2.x
+- GCC 4.8.x
+
+
 ## Installation
 
 **cpd** depends on the following:
 
 - [armadillo](http://arma.sourceforge.net/): C++ linear algebra library
 - [lapack](http://www.netlib.org/lapack/): linear algebra package
+- [arpack](http://www.caam.rice.edu/software/ARPACK/): large scale eigenvalue solutions
 - [figtree](http://www.umiacs.umd.edu/~morariu/figtree/): fast improved gauss
   transform with tree data structure (**cpd** depends on
   [this](https://github.com/gadomski/figtree) fork)
@@ -77,9 +92,10 @@ you're on your own.
 
 ### Dependencies on Mac OSX
 
-OSX comes with lapack, so you're all set there. Most of the rest of the
-dependencies are available through **homebrew**, a great package manager for OSX.
-If you're don't have **homebrew**, [get it](http://brew.sh/). Then, install stuff:
+OSX comes with lapack and arpack, so you're all set there. Most of the rest of
+the dependencies are available through **homebrew**, a great package manager
+for OSX. If you're don't have **homebrew**, [get it](http://brew.sh/). Then,
+install stuff:
 
 ```bash
 brew update
@@ -105,7 +121,7 @@ Use apt-get to grab some stuff:
 
 ```bash
 sudo apt-get update
-sudo apt-get install liblapack-dev git cmake
+sudo apt-get install git cmake liblapack-dev libarpack2-dev libsuperlu3-dev gfortran
 ```
 
 If you have an old gcc, you may need to update it. See [one of cpd's continuous
