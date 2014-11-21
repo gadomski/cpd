@@ -25,6 +25,7 @@
 
 #include <armadillo>
 
+#include <cpd/defaults.hpp>
 #include <cpd/registration/normalization.hpp>
 #include <cpd/registration/result.hpp>
 
@@ -40,10 +41,10 @@ class Base
 public:
 
     explicit Base(
-            float tol = 1e-5,
-            int max_it = 150,
-            float outliers = 0.1,
-            bool use_fgt = false
+            float tol = DEFAULT_TOLERANCE,
+            int max_it = DEFAULT_MAX_ITERATIONS,
+            float outliers = DEFAULT_OUTLIERS,
+            bool use_fgt = DEFAULT_FGT
             );
 
     SpResult operator()(const arma::mat& X, const arma::mat& Y) const;

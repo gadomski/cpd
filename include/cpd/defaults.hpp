@@ -23,44 +23,31 @@
 
 #pragma once
 
-#include <cpd/registration/base.hpp>
-
-
 namespace cpd
 {
 namespace registration
 {
 
 
-class Rigid : public Base
-{
-public:
+// Common
+const float DEFAULT_TOLERANCE = 1e-5;
+const int DEFAULT_MAX_ITERATIONS = 150;
+const float DEFAULT_OUTLIERS = 0.1;
+const bool DEFAULT_FGT = true;
 
-    explicit Rigid(
-            float tol = DEFAULT_TOLERANCE,
-            int max_it = DEFAULT_MAX_ITERATIONS,
-            float outliers = DEFAULT_OUTLIERS,
-            bool use_fgt = DEFAULT_FGT,
-            bool strict_rot = DEFAULT_STRICT_ROTATION,
-            bool use_scaling = DEFAULT_USE_SCALING
-            );
-    
-    inline bool strict_rot() const { return m_strict_rot; }
-    inline bool use_scaling() const { return m_use_scaling; }
+// Rigid
+const bool DEFAULT_STRICT_ROTATION = true;
+const bool DEFAULT_USE_SCALING = true;
 
-    inline void strict_rot(bool strict_rot) { m_strict_rot = strict_rot; }
-    inline void use_scaling(bool use_scaling) { m_use_scaling = use_scaling; }
+// Nonrigid
+const float DEFAULT_BETA = 2;
+const float DEFAULT_LAMBDA = 3;
 
-    virtual ~Rigid() {};
-
-private:
-    virtual SpResult execute(const arma::mat& X, const arma::mat& Y) const;
-
-    bool m_strict_rot;
-    bool m_use_scaling;
-
-};
+// NonrigidLowrank
+const arma::uword DEFAULT_NUMEIG = 10;
 
 
 }
+
+
 }

@@ -37,12 +37,12 @@ class Nonrigid : public Base
 public:
 
     explicit Nonrigid(
-            float tol = 1e-5,
-            int max_it = 150,
-            float outliers = 0.1,
-            bool use_fgt = false,
-            float beta = 2,
-            float lambda =  3
+            float tol = DEFAULT_TOLERANCE,
+            int max_it = DEFAULT_MAX_ITERATIONS,
+            float outliers = DEFAULT_OUTLIERS,
+            bool use_fgt = DEFAULT_FGT,
+            float beta = DEFAULT_BETA,
+            float lambda =  DEFAULT_LAMBDA
             );
 
     inline float get_beta() const { return m_beta; }

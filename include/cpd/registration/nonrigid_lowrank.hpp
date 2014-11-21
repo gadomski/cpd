@@ -37,13 +37,15 @@ class NonrigidLowrank : public Nonrigid
 public:
 
     explicit NonrigidLowrank(
-            float tol = 1e-5,
-            int max_it = 150,
-            float outliers = 0.1,
-            bool use_fgt = false,
-            float beta = 2,
-            float lambda =  3,
-            arma::uword numeig = 10
+            float tol = DEFAULT_TOLERANCE,
+            int max_it = DEFAULT_MAX_ITERATIONS,
+            float outliers = DEFAULT_OUTLIERS,
+            bool use_fgt = DEFAULT_FGT,
+            float beta = DEFAULT_BETA,
+            float lambda =  DEFAULT_LAMBDA,
+            // Andriy's Matlab implementation recommends setting this to
+            // M ^ (1/2), where M is the number of points in Y
+            arma::uword numeig = DEFAULT_NUMEIG
             );
 
     inline arma::uword get_numeig() const { return m_numeig; }
