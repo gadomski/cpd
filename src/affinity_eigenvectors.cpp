@@ -63,6 +63,7 @@ void run_aupd(
     const arma::uword D = Yt.n_rows;
     const arma::uword M = Yt.n_cols;
     double h = std::sqrt(2) * beta;
+    // TODO Parameterize
     double epsilon = 1e-4;
 
     arma::blas_int ido = 0;
@@ -131,7 +132,7 @@ void run_aupd(
 }
 
 
-void find_affinity_eigenvectors(const arma::mat& Y, const double beta,
+void find_affinity_eigenvectors(const arma::mat& Y, const float beta,
                                 const arma::uword numeig, arma::mat& Q, arma::mat& S)
 {
     arma::mat Yt = Y.t();

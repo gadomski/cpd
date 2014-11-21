@@ -30,7 +30,7 @@ namespace cpd
 {
 
 
-void construct_affinity_matrix(const arma::mat& X, const arma::mat& Y, double beta, arma::mat& G);
+void construct_affinity_matrix(const arma::mat& X, const arma::mat& Y, float beta, arma::mat& G);
 
 
 }

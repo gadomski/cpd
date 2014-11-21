@@ -32,7 +32,7 @@ namespace registration
 {
 
 
-Rigid::Rigid(double tol, int max_it, double outliers, bool use_fgt, bool strict_rot,
+Rigid::Rigid(float tol, int max_it, float outliers, bool use_fgt, bool strict_rot,
              bool use_scaling)
     : Base(tol, max_it, outliers, use_fgt)
     , m_strict_rot(strict_rot)

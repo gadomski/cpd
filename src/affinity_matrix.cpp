@@ -28,7 +28,7 @@ namespace cpd
 {
 
 
-void construct_affinity_matrix(const arma::mat& X, const arma::mat& Y, double beta, arma::mat& G)
+void construct_affinity_matrix(const arma::mat& X, const arma::mat& Y, float beta, arma::mat& G)
 {
     double k = -2 * std::pow(beta, 2);
     const arma::uword N = X.n_rows;

@@ -40,9 +40,9 @@ class Base
 public:
 
     explicit Base(
-            double tol = 1e-5,
+            float tol = 1e-5,
             int max_it = 150,
-            double outliers = 0.1,
+            float outliers = 0.1,
             bool use_fgt = false
             );
 
@@ -75,9 +75,9 @@ private:
 
     virtual SpResult execute(const arma::mat& X, const arma::mat& Y) const = 0;
 
-    double m_tol;
+    float m_tol;
     int m_max_it;
-    double m_outliers;
+    float m_outliers;
     bool m_use_fgt;
 
 };

@@ -33,8 +33,8 @@ namespace registration
 {
 
 
-Nonrigid::Nonrigid(double tol, int max_it, double outliers, bool use_fgt,
-                   double beta, double lambda)
+Nonrigid::Nonrigid(float tol, int max_it, float outliers, bool use_fgt,
+                   float beta, float lambda)
     : Base(tol, max_it, outliers, use_fgt)
     , m_beta(beta)
     , m_lambda(lambda)

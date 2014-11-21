@@ -37,12 +37,12 @@ class NonrigidLowrank : public Nonrigid
 public:
 
     explicit NonrigidLowrank(
-            double tol = 1e-5,
+            float tol = 1e-5,
             int max_it = 150,
-            double outliers = 0.1,
+            float outliers = 0.1,
             bool use_fgt = false,
-            double beta = 2,
-            double lambda =  3,
+            float beta = 2,
+            float lambda =  3,
             arma::uword numeig = 10
             );
 

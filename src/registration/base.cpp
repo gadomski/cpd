@@ -33,7 +33,7 @@ namespace registration
 {
 
 
-Base::Base(double tol, int max_it, double outliers, bool use_fgt)
+Base::Base(float tol, int max_it, float outliers, bool use_fgt)
     : m_tol(tol)
     , m_max_it(max_it)
     , m_outliers(outliers)
