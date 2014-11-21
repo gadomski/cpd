@@ -6,7 +6,7 @@ compiler:
 
 install:
     - scripts/install_compilers.sh
-    - sudo apt-get install liblapack-dev
+    - sudo apt-get install liblapack-dev libarpack2-dev libsuperlu3-dev gfortran
     - scripts/install_armadillo.sh
     - scripts/install_figtree.sh
 
