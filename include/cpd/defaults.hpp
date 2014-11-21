@@ -45,7 +45,7 @@ const float DEFAULT_BETA = 2;
 const float DEFAULT_LAMBDA = 3;
 
 // NonrigidLowrank
-const arma::uword DEFAULT_NUMEIG = 10;
+const arma::uword DEFAULT_NUMEIG = 100;
 
 
 }
