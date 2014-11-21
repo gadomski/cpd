@@ -30,8 +30,8 @@ namespace cpd
 {
 
 
-void find_affinity_eigenvectors(const arma::mat& Y, float beta,
-                                const arma::uword numeig, arma::mat& Q, arma::mat& S);
+void find_affinity_eigenvectors(const arma::mat& Y, const float beta, const arma::uword numeig,
+                                const float epsilon, arma::mat& Q, arma::mat& S);
 
 
 }

@@ -59,7 +59,7 @@ SpResult NonrigidLowrank::execute(const arma::mat& X, const arma::mat& Y) const
     double L = 0;
 
     arma::mat Q, S;
-    find_affinity_eigenvectors(Y, get_beta(), get_numeig(), Q, S);
+    find_affinity_eigenvectors(Y, get_beta(), get_numeig(), get_epsilon(), Q, S);
 
     arma::sp_mat invS(spdiag_locations(get_numeig()), 1 / S.diag());
 

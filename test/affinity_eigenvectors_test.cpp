@@ -40,7 +40,7 @@ class AffinityEigenvectors : public RegistrationTest
 TEST_F(AffinityEigenvectors, MatchesReferenceImpl)
 {
     arma::mat Q, S;
-    cpd::find_affinity_eigenvectors(m_Y, 2, 10, Q, S);
+    cpd::find_affinity_eigenvectors(m_Y, 2, 10, 1e-4, Q, S);
 
     EXPECT_NEAR(0.1651, std::abs(Q(0)), 0.0001);
     EXPECT_NEAR(0.1978, std::abs(Q(35, 9)), 0.0001);

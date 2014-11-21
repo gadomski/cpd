@@ -57,14 +57,13 @@ void run_aupd(
         arma::blas_int& lworkl,
         arma::podarray<double>& rwork,
         arma::blas_int& info,
-        const double beta
+        const double beta,
+        const float epsilon
         )
 {    
     const arma::uword D = Yt.n_rows;
     const arma::uword M = Yt.n_cols;
     double h = std::sqrt(2) * beta;
-    // TODO Parameterize
-    double epsilon = 1e-4;
 
     arma::blas_int ido = 0;
     char bmat = 'I';
@@ -132,8 +131,8 @@ void run_aupd(
 }
 
 
-void find_affinity_eigenvectors(const arma::mat& Y, const float beta,
-                                const arma::uword numeig, arma::mat& Q, arma::mat& S)
+void find_affinity_eigenvectors(const arma::mat& Y, const float beta, const arma::uword numeig,
+                                const float epsilon, arma::mat& Q, arma::mat& S)
 {
     arma::mat Yt = Y.t();
     
@@ -145,7 +144,7 @@ void find_affinity_eigenvectors(const arma::mat& Y, const float beta,
     arma::podarray<double> rwork;
 
     run_aupd(numeig, which, Yt, n, tol, resid, ncv, v, ldv, iparam, ipntr,
-             workd, workl, lworkl, rwork, info, beta);
+             workd, workl, lworkl, rwork, info, beta, epsilon);
 
     arma::blas_int rvec = 1;
     arma::blas_int nev = numeig;
