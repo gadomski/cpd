@@ -32,6 +32,7 @@ DEFINE_double(tol, 1e-5, "Tolerance ctriterium");
 DEFINE_int32(max_it, 150, "Maximum number of iterations");
 DEFINE_double(outliers, 0.1, "The weight of noise and outliers");
 DEFINE_bool(fgt, true, "Use a Fast Gauss Transform");
+DEFINE_double(epsilon, 1e-4, "The tolerance of the Fast Gauss Transform");
 DEFINE_double(beta, 2, "Std of Gaussian filter");
 DEFINE_double(lambda, 3, "Regularization weight");
 DEFINE_double(numeig, 100, "Number of the largest eigenvectors to use, try NumPoints^(1/2)");
@@ -76,6 +77,7 @@ int main(int argc, char** argv)
         FLAGS_max_it,
         FLAGS_outliers,
         FLAGS_fgt,
+        FLAGS_epsilon,
         FLAGS_beta,
         FLAGS_lambda,
         FLAGS_numeig
