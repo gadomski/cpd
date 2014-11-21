@@ -15,6 +15,12 @@ set(SRC
     registration/rigid_test.cpp
     )
 
+if (BUILD_64BIT)
+    set(SRC ${SRC} arma_64bit_test.cpp)
+else()
+    set(SRC ${SRC} arma_32bit_test.cpp)
+endif (BUILD_64BIT)
+
 set(CPD_TEST_LINK_LIBRARIES
     ${CPD_LIB_TARGET}
     gtest_main

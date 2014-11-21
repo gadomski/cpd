@@ -4,6 +4,10 @@ compiler:
     - clang
     - gcc
 
+env:
+    - CPD_64BIT=true
+    - CPD_64BIT=false
+
 install:
     - scripts/install_compilers.sh
     - sudo apt-get install liblapack-dev libarpack2-dev libsuperlu3-dev gfortran
