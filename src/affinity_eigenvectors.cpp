@@ -23,10 +23,10 @@
 
 #include <cpd/affinity_eigenvectors.hpp>
 
-#include <figtree.h>
-
 #include <cpd/affinity_matrix.hpp>
 #include <cpd/exceptions.hpp>
+#include <cpd/figtree.hpp>
+
 
 // This whole setup is a relatively magical rewiring of armadillo's sp_auxlib::eigs_sym
 // and sp_auxlib::run_aupd. I rewired it all to insert our call to figtree in the aupd
@@ -109,7 +109,7 @@ void run_aupd(
                 arma::Col<double> in(workd.memptr() + ipntr(0) - 1, n, false); 
 
                 out.zeros();
-                figtree(D, M, M, 1, Yt.memptr(), h, in.memptr(), Yt.memptr(), epsilon, out.memptr());
+                figtree_wrap(Yt, Yt, in, h, epsilon, out, FIGTREE_EVAL_AUTO);
                 break;
                 }
             case 99:
