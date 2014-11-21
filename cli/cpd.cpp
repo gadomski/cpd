@@ -38,7 +38,7 @@ DEFINE_bool(fgt, DEFAULT_FGT, "Use a Fast Gauss Transform");
 DEFINE_double(epsilon, DEFAULT_EPSILON, "The tolerance of the Fast Gauss Transform");
 DEFINE_double(beta, DEFAULT_BETA, "Std of Gaussian filter");
 DEFINE_double(lambda, DEFAULT_LAMBDA, "Regularization weight");
-DEFINE_double(numeig, DEFAULT_NUMEIG, "Number of the largest eigenvectors to use, try NumPoints^(1/2)");
+DEFINE_double(numeig, DEFAULT_NUMEIG, "Number of the largest eigenvectors to use, try NumPoints^(1/2). If zero, will be auto-calculated.");
     
 
 int main(int argc, char** argv)

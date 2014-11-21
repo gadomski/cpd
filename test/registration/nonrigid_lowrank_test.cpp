@@ -47,6 +47,7 @@ TEST_F(NonrigidLowrankRegistration, RegistersData)
 {
     cpd::registration::NonrigidLowrank reg;
     reg.use_fgt(false); // to tighten up our tolerances
+    reg.set_numeig(10); // becuase the default (M ^ (1/2) is too low)
     cpd::registration::SpResult result = reg(m_X, m_Y);
     expect_matrices_near(m_X, result->Y, 0.1);
 }

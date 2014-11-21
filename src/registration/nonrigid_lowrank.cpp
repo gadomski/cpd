@@ -48,6 +48,10 @@ SpResult NonrigidLowrank::execute(const arma::mat& X, const arma::mat& Y) const
     const arma::uword M = Y.n_rows;
     const arma::uword D = Y.n_cols;
 
+    const arma::uword numeig = (get_numeig() == 0) ?
+        arma::uword(std::sqrt(Y.n_rows)) :
+        get_numeig();
+
     double sigma2 = get_sigma2(X, Y);
     const double sigma2_init = sigma2;
 
@@ -59,9 +63,9 @@ SpResult NonrigidLowrank::execute(const arma::mat& X, const arma::mat& Y) const
     double L = 0;
 
     arma::mat Q, S;
-    find_affinity_eigenvectors(Y, get_beta(), get_numeig(), get_epsilon(), Q, S);
+    find_affinity_eigenvectors(Y, get_beta(), numeig, get_epsilon(), Q, S);
 
-    arma::sp_mat invS(spdiag_locations(get_numeig()), 1 / S.diag());
+    arma::sp_mat invS(spdiag_locations(numeig), 1 / S.diag());
 
     double L_old, Np;
     arma::vec P1(M), Pt1(M);
