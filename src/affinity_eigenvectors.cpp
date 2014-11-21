@@ -63,7 +63,7 @@ void run_aupd(
     const arma::uword D = Yt.n_rows;
     const arma::uword M = Yt.n_cols;
     double h = std::sqrt(2) * beta;
-    double epsilon = 1e-2;
+    double epsilon = 1e-4;
 
     arma::blas_int ido = 0;
     char bmat = 'I';
