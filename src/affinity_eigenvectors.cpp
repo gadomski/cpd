@@ -23,7 +23,6 @@
 
 #include <cpd/affinity_eigenvectors.hpp>
 
-#include <cpd/affinity_matrix.hpp>
 #include <cpd/exceptions.hpp>
 #include <cpd/figtree.hpp>
 
