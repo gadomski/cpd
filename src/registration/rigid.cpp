@@ -23,6 +23,7 @@
 
 #include <cpd/registration/rigid.hpp>
 
+#include <cpd/debug.hpp>
 #include <cpd/sigma2.hpp>
 
 
@@ -70,8 +71,8 @@ SpResult Rigid::execute(const arma::mat& X, const arma::mat& Y) const
 
         ntol = std::abs((L - L_old) / L);
 
-        // TODO logging
-        //std::cerr << "dL= " << ntol << ", iter= " << iter << ", sigma2= " << sigma2 << std::endl;
+        DEBUG("rigid iteration: dL= " << ntol << ", iter= " << iter <<
+                ", sigma2= " << sigma2);
         
         Np = arma::sum(Pt1);
         mu_x = X.t() * Pt1 / Np;

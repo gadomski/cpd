@@ -24,6 +24,7 @@
 #include <cpd/registration/nonrigid.hpp>
 
 #include <cpd/affinity_matrix.hpp>
+#include <cpd/debug.hpp>
 #include <cpd/sigma2.hpp>
 
 
@@ -74,8 +75,7 @@ SpResult Nonrigid::execute(const arma::mat& X, const arma::mat& Y) const
         L = L + get_lambda() / 2 * arma::trace(W.t() * G * W);
         ntol = std::abs((L - L_old) / L);
 
-        // TODO logging
-        //std::cerr << "dL= " << ntol << ", iter= " << iter << ", sigma2= " << sigma2 << std::endl;
+        DEBUG("nonrigid iteration: dL= " << ntol << ", iter= " << iter << ", sigma2= " << sigma2);
 
         arma::sp_mat dP(M, M);
         for (arma::uword i = 0; i < M; ++i)

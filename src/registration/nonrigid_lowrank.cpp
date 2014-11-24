@@ -24,6 +24,7 @@
 #include <cpd/registration/nonrigid_lowrank.hpp>
 
 #include <cpd/affinity_eigenvectors.hpp>
+#include <cpd/debug.hpp>
 #include <cpd/sigma2.hpp>
 #include <cpd/spdiag_locations.hpp>
 
@@ -83,8 +84,8 @@ SpResult NonrigidLowrank::execute(const arma::mat& X, const arma::mat& Y) const
         L = L + get_lambda() / 2 * arma::trace(QtW.t() * S * QtW);
         ntol = std::abs((L - L_old) / L);
 
-        // TODO logging
-        std::cerr << "dL= " << ntol << ", iter= " << iter << ", sigma2= " << sigma2 << std::endl;
+        DEBUG("nonrigid_lowrank iteration: dL= " << ntol <<
+                ", iter= " << iter << ", sigma2= " << sigma2);
 
         arma::sp_mat dP(spdiag_locations(M), P1);
         arma::mat dPQ = dP * Q;

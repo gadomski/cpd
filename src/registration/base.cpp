@@ -23,6 +23,7 @@
 
 #include <cpd/registration/base.hpp>
 
+#include <cpd/debug.hpp>
 #include <cpd/exceptions.hpp>
 #include <cpd/find_P.hpp>
 
@@ -50,6 +51,9 @@ SpResult Base::operator()(const arma::mat& X, const arma::mat& Y) const
     }
     arma::mat Xn(X), Yn(Y);
     Normalization normal = normalize(Xn, Yn);
+    DEBUG("Normalized with xscale: " << normal.xscale << ", yscale: " << normal.yscale <<
+            ", xd: (" << normal.xd(0) << "," << normal.xd(1) << "," << normal.xd(2) <<
+            "), yd: (" << normal.yd(0) << "," << normal.yd(1) << "," << normal.yd(2) << ")");
     SpResult result = execute(Xn, Yn);
     denormalize(result->Y, normal);
     return result;

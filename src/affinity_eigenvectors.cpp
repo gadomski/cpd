@@ -23,6 +23,7 @@
 
 #include <cpd/affinity_eigenvectors.hpp>
 
+#include <cpd/debug.hpp>
 #include <cpd/exceptions.hpp>
 #include <cpd/figtree.hpp>
 
@@ -142,8 +143,10 @@ void find_affinity_eigenvectors(const arma::mat& Y, const float beta, const arma
     arma::podarray<arma::blas_int> iparam, ipntr;
     arma::podarray<double> rwork;
 
+    DEBUG("running aupd");
     run_aupd(numeig, which, Yt, n, tol, resid, ncv, v, ldv, iparam, ipntr,
              workd, workl, lworkl, rwork, info, beta, epsilon);
+    DEBUG("done with aupd");
 
     arma::blas_int rvec = 1;
     arma::blas_int nev = numeig;
@@ -156,10 +159,12 @@ void find_affinity_eigenvectors(const arma::mat& Y, const float beta, const arma
     arma::vec s(numeig);
     Q.set_size(n, numeig);
 
+    DEBUG("running seupd");
     arma::arpack::seupd(&rvec, &howmny, select.memptr(), s.memptr(), Q.memptr(),
                         &ldz, (double*) NULL, &bmat, &n, which, &nev, &tol, resid.memptr(),
                         &ncv, v.memptr(), &ldv, iparam.memptr(), ipntr.memptr(),
                         workd.memptr(), workl.memptr(), &lworkl, &info);
+    DEBUG("done with seupd");
 
     if (info != 0)
     {
