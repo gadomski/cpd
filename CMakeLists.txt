@@ -17,12 +17,17 @@ set(CMAKE_INCLUDE_DIRECTORIES_BEFORE ON)
 
 # Options
 option(BUILD_CLI "Build the command-line interface" OFF)
+option(BUILD_DEBUG_OUTPUT "Build with debug output" OFF)
 option(BUILD_SHARED_LIBS "Create shared libraries" ON)
 option(BUILD_TESTS "Build tests (requires gtest)" ON)
 option(BUILD_64BIT "Build with 64 bit matrix support" ON)
 
 
 # Definitions
+if (BUILD_DEBUG_OUTPUT)
+    add_definitions(-DCPD_DEBUG_OUTPUT)
+endif(BUILD_DEBUG_OUTPUT)
+
 if (BUILD_64BIT)
     add_definitions(-DARMA_64BIT_WORD)
     set(CPD_LIB_NAME cpd64)
