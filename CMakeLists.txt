@@ -19,7 +19,7 @@ set(CMAKE_INCLUDE_DIRECTORIES_BEFORE ON)
 option(BUILD_CLI "Build the command-line interface" OFF)
 option(BUILD_DEBUG_OUTPUT "Build with debug output" OFF)
 option(BUILD_SHARED_LIBS "Create shared libraries" ON)
-option(BUILD_TESTS "Build tests (requires gtest)" ON)
+option(BUILD_TESTS "Build tests" ON)
 option(BUILD_64BIT "Build with 64 bit matrix support" ON)
 
 
