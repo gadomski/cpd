@@ -52,6 +52,7 @@ SpResult NonrigidLowrank::execute(const arma::mat& X, const arma::mat& Y) const
     const arma::uword numeig = (get_numeig() == 0) ?
         arma::uword(std::sqrt(Y.n_rows)) :
         get_numeig();
+    DEBUG("number of eigenvectors: " << numeig);
 
     double sigma2 = get_sigma2(X, Y);
     const double sigma2_init = sigma2;
