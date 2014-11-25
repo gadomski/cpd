@@ -20,4 +20,5 @@ target_link_libraries(${CPD_LIB_TARGET}
     )
 install(TARGETS ${CPD_LIB_TARGET}
     LIBRARY DESTINATION lib
+    ARCHIVE DESTINATION lib
     )
