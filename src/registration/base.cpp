@@ -41,6 +41,7 @@ Base::Base(float tol, int max_it, float outliers, bool use_fgt, float epsilon)
 
 SpResult Base::operator()(const arma::mat& X, const arma::mat& Y) const
 {
+    DEBUG("Running registration, X.n_rows: " << X.n_rows << ", Y.n_rows: " << Y.n_rows);
     if (X.n_cols != Y.n_cols)
     {
         throw cpd::dimension_mismatch("X and Y do not have the same number of columns");

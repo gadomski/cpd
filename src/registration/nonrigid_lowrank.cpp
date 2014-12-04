@@ -45,6 +45,13 @@ SpResult NonrigidLowrank::execute(const arma::mat& X, const arma::mat& Y) const
     const arma::uword M = Y.n_rows;
     const arma::uword D = Y.n_cols;
 
+    DEBUG("parameters, tol: " << get_tol() <<
+            ", max_it: " << get_max_it() <<
+            ", outliers: " << get_outliers() <<
+            ", epsilon: " << get_epsilon() <<
+            ", beta: " << get_beta() <<
+            ", lambda: " << get_lambda());
+
     const arma::uword numeig = (get_numeig() == 0) ?
         arma::uword(std::sqrt(Y.n_rows)) :
         get_numeig();
