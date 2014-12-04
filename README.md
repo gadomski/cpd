@@ -179,8 +179,8 @@ the license.
 
 This version is copyright (c) 2014 Pete Gadomski <pete.gadomski@gmail.com>.
 
-The original Matlab implementation was copyright (c) 2008-2009 Andriy Myronenko
-<myron@csee.ogi.edu>.
+The original Matlab implementation was copyright (c) 2008-2009 Andriy Myronenko.
+His website is here: https://sites.google.com/site/myronenko/home.
 
 
 ## Issues

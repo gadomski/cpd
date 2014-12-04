@@ -2,10 +2,6 @@
 * Coherent Point Drift
 * Copyright (C) 2014 Pete Gadomski <pete.gadomski@gmail.com>
 * 
-* Derived from the Coherent Point Drift Matlab package
-* Copyright (C) 2008-2009 Andriy Myronenko <myron@csee.ogi.edu>
-* https://sites.google.com/site/myronenko/research/cpd
-* 
 * This program is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
 * the Free Software Foundation; either version 2 of the License, or
