@@ -47,7 +47,7 @@ SpResult Base::operator()(const arma::mat& X, const arma::mat& Y) const
     }
     arma::mat Xn(X), Yn(Y);
     Normalization normal = normalize(Xn, Yn);
-    DEBUG("Normalized with xscale: " << normal.xscale << ", yscale: " << normal.yscale <<
+    DEBUG("Normalized with scale: " << normal.scale << 
             ", xd: (" << normal.xd(0) << "," << normal.xd(1) << "," << normal.xd(2) <<
             "), yd: (" << normal.yd(0) << "," << normal.yd(1) << "," << normal.yd(2) << ")");
     SpResult result = execute(Xn, Yn);
@@ -69,11 +69,10 @@ Normalization Base::normalize(arma::mat& X, arma::mat& Y) const
     X = X - arma::repmat(normal.xd, N, 1);
     Y = Y - arma::repmat(normal.yd, M, 1);
 
-    normal.xscale = std::sqrt(arma::sum(arma::sum(arma::pow(X, 2), 2)) / N);
-    normal.yscale = std::sqrt(arma::sum(arma::sum(arma::pow(Y, 2), 2)) / M);
+    normal.scale = std::sqrt(arma::sum(arma::sum(arma::pow(Y, 2), 2)) / M);
 
-    X = X / normal.xscale;
-    Y = Y / normal.yscale;
+    X = X / normal.scale;
+    Y = Y / normal.scale;
 
     return normal;
 }
@@ -81,7 +80,7 @@ Normalization Base::normalize(arma::mat& X, arma::mat& Y) const
 
 void Base::denormalize(arma::mat& Y, const Normalization& normal) const
 {
-    Y = Y * normal.xscale + arma::repmat(normal.xd, Y.n_rows, 1);
+    Y = Y * normal.scale + arma::repmat(normal.xd, Y.n_rows, 1);
 }
 
 
