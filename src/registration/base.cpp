@@ -70,7 +70,7 @@ Normalization Base::normalize(arma::mat& X, arma::mat& Y) const
     X = X - arma::repmat(normal.xd, N, 1);
     Y = Y - arma::repmat(normal.yd, M, 1);
 
-    normal.scale = std::sqrt(arma::sum(arma::sum(arma::pow(Y, 2), 2)) / M);
+    normal.scale = std::sqrt(arma::accu(arma::pow(Y, 2)) / M);
 
     X = X / normal.scale;
     Y = Y / normal.scale;
