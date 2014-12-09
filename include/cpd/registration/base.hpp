@@ -53,7 +53,11 @@ public:
             float epsilon = DEFAULT_EPSILON,
 
             // Factor by which to exaggerate the z values
-            float z_exaggeration = DEFAULT_Z_EXAGGERATION
+            float z_exaggeration = DEFAULT_Z_EXAGGERATION,
+
+            // Automatically expand Z values to the same range as X and Y.
+            // If true, ignores z_exaggeration value
+            bool auto_z_exaggeration = DEFAULT_AUTO_Z_EXAGGERATION
             );
 
     SpResult operator()(const arma::mat& X, const arma::mat& Y) const;
@@ -75,6 +79,7 @@ public:
     inline bool use_fgt() const { return m_use_fgt; }
     inline float get_epsilon() const { return m_epsilon; }
     inline float get_z_exaggeration() const { return m_z_exaggeration; }
+    inline bool auto_z_exaggeration() const { return m_auto_z_exaggeration; }
 
     inline void set_tol(float tol) { m_tol = tol; }
     inline void set_max_it(int max_it) { m_max_it = max_it; }
@@ -82,6 +87,7 @@ public:
     inline void use_fgt(bool use_fgt) { m_use_fgt = use_fgt; }
     inline void set_epsilon(float epsilon) { m_epsilon = epsilon; }
     inline void set_z_exaggeration(float z_exaggeration) { m_z_exaggeration = z_exaggeration; }
+    inline void auto_z_exaggeration(bool auto_z_exaggeration) { m_auto_z_exaggeration = auto_z_exaggeration; }
 
     virtual ~Base() {};
 
@@ -95,6 +101,7 @@ private:
     bool m_use_fgt;
     float m_epsilon;
     float m_z_exaggeration;
+    bool m_auto_z_exaggeration;
 
 };
 

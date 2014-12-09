@@ -29,15 +29,26 @@ namespace cpd
 namespace registration
 {
 
+const double AUTO_Z_EXAGGERATION_TUNE = 5.0 / 8.0;
+
+
+double get_auto_exaggeration(const arma::mat& Y)
+{
+    double xrange = Y.col(0).max() - Y.col(0).min();
+    double zrange = Y.col(2).max() - Y.col(2).min();
+    return AUTO_Z_EXAGGERATION_TUNE * xrange / zrange;
+}
+
 
 Base::Base(float tol, int max_it, float outliers, bool use_fgt, float epsilon,
-           float z_exaggeration)
+           float z_exaggeration, bool auto_z_exaggeration)
     : m_tol(tol)
     , m_max_it(max_it)
     , m_outliers(outliers)
     , m_use_fgt(use_fgt)
     , m_epsilon(epsilon)
     , m_z_exaggeration(z_exaggeration)
+    , m_auto_z_exaggeration(auto_z_exaggeration)
 {}
 
 
@@ -53,7 +64,7 @@ SpResult Base::operator()(const arma::mat& X, const arma::mat& Y) const
     DEBUG("Normalized with scale: " << normal.scale << 
             ", xd: (" << normal.xd(0) << "," << normal.xd(1) << "," << normal.xd(2) <<
             "), yd: (" << normal.yd(0) << "," << normal.yd(1) << "," << normal.yd(2) << ")" <<
-            ", z-exaggeration: " << get_z_exaggeration());
+            ", z-exaggeration: " << normal.z_exaggeration);
     SpResult result = execute(Xn, Yn);
     denormalize(result->Y, normal);
     return result;
@@ -67,9 +78,9 @@ Normalization Base::normalize(arma::mat& X, arma::mat& Y) const
     const arma::uword N = X.n_rows;
     const arma::uword M = Y.n_rows;
 
-    // TODO formalize which column is which, so we don't have to implicitly
-    // kno which column is Z.
-    X.col(2) = X.col(2) * get_z_exaggeration();
+    normal.z_exaggeration = auto_z_exaggeration() ? get_auto_exaggeration(X) : get_z_exaggeration();
+    // We intentionally only rescale X's z values to give Y a "bigger target"
+    X.col(2) = X.col(2) * normal.z_exaggeration;
 
     normal.xd = arma::mean(X);
     normal.yd = arma::mean(Y);
@@ -89,7 +100,7 @@ Normalization Base::normalize(arma::mat& X, arma::mat& Y) const
 void Base::denormalize(arma::mat& Y, const Normalization& normal) const
 {
     Y = Y * normal.scale + arma::repmat(normal.xd, Y.n_rows, 1);
-    Y.col(2) = Y.col(2) / get_z_exaggeration();
+    Y.col(2) = Y.col(2) / normal.z_exaggeration;
 }
 
 

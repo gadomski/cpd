@@ -30,6 +30,7 @@ struct Normalization
 {
     arma::mat xd, yd;
     double scale;
+    double z_exaggeration;
 };
 
 
