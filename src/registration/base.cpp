@@ -30,12 +30,14 @@ namespace registration
 {
 
 
-Base::Base(float tol, int max_it, float outliers, bool use_fgt, float epsilon)
+Base::Base(float tol, int max_it, float outliers, bool use_fgt, float epsilon,
+           float z_exaggeration)
     : m_tol(tol)
     , m_max_it(max_it)
     , m_outliers(outliers)
     , m_use_fgt(use_fgt)
     , m_epsilon(epsilon)
+    , m_z_exaggeration(z_exaggeration)
 {}
 
 
@@ -50,7 +52,8 @@ SpResult Base::operator()(const arma::mat& X, const arma::mat& Y) const
     Normalization normal = normalize(Xn, Yn);
     DEBUG("Normalized with scale: " << normal.scale << 
             ", xd: (" << normal.xd(0) << "," << normal.xd(1) << "," << normal.xd(2) <<
-            "), yd: (" << normal.yd(0) << "," << normal.yd(1) << "," << normal.yd(2) << ")");
+            "), yd: (" << normal.yd(0) << "," << normal.yd(1) << "," << normal.yd(2) << ")" <<
+            ", z-exaggeration: " << get_z_exaggeration());
     SpResult result = execute(Xn, Yn);
     denormalize(result->Y, normal);
     return result;
@@ -63,6 +66,10 @@ Normalization Base::normalize(arma::mat& X, arma::mat& Y) const
 
     const arma::uword N = X.n_rows;
     const arma::uword M = Y.n_rows;
+
+    // TODO formalize which column is which, so we don't have to implicitly
+    // kno which column is Z.
+    X.col(2) = X.col(2) * get_z_exaggeration();
 
     normal.xd = arma::mean(X);
     normal.yd = arma::mean(Y);
@@ -82,6 +89,7 @@ Normalization Base::normalize(arma::mat& X, arma::mat& Y) const
 void Base::denormalize(arma::mat& Y, const Normalization& normal) const
 {
     Y = Y * normal.scale + arma::repmat(normal.xd, Y.n_rows, 1);
+    Y.col(2) = Y.col(2) / get_z_exaggeration();
 }
 
 

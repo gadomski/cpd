@@ -50,7 +50,10 @@ public:
             bool use_fgt = DEFAULT_FGT,
 
             // Tolerance level for the Fast Gauss Transform
-            float epsilon = DEFAULT_EPSILON
+            float epsilon = DEFAULT_EPSILON,
+
+            // Factor by which to exaggerate the z values
+            float z_exaggeration = DEFAULT_Z_EXAGGERATION
             );
 
     SpResult operator()(const arma::mat& X, const arma::mat& Y) const;
@@ -71,12 +74,14 @@ public:
     inline float get_outliers() const { return m_outliers; }
     inline bool use_fgt() const { return m_use_fgt; }
     inline float get_epsilon() const { return m_epsilon; }
+    inline float get_z_exaggeration() const { return m_z_exaggeration; }
 
     inline void set_tol(float tol) { m_tol = tol; }
     inline void set_max_it(int max_it) { m_max_it = max_it; }
     inline void set_outliers(float outliers) { m_outliers = outliers; }
     inline void use_fgt(bool use_fgt) { m_use_fgt = use_fgt; }
     inline void set_epsilon(float epsilon) { m_epsilon = epsilon; }
+    inline void set_z_exaggeration(float z_exaggeration) { m_z_exaggeration = z_exaggeration; }
 
     virtual ~Base() {};
 
@@ -89,6 +94,7 @@ private:
     float m_outliers;
     bool m_use_fgt;
     float m_epsilon;
+    float m_z_exaggeration;
 
 };
 
