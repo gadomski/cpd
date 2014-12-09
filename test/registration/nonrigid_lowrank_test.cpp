@@ -49,5 +49,16 @@ TEST_F(NonrigidLowrankRegistration, RegistersData)
 }
 
 
+TEST_F(NonrigidLowrankRegistration, RegistersDataWithZExaggeration)
+{
+    cpd::registration::NonrigidLowrank reg;
+    reg.use_fgt(false);
+    reg.set_numeig(10);
+    reg.set_z_exaggeration(2);
+    cpd::registration::SpResult result = reg(m_X, m_Y);
+    expect_matrices_near(m_X, result->Y, 0.1);
+}
+
+
 }
 }
