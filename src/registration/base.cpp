@@ -52,7 +52,8 @@ SpResult Base::operator()(const arma::mat& X, const arma::mat& Y) const
     Normalization normal = normalize(Xn, Yn);
     DEBUG("Normalized with scale: " << normal.scale << 
             ", xd: (" << normal.xd(0) << "," << normal.xd(1) << "," << normal.xd(2) <<
-            "), yd: (" << normal.yd(0) << "," << normal.yd(1) << "," << normal.yd(2) << ")");
+            "), yd: (" << normal.yd(0) << "," << normal.yd(1) << "," << normal.yd(2) << ")" <<
+            ", z-exaggeration: " << get_z_exaggeration());
     SpResult result = execute(Xn, Yn);
     denormalize(result->Y, normal);
     return result;
