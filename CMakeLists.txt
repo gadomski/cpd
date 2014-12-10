@@ -2,8 +2,6 @@
 cmake_minimum_required(VERSION 2.8.7 FATAL_ERROR)
 project(cpd CXX)
 
-set(CMAKE_CXX_FLAGS "-std=c++0x ${CMAKE_CXX_FLAGS}")
-
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/Modules" ${CMAKE_MODULE_PATH})
 set(CMAKE_MACOSX_RPATH ON)
 
@@ -17,10 +15,33 @@ set(CMAKE_INCLUDE_DIRECTORIES_BEFORE ON)
 
 # Options
 option(BUILD_CLI "Build the command-line interface" OFF)
+option(BUILD_COVERAGE "Build with code coverage support" OFF)
 option(BUILD_DEBUG_OUTPUT "Build with debug output" OFF)
 option(BUILD_SHARED_LIBS "Create shared libraries" ON)
 option(BUILD_TESTS "Build tests" ON)
 option(BUILD_64BIT "Build with 64 bit matrix support" ON)
+
+
+# Checks
+if (BUILD_COVERAGE)
+    if (NOT BUILD_TESTS)
+        message(FATAL_ERROR "Cannot build coverage without tests, set BUILD_TESTS to ON")
+    endif(NOT BUILD_TESTS)
+    if (NOT CMAKE_BUILD_TYPE STREQUAL "Debug")
+        message(WARNING "Code coverage results with an optimized (non-Debug) build may be misleading")
+    endif(NOT CMAKE_BUILD_TYPE STREQUAL "Debug")
+endif(BUILD_COVERAGE)
+
+
+
+# Configuration
+set(CMAKE_CXX_FLAGS "-std=c++0x ${CMAKE_CXX_FLAGS}")
+if (BUILD_COVERAGE)
+    set(CMAKE_CXX_FLAGS "-fprofile-arcs -ftest-coverage ${CMAKE_CXX_FLAGS}")
+    if (CMAKE_COMPILER_IS_GNUCXX)
+        set(CMAKE_CXX_FLAGS "--coverage ${CMAKE_CXX_FLAGS}")
+    endif(CMAKE_COMPILER_IS_GNUCXX)
+endif(BUILD_COVERAGE)
 
 
 # Definitions
@@ -40,6 +61,7 @@ endif (BUILD_64BIT)
 set(CPD_CLI_TARGET cpd-cli)
 set(CPD_LIB_TARGET cpd-lib)
 set(CPD_TEST_TARGET cpd-test)
+set(CPD_COVERAGE_TARGET coverage)
 set(CPD_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/include")
 
 

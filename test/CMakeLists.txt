@@ -28,3 +28,11 @@ set(CPD_TEST_LINK_LIBRARIES
 
 add_executable(${CPD_TEST_TARGET} ${SRC})
 target_link_libraries(${CPD_TEST_TARGET} ${CPD_TEST_LINK_LIBRARIES})
+
+if (BUILD_COVERAGE)
+    add_custom_target(${CPD_COVERAGE_TARGET}
+        COMMAND bin/${CPD_TEST_TARGET}
+        WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
+        COMMENT "Generating code coverage"
+        )
+endif (BUILD_COVERAGE)

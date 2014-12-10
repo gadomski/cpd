@@ -10,8 +10,8 @@ It also provides an optional command-line executable, called simply **cpd**,
 which provides a subset of the library's functionality for quick command-line
 usage.
 
-[![Build
-Status](https://travis-ci.org/gadomski/cpd.svg?branch=master)](https://travis-ci.org/gadomski/cpd)
+[![Build Status](https://travis-ci.org/gadomski/cpd.svg?branch=master)](https://travis-ci.org/gadomski/cpd)
+[![Coverage Status](https://img.shields.io/coveralls/gadomski/cpd.svg)](https://coveralls.io/r/gadomski/cpd)
 
 
 ## Usage (command-line)
