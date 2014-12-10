@@ -1,17 +1,17 @@
 /******************************************************************************
 * Coherent Point Drift
 * Copyright (C) 2014 Pete Gadomski <pete.gadomski@gmail.com>
-* 
+*
 * This program is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
 * the Free Software Foundation; either version 2 of the License, or
 * (at your option) any later version.
-* 
+*
 * This program is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 * GNU General Public License for more details.
-* 
+*
 * You should have received a copy of the GNU General Public License along
 * with this program; if not, write to the Free Software Foundation, Inc.,
 * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
@@ -37,26 +37,26 @@ namespace cpd
 
 
 void run_aupd(
-        const arma::uword n_eigvals,
-        char* which,
-        arma::mat& Yt,
-        arma::blas_int& n,
-        double& tol,
-        arma::podarray<double>& resid,
-        arma::blas_int& ncv,
-        arma::podarray<double>& v,
-        arma::blas_int& ldv,
-        arma::podarray<arma::blas_int>& iparam,
-        arma::podarray<arma::blas_int>& ipntr,
-        arma::podarray<double>& workd,
-        arma::podarray<double>& workl,
-        arma::blas_int& lworkl,
-        arma::podarray<double>& rwork,
-        arma::blas_int& info,
-        const double beta,
-        const float epsilon
-        )
-{    
+    const arma::uword n_eigvals,
+    char* which,
+    arma::mat& Yt,
+    arma::blas_int& n,
+    double& tol,
+    arma::podarray<double>& resid,
+    arma::blas_int& ncv,
+    arma::podarray<double>& v,
+    arma::blas_int& ldv,
+    arma::podarray<arma::blas_int>& iparam,
+    arma::podarray<arma::blas_int>& ipntr,
+    arma::podarray<double>& workd,
+    arma::podarray<double>& workl,
+    arma::blas_int& lworkl,
+    arma::podarray<double>& rwork,
+    arma::blas_int& info,
+    const double beta,
+    const float epsilon
+)
+{
     const arma::uword D = Yt.n_rows;
     const arma::uword M = Yt.n_cols;
     double h = std::sqrt(2) * beta;
@@ -69,8 +69,14 @@ void run_aupd(
     resid.set_size(n);
 
     ncv = 2 + nev;
-    if (ncv < 2 * nev) { ncv = 2 * nev; }
-    if (ncv > n)       { ncv = n; }
+    if (ncv < 2 * nev)
+    {
+        ncv = 2 * nev;
+    }
+    if (ncv > n)
+    {
+        ncv = n;
+    }
     v.set_size(n * ncv);
     rwork.set_size(ncv);
     ldv = n;
@@ -98,22 +104,22 @@ void run_aupd(
 
         switch (ido)
         {
-            case -1:
-            case 1:
-                {
-                arma::Col<double> out(workd.memptr() + ipntr(1) - 1, n, false); 
-                arma::Col<double> in(workd.memptr() + ipntr(0) - 1, n, false); 
+        case -1:
+        case 1:
+        {
+            arma::Col<double> out(workd.memptr() + ipntr(1) - 1, n, false);
+            arma::Col<double> in(workd.memptr() + ipntr(0) - 1, n, false);
 
-                out.zeros();
-                figtree_wrap(Yt, Yt, in, h, epsilon, out, FIGTREE_EVAL_AUTO);
-                break;
-                }
-            case 99:
-                break;
-            default:
-                {
-                return;
-                }
+            out.zeros();
+            figtree_wrap(Yt, Yt, in, h, epsilon, out, FIGTREE_EVAL_AUTO);
+            break;
+        }
+        case 99:
+            break;
+        default:
+        {
+            return;
+        }
         }
     }
 
@@ -127,11 +133,12 @@ void run_aupd(
 }
 
 
-void find_affinity_eigenvectors(const arma::mat& Y, const float beta, const arma::uword numeig,
+void find_affinity_eigenvectors(const arma::mat& Y, const float beta,
+                                const arma::uword numeig,
                                 const float epsilon, arma::mat& Q, arma::mat& S)
 {
     arma::mat Yt = Y.t();
-    
+
     char which[3] = "LM";
     arma::blas_int n, ncv, ldv, lworkl, info;
     double tol = 0.0;
