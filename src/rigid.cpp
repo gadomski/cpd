@@ -17,21 +17,19 @@
 * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ******************************************************************************/
 
-#include <cpd/registration/rigid.hpp>
+#include <cpd/rigid.hpp>
 
-#include <cpd/debug.hpp>
-#include <cpd/sigma2.hpp>
+#include "debug.hpp"
+#include "sigma2.hpp"
 
 
 namespace cpd
-{
-namespace registration
 {
 
 
 Rigid::Rigid(float tol, int max_it, float outliers, bool use_fgt, float epsilon,
              bool strict_rot, bool use_scaling)
-    : Base(tol, max_it, outliers, use_fgt, epsilon)
+    : Registration(tol, max_it, outliers, use_fgt, epsilon)
     , m_strict_rot(strict_rot)
     , m_use_scaling(use_scaling)
 {}
@@ -123,5 +121,4 @@ SpResult Rigid::execute(const arma::mat& X, const arma::mat& Y) const
 }
 
 
-}
 }

@@ -1,64 +1,72 @@
 /******************************************************************************
 * Coherent Point Drift
 * Copyright (C) 2014 Pete Gadomski <pete.gadomski@gmail.com>
-* 
+*
 * This program is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
 * the Free Software Foundation; either version 2 of the License, or
 * (at your option) any later version.
-* 
+*
 * This program is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 * GNU General Public License for more details.
-* 
+*
 * You should have received a copy of the GNU General Public License along
 * with this program; if not, write to the Free Software Foundation, Inc.,
 * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ******************************************************************************/
 
-#include <gtest/gtest.h>
-#include <cpd/registration/nonrigid_lowrank.hpp>
+#pragma once
 
-#include "fixtures.hpp"
+#include <cpd/registration.hpp>
 
 
 namespace cpd
 {
-namespace test
+
+
+class Nonrigid : public Registration
 {
+public:
+
+    explicit Nonrigid(
+        float tol = DEFAULT_TOLERANCE,
+        int max_it = DEFAULT_MAX_ITERATIONS,
+        float outliers = DEFAULT_OUTLIERS,
+        bool use_fgt = DEFAULT_FGT,
+        float epsilon = DEFAULT_EPSILON,
+        float beta = DEFAULT_BETA,
+        float lambda =  DEFAULT_LAMBDA
+    );
+
+    inline float get_beta() const
+    {
+        return m_beta;
+    }
+    inline float get_lambda() const
+    {
+        return m_lambda;
+    }
+
+    inline void set_beta(float beta)
+    {
+        m_beta = beta;
+    }
+    inline void set_lambda(float lambda)
+    {
+        m_lambda = lambda;
+    }
+
+    virtual ~Nonrigid() {};
+
+private:
+
+    virtual SpResult execute(const arma::mat& X, const arma::mat& Y) const;
+
+    float m_beta;
+    float m_lambda;
+};
 
 
-class NonrigidLowrankRegistration : public RegistrationTest
-{};
-
-
-TEST_F(NonrigidLowrankRegistration, InitializesWithDefaults)
-{
-    cpd::registration::NonrigidLowrank reg;
-}
-
-
-TEST_F(NonrigidLowrankRegistration, RegistersData)
-{
-    cpd::registration::NonrigidLowrank reg;
-    reg.use_fgt(false); // to tighten up our tolerances
-    reg.set_numeig(10); // becuase the default (M ^ (1/2) is too low)
-    cpd::registration::SpResult result = reg(m_X, m_Y);
-    expect_matrices_near(m_X, result->Y, 0.1);
-}
-
-
-TEST_F(NonrigidLowrankRegistration, RegistersDataWithZExaggeration)
-{
-    cpd::registration::NonrigidLowrank reg;
-    reg.use_fgt(false);
-    reg.set_numeig(10);
-    reg.set_z_exaggeration(2);
-    cpd::registration::SpResult result = reg(m_X, m_Y);
-    expect_matrices_near(m_X, result->Y, 0.1);
-}
-
-
-}
 }

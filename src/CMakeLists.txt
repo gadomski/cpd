@@ -1,4 +1,7 @@
-include_directories(${CPD_INCLUDE_DIR})
+include_directories(
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CPD_INCLUDE_DIR}
+    )
 
 set(SRC
     affinity_eigenvectors.cpp
@@ -6,10 +9,10 @@ set(SRC
     find_P.cpp
     sigma2.cpp
 
-    registration/base.cpp
-    registration/nonrigid.cpp
-    registration/nonrigid_lowrank.cpp
-    registration/rigid.cpp
+    registration.cpp
+    nonrigid.cpp
+    nonrigid_lowrank.cpp
+    rigid.cpp
     )
 
 add_library(${CPD_LIB_TARGET} ${SRC})

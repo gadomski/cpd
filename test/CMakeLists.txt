@@ -1,5 +1,6 @@
 include_directories(
     ${CPD_INCLUDE_DIR}
+    ${PROJECT_SOURCE_DIR}/src
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${gtest_SOURCE_DIR}/include
     )
@@ -10,9 +11,9 @@ set(SRC
     find_P_test.cpp
     sigma2_test.cpp
 
-    registration/nonrigid_test.cpp
-    registration/nonrigid_lowrank_test.cpp
-    registration/rigid_test.cpp
+    nonrigid_test.cpp
+    nonrigid_lowrank_test.cpp
+    rigid_test.cpp
     )
 
 if (BUILD_64BIT)

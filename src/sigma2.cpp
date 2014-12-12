@@ -17,7 +17,7 @@
 * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ******************************************************************************/
 
-#include <cpd/sigma2.hpp>
+#include "sigma2.hpp"
 
 
 namespace cpd

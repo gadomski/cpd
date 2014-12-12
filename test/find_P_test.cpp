@@ -18,7 +18,7 @@
 ******************************************************************************/
 
 #include <gtest/gtest.h>
-#include <cpd/find_P.hpp>
+#include "find_P.hpp"
 
 #include "fixtures.hpp"
 

@@ -17,17 +17,15 @@
 * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ******************************************************************************/
 
-#include <cpd/registration/nonrigid_lowrank.hpp>
+#include <cpd/nonrigid_lowrank.hpp>
 
-#include <cpd/affinity_eigenvectors.hpp>
-#include <cpd/debug.hpp>
-#include <cpd/sigma2.hpp>
-#include <cpd/spdiag_locations.hpp>
+#include "affinity_eigenvectors.hpp"
+#include "debug.hpp"
+#include "sigma2.hpp"
+#include "spdiag_locations.hpp"
 
 
 namespace cpd
-{
-namespace registration
 {
 
 
@@ -118,5 +116,4 @@ SpResult NonrigidLowrank::execute(const arma::mat& X, const arma::mat& Y) const
 }
 
 
-}
 }

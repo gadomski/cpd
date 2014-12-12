@@ -17,9 +17,9 @@
 * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ******************************************************************************/
 
-#include <cpd/find_P.hpp>
+#include "find_P.hpp"
 
-#include <cpd/figtree.hpp>
+#include "figtree.hpp"
 
 
 namespace cpd

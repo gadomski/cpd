@@ -17,7 +17,7 @@
 * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ******************************************************************************/
 
-#include <cpd/affinity_matrix.hpp>
+#include "affinity_matrix.hpp"
 
 
 namespace cpd

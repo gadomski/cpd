@@ -18,7 +18,7 @@
 ******************************************************************************/
 
 #include <gtest/gtest.h>
-#include <cpd/affinity_eigenvectors.hpp>
+#include "affinity_eigenvectors.hpp"
 
 #include "fixtures.hpp"
 

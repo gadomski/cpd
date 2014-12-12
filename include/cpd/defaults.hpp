@@ -21,8 +21,6 @@
 
 namespace cpd
 {
-namespace registration
-{
 
 
 // Common
@@ -43,9 +41,6 @@ const float DEFAULT_LAMBDA = 3;
 
 // NonrigidLowrank
 const arma::uword DEFAULT_NUMEIG = 0;
-
-
-}
 
 
 }

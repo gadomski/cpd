@@ -18,7 +18,7 @@
 ******************************************************************************/
 
 #include <gtest/gtest.h>
-#include <cpd/sigma2.hpp>
+#include "sigma2.hpp"
 
 
 namespace cpd

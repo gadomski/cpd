@@ -17,22 +17,20 @@
 * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ******************************************************************************/
 
-#include <cpd/registration/nonrigid.hpp>
+#include <cpd/nonrigid.hpp>
 
-#include <cpd/affinity_matrix.hpp>
-#include <cpd/debug.hpp>
-#include <cpd/sigma2.hpp>
+#include "affinity_matrix.hpp"
+#include "debug.hpp"
+#include "sigma2.hpp"
 
 
 namespace cpd
-{
-namespace registration
 {
 
 
 Nonrigid::Nonrigid(float tol, int max_it, float outliers, bool use_fgt,
                    float epsilon, float beta, float lambda)
-    : Base(tol, max_it, outliers, use_fgt, epsilon)
+    : Registration(tol, max_it, outliers, use_fgt, epsilon)
     , m_beta(beta)
     , m_lambda(lambda)
 {}
@@ -99,5 +97,4 @@ SpResult Nonrigid::execute(const arma::mat& X, const arma::mat& Y) const
 }
 
 
-}
 }
