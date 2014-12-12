@@ -1,17 +1,22 @@
 # cpd
 
-C++ library for point set registration and matching using the [Coherent Point
-Drift](https://sites.google.com/site/myronenko/research/cpd) algorithm. This
-library is derived from Matlab code written by Andriy Myronenko and is available
-under the same license (GPL2).
+C++ library for point set registration using the [Coherent Point Drift](https://sites.google.com/site/myronenko/research/cpd) algorithm.
+This library is derived from Matlab code written by Andriy Myronenko and is available under the same license (GPL2).
 
-This project provides a library, **libcpd**, for use in your own applications.
-It also provides an optional command-line executable, called simply **cpd**,
-which provides a subset of the library's functionality for quick command-line
-usage.
+![Registering glacier data](demo/helheim-cpd.gif)
+
+This project provides a library, **libcpd** (**libpcd64** for the 64-bit version), for use in your own applications.
+It also provides an optional command-line executable, called simply **cpd**, which provides a subset of the library's functionality for quick command-line usage.
 
 [![Build Status](https://travis-ci.org/gadomski/cpd.svg?branch=master)](https://travis-ci.org/gadomski/cpd)
 [![Coverage Status](https://img.shields.io/coveralls/gadomski/cpd.svg)](https://coveralls.io/r/gadomski/cpd)
+
+
+## Usage (C++ API)
+
+The C++ API is as-of-yet undocumented, but to see it in action check out [PDAL's](http://pdal.io) [cpd plugin](https://github.com/gadomski/PDAL/blob/cpd/plugins/cpd/kernel/cpd.cpp).
+
+Refer to the [**cpd** source](https://github.com/gadomski/cpd) and the [armadillo documentation](http://arma.sourceforge.net/docs.html) for more information on the API and usage.
 
 
 ## Usage (command-line)
@@ -22,35 +27,10 @@ Register two point sets using the nonrigid_lowrank algorithm:
 cpd file1.txt file2.txt > output.txt
 ```
 
-The input files must be whitespace-delimited files with XYZ values only. The
-output file will be whitespace-delimited with the following columns: X, Y, Z,
-dX, dY, dZ, where dX, dY, and dZ are the change in position in the X, Y, and Z
-directions respectively for that point.
+The input files must be whitespace-delimited files with XYZ values only.
+The output file will be whitespace-delimited with the following columns: X, Y, Z, dX, dY, dZ, where dX, dY, and dZ are the change in position in the X, Y, and Z directions respectively for that point.
 
-Run `cpd --help` for a description of the command-line options available for
-customizing the CPD algorithm.
-
-
-## Usage (C++ API)
-
-Register two existing double matrices with data in column-major order:
-
-```cpp
-#include <armadillo>
-#include <cpd/nonrigid_lowrank.hpp>
-
-double* Xraw, Yraw;   // X has N rows, Y has M rows, and both have 3 columns
-arma::mat X(Xraw, N, 3, false);
-arma::mat Y(Yraw, M, 3, false);
-cpd::NonrigidLowrank reg;
-cpd::SpResult result = reg(X, Y);
-// Print out the registered point data
-std::cout << result->Y << std::endl;
-```
-
-Refer to the [**cpd** source](https://github.com/gadomski/cpd) and the
-[armadillo documentation](http://arma.sourceforge.net/docs.html) for more
-information on the API and usage.
+Run `cpd --help` for a description of the command-line options available for customizing the CPD algorithm.
 
 
 ## System requirements
@@ -87,15 +67,15 @@ To build **cpd** yourself, you will need all of the above, plus:
   (version 2.8.7 or higher required)
 - a modern compiler that supports `-std=c++0x`, e.g. gcc-4.8 or a newer clang
 
-Instructions are provided below for installing on Mac OSX and linux. Windoze,
-you're on your own.
+Instructions are provided below for installing on Mac OSX and linux.
+Windoze, you're on your own.
 
 ### Dependencies on Mac OSX
 
-OSX comes with lapack and arpack, so you're all set there. Most of the rest of
-the dependencies are available through **homebrew**, a great package manager
-for OSX. If you're don't have **homebrew**, [get it](http://brew.sh/). Then,
-install stuff:
+OSX comes with lapack and arpack, so you're all set there.
+Most of the rest of the dependencies are available through **homebrew**, a great package manager for OSX.
+If you're don't have **homebrew**, [get it](http://brew.sh/).
+Then, install stuff:
 
 ```bash
 brew update
@@ -108,9 +88,8 @@ If you're planning on using the command line application, additionally do:
 brew install gflags
 ```
 
-You'll need to install figtree yourself. Head over to the [github
-source](https://github.com/gadomski/figtree) and follow the install instructions
-there.
+You'll need to install figtree yourself.
+Head over to the [github source](https://github.com/gadomski/figtree) and follow the install instructions there.
 
 Now you're ready to [install cpd](#installing-cpd-on-both-mac-os-x-and-linux).
 
@@ -124,15 +103,11 @@ sudo apt-get update
 sudo apt-get install git cmake liblapack-dev libarpack2-dev libsuperlu3-dev gfortran
 ```
 
-If you have an old gcc, you may need to update it. See [one of cpd's continuous
-integration
-scripts](https://github.com/gadomski/cpd/blob/master/scripts/install_compilers.sh)
-for one way to update your gcc.
+If you have an old gcc, you may need to update it.
+See [one of cpd's continuous integration scripts](https://github.com/gadomski/cpd/blob/master/scripts/install_compilers.sh) for one way to update your gcc.
 
-You'll need to install armadillo and figtree from source. Again, you can just
-follow the scripts:
-[armadillo](https://github.com/gadomski/cpd/blob/master/scripts/install_armadillo.sh),
-[figtree](https://github.com/gadomski/cpd/blob/master/scripts/install_figtree.sh).
+You'll need to install armadillo and figtree from source.
+Again, you can just follow the scripts: [armadillo](https://github.com/gadomski/cpd/blob/master/scripts/install_armadillo.sh), [figtree](https://github.com/gadomski/cpd/blob/master/scripts/install_figtree.sh).
 
 Now you're ready to [install cpd](#installing-cpd-on-both-mac-os-x-and-linux).
 
@@ -163,8 +138,7 @@ If you want to install **cpd** to system-wide directories:
 make install
 ```
 
-If you're on a linux or didn't use homebrew on OSX, you may need a `sudo make
-install`.
+If you're on a linux or didn't use homebrew on OSX, you may need a `sudo make install`.
 
 If you have problems at any point during the build, please [open a new
 issue](https://github.com/gadomski/cpd/issues/new).
@@ -172,10 +146,9 @@ issue](https://github.com/gadomski/cpd/issues/new).
 
 ## License
 
-This software is distributed under the terms of the original Matlab
-implementation. A complete copy of the GPL2 license can be found in LICENSE.txt
-of this source tree. Each source file also contains a brief preamble specifying
-the license.
+This software is distributed under the terms of the original Matlab implementation.
+A complete copy of the GPL2 license can be found in LICENSE.txt of this source tree.
+Each source file also contains a brief preamble specifying the license.
 
 This version is copyright (c) 2014 Pete Gadomski <pete.gadomski@gmail.com>.
 
@@ -185,13 +158,10 @@ His website is here: https://sites.google.com/site/myronenko/home.
 
 ## Issues
 
-We use github's [issues](https://github.com/gadomski/cpd/issues) and [pull
-requests](https://github.com/gadomski/cpd/pulls). Please feel free to contribute
-either.
+We use github's [issues](https://github.com/gadomski/cpd/issues) and [pull requests](https://github.com/gadomski/cpd/pulls).
+Please feel free to contribute either.
 
 
 ## Contributers
 
-This library was developed by [@gadomski](https://github.com/gadomski) with
-support from the Army Corps of Engineers [Cold Regions Research and Development
-Lab](https://github.com/CRREL).
+This library was developed by [@gadomski](https://github.com/gadomski) with support from the Army Corps of Engineers [Cold Regions Research and Development Lab](https://github.com/CRREL).
