@@ -151,7 +151,8 @@ In particular, any release with a 0.x.x prefix should be considered initial deve
 However, when in initial development we will do our best to increment the MINOR version when we make big, breaking changes, and notify users accordingly in the release notes.
 
 Releases will be tagged and available [via Github](https://github.com/gadomski/cpd/releases).
-Main development will occur in the **master** branch.
+The latest release is also available as the [**production** branch](https://github.com/gadomski/cpd/tree/production).
+Main development will occur in the [**master** branch](https://github.com/gadomski/cpd/tree/master).
 
 
 ## License
