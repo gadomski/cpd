@@ -39,7 +39,7 @@ Registration::Registration(float tol, int max_it, float outliers, bool use_fgt, 
 {}
 
 
-SpResult Registration::operator()(const arma::mat& X, const arma::mat& Y) const
+SpResult Registration::run(const arma::mat& X, const arma::mat& Y) const
 {
     DEBUG("Running registration, X.n_rows: " << X.n_rows << ", Y.n_rows: " <<
           Y.n_rows);

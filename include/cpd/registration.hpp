@@ -54,7 +54,7 @@ public:
         float z_exaggeration = DEFAULT_Z_EXAGGERATION
     );
 
-    SpResult operator()(const arma::mat& X, const arma::mat& Y) const;
+    SpResult run(const arma::mat& X, const arma::mat& Y) const;
     Normalization normalize(arma::mat& X, arma::mat& Y) const;
     void denormalize(arma::mat& Y, const Normalization& normal) const;
 
