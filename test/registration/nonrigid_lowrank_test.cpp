@@ -18,7 +18,7 @@
 ******************************************************************************/
 
 #include <gtest/gtest.h>
-#include <cpd/registration/nonrigid_lowrank.hpp>
+#include <cpd/nonrigid_lowrank.hpp>
 
 #include "fixtures.hpp"
 

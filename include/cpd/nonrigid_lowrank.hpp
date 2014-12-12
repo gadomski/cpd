@@ -19,7 +19,7 @@
 
 #pragma once
 
-#include <cpd/registration/base.hpp>
+#include <cpd/nonrigid.hpp>
 
 
 namespace cpd
@@ -28,46 +28,41 @@ namespace registration
 {
 
 
-class Nonrigid : public Base
+class NonrigidLowrank : public Nonrigid
 {
 public:
 
-    explicit Nonrigid(
+    explicit NonrigidLowrank(
         float tol = DEFAULT_TOLERANCE,
         int max_it = DEFAULT_MAX_ITERATIONS,
         float outliers = DEFAULT_OUTLIERS,
         bool use_fgt = DEFAULT_FGT,
         float epsilon = DEFAULT_EPSILON,
         float beta = DEFAULT_BETA,
-        float lambda =  DEFAULT_LAMBDA
+        float lambda =  DEFAULT_LAMBDA,
+        // Andriy's Matlab implementation recommends setting this to
+        // M ^ (1/2), where M is the number of points in Y
+        arma::uword numeig = DEFAULT_NUMEIG
     );
 
-    inline float get_beta() const
+    inline arma::uword get_numeig() const
     {
-        return m_beta;
-    }
-    inline float get_lambda() const
-    {
-        return m_lambda;
+        return m_numeig;
     }
 
-    inline void set_beta(float beta)
+    inline void set_numeig(int numeig)
     {
-        m_beta = beta;
-    }
-    inline void set_lambda(float lambda)
-    {
-        m_lambda = lambda;
+        m_numeig = numeig;
     }
 
-    virtual ~Nonrigid() {};
+    virtual ~NonrigidLowrank() {};
 
 private:
 
     virtual SpResult execute(const arma::mat& X, const arma::mat& Y) const;
 
-    float m_beta;
-    float m_lambda;
+    arma::uword m_numeig;
+
 };
 
 

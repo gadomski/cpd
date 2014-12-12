@@ -17,7 +17,7 @@
 * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ******************************************************************************/
 
-#include <cpd/registration/nonrigid_lowrank.hpp>
+#include <cpd/nonrigid_lowrank.hpp>
 
 #include "affinity_eigenvectors.hpp"
 #include "debug.hpp"

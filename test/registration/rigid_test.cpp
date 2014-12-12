@@ -18,7 +18,7 @@
 ******************************************************************************/
 
 #include <gtest/gtest.h>
-#include <cpd/registration/rigid.hpp>
+#include <cpd/rigid.hpp>
 
 #include "fixtures.hpp"
 

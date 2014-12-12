@@ -19,7 +19,7 @@
 
 #pragma once
 
-#include <cpd/registration/nonrigid.hpp>
+#include <cpd/registration.hpp>
 
 
 namespace cpd
@@ -28,40 +28,45 @@ namespace registration
 {
 
 
-class NonrigidLowrank : public Nonrigid
+class Rigid : public Base
 {
 public:
 
-    explicit NonrigidLowrank(
+    explicit Rigid(
         float tol = DEFAULT_TOLERANCE,
         int max_it = DEFAULT_MAX_ITERATIONS,
         float outliers = DEFAULT_OUTLIERS,
         bool use_fgt = DEFAULT_FGT,
         float epsilon = DEFAULT_EPSILON,
-        float beta = DEFAULT_BETA,
-        float lambda =  DEFAULT_LAMBDA,
-        // Andriy's Matlab implementation recommends setting this to
-        // M ^ (1/2), where M is the number of points in Y
-        arma::uword numeig = DEFAULT_NUMEIG
+        bool strict_rot = DEFAULT_STRICT_ROTATION,
+        bool use_scaling = DEFAULT_USE_SCALING
     );
 
-    inline arma::uword get_numeig() const
+    inline bool strict_rot() const
     {
-        return m_numeig;
+        return m_strict_rot;
+    }
+    inline bool use_scaling() const
+    {
+        return m_use_scaling;
     }
 
-    inline void set_numeig(int numeig)
+    inline void strict_rot(bool strict_rot)
     {
-        m_numeig = numeig;
+        m_strict_rot = strict_rot;
+    }
+    inline void use_scaling(bool use_scaling)
+    {
+        m_use_scaling = use_scaling;
     }
 
-    virtual ~NonrigidLowrank() {};
+    virtual ~Rigid() {};
 
 private:
-
     virtual SpResult execute(const arma::mat& X, const arma::mat& Y) const;
 
-    arma::uword m_numeig;
+    bool m_strict_rot;
+    bool m_use_scaling;
 
 };
 

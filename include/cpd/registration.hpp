@@ -22,8 +22,8 @@
 #include <armadillo>
 
 #include <cpd/defaults.hpp>
-#include <cpd/registration/normalization.hpp>
-#include <cpd/registration/result.hpp>
+#include <cpd/normalization.hpp>
+#include <cpd/result.hpp>
 
 
 namespace cpd

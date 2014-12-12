@@ -19,7 +19,7 @@
 
 #pragma once
 
-#include <cpd/registration/base.hpp>
+#include <cpd/registration.hpp>
 
 
 namespace cpd
@@ -28,46 +28,46 @@ namespace registration
 {
 
 
-class Rigid : public Base
+class Nonrigid : public Base
 {
 public:
 
-    explicit Rigid(
+    explicit Nonrigid(
         float tol = DEFAULT_TOLERANCE,
         int max_it = DEFAULT_MAX_ITERATIONS,
         float outliers = DEFAULT_OUTLIERS,
         bool use_fgt = DEFAULT_FGT,
         float epsilon = DEFAULT_EPSILON,
-        bool strict_rot = DEFAULT_STRICT_ROTATION,
-        bool use_scaling = DEFAULT_USE_SCALING
+        float beta = DEFAULT_BETA,
+        float lambda =  DEFAULT_LAMBDA
     );
 
-    inline bool strict_rot() const
+    inline float get_beta() const
     {
-        return m_strict_rot;
+        return m_beta;
     }
-    inline bool use_scaling() const
+    inline float get_lambda() const
     {
-        return m_use_scaling;
-    }
-
-    inline void strict_rot(bool strict_rot)
-    {
-        m_strict_rot = strict_rot;
-    }
-    inline void use_scaling(bool use_scaling)
-    {
-        m_use_scaling = use_scaling;
+        return m_lambda;
     }
 
-    virtual ~Rigid() {};
+    inline void set_beta(float beta)
+    {
+        m_beta = beta;
+    }
+    inline void set_lambda(float lambda)
+    {
+        m_lambda = lambda;
+    }
+
+    virtual ~Nonrigid() {};
 
 private:
+
     virtual SpResult execute(const arma::mat& X, const arma::mat& Y) const;
 
-    bool m_strict_rot;
-    bool m_use_scaling;
-
+    float m_beta;
+    float m_lambda;
 };
 
 

@@ -19,7 +19,7 @@
 
 #include <gflags/gflags.h>
 
-#include <cpd/registration/nonrigid_lowrank.hpp>
+#include <cpd/nonrigid_lowrank.hpp>
 
 
 using namespace cpd::registration;
