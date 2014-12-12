@@ -15,5 +15,16 @@ install:
     - scripts/install_figtree.sh
     - sudo pip install cpp-coveralls
 
+before_script:
+    - if [[ $CXX == "g++" ]]; then
+      export CPD_BUILD_COVERAGE="ON";
+      export CXX="g++-4.8";
+      else
+      export CPD_BUILD_COVERAGE="OFF";
+      fi
+
 script:
     - scripts/build_and_test.sh
+
+after_script:
+    - scripts/coveralls.sh
