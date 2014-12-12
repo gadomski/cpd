@@ -93,7 +93,7 @@ SpResult Rigid::execute(const arma::mat& X, const arma::mat& Y) const
                 (arma::accu(arma::pow(Y, 2) % arma::repmat(P1, 1, D)) -
                  Np * arma::as_scalar(mu_y.t() * mu_y));
             sigma2 = std::abs(
-                         arma::accu(arma::pow(Y, 2) % arma::repmat(Pt1, 1, D)) -
+                         arma::accu(arma::pow(X, 2) % arma::repmat(Pt1, 1, D)) -
                          Np * arma::as_scalar(mu_x.t() * mu_x) -
                          s * arma::trace(S * C)) /
                      (Np * D);
