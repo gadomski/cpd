@@ -1,11 +1,19 @@
+configure_file(
+    ${CMAKE_CURRENT_SOURCE_DIR}/config.hpp.in
+    ${CMAKE_CURRENT_BINARY_DIR}/config.hpp
+    )
+
 include_directories(
     ${CPD_INCLUDE_DIR}
     ${PROJECT_SOURCE_DIR}/src
     ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_BINARY_DIR}
     ${gtest_SOURCE_DIR}/include
     )
 
 set(src
+    config.cpp
+
     affinity_eigenvectors_test.cpp
     affinity_matrix_test.cpp
     exceptions_test.cpp
@@ -37,3 +45,5 @@ if (BUILD_COVERAGE)
         COMMENT "Generating code coverage"
         )
 endif (BUILD_COVERAGE)
+
+add_subdirectory(performance)

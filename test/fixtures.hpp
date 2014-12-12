@@ -17,7 +17,11 @@
 * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ******************************************************************************/
 
+#pragma once
+
 #include <armadillo>
+
+#include "config.hpp"
 
 
 namespace cpd
@@ -73,18 +77,6 @@ public:
             << -0.8 << 0.60 << 0.00 << arma::endr
             << 0.48 << 0.64 << 0.60 << arma::endr;
         m_Y = m_X * m_R.t();
-    }
-
-    void expect_matrices_near(const arma::mat& X, const arma::mat& Y, double tolerance)
-    {
-        EXPECT_EQ(X.n_elem, Y.n_elem);
-        typedef arma::mat::const_iterator it_t;
-        for (it_t itX = X.begin(), itY = Y.begin();
-                itX != X.end() && itY != Y.end();
-                ++itX, ++itY)
-        {
-            EXPECT_NEAR(*itX, *itY, tolerance);
-        }
     }
 
     arma::mat::fixed<36, 3> m_X;
