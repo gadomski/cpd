@@ -26,8 +26,6 @@
 
 namespace cpd
 {
-namespace registration
-{
 
 
 Nonrigid::Nonrigid(float tol, int max_it, float outliers, bool use_fgt,
@@ -99,5 +97,4 @@ SpResult Nonrigid::execute(const arma::mat& X, const arma::mat& Y) const
 }
 
 
-}
 }

@@ -28,8 +28,6 @@
 
 namespace cpd
 {
-namespace registration
-{
 
 
 class Base
@@ -135,5 +133,4 @@ private:
 };
 
 
-}
 }

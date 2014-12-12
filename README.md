@@ -37,13 +37,13 @@ Register two existing double matrices with data in column-major order:
 
 ```cpp
 #include <armadillo>
-#include <cpd/registration/nonrigid_lowrank.hpp>
+#include <cpd/nonrigid_lowrank.hpp>
 
 double* Xraw, Yraw;   // X has N rows, Y has M rows, and both have 3 columns
 arma::mat X(Xraw, N, 3, false);
 arma::mat Y(Yraw, M, 3, false);
-cpd::registration::NonrigidLowrank reg;
-cpd::registration::SpResult result = reg(X, Y);
+cpd::NonrigidLowrank reg;
+cpd::SpResult result = reg(X, Y);
 // Print out the registered point data
 std::cout << result->Y << std::endl;
 ```

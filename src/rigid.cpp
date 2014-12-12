@@ -25,8 +25,6 @@
 
 namespace cpd
 {
-namespace registration
-{
 
 
 Rigid::Rigid(float tol, int max_it, float outliers, bool use_fgt, float epsilon,
@@ -123,5 +121,4 @@ SpResult Rigid::execute(const arma::mat& X, const arma::mat& Y) const
 }
 
 
-}
 }

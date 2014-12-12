@@ -27,8 +27,6 @@
 
 namespace cpd
 {
-namespace registration
-{
 
 
 NonrigidLowrank::NonrigidLowrank(float tol, int max_it, float outliers,
@@ -118,5 +116,4 @@ SpResult NonrigidLowrank::execute(const arma::mat& X, const arma::mat& Y) const
 }
 
 
-}
 }

@@ -18,7 +18,7 @@
 ******************************************************************************/
 
 #include <gtest/gtest.h>
-#include <cpd/rigid.hpp>
+#include <cpd/nonrigid_lowrank.hpp>
 
 #include "fixtures.hpp"
 
@@ -29,22 +29,34 @@ namespace test
 {
 
 
-class RigidRegistration : public RegistrationTest
+class NonrigidLowrankRegistration : public RegistrationTest
 {};
 
 
-TEST_F(RigidRegistration, InitializesWithDefaults)
+TEST_F(NonrigidLowrankRegistration, InitializesWithDefaults)
 {
-    cpd::registration::Rigid reg;
+    cpd::NonrigidLowrank reg;
 }
 
 
-TEST_F(RigidRegistration, RegistersData)
+TEST_F(NonrigidLowrankRegistration, RegistersData)
 {
-    cpd::registration::Rigid reg;
+    cpd::NonrigidLowrank reg;
     reg.use_fgt(false); // to tighten up our tolerances
-    cpd::registration::SpResult result = reg(m_X, m_Y);
-    expect_matrices_near(m_X, result->Y, 0.001);
+    reg.set_numeig(10); // becuase the default (M ^ (1/2) is too low)
+    cpd::SpResult result = reg(m_X, m_Y);
+    expect_matrices_near(m_X, result->Y, 0.1);
+}
+
+
+TEST_F(NonrigidLowrankRegistration, RegistersDataWithZExaggeration)
+{
+    cpd::NonrigidLowrank reg;
+    reg.use_fgt(false);
+    reg.set_numeig(10);
+    reg.set_z_exaggeration(2);
+    cpd::SpResult result = reg(m_X, m_Y);
+    expect_matrices_near(m_X, result->Y, 0.1);
 }
 
 

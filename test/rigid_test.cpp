@@ -18,7 +18,7 @@
 ******************************************************************************/
 
 #include <gtest/gtest.h>
-#include <cpd/nonrigid.hpp>
+#include <cpd/rigid.hpp>
 
 #include "fixtures.hpp"
 
@@ -29,22 +29,22 @@ namespace test
 {
 
 
-class NonrigidRegistration : public RegistrationTest
+class RigidRegistration : public RegistrationTest
 {};
 
 
-TEST_F(NonrigidRegistration, InitializesWithDefaults)
+TEST_F(RigidRegistration, InitializesWithDefaults)
 {
-    cpd::registration::Nonrigid reg;
+    cpd::Rigid reg;
 }
 
 
-TEST_F(NonrigidRegistration, RegistersData)
+TEST_F(RigidRegistration, RegistersData)
 {
-    cpd::registration::Nonrigid reg;
+    cpd::Rigid reg;
     reg.use_fgt(false); // to tighten up our tolerances
-    cpd::registration::SpResult result = reg(m_X, m_Y);
-    expect_matrices_near(m_X, result->Y, 0.0001);
+    cpd::SpResult result = reg(m_X, m_Y);
+    expect_matrices_near(m_X, result->Y, 0.001);
 }
 
 

@@ -26,8 +26,6 @@
 
 namespace cpd
 {
-namespace registration
-{
 
 
 Base::Base(float tol, int max_it, float outliers, bool use_fgt, float epsilon,
@@ -109,5 +107,4 @@ double Base::find_P(
 }
 
 
-}
 }

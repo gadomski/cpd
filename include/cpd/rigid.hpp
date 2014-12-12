@@ -24,8 +24,6 @@
 
 namespace cpd
 {
-namespace registration
-{
 
 
 class Rigid : public Base
@@ -71,5 +69,4 @@ private:
 };
 
 
-}
 }

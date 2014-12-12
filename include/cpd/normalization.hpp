@@ -22,8 +22,6 @@
 
 namespace cpd
 {
-namespace registration
-{
 
 
 struct Normalization
@@ -33,5 +31,4 @@ struct Normalization
 };
 
 
-}
 }

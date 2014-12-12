@@ -24,8 +24,6 @@
 
 namespace cpd
 {
-namespace registration
-{
 
 
 class NonrigidLowrank : public Nonrigid
@@ -66,5 +64,4 @@ private:
 };
 
 
-}
 }

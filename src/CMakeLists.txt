@@ -9,10 +9,10 @@ set(SRC
     find_P.cpp
     sigma2.cpp
 
-    registration/base.cpp
-    registration/nonrigid.cpp
-    registration/nonrigid_lowrank.cpp
-    registration/rigid.cpp
+    registration.cpp
+    nonrigid.cpp
+    nonrigid_lowrank.cpp
+    rigid.cpp
     )
 
 add_library(${CPD_LIB_TARGET} ${SRC})

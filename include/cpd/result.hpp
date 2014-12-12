@@ -26,8 +26,6 @@
 
 namespace cpd
 {
-namespace registration
-{
 
 
 struct Result
@@ -39,5 +37,4 @@ struct Result
 typedef std::shared_ptr<Result> SpResult;
 
 
-}
 }

@@ -22,7 +22,7 @@
 #include <cpd/nonrigid_lowrank.hpp>
 
 
-using namespace cpd::registration;
+using namespace cpd;
 
 
 DEFINE_int32(precision, 3, "Output precision");
@@ -71,7 +71,7 @@ int main(int argc, char** argv)
         std::cerr << "ERROR: currently, only nonrigid_lowrank is supported" << std::endl;
         return 1;
     }
-    cpd::registration::NonrigidLowrank reg(
+    cpd::NonrigidLowrank reg(
         FLAGS_tol,
         FLAGS_max_it,
         FLAGS_outliers,
@@ -81,7 +81,7 @@ int main(int argc, char** argv)
         FLAGS_lambda,
         FLAGS_numeig
         );
-    cpd::registration::SpResult result = reg(X, Y);
+    cpd::SpResult result = reg(X, Y);
 
     std::cout.precision(FLAGS_precision);
     std::cout << std::fixed;
