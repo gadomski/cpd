@@ -5,7 +5,7 @@ include_directories(
     ${gtest_SOURCE_DIR}/include
     )
 
-set(SRC
+set(src
     affinity_eigenvectors_test.cpp
     affinity_matrix_test.cpp
     exceptions_test.cpp
@@ -17,18 +17,18 @@ set(SRC
     )
 
 if (BUILD_64BIT)
-    set(SRC ${SRC} arma_64bit_test.cpp)
+    set(src ${src} arma_64bit_test.cpp)
 else()
-    set(SRC ${SRC} arma_32bit_test.cpp)
+    set(src ${src} arma_32bit_test.cpp)
 endif (BUILD_64BIT)
 
-set(CPD_TEST_LINK_LIBRARIES
+set(deps
     ${CPD_LIB_TARGET}
     gtest_main
     )
 
-add_executable(${CPD_TEST_TARGET} ${SRC})
-target_link_libraries(${CPD_TEST_TARGET} ${CPD_TEST_LINK_LIBRARIES})
+add_executable(${CPD_TEST_TARGET} ${src})
+target_link_libraries(${CPD_TEST_TARGET} ${deps})
 
 if (BUILD_COVERAGE)
     add_custom_target(${CPD_COVERAGE_TARGET}

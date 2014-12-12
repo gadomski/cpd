@@ -3,7 +3,7 @@ include_directories(
     ${CPD_INCLUDE_DIR}
     )
 
-set(SRC
+set(src
     affinity_eigenvectors.cpp
     affinity_matrix.cpp
     find_P.cpp
@@ -14,16 +14,18 @@ set(SRC
     sigma2.cpp
     )
 
-add_library(${CPD_LIB_TARGET} ${SRC})
+set(deps
+    ${ARMADILLO_LIBRARIES}
+    ${FIGTREE_LIBRARY}
+    )
+
+add_library(${CPD_LIB_TARGET} ${src})
 
 set_property(TARGET ${CPD_LIB_TARGET} PROPERTY OUTPUT_NAME ${CPD_LIB_NAME})
 set_property(TARGET ${CPD_LIB_TARGET} PROPERTY VERSION ${CPD_VERSION})
 set_property(TARGET ${CPD_LIB_TARGET} PROPERTY SOVERSION ${CPD_SOVERSION})
 
-target_link_libraries(${CPD_LIB_TARGET}
-    ${ARMADILLO_LIBRARIES}
-    ${FIGTREE_LIBRARY}
-    )
+target_link_libraries(${CPD_LIB_TARGET} ${deps})
 
 install(TARGETS ${CPD_LIB_TARGET}
     LIBRARY DESTINATION lib
