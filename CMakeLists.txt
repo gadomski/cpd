@@ -38,7 +38,6 @@ if (BUILD_COVERAGE)
 endif(BUILD_COVERAGE)
 
 
-
 # Configuration
 set(CMAKE_CXX_FLAGS "-std=c++0x ${CMAKE_CXX_FLAGS}")
 if (BUILD_COVERAGE)
