@@ -144,6 +144,17 @@ If you have problems at any point during the build, please [open a new
 issue](https://github.com/gadomski/cpd/issues/new).
 
 
+## Versioning
+
+**cpd** follows [semantic versioning](http://semver.org/).
+In particular, any release with a 0.x.x prefix should be considered initial development, and used with the understanding that anything could change at any time.
+However, when in initial development we will do our best to increment the MINOR version when we make big, breaking changes, and notify users accordingly in the release notes.
+
+Releases will be tagged and available [via Github](https://github.com/gadomski/cpd/releases).
+Each MINOR release will also have its own branch (e.g. **v0.1**) which will be used to release PATCH fixes.
+Main development will occur in the **master** branch.
+
+
 ## License
 
 This software is distributed under the terms of the original Matlab implementation.
@@ -156,7 +167,7 @@ The original Matlab implementation was copyright (c) 2008-2009 Andriy Myronenko.
 His website is here: https://sites.google.com/site/myronenko/home.
 
 
-## Issues
+## Issues and Contributing
 
 We use github's [issues](https://github.com/gadomski/cpd/issues) and [pull requests](https://github.com/gadomski/cpd/pulls).
 Please feel free to contribute either.
