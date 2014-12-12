@@ -19,9 +19,9 @@
 
 #include <cpd/registration/nonrigid.hpp>
 
-#include <cpd/affinity_matrix.hpp>
-#include <cpd/debug.hpp>
-#include <cpd/sigma2.hpp>
+#include "affinity_matrix.hpp"
+#include "debug.hpp"
+#include "sigma2.hpp"
 
 
 namespace cpd

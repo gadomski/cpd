@@ -19,8 +19,8 @@
 
 #include <cpd/registration/rigid.hpp>
 
-#include <cpd/debug.hpp>
-#include <cpd/sigma2.hpp>
+#include "debug.hpp"
+#include "sigma2.hpp"
 
 
 namespace cpd

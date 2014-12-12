@@ -1,5 +1,6 @@
 include_directories(
     ${CPD_INCLUDE_DIR}
+    ${PROJECT_SOURCE_DIR}/src
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${gtest_SOURCE_DIR}/include
     )

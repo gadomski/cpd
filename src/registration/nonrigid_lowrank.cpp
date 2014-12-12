@@ -19,10 +19,10 @@
 
 #include <cpd/registration/nonrigid_lowrank.hpp>
 
-#include <cpd/affinity_eigenvectors.hpp>
-#include <cpd/debug.hpp>
-#include <cpd/sigma2.hpp>
-#include <cpd/spdiag_locations.hpp>
+#include "affinity_eigenvectors.hpp"
+#include "debug.hpp"
+#include "sigma2.hpp"
+#include "spdiag_locations.hpp"
 
 
 namespace cpd

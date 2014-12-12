@@ -17,11 +17,11 @@
 * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ******************************************************************************/
 
-#include <cpd/affinity_eigenvectors.hpp>
+#include "affinity_eigenvectors.hpp"
 
-#include <cpd/debug.hpp>
-#include <cpd/exceptions.hpp>
-#include <cpd/figtree.hpp>
+#include "debug.hpp"
+#include "exceptions.hpp"
+#include "figtree.hpp"
 
 
 // This whole setup is a relatively magical rewiring of armadillo's sp_auxlib::eigs_sym

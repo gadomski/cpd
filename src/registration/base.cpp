@@ -19,9 +19,9 @@
 
 #include <cpd/registration/base.hpp>
 
-#include <cpd/debug.hpp>
-#include <cpd/exceptions.hpp>
-#include <cpd/find_P.hpp>
+#include "debug.hpp"
+#include "exceptions.hpp"
+#include "find_P.hpp"
 
 
 namespace cpd

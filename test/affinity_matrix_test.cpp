@@ -18,7 +18,7 @@
 ******************************************************************************/
 
 #include <gtest/gtest.h>
-#include <cpd/affinity_matrix.hpp>
+#include "affinity_matrix.hpp"
 
 #include "fixtures.hpp"
 
