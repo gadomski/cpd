@@ -28,8 +28,9 @@ namespace cpd
 {
 
 
-Registration::Registration(float tol, int max_it, float outliers, bool use_fgt, float epsilon,
-           float z_exaggeration)
+Registration::Registration(float tol, int max_it, float outliers, bool use_fgt,
+                           float epsilon,
+                           float z_exaggeration)
     : m_tol(tol)
     , m_max_it(max_it)
     , m_outliers(outliers)
