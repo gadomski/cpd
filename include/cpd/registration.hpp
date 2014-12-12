@@ -30,11 +30,11 @@ namespace cpd
 {
 
 
-class Base
+class Registration
 {
 public:
 
-    explicit Base(
+    explicit Registration(
         // Tolerance criterium
         float tol = DEFAULT_TOLERANCE,
 
@@ -117,7 +117,7 @@ public:
         m_z_exaggeration = z_exaggeration;
     }
 
-    virtual ~Base() {};
+    virtual ~Registration() {};
 
 private:
 

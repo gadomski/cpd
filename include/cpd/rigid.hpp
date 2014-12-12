@@ -26,7 +26,7 @@ namespace cpd
 {
 
 
-class Rigid : public Base
+class Rigid : public Registration
 {
 public:
 

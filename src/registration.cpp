@@ -28,7 +28,7 @@ namespace cpd
 {
 
 
-Base::Base(float tol, int max_it, float outliers, bool use_fgt, float epsilon,
+Registration::Registration(float tol, int max_it, float outliers, bool use_fgt, float epsilon,
            float z_exaggeration)
     : m_tol(tol)
     , m_max_it(max_it)
@@ -39,7 +39,7 @@ Base::Base(float tol, int max_it, float outliers, bool use_fgt, float epsilon,
 {}
 
 
-SpResult Base::operator()(const arma::mat& X, const arma::mat& Y) const
+SpResult Registration::operator()(const arma::mat& X, const arma::mat& Y) const
 {
     DEBUG("Running registration, X.n_rows: " << X.n_rows << ", Y.n_rows: " <<
           Y.n_rows);
@@ -60,7 +60,7 @@ SpResult Base::operator()(const arma::mat& X, const arma::mat& Y) const
 }
 
 
-Normalization Base::normalize(arma::mat& X, arma::mat& Y) const
+Normalization Registration::normalize(arma::mat& X, arma::mat& Y) const
 {
     Normalization normal;
 
@@ -86,14 +86,14 @@ Normalization Base::normalize(arma::mat& X, arma::mat& Y) const
 }
 
 
-void Base::denormalize(arma::mat& Y, const Normalization& normal) const
+void Registration::denormalize(arma::mat& Y, const Normalization& normal) const
 {
     Y = Y * normal.scale + arma::repmat(normal.xd, Y.n_rows, 1);
     Y.col(2) = Y.col(2) / get_z_exaggeration();
 }
 
 
-double Base::find_P(
+double Registration::find_P(
     const arma::mat& X,
     const arma::mat& Y,
     double sigma2,

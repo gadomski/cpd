@@ -29,7 +29,7 @@ namespace cpd
 
 Rigid::Rigid(float tol, int max_it, float outliers, bool use_fgt, float epsilon,
              bool strict_rot, bool use_scaling)
-    : Base(tol, max_it, outliers, use_fgt, epsilon)
+    : Registration(tol, max_it, outliers, use_fgt, epsilon)
     , m_strict_rot(strict_rot)
     , m_use_scaling(use_scaling)
 {}
