@@ -151,7 +151,6 @@ In particular, any release with a 0.x.x prefix should be considered initial deve
 However, when in initial development we will do our best to increment the MINOR version when we make big, breaking changes, and notify users accordingly in the release notes.
 
 Releases will be tagged and available [via Github](https://github.com/gadomski/cpd/releases).
-Each MINOR release will also have its own branch (e.g. **v0.1**) which will be used to release PATCH fixes.
 Main development will occur in the **master** branch.
 
 
