@@ -44,7 +44,7 @@ TEST_F(NonrigidLowrankRegistration, RegistersData)
     cpd::NonrigidLowrank reg;
     reg.use_fgt(false); // to tighten up our tolerances
     reg.set_numeig(10); // becuase the default (M ^ (1/2) is too low)
-    cpd::SpResult result = reg.run(m_X, m_Y);
+    cpd::Registration::SpResult result = reg.run(m_X, m_Y);
     expect_matrices_near(m_X, result->Y, 0.1);
 }
 
@@ -55,7 +55,7 @@ TEST_F(NonrigidLowrankRegistration, RegistersDataWithZExaggeration)
     reg.use_fgt(false);
     reg.set_numeig(10);
     reg.set_z_exaggeration(2);
-    cpd::SpResult result = reg.run(m_X, m_Y);
+    cpd::Registration::SpResult result = reg.run(m_X, m_Y);
     expect_matrices_near(m_X, result->Y, 0.1);
 }
 

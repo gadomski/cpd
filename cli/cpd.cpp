@@ -81,7 +81,7 @@ int main(int argc, char** argv)
         FLAGS_lambda,
         FLAGS_numeig
         );
-    cpd::SpResult result = reg.run(X, Y);
+    cpd::Registration::SpResult result = reg.run(X, Y);
 
     std::cout.precision(FLAGS_precision);
     std::cout << std::fixed;

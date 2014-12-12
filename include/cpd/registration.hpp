@@ -22,8 +22,6 @@
 #include <armadillo>
 
 #include <cpd/defaults.hpp>
-#include <cpd/normalization.hpp>
-#include <cpd/result.hpp>
 
 
 namespace cpd
@@ -33,6 +31,19 @@ namespace cpd
 class Registration
 {
 public:
+
+    struct Normalization
+    {
+        arma::mat xd, yd;
+        double scale;
+    };
+
+    struct Result
+    {
+        arma::mat Y;
+    };
+
+    typedef std::shared_ptr<Result> SpResult;
 
     explicit Registration(
         // Tolerance criterium

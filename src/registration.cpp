@@ -39,7 +39,8 @@ Registration::Registration(float tol, int max_it, float outliers, bool use_fgt, 
 {}
 
 
-SpResult Registration::run(const arma::mat& X, const arma::mat& Y) const
+Registration::SpResult Registration::run(const arma::mat& X,
+        const arma::mat& Y) const
 {
     DEBUG("Running registration, X.n_rows: " << X.n_rows << ", Y.n_rows: " <<
           Y.n_rows);
@@ -60,7 +61,8 @@ SpResult Registration::run(const arma::mat& X, const arma::mat& Y) const
 }
 
 
-Normalization Registration::normalize(arma::mat& X, arma::mat& Y) const
+Registration::Normalization Registration::normalize(arma::mat& X,
+        arma::mat& Y) const
 {
     Normalization normal;
 
