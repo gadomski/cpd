@@ -10,11 +10,10 @@ set(SRC
     affinity_matrix_test.cpp
     exceptions_test.cpp
     find_P_test.cpp
-    sigma2_test.cpp
-
-    nonrigid_test.cpp
     nonrigid_lowrank_test.cpp
+    nonrigid_test.cpp
     rigid_test.cpp
+    sigma2_test.cpp
     )
 
 if (BUILD_64BIT)

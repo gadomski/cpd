@@ -7,12 +7,11 @@ set(SRC
     affinity_eigenvectors.cpp
     affinity_matrix.cpp
     find_P.cpp
-    sigma2.cpp
-
-    registration.cpp
     nonrigid.cpp
     nonrigid_lowrank.cpp
+    registration.cpp
     rigid.cpp
+    sigma2.cpp
     )
 
 add_library(${CPD_LIB_TARGET} ${SRC})
