@@ -13,6 +13,11 @@ endif(NOT CMAKE_BUILD_TYPE)
 set(CMAKE_INCLUDE_DIRECTORIES_BEFORE ON)
 
 
+# Version
+set(CPD_VERSION "0.1.0")
+set(CPD_SOVERSION 0)
+
+
 # Options
 option(BUILD_CLI "Build the command-line interface" OFF)
 option(BUILD_COVERAGE "Build with code coverage support" OFF)
