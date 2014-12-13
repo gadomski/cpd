@@ -43,7 +43,7 @@ TEST_F(RigidRegistration, RegistersData)
 {
     cpd::Rigid reg;
     reg.use_fgt(false); // to tighten up our tolerances
-    cpd::Registration::SpResult result = reg.run(m_X, m_Y);
+    cpd::Registration::ResultPtr result = reg.run(m_X, m_Y);
     expect_matrices_near(m_X, result->Y, 0.001);
 }
 

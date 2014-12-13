@@ -38,7 +38,7 @@ NonrigidLowrank::NonrigidLowrank(float tol, int max_it, float outliers,
 
 
 
-Registration::SpResult NonrigidLowrank::execute(const arma::mat& X,
+Registration::ResultPtr NonrigidLowrank::execute(const arma::mat& X,
         const arma::mat& Y) const
 {
     const arma::uword N = X.n_rows;
@@ -111,7 +111,7 @@ Registration::SpResult NonrigidLowrank::execute(const arma::mat& X,
         ++iter;
     }
 
-    SpResult result(new Result());
+    ResultPtr result(new Result());
     result->Y = T;
     return result;
 }

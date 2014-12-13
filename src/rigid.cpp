@@ -35,7 +35,7 @@ Rigid::Rigid(float tol, int max_it, float outliers, bool use_fgt, float epsilon,
 {}
 
 
-Registration::SpResult Rigid::execute(const arma::mat& X,
+Registration::ResultPtr Rigid::execute(const arma::mat& X,
                                       const arma::mat& Y) const
 {
     const arma::uword N = X.n_rows;
@@ -116,7 +116,7 @@ Registration::SpResult Rigid::execute(const arma::mat& X,
         iter++;
     }
 
-    SpResult result(new Result());
+    ResultPtr result(new Result());
     result->Y = T;
     return result;
 }

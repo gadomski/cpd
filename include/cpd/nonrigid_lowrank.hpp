@@ -57,7 +57,7 @@ public:
 
 private:
 
-    virtual SpResult execute(const arma::mat& X, const arma::mat& Y) const;
+    virtual ResultPtr execute(const arma::mat& X, const arma::mat& Y) const;
 
     arma::uword m_numeig;
 

@@ -40,7 +40,7 @@ Registration::Registration(float tol, int max_it, float outliers, bool use_fgt,
 {}
 
 
-Registration::SpResult Registration::run(const arma::mat& X,
+Registration::ResultPtr Registration::run(const arma::mat& X,
         const arma::mat& Y) const
 {
     DEBUG("Running registration, X.n_rows: " << X.n_rows << ", Y.n_rows: " <<
@@ -56,7 +56,7 @@ Registration::SpResult Registration::run(const arma::mat& X,
           "), yd: (" << normal.yd(0) << "," << normal.yd(1) << "," << normal.yd(
               2) << ")" <<
           ", z-exaggeration: " << get_z_exaggeration());
-    SpResult result = execute(Xn, Yn);
+    ResultPtr result = execute(Xn, Yn);
     denormalize(result->Y, normal);
     return result;
 }

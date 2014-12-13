@@ -43,7 +43,7 @@ public:
         arma::mat Y;
     };
 
-    typedef std::shared_ptr<Result> SpResult;
+    typedef std::shared_ptr<Result> ResultPtr;
 
     explicit Registration(
         // Tolerance criterium
@@ -65,7 +65,7 @@ public:
         float z_exaggeration = DEFAULT_Z_EXAGGERATION
     );
 
-    SpResult run(const arma::mat& X, const arma::mat& Y) const;
+    ResultPtr run(const arma::mat& X, const arma::mat& Y) const;
     Normalization normalize(arma::mat& X, arma::mat& Y) const;
     void denormalize(arma::mat& Y, const Normalization& normal) const;
 
@@ -132,7 +132,7 @@ public:
 
 private:
 
-    virtual SpResult execute(const arma::mat& X, const arma::mat& Y) const = 0;
+    virtual ResultPtr execute(const arma::mat& X, const arma::mat& Y) const = 0;
 
     float m_tol;
     int m_max_it;

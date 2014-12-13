@@ -62,7 +62,7 @@ public:
 
 private:
 
-    virtual SpResult execute(const arma::mat& X, const arma::mat& Y) const;
+    virtual ResultPtr execute(const arma::mat& X, const arma::mat& Y) const;
 
     float m_beta;
     float m_lambda;
