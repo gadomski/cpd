@@ -19,6 +19,8 @@
 
 #pragma once
 
+#include <memory>
+
 #include <armadillo>
 
 #include <cpd/defaults.hpp>
