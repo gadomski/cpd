@@ -1,3 +1,8 @@
+configure_file(
+    version.cpp.in
+    ${CMAKE_CURRENT_BINARY_DIR}/version.cpp
+    )
+
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CPD_INCLUDE_DIR}
@@ -12,6 +17,8 @@ set(src
     registration.cpp
     rigid.cpp
     sigma2.cpp
+
+    ${CMAKE_CURRENT_BINARY_DIR}/version.cpp
     )
 
 set(deps
