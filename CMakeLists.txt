@@ -18,6 +18,7 @@ include(GetGitRevisionDescription)
 get_git_head_revision(GIT_REFSPEC GIT_SHA1)
 git_describe(CPD_VERSION)
 set(CPD_SOVERSION 0)
+message(STATUS "cpd version ${CPD_VERSION}")
 
 
 # Options
