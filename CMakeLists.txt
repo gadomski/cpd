@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 2.8.7 FATAL_ERROR)
 project(cpd CXX)
 
-set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/Modules" ${CMAKE_MODULE_PATH})
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
 set(CMAKE_MACOSX_RPATH ON)
 
 if(NOT CMAKE_BUILD_TYPE)
@@ -14,8 +14,11 @@ set(CMAKE_INCLUDE_DIRECTORIES_BEFORE ON)
 
 
 # Version
-set(CPD_VERSION "0.1.0")
+include(GetGitRevisionDescription)
+get_git_head_revision(GIT_REFSPEC GIT_SHA1)
+git_describe(CPD_VERSION)
 set(CPD_SOVERSION 0)
+message(STATUS "cpd version ${CPD_VERSION}")
 
 
 # Options

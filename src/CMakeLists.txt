@@ -1,3 +1,8 @@
+configure_file(
+    version.cpp.in
+    ${CMAKE_CURRENT_BINARY_DIR}/version.cpp
+    )
+
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CPD_INCLUDE_DIR}
@@ -13,6 +18,8 @@ set(SRC
     nonrigid.cpp
     nonrigid_lowrank.cpp
     rigid.cpp
+
+    ${CMAKE_CURRENT_BINARY_DIR}/version.cpp
     )
 
 add_library(${CPD_LIB_TARGET} ${SRC})
