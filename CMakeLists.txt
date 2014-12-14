@@ -14,7 +14,8 @@ set(CMAKE_INCLUDE_DIRECTORIES_BEFORE ON)
 
 
 # Version
-set(CPD_VERSION "0.1.0")
+include(GetGitRevisionDescription)
+git_describe(CPD_VERSION)
 set(CPD_SOVERSION 0)
 
 
