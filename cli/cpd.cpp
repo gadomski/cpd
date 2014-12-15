@@ -27,7 +27,6 @@
 using namespace cpd;
 
 
-DEFINE_int32(precision, 3, "Output precision");
 DEFINE_string(method, "nonrigid_lowrank", "Registration method");
 DEFINE_double(tol, DEFAULT_TOLERANCE, "Tolerance ctriterium");
 DEFINE_int32(max_it, DEFAULT_MAX_ITERATIONS, "Maximum number of iterations");
@@ -115,9 +114,8 @@ int main(int argc, char** argv)
 
     cpd::Registration::ResultPtr result = reg->run(X, Y);
 
-    std::cout.precision(FLAGS_precision);
-    std::cout << std::fixed;
-    arma::join_horiz(result->Y, Y - result->Y).raw_print(std::cout);
+    arma::join_horiz(result->Y, Y - result->Y).eval().save(std::cout,
+            arma::csv_ascii);
 
     return 0;
 }
