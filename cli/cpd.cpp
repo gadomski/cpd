@@ -38,6 +38,8 @@ DEFINE_double(beta, DEFAULT_BETA, "Std of Gaussian filter");
 DEFINE_double(lambda, DEFAULT_LAMBDA, "Regularization weight");
 DEFINE_double(numeig, DEFAULT_NUMEIG,
               "Number of the largest eigenvectors to use, try NumPoints^(1/2). If zero, will be auto-calculated.");
+DEFINE_bool(include_deltas, true,
+              "Include change vectors for each point.");
 
 
 int main(int argc, char** argv)
@@ -114,8 +116,13 @@ int main(int argc, char** argv)
 
     cpd::Registration::ResultPtr result = reg->run(X, Y);
 
-    arma::join_horiz(result->Y, Y - result->Y).eval().save(std::cout,
-            arma::csv_ascii);
+    arma::mat output(result->Y);
+    if (FLAGS_include_deltas)
+    {
+        output.insert_cols(output.n_cols, Y - output);
+    }
+
+    output.save(std::cout, arma::csv_ascii);
 
     return 0;
 }
