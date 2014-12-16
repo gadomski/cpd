@@ -2,6 +2,7 @@ set(src
     ../config.cpp
     timer.cpp
 
+    nonrigid_lowrank_performance_test.cpp
     rigid_performance_test.cpp
     )
 
