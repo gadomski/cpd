@@ -69,6 +69,7 @@ set(CPD_CLI_TARGET cpd-cli)
 set(CPD_LIB_TARGET cpd-lib)
 set(CPD_TEST_TARGET cpd-test)
 set(CPD_COVERAGE_TARGET coverage)
+set(CPD_PERFORMANCE_TEST_TARGET cpd-performance)
 set(CPD_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/include")
 
 
