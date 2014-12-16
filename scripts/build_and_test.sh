@@ -9,4 +9,5 @@ mkdir build && cd build
 cmake .. -DBUILD_TESTS=ON -DCMAKE_BUILD_TYPE=Debug -DBUILD_64BIT=$BUILD_64BIT -DBUILD_COVERAGE=$CPD_BUILD_COVERAGE && \
     make && \
     bin/cpd-test && \
+    bin/cpd-performance && \
     sudo make install
