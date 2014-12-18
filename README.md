@@ -5,7 +5,7 @@ This library is derived from Matlab code written by Andriy Myronenko and is avai
 
 ![Registering glacier data](demo/helheim-cpd.gif)
 
-This project provides a library, **libcpd** (**libcpd64** for the 64-bit version), for use in your own applications.
+This project provides a library, **libcpd**, for use in your own applications.
 It also provides an optional command-line executable, called simply **cpd**, which provides a subset of the library's functionality for quick command-line usage.
 
 [![Build Status](https://travis-ci.org/gadomski/cpd.svg?branch=master)](https://travis-ci.org/gadomski/cpd)
