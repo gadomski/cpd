@@ -61,7 +61,8 @@ public:
     virtual ~Rigid() {};
 
 private:
-    virtual ResultPtr execute(const arma::mat& X, const arma::mat& Y) const;
+    virtual ResultPtr execute(const arma::mat& X, const arma::mat& Y,
+                              double sigma2) const;
 
     bool m_strict_rot;
     bool m_use_scaling;

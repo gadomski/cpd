@@ -36,7 +36,7 @@ TEST(Sigma2, MatchesReferenceImpl)
     Y << 10 << 11 << 12 << arma::endr
       << 13 << 14 << 15 << arma::endr
       << 16 << 17 << 18 << arma::endr;
-    EXPECT_DOUBLE_EQ(93, get_sigma2(X, Y));
+    EXPECT_DOUBLE_EQ(93, calculate_sigma2(X, Y));
 }
 
 

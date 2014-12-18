@@ -22,6 +22,7 @@
 #include "debug.hpp"
 #include "exceptions.hpp"
 #include "find_P.hpp"
+#include "sigma2.hpp"
 
 
 namespace cpd
@@ -30,13 +31,14 @@ namespace cpd
 
 Registration::Registration(float tol, int max_it, float outliers, bool use_fgt,
                            float epsilon,
-                           float z_exaggeration)
+                           float z_exaggeration, float sigma2)
     : m_tol(tol)
     , m_max_it(max_it)
     , m_outliers(outliers)
     , m_use_fgt(use_fgt)
     , m_epsilon(epsilon)
     , m_z_exaggeration(z_exaggeration)
+    , m_sigma2(sigma2)
 {}
 
 
@@ -51,12 +53,16 @@ Registration::ResultPtr Registration::run(const arma::mat& X,
     }
     arma::mat Xn(X), Yn(Y);
     Normalization normal = normalize(Xn, Yn);
+    float sigma2 = get_sigma2() == 0.0f ?
+                   calculate_sigma2(Xn, Yn) :
+                   get_sigma2() / normal.scale;
+
     DEBUG("Normalized with scale: " << normal.scale <<
           ", xd: (" << normal.xd(0) << "," << normal.xd(1) << "," << normal.xd(2) <<
-          "), yd: (" << normal.yd(0) << "," << normal.yd(1) << "," << normal.yd(
-              2) << ")" <<
-          ", z-exaggeration: " << get_z_exaggeration());
-    ResultPtr result = execute(Xn, Yn);
+          "), yd: (" << normal.yd(0) << "," << normal.yd(1) << "," <<
+          normal.yd(2) << ")" << ", z-exaggeration: " << get_z_exaggeration() <<
+          ", sigma2_init: " << sigma2);
+    ResultPtr result = execute(Xn, Yn, sigma2);
     denormalize(result->Y, normal);
     return result;
 }

@@ -24,7 +24,7 @@ namespace cpd
 {
 
 
-double get_sigma2(const arma::mat& X, const arma::mat& Y)
+double calculate_sigma2(const arma::mat& X, const arma::mat& Y)
 {
     return (Y.n_rows * trace(X.t() * X) +
             X.n_rows * trace(Y.t() * Y) -

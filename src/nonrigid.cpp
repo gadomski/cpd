@@ -37,13 +37,12 @@ Nonrigid::Nonrigid(float tol, int max_it, float outliers, bool use_fgt,
 
 
 Registration::ResultPtr Nonrigid::execute(const arma::mat& X,
-        const arma::mat& Y) const
+        const arma::mat& Y, double sigma2) const
 {
     const arma::uword N = X.n_rows;
     const arma::uword M = Y.n_rows;
     const arma::uword D = Y.n_cols;
 
-    double sigma2 = get_sigma2(X, Y);
     const double sigma2_init = sigma2;
 
     arma::mat T = Y;

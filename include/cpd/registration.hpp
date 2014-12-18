@@ -64,7 +64,10 @@ public:
         float epsilon = DEFAULT_EPSILON,
 
         // Factor by which to exaggerate the z values
-        float z_exaggeration = DEFAULT_Z_EXAGGERATION
+        float z_exaggeration = DEFAULT_Z_EXAGGERATION,
+
+        // Initial sigma2 value, if zero determine auto-magically
+        float sigma2 = DEFAULT_SIGMA2
     );
 
     ResultPtr run(const arma::mat& X, const arma::mat& Y) const;
@@ -104,6 +107,10 @@ public:
     {
         return m_z_exaggeration;
     }
+    inline float get_sigma2() const
+    {
+        return m_sigma2;
+    }
 
     inline void set_tol(float tol)
     {
@@ -129,12 +136,17 @@ public:
     {
         m_z_exaggeration = z_exaggeration;
     }
+    inline void set_sigma2(float sigma2)
+    {
+        m_sigma2 = sigma2;
+    }
 
     virtual ~Registration() {};
 
 private:
 
-    virtual ResultPtr execute(const arma::mat& X, const arma::mat& Y) const = 0;
+    virtual ResultPtr execute(const arma::mat& X, const arma::mat& Y,
+                              double sigma2) const = 0;
 
     float m_tol;
     int m_max_it;
@@ -142,6 +154,7 @@ private:
     bool m_use_fgt;
     float m_epsilon;
     float m_z_exaggeration;
+    float m_sigma2;
 
 };
 

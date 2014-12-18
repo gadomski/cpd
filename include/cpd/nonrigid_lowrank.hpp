@@ -57,7 +57,8 @@ public:
 
 private:
 
-    virtual ResultPtr execute(const arma::mat& X, const arma::mat& Y) const;
+    virtual ResultPtr execute(const arma::mat& X, const arma::mat& Y,
+                              double sigma2) const;
 
     arma::uword m_numeig;
 
