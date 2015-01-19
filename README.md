@@ -37,7 +37,7 @@ Run `cpd --help` for a description of the command-line options available for cus
 
 **cpd** has been tested on the following systems:
 
-- Mac OSX 10.10.1, x86_64-apple-darwin14.0.0 with
+- Mac OSX 10.10.1, x86_64-apple-darwin14.0.0
 - Ubuntu 12.04 LTS Server Edition 64 bit
 
 And the following compilers:
