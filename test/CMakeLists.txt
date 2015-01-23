@@ -37,6 +37,7 @@ set(deps
 
 add_executable(${CPD_TEST_TARGET} ${src})
 target_link_libraries(${CPD_TEST_TARGET} ${deps})
+add_test(unit-tests ${PROJECT_BINARY_DIR}/bin/${CPD_TEST_TARGET})
 
 if (BUILD_COVERAGE)
     add_custom_target(${CPD_COVERAGE_TARGET}

@@ -90,6 +90,7 @@ add_subdirectory(include)
 add_subdirectory(src)
 
 if (BUILD_TESTS)
+    enable_testing()
     add_subdirectory(vendor/gtest-1.7.0)
     add_subdirectory(test)
 endif (BUILD_TESTS)
