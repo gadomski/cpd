@@ -19,6 +19,8 @@
 
 #pragma once
 
+#include <armadillo>
+
 namespace cpd
 {
 
