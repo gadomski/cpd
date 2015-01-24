@@ -35,6 +35,7 @@ set_property(TARGET ${CPD_LIB_TARGET} PROPERTY SOVERSION ${CPD_SOVERSION})
 target_link_libraries(${CPD_LIB_TARGET} ${deps})
 
 install(TARGETS ${CPD_LIB_TARGET}
+    EXPORT ${CPD_EXPORT}
     LIBRARY DESTINATION lib
     ARCHIVE DESTINATION lib
     )
