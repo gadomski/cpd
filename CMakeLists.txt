@@ -16,7 +16,8 @@ set(CMAKE_INCLUDE_DIRECTORIES_BEFORE ON)
 # Version
 include(GetGitRevisionDescription)
 get_git_head_revision(GIT_REFSPEC GIT_SHA1)
-git_describe(CPD_VERSION)
+git_describe(CPD_VERSION_DESCRIBE)
+string(SUBSTRING ${CPD_VERSION_DESCRIBE} 1 -1 CPD_VERSION)
 set(CPD_SOVERSION 0)
 message(STATUS "cpd version ${CPD_VERSION}")
 
@@ -71,6 +72,8 @@ set(CPD_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/include")
 
 set(CPD_LIB_NAME cpd)
 
+set(CPD_EXPORT CPDTargets)
+
 
 # Output paths
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
@@ -98,3 +101,35 @@ endif (BUILD_TESTS)
 if(BUILD_CLI)
     add_subdirectory(cli)
 endif(BUILD_CLI)
+
+
+# CPDConfig.cmake
+include(CMakePackageConfigHelpers)
+
+set(LIB_INSTALL_DIR lib)
+set(INCLUDE_INSTALL_DIR include)
+
+configure_package_config_file(
+    CPDConfig.cmake.in
+    ${PROJECT_BINARY_DIR}/CPDConfig.cmake
+    INSTALL_DESTINATION ${LIB_INSTALL_DIR}/cpd/cmake
+    PATH_VARS INCLUDE_INSTALL_DIR
+    )
+write_basic_package_version_file(
+    ${PROJECT_BINARY_DIR}/CPDConfigVersion.cmake
+    VERSION ${CPD_VERSION}
+    COMPATIBILITY SameMajorVersion
+    )
+export(TARGETS ${CPD_LIB_TARGET} FILE ${PROJECT_BINARY_DIR}/CPDTargets.cmake)
+
+install(
+    FILES
+        ${PROJECT_BINARY_DIR}/CPDConfig.cmake
+        ${PROJECT_BINARY_DIR}/CPDConfigVersion.cmake
+    DESTINATION
+        ${LIB_INSTALL_DIR}/cpd/cmake
+    )
+install(
+    EXPORT ${CPD_EXPORT}
+    DESTINATION ${LIB_INSTALL_DIR}/cpd/cmake
+    )
