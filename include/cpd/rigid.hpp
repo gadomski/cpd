@@ -31,13 +31,13 @@ class Rigid : public Registration
 public:
 
     explicit Rigid(
-        float tol = DEFAULT_TOLERANCE,
-        int max_it = DEFAULT_MAX_ITERATIONS,
-        float outliers = DEFAULT_OUTLIERS,
-        bool use_fgt = DEFAULT_FGT,
-        float epsilon = DEFAULT_EPSILON,
-        bool strict_rot = DEFAULT_STRICT_ROTATION,
-        bool use_scaling = DEFAULT_USE_SCALING
+        float tol = DefaultTolerance,
+        int max_it = DefaultMaxIterations,
+        float outliers = DefaultOutliers,
+        bool use_fgt = DefaultFgt,
+        float epsilon = DefaultEpsilon,
+        bool strict_rot = DefaultStrictRotation,
+        bool use_scaling = DefaultUseScaling
     );
 
     inline bool strict_rot() const

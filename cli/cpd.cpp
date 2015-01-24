@@ -28,15 +28,15 @@ using namespace cpd;
 
 
 DEFINE_string(method, "nonrigid_lowrank", "Registration method");
-DEFINE_double(tol, DEFAULT_TOLERANCE, "Tolerance ctriterium");
-DEFINE_int32(max_it, DEFAULT_MAX_ITERATIONS, "Maximum number of iterations");
-DEFINE_double(outliers, DEFAULT_OUTLIERS, "The weight of noise and outliers");
-DEFINE_bool(fgt, DEFAULT_FGT, "Use a Fast Gauss Transform");
-DEFINE_double(epsilon, DEFAULT_EPSILON,
+DEFINE_double(tol, DefaultTolerance, "Tolerance ctriterium");
+DEFINE_int32(max_it, DefaultMaxIterations, "Maximum number of iterations");
+DEFINE_double(outliers, DefaultOutliers, "The weight of noise and outliers");
+DEFINE_bool(fgt, DefaultFgt, "Use a Fast Gauss Transform");
+DEFINE_double(epsilon, DefaultEpsilon,
               "The tolerance of the Fast Gauss Transform");
-DEFINE_double(beta, DEFAULT_BETA, "Std of Gaussian filter");
-DEFINE_double(lambda, DEFAULT_LAMBDA, "Regularization weight");
-DEFINE_double(numeig, DEFAULT_NUMEIG,
+DEFINE_double(beta, DefaultBeta, "Std of Gaussian filter");
+DEFINE_double(lambda, DefaultLambda, "Regularization weight");
+DEFINE_double(numeig, DefaultNumeig,
               "Number of the largest eigenvectors to use, try NumPoints^(1/2). If zero, will be auto-calculated.");
 DEFINE_bool(include_deltas, true,
               "Include change vectors for each point.");
