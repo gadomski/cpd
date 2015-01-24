@@ -27,4 +27,6 @@ script:
     - scripts/build_and_test.sh
 
 after_script:
-    - scripts/coveralls.sh
+    - if [[ $CPD_BUILD_COVERAGE == "ON" ]]; then
+      scripts/coveralls.sh;
+      fi
