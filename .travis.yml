@@ -10,6 +10,7 @@ env:
 
 install:
     - scripts/install_compilers.sh
+    - scripts/install_cmake.sh
     - sudo apt-get install liblapack-dev libarpack2-dev libsuperlu3-dev gfortran
     - scripts/install_armadillo.sh
     - scripts/install_figtree.sh
