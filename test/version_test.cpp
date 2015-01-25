@@ -17,16 +17,21 @@
 * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ******************************************************************************/
 
+#include <gtest/gtest.h>
 #include <cpd/version.hpp>
-
-#define GIT_SHA1 "@GIT_SHA1@"
 
 
 namespace cpd
 {
+namespace test
+{
 
 
-const char g_GIT_SHA1[] = GIT_SHA1;
+TEST(Version, Exists)
+{
+    EXPECT_STRNE("", g_GIT_SHA1);
+}
 
 
+}
 }

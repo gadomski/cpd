@@ -22,6 +22,7 @@ set(src
     nonrigid_test.cpp
     rigid_test.cpp
     sigma2_test.cpp
+    version_test.cpp
     )
 
 if (BUILD_64BIT)
