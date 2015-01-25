@@ -14,9 +14,15 @@ It also provides an optional command-line executable, called simply **cpd**, whi
 
 ## Usage (C++ API)
 
-The C++ API is as-of-yet undocumented, but to see it in action check out [PDAL's](http://pdal.io) [cpd plugin](https://github.com/gadomski/PDAL/blob/cpd/plugins/cpd/kernel/cpd.cpp).
+The CPD source includes an example project, located in `example/`, that demonstrates a simple usage of the C++ API.
+The latest example code is also available at https://github.com/gadomski/cpd/tree/master/example.
 
-Refer to the [**cpd** source](https://github.com/gadomski/cpd) and the [armadillo documentation](http://arma.sourceforge.net/docs.html) for more information on the API and usage.
+If CPD is installed to a non-standard location, you will have to provide the `CPD_DIR` option to cmake.
+This directory should point to the location of the cmake configure scripts — these are usually located in the `lib/cpd/cmake` directory underneath the installation prefix.
+
+For example, if I installed cpd with `CMAKE_INSTALL_PREFIX=/home/gadomski/local/`, I would set `CPD_DIR` to `/home/gadomski/local/lib/cpd/cmake`.
+
+If you install CPD to one of the standard library locations (`/usr`, `/usr/local`), CPD's cmake configure scripts should be picked up automatically, and you should not need to set `CPD_DIR`.
 
 
 ## Usage (command-line)
