@@ -14,5 +14,5 @@ Steps to create a new cpd release
 4. If this is a tiny release, update the appropriate minor version branch (e.g. `v0.2`) — otherwise, create a new branch for this minor version
 5. `git tag -F doc/release-notes/v0.2.0.md v0.2.0`
 6. `git push origin master production v0.2 --tags`
-7. `git brach -d release/v0.2.0`
+7. `git branch -d release/v0.2.0`
 8. Use the github interface to create a new release in the interface
