@@ -31,13 +31,13 @@ class Nonrigid : public Registration
 public:
 
     explicit Nonrigid(
-        float tol = DEFAULT_TOLERANCE,
-        int max_it = DEFAULT_MAX_ITERATIONS,
-        float outliers = DEFAULT_OUTLIERS,
-        bool use_fgt = DEFAULT_FGT,
-        float epsilon = DEFAULT_EPSILON,
-        float beta = DEFAULT_BETA,
-        float lambda =  DEFAULT_LAMBDA
+        float tol = DefaultTolerance,
+        int max_it = DefaultMaxIterations,
+        float outliers = DefaultOutliers,
+        bool use_fgt = DefaultFgt,
+        float epsilon = DefaultEpsilon,
+        float beta = DefaultBeta,
+        float lambda =  DefaultLambda
     );
 
     inline float get_beta() const

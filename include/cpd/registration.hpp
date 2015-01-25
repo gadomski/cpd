@@ -49,25 +49,25 @@ public:
 
     explicit Registration(
         // Tolerance criterium
-        float tol = DEFAULT_TOLERANCE,
+        float tol = DefaultTolerance,
 
         // Maximum number of iterations allowed
-        int max_it = DEFAULT_MAX_ITERATIONS,
+        int max_it = DefaultMaxIterations,
 
         // The weight of noise and outliers
-        float outliers = DEFAULT_OUTLIERS,
+        float outliers = DefaultOutliers,
 
         // Use a Fast Gauss Transform (less accurate but faster)
-        bool use_fgt = DEFAULT_FGT,
+        bool use_fgt = DefaultFgt,
 
         // Tolerance level for the Fast Gauss Transform
-        float epsilon = DEFAULT_EPSILON,
+        float epsilon = DefaultEpsilon,
 
         // Factor by which to exaggerate the z values
-        float z_exaggeration = DEFAULT_Z_EXAGGERATION,
+        float z_exaggeration = DefaultZExaggeration,
 
         // Initial sigma2 value, if zero determine auto-magically
-        float sigma2 = DEFAULT_SIGMA2
+        float sigma2 = DefaultSigma2
     );
 
     ResultPtr run(const arma::mat& X, const arma::mat& Y) const;

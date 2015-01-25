@@ -26,24 +26,24 @@ namespace cpd
 
 
 // Common
-const float DEFAULT_TOLERANCE = 1e-5;
-const int DEFAULT_MAX_ITERATIONS = 150;
-const float DEFAULT_OUTLIERS = 0.1;
-const bool DEFAULT_FGT = true;
-const float DEFAULT_EPSILON = 1e-4;
-const float DEFAULT_Z_EXAGGERATION = 1.0f;
-const float DEFAULT_SIGMA2 = 0;
+const float DefaultTolerance = 1e-5;
+const int DefaultMaxIterations = 150;
+const float DefaultOutliers = 0.1;
+const bool DefaultFgt = true;
+const float DefaultEpsilon = 1e-4;
+const float DefaultZExaggeration = 1.0f;
+const float DefaultSigma2 = 0;
 
 // Rigid
-const bool DEFAULT_STRICT_ROTATION = true;
-const bool DEFAULT_USE_SCALING = true;
+const bool DefaultStrictRotation = true;
+const bool DefaultUseScaling = true;
 
 // Nonrigid
-const float DEFAULT_BETA = 2;
-const float DEFAULT_LAMBDA = 3;
+const float DefaultBeta = 2;
+const float DefaultLambda = 3;
 
 // NonrigidLowrank
-const arma::uword DEFAULT_NUMEIG = 0;
+const arma::uword DefaultNumeig = 0;
 
 
 }
