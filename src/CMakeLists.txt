@@ -33,6 +33,10 @@ set_property(TARGET ${CPD_LIB_TARGET} PROPERTY VERSION ${CPD_VERSION})
 set_property(TARGET ${CPD_LIB_TARGET} PROPERTY SOVERSION ${CPD_SOVERSION})
 
 target_link_libraries(${CPD_LIB_TARGET} ${deps})
+if (BUILD_64BIT)
+    target_compile_definitions(${CPD_LIB_TARGET} PUBLIC ARMA_64BIT_WORD)
+endif (BUILD_64BIT)
+
 
 install(TARGETS ${CPD_LIB_TARGET}
     EXPORT ${CPD_EXPORT}

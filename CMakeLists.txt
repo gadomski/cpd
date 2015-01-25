@@ -57,10 +57,6 @@ if (BUILD_DEBUG_OUTPUT)
     add_definitions(-DCPD_DEBUG_OUTPUT)
 endif(BUILD_DEBUG_OUTPUT)
 
-if (BUILD_64BIT)
-    add_definitions(-DARMA_64BIT_WORD)
-endif (BUILD_64BIT)
-
 
 # Targets and directories
 set(CPD_CLI_TARGET cpd-cli)
