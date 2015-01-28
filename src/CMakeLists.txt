@@ -22,9 +22,19 @@ set(src
     )
 
 set(deps
-    ${ARMADILLO_LIBRARIES}
     ${FIGTREE_LIBRARY}
     )
+
+if (USE_ARMA_WRAPPER)
+    list(APPEND deps ${ARMADILLO_LIBRARIES})
+else(USE_ARMA_WRAPPER)
+    list(APPEND deps ${ARPACK_LIBRARY})
+    if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+        list(APPEND deps ${ACCELERATE_LIBRARY})
+    else(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+        list(APPEND deps ${LAPACK_LIBRARIES} ${BLAS_LIBRARIES})
+    endif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+endif(USE_ARMA_WRAPPER)
 
 add_library(${CPD_LIB_TARGET} ${src})
 

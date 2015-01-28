@@ -1,6 +1,6 @@
 # Setup
 cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
-project(cpd CXX)
+project(cpd CXX C)
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
 set(CMAKE_MACOSX_RPATH ON)
@@ -30,6 +30,12 @@ option(BUILD_SHARED_LIBS "Create shared libraries" ON)
 option(BUILD_TESTS "Build tests" ON)
 option(BUILD_64BIT "Build with 64 bit matrix support" ON)
 
+if (WIN32)
+    set(USE_ARMA_WRAPPER OFF)
+else(WIN32)
+    option(USE_ARMA_WRAPPER "Use the armadillo wrapper library" ON)
+endif(WIN32)
+
 
 # Checks
 if (BUILD_COVERAGE)
@@ -57,6 +63,10 @@ if (BUILD_DEBUG_OUTPUT)
     add_definitions(-DCPD_DEBUG_OUTPUT)
 endif(BUILD_DEBUG_OUTPUT)
 
+if (NOT USE_ARMA_WRAPPER)
+    add_definitions(-DARMA_DONT_USE_WRAPPER)
+endif()
+
 
 # Targets and directories
 set(CPD_CLI_TARGET cpd-cli)
@@ -82,6 +92,16 @@ include_directories(${ARMADILLO_INCLUDE_DIRS})
 
 find_package(Figtree REQUIRED)
 include_directories(${FIGTREE_INCLUDE_DIRS})
+
+if (NOT USE_ARMA_WRAPPER)
+    find_package(ARPACK REQUIRED)
+    if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+        find_library(ACCELERATE_LIBRARY Accelerate)
+    else(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+        find_package(BLAS REQUIRED)
+        find_package(LAPACK REQUIRED)
+    endif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+endif(NOT USE_ARMA_WRAPPER)
 
 
 # Includes
