@@ -5,8 +5,10 @@ compiler:
     - gcc
 
 env:
-    - CPD_64BIT=true
-    - CPD_64BIT=false
+    - CPD_64BIT=true CPD_USE_ARMA_WRAPPER=true
+    - CPD_64BIT=true CPD_USE_ARMA_WRAPPER=false
+    - CPD_64BIT=false CPD_USE_ARMA_WRAPPER=true
+    - CPD_64BIT=false CPD_USE_ARMA_WRAPPER=false
 
 install:
     - scripts/install_compilers.sh
