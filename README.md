@@ -70,7 +70,7 @@ To build **cpd** yourself, you will need all of the above, plus:
 
 - [git](http://git-scm.com/): distributed version control system
 - [cmake](http://www.cmake.org/): cross-platform, open-source build system
-  (version 2.8.7 or higher required)
+  (version 2.8.12 or higher required)
 - a modern compiler that supports `-std=c++0x`, e.g. gcc-4.8 or a newer clang
 
 Instructions are provided below for installing on Mac OSX and linux.
