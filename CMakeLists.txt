@@ -87,7 +87,7 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib)
 
 
 # Dependencies
-find_package(Armadillo REQUIRED)
+find_package(Armadillo 4.500.1 REQUIRED)
 include_directories(${ARMADILLO_INCLUDE_DIRS})
 
 find_package(Figtree REQUIRED)
