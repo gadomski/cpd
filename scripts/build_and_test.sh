@@ -16,6 +16,7 @@ mkdir build && cd build
 cmake .. \
         -DBUILD_TESTS=ON \
         -DCMAKE_BUILD_TYPE=Debug \
+        -DBUILD_CLI=ON \
         -DBUILD_64BIT=$BUILD_64BIT \
         -DBUILD_COVERAGE=$CPD_BUILD_COVERAGE \
         -DUSE_ARMA_WRAPPER=$USE_ARMA_WRAPPER && \
