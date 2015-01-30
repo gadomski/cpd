@@ -3,6 +3,15 @@
 A summary of the changes contained in each version, in reverse chronological order.
 
 
+#### v0.2.1
+
+- [FIXED] gflags integration
+- [FIXED] minor documentation fixes
+- [CHANGED] armadillo version used on Travis
+- [ADDED] USE_ARMA_WRAPPER option to (optionally) remove armadillo library dependency
+- [ADDED] minimum armadillo version
+
+
 ### v0.2.0
 
 - [FIXED] `version.cpp` wasn't adding any symbols to library, this is now fixed
