@@ -131,7 +131,7 @@ set(LIB_INSTALL_DIR lib)
 set(INCLUDE_INSTALL_DIR include)
 
 configure_package_config_file(
-    CPDConfig.cmake.in
+    cmake/CPDConfig.cmake.in
     ${PROJECT_BINARY_DIR}/CPDConfig.cmake
     INSTALL_DESTINATION ${LIB_INSTALL_DIR}/cpd/cmake
     PATH_VARS INCLUDE_INSTALL_DIR
