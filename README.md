@@ -3,7 +3,7 @@
 C++ library for point set registration using the [Coherent Point Drift](https://sites.google.com/site/myronenko/research/cpd) algorithm.
 This library is derived from Matlab code written by Andriy Myronenko and is available under the same license (GPL2).
 
-![Registering glacier data](demo/helheim-cpd.gif)
+![Registering glacier data](doc/helheim-cpd.gif)
 
 This project provides a library, **libcpd**, for use in your own applications.
 It also provides an optional command-line executable, called simply **cpd**, which provides a subset of the library's functionality for quick command-line usage.
