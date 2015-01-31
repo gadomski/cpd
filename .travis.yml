@@ -11,7 +11,7 @@ env:
     - CPD_64BIT=false CPD_USE_ARMA_WRAPPER=false
 
 install:
-    - make -f dependencies.mak install-on-ubuntu
+    - make -f dependencies.mak install-on-ubuntu-precise
     - sudo pip install cpp-coveralls
 
 before_script:

@@ -5,8 +5,15 @@ CMAKE_COMMON_OPTIONS=-DCMAKE_BUILD_TYPE=Release -G Ninja
 
 default:
 
-install-on-ubuntu: \
-	install-build-system-apt \
+install-on-ubuntu-trusty: \
+	install-build-system-apt-trusty \
+	install-dependencies-apt-general
+
+install-on-ubuntu-precise: \
+	install-build-system-apt-precise \
+	install-dependencies-apt-general
+
+install-dependencies-apt-general: \
 	install-armadillo-dependencies-apt \
 	install-armadillo-src \
 	install-figtree-git \
@@ -16,11 +23,15 @@ install-on-osx: install-build-system-homebrew install-figtree-git
 	brew install armadillo
 	brew install gflags
 
-install-build-system-apt:
+install-build-system-apt-trusty:
+	sudo apt-get update -qq
+	sudo apt-get install -y build-essential cmake ninja-build git
+
+install-build-system-apt-precise:
 	sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
 	sudo add-apt-repository ppa:smspillaz/cmake-2.8.12 -y
 	sudo apt-get update -qq
-	sudo apt-get install g++-4.8 cmake cmake-data ninja-build
+	sudo apt-get install -y g++-4.8 cmake cmake-data ninja-build git
 
 install-build-system-homebrew:
 	brew update
@@ -28,7 +39,7 @@ install-build-system-homebrew:
 	brew install ninja
 
 install-armadillo-dependencies-apt:
-	sudo apt-get install \
+	sudo apt-get -y install \
 		liblapack-dev \
 		libarpack2-dev \
 		libsuperlu3-dev \
@@ -63,9 +74,12 @@ install-gflags-src:
 
 .PHONY: \
 	default \
-	install-on-ubuntu \
+	install-on-ubuntu-trusty \
+	install-on-ubuntu-precise \
+	install-dependencies-apt-general \
 	install-on-osx \
-	install-build-system-apt \
+	install-build-system-apt-trusty \
+	install-build-system-apt-precise \
 	install-build-system-homebrew \
 	install-armadillo-dependencies-apt \
 	install-armadillo-src \
