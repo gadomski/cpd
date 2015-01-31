@@ -11,12 +11,7 @@ env:
     - CPD_64BIT=false CPD_USE_ARMA_WRAPPER=false
 
 install:
-    - scripts/install_compilers.sh
-    - scripts/install_cmake.sh
-    - sudo apt-get install liblapack-dev libarpack2-dev libsuperlu3-dev gfortran
-    - scripts/install_armadillo.sh
-    - scripts/install_figtree.sh
-    - scripts/install_gflags.sh
+    - make -f dependencies.mak install-on-ubuntu
     - sudo pip install cpp-coveralls
 
 before_script:
