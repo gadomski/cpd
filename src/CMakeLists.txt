@@ -25,16 +25,16 @@ set(deps
     ${FIGTREE_LIBRARY}
     )
 
-if (USE_ARMA_WRAPPER)
+if(USE_ARMA_WRAPPER)
     list(APPEND deps ${ARMADILLO_LIBRARIES})
-else(USE_ARMA_WRAPPER)
+else()
     list(APPEND deps ${ARPACK_LIBRARY})
-    if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+    if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
         list(APPEND deps ${ACCELERATE_LIBRARY})
-    else(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+    else()
         list(APPEND deps ${LAPACK_LIBRARIES} ${BLAS_LIBRARIES})
-    endif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-endif(USE_ARMA_WRAPPER)
+    endif()
+endif()
 
 add_library(${CPD_LIB_TARGET} ${src})
 
@@ -43,9 +43,9 @@ set_property(TARGET ${CPD_LIB_TARGET} PROPERTY VERSION ${CPD_VERSION})
 set_property(TARGET ${CPD_LIB_TARGET} PROPERTY SOVERSION ${CPD_SOVERSION})
 
 target_link_libraries(${CPD_LIB_TARGET} ${deps})
-if (BUILD_64BIT)
+if(BUILD_64BIT)
     target_compile_definitions(${CPD_LIB_TARGET} PUBLIC ARMA_64BIT_WORD)
-endif (BUILD_64BIT)
+endif()
 
 
 install(TARGETS ${CPD_LIB_TARGET}
