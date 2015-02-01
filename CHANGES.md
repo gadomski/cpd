@@ -3,6 +3,15 @@
 A summary of the changes contained in each version, in reverse chronological order.
 
 
+#### v0.2.2
+
+- [FIXED] rpath for non-system directories: https://github.com/gadomski/cpd/issues/26
+- [CHANGED] Use a makefile instead of scripts for Travis dependency installation: https://github.com/gadomski/cpd/issues/28
+- [CHANGED] General style fixes and documentation
+- [ADDED] Release makefile
+- [ADDED] Vagrantfile for quick ubuntu setup
+
+
 #### v0.2.1
 
 - [FIXED] gflags integration
