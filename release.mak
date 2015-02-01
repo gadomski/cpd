@@ -24,9 +24,6 @@ CURRENT_BRANCH=$(shell git rev-parse --abbrev-ref HEAD)
 		git merge --ff-only master; \
 	fi
 	git checkout master
-
-push:
-	git push origin master production $(basename $@) --tags
 	@echo "REMEMBER: Don't forget to create a new release in the Github interface using these release notes. https://github.com/gadomski/cpd/releases/new"
-	cat $(RELEASE_NOTES_DIR)/$@.md
-.PHONY: push
+	@echo "REMEMBER: To push up your changes, run this command:"
+	@echo "git push origin master production $(basename $@) --tags"
