@@ -22,4 +22,5 @@ cmake .. \
         -DUSE_ARMA_WRAPPER=$USE_ARMA_WRAPPER && \
     make && \
     bin/cpd-test && \
-    sudo make install
+    sudo make install && \
+    /usr/local/bin/cpd
