@@ -88,16 +88,6 @@ include_directories(${ARMADILLO_INCLUDE_DIRS})
 find_package(Figtree REQUIRED)
 include_directories(${FIGTREE_INCLUDE_DIRS})
 
-if(NOT USE_ARMA_WRAPPER)
-    find_package(ARPACK REQUIRED)
-    if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-        find_library(ACCELERATE_LIBRARY Accelerate)
-    else()
-        find_package(BLAS REQUIRED)
-        find_package(LAPACK REQUIRED)
-    endif()
-endif()
-
 
 # rpath
 set(CMAKE_SKIP_BUILD_RPATH OFF)
