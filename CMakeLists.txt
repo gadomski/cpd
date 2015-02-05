@@ -30,12 +30,6 @@ option(BUILD_SHARED_LIBS "Create shared libraries" ON)
 option(BUILD_TESTS "Build tests" ON)
 option(BUILD_64BIT "Build with 64 bit matrix support" ON)
 
-if(WIN32)
-    set(USE_ARMA_WRAPPER OFF)
-else()
-    option(USE_ARMA_WRAPPER "Use the armadillo wrapper library" ON)
-endif()
-
 
 # Cache variables
 set(ASTYLE_EXECUTABLE "/usr/local/bin/astyle" CACHE PATH
@@ -66,10 +60,6 @@ endif()
 # Definitions
 if(BUILD_DEBUG_OUTPUT)
     add_definitions(-DCPD_DEBUG_OUTPUT)
-endif()
-
-if(NOT USE_ARMA_WRAPPER)
-    add_definitions(-DARMA_DONT_USE_WRAPPER)
 endif()
 
 
