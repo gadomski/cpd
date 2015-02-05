@@ -5,10 +5,8 @@ compiler:
     - gcc
 
 env:
-    - CPD_64BIT=true CPD_USE_ARMA_WRAPPER=true
-    - CPD_64BIT=true CPD_USE_ARMA_WRAPPER=false
-    - CPD_64BIT=false CPD_USE_ARMA_WRAPPER=true
-    - CPD_64BIT=false CPD_USE_ARMA_WRAPPER=false
+    - CPD_64BIT=true
+    - CPD_64BIT=false
 
 install:
     - make -f dependencies.mak install-on-ubuntu-precise
