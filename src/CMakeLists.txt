@@ -6,6 +6,8 @@ configure_file(
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CPD_INCLUDE_DIR}
+    ${ARMADILLO_INCLUDE_DIRS}
+    ${FGT_INCLUDE_DIRS}
     )
 
 set(src
@@ -22,7 +24,7 @@ set(src
     )
 
 set(deps
-    ${FIGTREE_LIBRARY}
+    fgt-lib
     ${ARMADILLO_LIBRARIES}
     )
 

@@ -1,0 +1,6 @@
+build*
+install*
+*~
+version
+CMakeLists.txt.user
+

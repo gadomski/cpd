@@ -16,10 +16,9 @@ install-on-ubuntu-precise: \
 install-dependencies-apt-general: \
 	install-armadillo-dependencies-apt \
 	install-armadillo-src \
-	install-figtree-git \
 	install-gflags-src
 
-install-on-osx: install-build-system-homebrew install-figtree-git
+install-on-osx: install-build-system-homebrew
 	brew install armadillo
 	brew install gflags
 
@@ -54,14 +53,6 @@ install-armadillo-src:
 		ninja && \
 		sudo ninja install
 
-install-figtree-git:
-	git clone https://github.com/gadomski/figtree.git -b master
-	mkdir figtree/build
-	cd figtree/build && \
-		cmake .. $(CMAKE_COMMON_OPTIONS) && \
-		ninja && \
-		sudo ninja install
-
 install-gflags-src:
 	wget https://github.com/schuhschuh/gflags/archive/v$(GFLAGS_VERSION).tar.gz
 	tar xzvf v$(GFLAGS_VERSION).tar.gz
@@ -83,5 +74,4 @@ install-gflags-src:
 	install-build-system-homebrew \
 	install-armadillo-dependencies-apt \
 	install-armadillo-src \
-	install-figtree-git \
 	install-gflags-src
