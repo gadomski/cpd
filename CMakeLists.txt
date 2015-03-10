@@ -32,11 +32,6 @@ option(BUILD_SHARED_LIBS "Create shared libraries" ON)
 option(BUILD_TESTS "Build tests" ON)
 
 
-# Cache variables
-set(ASTYLE_EXECUTABLE "/usr/local/bin/astyle" CACHE PATH
-    "(optional) Path to an astyle executable for automatic code styling")
-
-
 # Checks
 if(BUILD_COVERAGE)
     if(NOT BUILD_TESTS)
@@ -149,19 +144,3 @@ install(
     EXPORT ${CPD_EXPORT}
     DESTINATION ${LIB_INSTALL_DIR}/cpd/cmake
     )
-
-
-# astyle target
-if(EXISTS ${ASTYLE_EXECUTABLE})
-    add_custom_target(astyle
-        COMMAND ${ASTYLE_EXECUTABLE}
-            --options=${PROJECT_SOURCE_DIR}/.astylerc
-            --recursive
-            \"src/*.cpp\"
-            \"src/*.hpp\"
-            \"include/*.hpp\"
-            \"test/*.cpp\"
-            \"test/*.hpp\"
-        WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
-        )
-endif()
