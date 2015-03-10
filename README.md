@@ -60,9 +60,6 @@ And the following compilers:
 - [armadillo](http://arma.sourceforge.net/): C++ linear algebra library
 - [lapack](http://www.netlib.org/lapack/): linear algebra package
 - [arpack](http://www.caam.rice.edu/software/ARPACK/): large scale eigenvalue solutions
-- [figtree](http://www.umiacs.umd.edu/~morariu/figtree/): fast improved gauss
-  transform with tree data structure (**cpd** depends on
-  [this](https://github.com/gadomski/figtree) fork)
 - [gflags](https://code.google.com/p/gflags/) (optional): commandline flags
   processing, required only if you're building the commandline application
 
@@ -94,9 +91,6 @@ If you're planning on using the command line application, additionally do:
 brew install gflags
 ```
 
-You'll need to install figtree yourself.
-Head over to the [github source](https://github.com/gadomski/figtree) and follow the install instructions there.
-
 Now you're ready to [install cpd](#installing-cpd-on-both-mac-os-x-and-linux).
 
 
@@ -112,8 +106,8 @@ sudo apt-get install git cmake liblapack-dev libarpack2-dev libsuperlu3-dev gfor
 If you have an old gcc, you may need to update it.
 See [one of cpd's continuous integration scripts](https://github.com/gadomski/cpd/blob/master/scripts/install_compilers.sh) for one way to update your gcc.
 
-You'll need to install armadillo and figtree from source.
-Again, you can just follow the scripts: [armadillo](https://github.com/gadomski/cpd/blob/master/scripts/install_armadillo.sh), [figtree](https://github.com/gadomski/cpd/blob/master/scripts/install_figtree.sh).
+You'll need to install armadillo from source.
+Again, you can just follow the scripts: [armadillo](https://github.com/gadomski/cpd/blob/master/scripts/install_armadillo.sh).
 
 Now you're ready to [install cpd](#installing-cpd-on-both-mac-os-x-and-linux).
 

@@ -21,12 +21,13 @@
 
 #include "debug.hpp"
 #include "exceptions.hpp"
-#include "figtree.hpp"
+
+#include <fgt/fgt.hpp>
 
 
 // This whole setup is a relatively magical rewiring of armadillo's
 // sp_auxlib::eigs_sym
-// and sp_auxlib::run_aupd. I rewired it all to insert our call to figtree in
+// and sp_auxlib::run_aupd. I rewired it all to insert our call to fgt in
 // the aupd
 // run.
 //
@@ -38,7 +39,7 @@
 namespace cpd {
 
 
-void run_aupd(const arma::uword n_eigvals, char* which, arma::mat& Yt,
+void run_aupd(const arma::uword n_eigvals, char* which, const arma::mat& Y,
               arma::blas_int& n, double& tol, arma::podarray<double>& resid,
               arma::blas_int& ncv, arma::podarray<double>& v,
               arma::blas_int& ldv, arma::podarray<arma::blas_int>& iparam,
@@ -46,13 +47,15 @@ void run_aupd(const arma::uword n_eigvals, char* which, arma::mat& Yt,
               arma::podarray<double>& workd, arma::podarray<double>& workl,
               arma::blas_int& lworkl, arma::podarray<double>& rwork,
               arma::blas_int& info, const double beta, const float epsilon) {
-    const arma::uword D = Yt.n_rows;
-    const arma::uword M = Yt.n_cols;
+    const arma::uword D = Y.n_cols;
+    const arma::uword M = Y.n_rows;
     double h = std::sqrt(2) * beta;
+    fgt::GaussTransformUnqPtr transform =
+        fgt::choose_gaussian_transform(Y, h, epsilon);
 
     arma::blas_int ido = 0;
     char bmat = 'I';
-    n = Yt.n_cols;
+    n = Y.n_rows;
     arma::blas_int nev = n_eigvals;
 
     resid.set_size(n);
@@ -95,8 +98,7 @@ void run_aupd(const arma::uword n_eigvals, char* which, arma::mat& Yt,
             arma::Col<double> out(workd.memptr() + ipntr(1) - 1, n, false);
             arma::Col<double> in(workd.memptr() + ipntr(0) - 1, n, false);
 
-            out.zeros();
-            figtree_wrap(Yt, Yt, in, h, epsilon, out, FIGTREE_EVAL_AUTO);
+            out = transform->compute(Y, in);
             break;
         }
         case 99:
@@ -116,8 +118,6 @@ void run_aupd(const arma::uword n_eigvals, char* which, arma::mat& Yt,
 void find_affinity_eigenvectors(const arma::mat& Y, const float beta,
                                 const arma::uword numeig, const float epsilon,
                                 arma::mat& Q, arma::mat& S) {
-    arma::mat Yt = Y.t();
-
     char which[3] = "LM";
     arma::blas_int n, ncv, ldv, lworkl, info;
     double tol = 0.0;
@@ -126,8 +126,8 @@ void find_affinity_eigenvectors(const arma::mat& Y, const float beta,
     arma::podarray<double> rwork;
 
     DEBUG("running aupd");
-    run_aupd(numeig, which, Yt, n, tol, resid, ncv, v, ldv, iparam, ipntr,
-             workd, workl, lworkl, rwork, info, beta, epsilon);
+    run_aupd(numeig, which, Y, n, tol, resid, ncv, v, ldv, iparam, ipntr, workd,
+             workl, lworkl, rwork, info, beta, epsilon);
     DEBUG("done with aupd");
 
     arma::blas_int rvec = 1;

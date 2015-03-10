@@ -83,10 +83,6 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib)
 
 # Dependencies
 find_package(Armadillo 4.500.1 REQUIRED)
-include_directories(${ARMADILLO_INCLUDE_DIRS})
-
-find_package(Figtree REQUIRED)
-include_directories(${FIGTREE_INCLUDE_DIRS})
 
 
 # rpath
@@ -102,6 +98,12 @@ endif()
 
 
 # Includes
+set(OLD_BUILD_TESTS ${BUILD_TESTS})
+set(BUILD_TESTS OFF)
+add_subdirectory(vendor/fgt-0.1.0)
+set(FGT_INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/vendor/fgt-0.1.0/include)
+set(BUILD_TESTS ${OLD_BUILD_TESTS})
+
 add_subdirectory(include)
 add_subdirectory(src)
 
