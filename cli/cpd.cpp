@@ -40,6 +40,8 @@ DEFINE_double(numeig, DefaultNumeig,
               "Number of the largest eigenvectors to use, try NumPoints^(1/2). If zero, will be auto-calculated.");
 DEFINE_bool(include_deltas, true,
               "Include change vectors for each point.");
+DEFINE_double(z_exaggeration, DefaultZExaggeration,
+              "Z-dimension exaggeration, use for flat datasets");
 
 
 int main(int argc, char** argv)
@@ -114,6 +116,7 @@ int main(int argc, char** argv)
         return 1;
     }
 
+    reg->set_z_exaggeration(FLAGS_z_exaggeration);
     cpd::Registration::ResultPtr result = reg->run(X, Y);
 
     arma::mat output(result->Y);
