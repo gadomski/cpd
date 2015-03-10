@@ -24,18 +24,14 @@
 #include "performance/timer.hpp"
 
 
-namespace cpd
-{
-namespace test
-{
+namespace cpd {
+namespace test {
 
 
-class NonrigidLowrankPerformance : public PerformanceTest
-{};
+class NonrigidLowrankPerformance : public PerformanceTest {};
 
 
-TEST_F(NonrigidLowrankPerformance, BasicRegistration)
-{
+TEST_F(NonrigidLowrankPerformance, BasicRegistration) {
     cpd::NonrigidLowrank reg;
     Timer timer;
     timer.start();
@@ -44,7 +40,5 @@ TEST_F(NonrigidLowrankPerformance, BasicRegistration)
     expect_matrices_near(m_Y_nonrigid_lowrank, result->Y, 1);
     std::cout << timer << std::endl;
 }
-
-
 }
 }

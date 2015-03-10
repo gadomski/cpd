@@ -24,18 +24,14 @@
 #include "performance/timer.hpp"
 
 
-namespace cpd
-{
-namespace test
-{
+namespace cpd {
+namespace test {
 
 
-class RigidPerformance : public PerformanceTest
-{};
+class RigidPerformance : public PerformanceTest {};
 
 
-TEST_F(RigidPerformance, BasicRegistration)
-{
+TEST_F(RigidPerformance, BasicRegistration) {
     cpd::Rigid reg;
     Timer timer;
     timer.start();
@@ -44,7 +40,5 @@ TEST_F(RigidPerformance, BasicRegistration)
     expect_matrices_near(m_Y_rigid, result->Y, 0.001);
     std::cout << timer << std::endl;
 }
-
-
 }
 }

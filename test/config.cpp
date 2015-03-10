@@ -22,37 +22,28 @@
 #include <gtest/gtest.h>
 
 
-namespace cpd
-{
-namespace test
-{
+namespace cpd {
+namespace test {
 
 
-std::string data_file_path(const std::string& filename)
-{
+std::string data_file_path(const std::string& filename) {
     return CPD_TEST_DATA_DIR + "/" + filename;
 }
 
 
-void read_data_file(const std::string& filename, arma::mat& m)
-{
+void read_data_file(const std::string& filename, arma::mat& m) {
     m.quiet_load(test::data_file_path(filename));
 }
 
 
 void expect_matrices_near(const arma::mat& X, const arma::mat& Y,
-                          double tolerance)
-{
+                          double tolerance) {
     EXPECT_EQ(X.n_elem, Y.n_elem);
     typedef arma::mat::const_iterator it_t;
     for (it_t itX = X.begin(), itY = Y.begin();
-         itX != X.end() && itY != Y.end();
-         ++itX, ++itY)
-    {
+         itX != X.end() && itY != Y.end(); ++itX, ++itY) {
         EXPECT_NEAR(*itX, *itY, tolerance);
     }
 }
-
-
 }
 }

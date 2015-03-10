@@ -20,11 +20,8 @@
 #pragma once
 
 
-namespace cpd
-{
+namespace cpd {
 
 
 extern const char g_GIT_SHA1[];
-
-
 }

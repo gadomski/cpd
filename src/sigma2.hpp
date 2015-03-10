@@ -22,11 +22,8 @@
 #include <armadillo>
 
 
-namespace cpd
-{
+namespace cpd {
 
 
 double calculate_sigma2(const arma::mat& X, const arma::mat& Y);
-
-
 }

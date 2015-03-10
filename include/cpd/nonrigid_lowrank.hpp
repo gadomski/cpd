@@ -22,47 +22,30 @@
 #include <cpd/nonrigid.hpp>
 
 
-namespace cpd
-{
+namespace cpd {
 
 
-class NonrigidLowrank : public Nonrigid
-{
+class NonrigidLowrank : public Nonrigid {
 public:
-
     explicit NonrigidLowrank(
-        float tol = DefaultTolerance,
-        int max_it = DefaultMaxIterations,
-        float outliers = DefaultOutliers,
-        bool use_fgt = DefaultFgt,
-        float epsilon = DefaultEpsilon,
-        float beta = DefaultBeta,
-        float lambda =  DefaultLambda,
+        float tol = DefaultTolerance, int max_it = DefaultMaxIterations,
+        float outliers = DefaultOutliers, bool use_fgt = DefaultFgt,
+        float epsilon = DefaultEpsilon, float beta = DefaultBeta,
+        float lambda = DefaultLambda,
         // Andriy's Matlab implementation recommends setting this to
         // M ^ (1/2), where M is the number of points in Y
-        arma::uword numeig = DefaultNumeig
-    );
+        arma::uword numeig = DefaultNumeig);
 
-    inline arma::uword get_numeig() const
-    {
-        return m_numeig;
-    }
+    inline arma::uword get_numeig() const { return m_numeig; }
 
-    inline void set_numeig(int numeig)
-    {
-        m_numeig = numeig;
-    }
+    inline void set_numeig(int numeig) { m_numeig = numeig; }
 
-    virtual ~NonrigidLowrank() {};
+    virtual ~NonrigidLowrank(){};
 
 private:
-
     virtual ResultPtr execute(const arma::mat& X, const arma::mat& Y,
                               double sigma2) const;
 
     arma::uword m_numeig;
-
 };
-
-
 }

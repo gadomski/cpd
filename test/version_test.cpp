@@ -21,17 +21,10 @@
 #include <cpd/version.hpp>
 
 
-namespace cpd
-{
-namespace test
-{
+namespace cpd {
+namespace test {
 
 
-TEST(Version, Exists)
-{
-    EXPECT_STRNE("", g_GIT_SHA1);
-}
-
-
+TEST(Version, Exists) { EXPECT_STRNE("", g_GIT_SHA1); }
 }
 }

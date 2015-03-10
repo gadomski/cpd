@@ -24,39 +24,28 @@
 #include "figtree.hpp"
 
 
-// This whole setup is a relatively magical rewiring of armadillo's sp_auxlib::eigs_sym
-// and sp_auxlib::run_aupd. I rewired it all to insert our call to figtree in the aupd
+// This whole setup is a relatively magical rewiring of armadillo's
+// sp_auxlib::eigs_sym
+// and sp_auxlib::run_aupd. I rewired it all to insert our call to figtree in
+// the aupd
 // run.
 //
-// I didn't put too much effort into parametrizing all of this, since it's a very
+// I didn't put too much effort into parametrizing all of this, since it's a
+// very
 // specific use-case for our setup.
 //
 // -pjg
-namespace cpd
-{
+namespace cpd {
 
 
-void run_aupd(
-    const arma::uword n_eigvals,
-    char* which,
-    arma::mat& Yt,
-    arma::blas_int& n,
-    double& tol,
-    arma::podarray<double>& resid,
-    arma::blas_int& ncv,
-    arma::podarray<double>& v,
-    arma::blas_int& ldv,
-    arma::podarray<arma::blas_int>& iparam,
-    arma::podarray<arma::blas_int>& ipntr,
-    arma::podarray<double>& workd,
-    arma::podarray<double>& workl,
-    arma::blas_int& lworkl,
-    arma::podarray<double>& rwork,
-    arma::blas_int& info,
-    const double beta,
-    const float epsilon
-)
-{
+void run_aupd(const arma::uword n_eigvals, char* which, arma::mat& Yt,
+              arma::blas_int& n, double& tol, arma::podarray<double>& resid,
+              arma::blas_int& ncv, arma::podarray<double>& v,
+              arma::blas_int& ldv, arma::podarray<arma::blas_int>& iparam,
+              arma::podarray<arma::blas_int>& ipntr,
+              arma::podarray<double>& workd, arma::podarray<double>& workl,
+              arma::blas_int& lworkl, arma::podarray<double>& rwork,
+              arma::blas_int& info, const double beta, const float epsilon) {
     const arma::uword D = Yt.n_rows;
     const arma::uword M = Yt.n_cols;
     double h = std::sqrt(2) * beta;
@@ -69,12 +58,10 @@ void run_aupd(
     resid.set_size(n);
 
     ncv = 2 + nev;
-    if (ncv < 2 * nev)
-    {
+    if (ncv < 2 * nev) {
         ncv = 2 * nev;
     }
-    if (ncv > n)
-    {
+    if (ncv > n) {
         ncv = n;
     }
     v.set_size(n * ncv);
@@ -96,17 +83,15 @@ void run_aupd(
 
     info = 0;
 
-    while (ido != 99)
-    {
+    while (ido != 99) {
         arma::arpack::saupd(&ido, &bmat, &n, which, &nev, &tol, resid.memptr(),
-                            &ncv, v.memptr(), &ldv, iparam.memptr(), ipntr.memptr(),
-                            workd.memptr(), workl.memptr(), &lworkl, &info);
+                            &ncv, v.memptr(), &ldv, iparam.memptr(),
+                            ipntr.memptr(), workd.memptr(), workl.memptr(),
+                            &lworkl, &info);
 
-        switch (ido)
-        {
+        switch (ido) {
         case -1:
-        case 1:
-        {
+        case 1: {
             arma::Col<double> out(workd.memptr() + ipntr(1) - 1, n, false);
             arma::Col<double> in(workd.memptr() + ipntr(0) - 1, n, false);
 
@@ -116,27 +101,21 @@ void run_aupd(
         }
         case 99:
             break;
-        default:
-        {
-            return;
-        }
+        default: { return; }
         }
     }
 
-    if ((info != 0) && (info != 1))
-    {
+    if ((info != 0) && (info != 1)) {
         std::stringstream tmp;
         tmp << "ARPACK error " << info << " when running saupd()";
         throw arpack_error(tmp.str());
     }
-
 }
 
 
 void find_affinity_eigenvectors(const arma::mat& Y, const float beta,
-                                const arma::uword numeig,
-                                const float epsilon, arma::mat& Q, arma::mat& S)
-{
+                                const arma::uword numeig, const float epsilon,
+                                arma::mat& Q, arma::mat& S) {
     arma::mat Yt = Y.t();
 
     char which[3] = "LM";
@@ -164,13 +143,13 @@ void find_affinity_eigenvectors(const arma::mat& Y, const float beta,
 
     DEBUG("running seupd");
     arma::arpack::seupd(&rvec, &howmny, select.memptr(), s.memptr(), Q.memptr(),
-                        &ldz, (double*) NULL, &bmat, &n, which, &nev, &tol, resid.memptr(),
-                        &ncv, v.memptr(), &ldv, iparam.memptr(), ipntr.memptr(),
-                        workd.memptr(), workl.memptr(), &lworkl, &info);
+                        &ldz, (double*)NULL, &bmat, &n, which, &nev, &tol,
+                        resid.memptr(), &ncv, v.memptr(), &ldv, iparam.memptr(),
+                        ipntr.memptr(), workd.memptr(), workl.memptr(), &lworkl,
+                        &info);
     DEBUG("done with seupd");
 
-    if (info != 0)
-    {
+    if (info != 0) {
         std::stringstream tmp;
         tmp << "ARPACK error " << info << " when running neupd()";
         throw arpack_error(tmp.str());
@@ -183,6 +162,4 @@ void find_affinity_eigenvectors(const arma::mat& Y, const float beta,
 
     Q = arma::fliplr(Q);
 }
-
-
 }

@@ -22,35 +22,23 @@
 #include <exception>
 
 
-namespace cpd
-{
+namespace cpd {
 
 
-class cpd_error : public std::runtime_error
-{
+class cpd_error : public std::runtime_error {
 public:
-    cpd_error(const std::string& msg)
-        : std::runtime_error(msg)
-    {}
+    cpd_error(const std::string& msg) : std::runtime_error(msg) {}
 };
 
 
-class dimension_mismatch : public cpd_error
-{
+class dimension_mismatch : public cpd_error {
 public:
-    dimension_mismatch(const std::string& msg)
-        : cpd_error(msg)
-    {}
+    dimension_mismatch(const std::string& msg) : cpd_error(msg) {}
 };
 
 
-class arpack_error : public cpd_error
-{
+class arpack_error : public cpd_error {
 public:
-    arpack_error(const std::string& msg)
-        : cpd_error(msg)
-    {}
+    arpack_error(const std::string& msg) : cpd_error(msg) {}
 };
-
-
 }

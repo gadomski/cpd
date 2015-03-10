@@ -24,22 +24,18 @@
 #include "config.hpp"
 
 
-namespace cpd
-{
-namespace test
-{
+namespace cpd {
+namespace test {
 
 
-class PerformanceTest : public ::testing::Test
-{
+class PerformanceTest : public ::testing::Test {
 public:
-
-    virtual void SetUp()
-    {
+    virtual void SetUp() {
         read_data_file("140712_003331.txt", m_X);
         read_data_file("140712_064332.txt", m_Y);
         read_data_file("140712_064332_rigid.txt", m_Y_rigid);
-        read_data_file("140712_064332_nonrigid_lowrank.txt", m_Y_nonrigid_lowrank);
+        read_data_file("140712_064332_nonrigid_lowrank.txt",
+                       m_Y_nonrigid_lowrank);
     }
 
     arma::mat m_X;
@@ -47,8 +43,5 @@ public:
     arma::mat m_Y_rigid;
     arma::mat m_Y_nonrigid_lowrank;
 };
-
-
-
 }
 }

@@ -22,43 +22,25 @@
 #include <cpd/registration.hpp>
 
 
-namespace cpd
-{
+namespace cpd {
 
 
-class Rigid : public Registration
-{
+class Rigid : public Registration {
 public:
+    explicit Rigid(float tol = DefaultTolerance,
+                   int max_it = DefaultMaxIterations,
+                   float outliers = DefaultOutliers, bool use_fgt = DefaultFgt,
+                   float epsilon = DefaultEpsilon,
+                   bool strict_rot = DefaultStrictRotation,
+                   bool use_scaling = DefaultUseScaling);
 
-    explicit Rigid(
-        float tol = DefaultTolerance,
-        int max_it = DefaultMaxIterations,
-        float outliers = DefaultOutliers,
-        bool use_fgt = DefaultFgt,
-        float epsilon = DefaultEpsilon,
-        bool strict_rot = DefaultStrictRotation,
-        bool use_scaling = DefaultUseScaling
-    );
+    inline bool strict_rot() const { return m_strict_rot; }
+    inline bool use_scaling() const { return m_use_scaling; }
 
-    inline bool strict_rot() const
-    {
-        return m_strict_rot;
-    }
-    inline bool use_scaling() const
-    {
-        return m_use_scaling;
-    }
+    inline void strict_rot(bool strict_rot) { m_strict_rot = strict_rot; }
+    inline void use_scaling(bool use_scaling) { m_use_scaling = use_scaling; }
 
-    inline void strict_rot(bool strict_rot)
-    {
-        m_strict_rot = strict_rot;
-    }
-    inline void use_scaling(bool use_scaling)
-    {
-        m_use_scaling = use_scaling;
-    }
-
-    virtual ~Rigid() {};
+    virtual ~Rigid(){};
 
 private:
     virtual ResultPtr execute(const arma::mat& X, const arma::mat& Y,
@@ -66,8 +48,5 @@ private:
 
     bool m_strict_rot;
     bool m_use_scaling;
-
 };
-
-
 }

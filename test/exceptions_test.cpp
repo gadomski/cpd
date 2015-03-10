@@ -21,30 +21,23 @@
 #include "exceptions.hpp"
 
 
-namespace cpd
-{
-namespace test
-{
+namespace cpd {
+namespace test {
 
 
-TEST(CPDError, Throwing)
-{
+TEST(CPDError, Throwing) {
     ASSERT_THROW({ throw cpd_error("test error"); }, cpd_error);
 }
 
 
-TEST(DimensionMismatch, Throwing)
-{
+TEST(DimensionMismatch, Throwing) {
     ASSERT_THROW({ throw dimension_mismatch("test error"); },
                  dimension_mismatch);
 }
 
 
-TEST(ArpackError, Throwing)
-{
+TEST(ArpackError, Throwing) {
     ASSERT_THROW({ throw arpack_error("test error"); }, arpack_error);
 }
-
-
 }
 }

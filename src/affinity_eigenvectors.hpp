@@ -22,13 +22,10 @@
 #include <armadillo>
 
 
-namespace cpd
-{
+namespace cpd {
 
 
 void find_affinity_eigenvectors(const arma::mat& Y, const float beta,
-                                const arma::uword numeig,
-                                const float epsilon, arma::mat& Q, arma::mat& S);
-
-
+                                const arma::uword numeig, const float epsilon,
+                                arma::mat& Q, arma::mat& S);
 }

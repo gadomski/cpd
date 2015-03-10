@@ -21,8 +21,7 @@
 
 #include <armadillo>
 
-namespace cpd
-{
+namespace cpd {
 
 
 // Common
@@ -44,6 +43,4 @@ const float DefaultLambda = 3;
 
 // NonrigidLowrank
 const arma::uword DefaultNumeig = 0;
-
-
 }

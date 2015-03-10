@@ -23,24 +23,19 @@
 #include "fixtures.hpp"
 
 
-namespace cpd
-{
-namespace test
-{
+namespace cpd {
+namespace test {
 
 
-class NonrigidLowrankRegistration : public RegistrationTest
-{};
+class NonrigidLowrankRegistration : public RegistrationTest {};
 
 
-TEST_F(NonrigidLowrankRegistration, InitializesWithDefaults)
-{
+TEST_F(NonrigidLowrankRegistration, InitializesWithDefaults) {
     cpd::NonrigidLowrank reg;
 }
 
 
-TEST_F(NonrigidLowrankRegistration, RegistersData)
-{
+TEST_F(NonrigidLowrankRegistration, RegistersData) {
     cpd::NonrigidLowrank reg;
     reg.use_fgt(false); // to tighten up our tolerances
     reg.set_numeig(10); // becuase the default (M ^ (1/2) is too low)
@@ -49,8 +44,7 @@ TEST_F(NonrigidLowrankRegistration, RegistersData)
 }
 
 
-TEST_F(NonrigidLowrankRegistration, RegistersDataWithZExaggeration)
-{
+TEST_F(NonrigidLowrankRegistration, RegistersDataWithZExaggeration) {
     cpd::NonrigidLowrank reg;
     reg.use_fgt(false);
     reg.set_numeig(10);
@@ -58,7 +52,5 @@ TEST_F(NonrigidLowrankRegistration, RegistersDataWithZExaggeration)
     cpd::Registration::ResultPtr result = reg.run(m_X, m_Y);
     expect_matrices_near(m_X, result->Y, 0.1);
 }
-
-
 }
 }

@@ -22,22 +22,12 @@
 #include "figtree.hpp"
 
 
-namespace cpd
-{
+namespace cpd {
 
 
-double find_P(
-    const arma::mat& X,
-    const arma::mat& Y,
-    double sigma2,
-    float outliers,
-    arma::vec& P1,
-    arma::vec& Pt1,
-    arma::mat& PX,
-    bool use_fgt,
-    const float epsilon
-)
-{
+double find_P(const arma::mat& X, const arma::mat& Y, double sigma2,
+              float outliers, arma::vec& P1, arma::vec& Pt1, arma::mat& PX,
+              bool use_fgt, const float epsilon) {
     P1.zeros();
     Pt1.zeros();
     PX.zeros();
@@ -51,8 +41,8 @@ double find_P(
     arma::vec denomP(N);
 
     const double h = std::sqrt(2 * sigma2);
-    const double ndi = (outliers * M * std::pow(2 * M_PI * sigma2,
-                        0.5 * D)) / ((1 - outliers) * N);
+    const double ndi = (outliers * M * std::pow(2 * M_PI * sigma2, 0.5 * D)) /
+                       ((1 - outliers) * N);
     arma::vec q = arma::ones<arma::vec>(M);
 
     arma::mat Xt = X.t();
@@ -66,8 +56,7 @@ double find_P(
 
     figtree_wrap(Xt, Yt, q, h, epsilon, P1, eval_method);
 
-    for (int i = 0; i < D; ++i)
-    {
+    for (int i = 0; i < D; ++i) {
         q = X.col(i) / denomP;
         arma::vec c = PX.unsafe_col(i);
         figtree_wrap(Xt, Yt, q, h, epsilon, c, eval_method);
@@ -75,6 +64,4 @@ double find_P(
 
     return -arma::sum(arma::log(denomP)) + D * N * std::log(sigma2) / 2;
 }
-
-
 }

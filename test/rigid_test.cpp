@@ -23,30 +23,21 @@
 #include "fixtures.hpp"
 
 
-namespace cpd
-{
-namespace test
-{
+namespace cpd {
+namespace test {
 
 
-class RigidRegistration : public RegistrationTest
-{};
+class RigidRegistration : public RegistrationTest {};
 
 
-TEST_F(RigidRegistration, InitializesWithDefaults)
-{
-    cpd::Rigid reg;
-}
+TEST_F(RigidRegistration, InitializesWithDefaults) { cpd::Rigid reg; }
 
 
-TEST_F(RigidRegistration, RegistersData)
-{
+TEST_F(RigidRegistration, RegistersData) {
     cpd::Rigid reg;
     reg.use_fgt(false); // to tighten up our tolerances
     cpd::Registration::ResultPtr result = reg.run(m_X, m_Y);
     expect_matrices_near(m_X, result->Y, 0.001);
 }
-
-
 }
 }

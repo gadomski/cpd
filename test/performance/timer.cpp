@@ -22,38 +22,27 @@
 #include <iomanip>
 
 
-namespace cpd
-{
-namespace test
-{
+namespace cpd {
+namespace test {
 
 
-void Timer::start()
-{
+void Timer::start() {
     m_c_start = std::clock();
     m_t_start = std::chrono::high_resolution_clock::now();
 }
 
 
-void Timer::end()
-{
+void Timer::end() {
     m_c_end = std::clock();
     m_t_end = std::chrono::high_resolution_clock::now();
 }
 
 
-std::ostream& operator<<(std::ostream& os, const Timer& timer)
-{
+std::ostream& operator<<(std::ostream& os, const Timer& timer) {
     os << std::fixed << std::setprecision(2)
-       << "processor time: "
-       << timer.clock_time() << " ms"
-       << std::endl
-       << "wall clock time: "
-       << timer.chrono_time()
-       << " ms";
+       << "processor time: " << timer.clock_time() << " ms" << std::endl
+       << "wall clock time: " << timer.chrono_time() << " ms";
     return os;
 }
-
-
 }
 }

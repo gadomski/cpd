@@ -20,15 +20,17 @@
 #pragma once
 
 
-namespace cpd
-{
+namespace cpd {
 
 
 #ifdef CPD_DEBUG_OUTPUT
-#define DEBUG(x) do { std::cerr << x << std::endl; } while (0)
+#define DEBUG(x)                                                               \
+    do {                                                                       \
+        std::cerr << x << std::endl;                                           \
+    } while (0)
 #else
-#define DEBUG(x) do {} while (false)
+#define DEBUG(x)                                                               \
+    do {                                                                       \
+    } while (false)
 #endif
-
-
 }

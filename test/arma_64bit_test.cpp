@@ -20,21 +20,16 @@
 #include <gtest/gtest.h>
 
 
-namespace cpd
-{
-namespace test
-{
+namespace cpd {
+namespace test {
 
 
-TEST(Arma64Bit, IsDefined)
-{
+TEST(Arma64Bit, IsDefined) {
 #ifdef ARMA_64BIT_WORD
     SUCCEED();
 #else
     FAIL();
 #endif
 }
-
-
 }
 }

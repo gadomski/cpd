@@ -26,22 +26,17 @@
 #include <cpd/defaults.hpp>
 
 
-namespace cpd
-{
+namespace cpd {
 
 
-class Registration
-{
+class Registration {
 public:
-
-    struct Normalization
-    {
+    struct Normalization {
         arma::mat xd, yd;
         double scale;
     };
 
-    struct Result
-    {
+    struct Result {
         arma::mat Y;
     };
 
@@ -67,84 +62,36 @@ public:
         float z_exaggeration = DefaultZExaggeration,
 
         // Initial sigma2 value, if zero determine auto-magically
-        float sigma2 = DefaultSigma2
-    );
+        float sigma2 = DefaultSigma2);
 
     ResultPtr run(const arma::mat& X, const arma::mat& Y) const;
     Normalization normalize(arma::mat& X, arma::mat& Y) const;
     void denormalize(arma::mat& Y, const Normalization& normal) const;
 
-    double find_P(
-        const arma::mat& X,
-        const arma::mat& Y,
-        double sigma2,
-        arma::vec& P1,
-        arma::vec& Pt1,
-        arma::mat& PX
-    ) const;
+    double find_P(const arma::mat& X, const arma::mat& Y, double sigma2,
+                  arma::vec& P1, arma::vec& Pt1, arma::mat& PX) const;
 
-    inline float get_tol() const
-    {
-        return m_tol;
-    }
-    inline int get_max_it() const
-    {
-        return m_max_it;
-    }
-    inline float get_outliers() const
-    {
-        return m_outliers;
-    }
-    inline bool use_fgt() const
-    {
-        return m_use_fgt;
-    }
-    inline float get_epsilon() const
-    {
-        return m_epsilon;
-    }
-    inline float get_z_exaggeration() const
-    {
-        return m_z_exaggeration;
-    }
-    inline float get_sigma2() const
-    {
-        return m_sigma2;
-    }
+    inline float get_tol() const { return m_tol; }
+    inline int get_max_it() const { return m_max_it; }
+    inline float get_outliers() const { return m_outliers; }
+    inline bool use_fgt() const { return m_use_fgt; }
+    inline float get_epsilon() const { return m_epsilon; }
+    inline float get_z_exaggeration() const { return m_z_exaggeration; }
+    inline float get_sigma2() const { return m_sigma2; }
 
-    inline void set_tol(float tol)
-    {
-        m_tol = tol;
-    }
-    inline void set_max_it(int max_it)
-    {
-        m_max_it = max_it;
-    }
-    inline void set_outliers(float outliers)
-    {
-        m_outliers = outliers;
-    }
-    inline void use_fgt(bool use_fgt)
-    {
-        m_use_fgt = use_fgt;
-    }
-    inline void set_epsilon(float epsilon)
-    {
-        m_epsilon = epsilon;
-    }
-    inline void set_z_exaggeration(float z_exaggeration)
-    {
+    inline void set_tol(float tol) { m_tol = tol; }
+    inline void set_max_it(int max_it) { m_max_it = max_it; }
+    inline void set_outliers(float outliers) { m_outliers = outliers; }
+    inline void use_fgt(bool use_fgt) { m_use_fgt = use_fgt; }
+    inline void set_epsilon(float epsilon) { m_epsilon = epsilon; }
+    inline void set_z_exaggeration(float z_exaggeration) {
         m_z_exaggeration = z_exaggeration;
     }
-    inline void set_sigma2(float sigma2)
-    {
-        m_sigma2 = sigma2;
-    }
+    inline void set_sigma2(float sigma2) { m_sigma2 = sigma2; }
 
-    virtual ~Registration() {};
+    virtual ~Registration(){};
 
 private:
-
     virtual ResultPtr execute(const arma::mat& X, const arma::mat& Y,
                               double sigma2) const = 0;
 
@@ -155,8 +102,5 @@ private:
     float m_epsilon;
     float m_z_exaggeration;
     float m_sigma2;
-
 };
-
-
 }

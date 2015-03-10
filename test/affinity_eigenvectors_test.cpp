@@ -23,18 +23,14 @@
 #include "fixtures.hpp"
 
 
-namespace cpd
-{
-namespace test
-{
+namespace cpd {
+namespace test {
 
 
-class AffinityEigenvectors : public RegistrationTest
-{};
+class AffinityEigenvectors : public RegistrationTest {};
 
 
-TEST_F(AffinityEigenvectors, MatchesReferenceImpl)
-{
+TEST_F(AffinityEigenvectors, MatchesReferenceImpl) {
     arma::mat Q, S;
     cpd::find_affinity_eigenvectors(m_Y, 2, 10, 1e-4, Q, S);
 
@@ -43,7 +39,5 @@ TEST_F(AffinityEigenvectors, MatchesReferenceImpl)
     EXPECT_NEAR(16.5205, S(0, 0), 0.01);
     EXPECT_NEAR(0.3057, S(9, 9), 0.01);
 }
-
-
 }
 }

@@ -3,21 +3,17 @@
 #include <cpd/nonrigid_lowrank.hpp>
 
 
-void print_usage(char * program)
-{
-    std::cerr << "Usage: " << program << " filename_X filenameY"
-        << std::endl;
+void print_usage(char* program) {
+    std::cerr << "Usage: " << program << " filename_X filenameY" << std::endl;
 }
 
 
 // This example application reads two files and outputs the CPD
 // registration (wtih deltas) to stdout.
-int main(int argc, char** argv)
-{
-    if (argc != 3)
-    {
-        std::cerr << "Error: " << argv[0]
-            << " must be run with two arguments" << std::endl;
+int main(int argc, char** argv) {
+    if (argc != 3) {
+        std::cerr << "Error: " << argv[0] << " must be run with two arguments"
+                  << std::endl;
         print_usage(argv[0]);
         return 1;
     }
@@ -36,7 +32,7 @@ int main(int argc, char** argv)
     // appropriate type.
     cpd::NonrigidLowrank reg;
     cpd::Registration::ResultPtr result = reg.run(X, Y);
-    
+
     // For an extra twist, we include the deltas for each point.
     arma::mat output = result->Y;
     output.insert_cols(output.n_cols, Y - output);

@@ -23,21 +23,18 @@
 #include "fixtures.hpp"
 
 
-namespace cpd
-{
-namespace test
-{
+namespace cpd {
+namespace test {
 
 
-class FindP : public RegistrationTest
-{};
+class FindP : public RegistrationTest {};
 
 
-TEST_F(FindP, MatchesReferenceImplWithoutFGT)
-{
+TEST_F(FindP, MatchesReferenceImplWithoutFGT) {
     arma::mat PX(m_Y.n_rows, m_Y.n_cols);
     arma::vec P1(m_Y.n_rows), Pt1(m_Y.n_rows);
-    double L = cpd::find_P(m_X, m_Y, 0.6666666667, 0.1, P1, Pt1, PX, false, 1e-4);
+    double L =
+        cpd::find_P(m_X, m_Y, 0.6666666667, 0.1, P1, Pt1, PX, false, 1e-4);
 
     EXPECT_NEAR(0.9352, P1(0), 0.0001);
     EXPECT_NEAR(0.1106, P1(35), 0.0001);
@@ -50,7 +47,5 @@ TEST_F(FindP, MatchesReferenceImplWithoutFGT)
 
     EXPECT_NEAR(-52.4994, L, 0.0001);
 }
-
-
 }
 }
