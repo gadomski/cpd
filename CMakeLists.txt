@@ -23,12 +23,13 @@ message(STATUS "cpd version ${CPD_VERSION}")
 
 
 # Options
+option(ARMA_64BIT_WORD "Use 64 bit words for armadillo" ON)
+option(ARMA_NO_DEBUG "Disable range checks in armadillo" OFF)
 option(BUILD_CLI "Build the command-line interface" OFF)
 option(BUILD_COVERAGE "Build with code coverage support" OFF)
 option(BUILD_DEBUG_OUTPUT "Build with debug output" OFF)
 option(BUILD_SHARED_LIBS "Create shared libraries" ON)
 option(BUILD_TESTS "Build tests" ON)
-option(BUILD_64BIT "Build with 64 bit matrix support" ON)
 
 
 # Cache variables
