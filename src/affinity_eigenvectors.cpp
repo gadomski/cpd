@@ -51,7 +51,7 @@ void run_aupd(const arma::uword n_eigvals, char* which, const arma::mat& Y,
     const arma::uword M = Y.n_rows;
     double h = std::sqrt(2) * beta;
     fgt::GaussTransformUnqPtr transform =
-        fgt::choose_gaussian_transform(Y, h, epsilon);
+        fgt::choose_gauss_transform(Y, h, epsilon);
 
     arma::blas_int ido = 0;
     char bmat = 'I';

@@ -42,9 +42,8 @@ double find_P(const arma::mat& X, const arma::mat& Y, double sigma2,
     arma::vec q = arma::ones<arma::vec>(M);
 
     fgt::GaussTransformUnqPtr transformY;
-    if (use_fgt)
-    {
-        transformY = fgt::choose_gaussian_transform(Y, h, epsilon);
+    if (use_fgt) {
+        transformY = fgt::choose_gauss_transform(Y, h, epsilon);
     } else {
         transformY.reset(new fgt::Direct(Y, h));
     }
@@ -55,9 +54,8 @@ double find_P(const arma::mat& X, const arma::mat& Y, double sigma2,
     q = 1 / denomP;
 
     fgt::GaussTransformUnqPtr transformX;
-    if (use_fgt)
-    {
-        transformX = fgt::choose_gaussian_transform(X, h, epsilon);
+    if (use_fgt) {
+        transformX = fgt::choose_gauss_transform(X, h, epsilon);
     } else {
         transformX.reset(new fgt::Direct(X, h));
     }
