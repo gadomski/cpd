@@ -44,7 +44,7 @@ endif()
 
 
 # Configuration
-set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
+list(APPEND CMAKE_CXX_FLAGS "-std=c++11 -Wall -pedantic -Werror")
 if(BUILD_COVERAGE)
     set(CMAKE_CXX_FLAGS "-fprofile-arcs -ftest-coverage ${CMAKE_CXX_FLAGS}")
     if(CMAKE_COMPILER_IS_GNUCXX)
