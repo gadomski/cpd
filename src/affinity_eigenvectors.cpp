@@ -53,10 +53,10 @@ void run_aupd(const arma::uword n_eigvals, char* which, const arma::mat& Y,
 
     arma::blas_int ido = 0;
     char bmat = 'I';
-    n = Y.n_rows;
-    arma::blas_int nev = n_eigvals;
+    n = arma::blas_int(Y.n_rows);
+    arma::blas_int nev = arma::blas_int(n_eigvals);
 
-    resid.set_size(n);
+    resid.set_size(Y.n_rows);
 
     ncv = 2 + nev;
     if (ncv < 2 * nev) {
@@ -65,8 +65,8 @@ void run_aupd(const arma::uword n_eigvals, char* which, const arma::mat& Y,
     if (ncv > n) {
         ncv = n;
     }
-    v.set_size(n * ncv);
-    rwork.set_size(ncv);
+    v.set_size(arma::uword(n * ncv));
+    rwork.set_size(arma::uword(ncv));
     ldv = n;
 
     iparam.zeros(11);
@@ -76,11 +76,11 @@ void run_aupd(const arma::uword n_eigvals, char* which, const arma::mat& Y,
 
     ipntr.set_size(14);
 
-    workd.set_size(3 * n);
+    workd.set_size(3 * arma::uword(n));
 
     lworkl = 3 * (ncv * ncv) + 6 * ncv;
 
-    workl.set_size(lworkl);
+    workl.set_size(arma::uword(lworkl));
 
     info = 0;
 
@@ -93,8 +93,10 @@ void run_aupd(const arma::uword n_eigvals, char* which, const arma::mat& Y,
         switch (ido) {
         case -1:
         case 1: {
-            arma::Col<double> out(workd.memptr() + ipntr(1) - 1, n, false);
-            arma::Col<double> in(workd.memptr() + ipntr(0) - 1, n, false);
+            arma::Col<double> out(workd.memptr() + ipntr(1) - 1, arma::uword(n),
+                                  false);
+            arma::Col<double> in(workd.memptr() + ipntr(0) - 1, arma::uword(n),
+                                 false);
 
             out = transform->compute(Y, in);
             break;
@@ -129,19 +131,19 @@ void find_affinity_eigenvectors(const arma::mat& Y, const float beta,
     DEBUG("done with aupd");
 
     arma::blas_int rvec = 1;
-    arma::blas_int nev = numeig;
+    arma::blas_int nev = arma::blas_int(numeig);
     char howmny = 'A';
     char bmat = 'I';
 
-    arma::podarray<arma::blas_int> select(ncv);
+    arma::podarray<arma::blas_int> select((arma::uword(ncv)));
     arma::blas_int ldz = n;
 
     arma::vec s(numeig);
-    Q.set_size(n, numeig);
+    Q.set_size(arma::uword(n), numeig);
 
     DEBUG("running seupd");
     arma::arpack::seupd(&rvec, &howmny, select.memptr(), s.memptr(), Q.memptr(),
-                        &ldz, (double*)NULL, &bmat, &n, which, &nev, &tol,
+                        &ldz, static_cast<double*>(nullptr), &bmat, &n, which, &nev, &tol,
                         resid.memptr(), &ncv, v.memptr(), &ldv, iparam.memptr(),
                         ipntr.memptr(), workd.memptr(), workl.memptr(), &lworkl,
                         &info);

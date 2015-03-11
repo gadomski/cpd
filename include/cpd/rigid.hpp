@@ -34,13 +34,13 @@ public:
                    bool strict_rot = DefaultStrictRotation,
                    bool use_scaling = DefaultUseScaling);
 
-    inline bool strict_rot() const { return m_strict_rot; }
-    inline bool use_scaling() const { return m_use_scaling; }
+    bool strict_rot() const { return m_strict_rot; }
+    bool use_scaling() const { return m_use_scaling; }
 
-    inline void strict_rot(bool strict_rot) { m_strict_rot = strict_rot; }
-    inline void use_scaling(bool use_scaling) { m_use_scaling = use_scaling; }
+    void strict_rot(bool strict_rot) { m_strict_rot = strict_rot; }
+    void use_scaling(bool use_scaling) { m_use_scaling = use_scaling; }
 
-    virtual ~Rigid(){};
+    virtual ~Rigid();
 
 private:
     virtual ResultPtr execute(const arma::mat& X, const arma::mat& Y,

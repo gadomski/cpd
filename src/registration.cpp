@@ -39,6 +39,9 @@ Registration::Registration(float tol, int max_it, float outliers, bool use_fgt,
       m_sigma2(sigma2) {}
 
 
+Registration::~Registration() {}
+
+
 Registration::ResultPtr Registration::run(const arma::mat& X,
                                           const arma::mat& Y) const {
     DEBUG("Running registration, X.n_rows: " << X.n_rows
@@ -49,8 +52,8 @@ Registration::ResultPtr Registration::run(const arma::mat& X,
     }
     arma::mat Xn(X), Yn(Y);
     Normalization normal = normalize(Xn, Yn);
-    float sigma2 = get_sigma2() == 0.0f ? calculate_sigma2(Xn, Yn)
-                                        : get_sigma2() / normal.scale;
+    double sigma2 = get_sigma2() == 0.0f ? calculate_sigma2(Xn, Yn)
+                                         : get_sigma2() / normal.scale;
 
     DEBUG("Normalized with scale: "
           << normal.scale << ", xd: (" << normal.xd(0) << "," << normal.xd(1)

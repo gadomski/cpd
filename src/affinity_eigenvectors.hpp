@@ -28,4 +28,12 @@ namespace cpd {
 void find_affinity_eigenvectors(const arma::mat& Y, const float beta,
                                 const arma::uword numeig, const float epsilon,
                                 arma::mat& Q, arma::mat& S);
+void run_aupd(const arma::uword n_eigvals, char* which, const arma::mat& Y,
+              arma::blas_int& n, double& tol, arma::podarray<double>& resid,
+              arma::blas_int& ncv, arma::podarray<double>& v,
+              arma::blas_int& ldv, arma::podarray<arma::blas_int>& iparam,
+              arma::podarray<arma::blas_int>& ipntr,
+              arma::podarray<double>& workd, arma::podarray<double>& workl,
+              arma::blas_int& lworkl, arma::podarray<double>& rwork,
+              arma::blas_int& info, const double beta, const float epsilon);
 }

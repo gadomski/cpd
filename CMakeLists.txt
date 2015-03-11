@@ -44,7 +44,7 @@ endif()
 
 
 # Configuration
-list(APPEND CMAKE_CXX_FLAGS "-std=c++11 -Wall -pedantic -Werror")
+list(APPEND CMAKE_CXX_FLAGS "-std=c++11")
 if(BUILD_COVERAGE)
     set(CMAKE_CXX_FLAGS "-fprofile-arcs -ftest-coverage ${CMAKE_CXX_FLAGS}")
     if(CMAKE_COMPILER_IS_GNUCXX)
@@ -57,19 +57,6 @@ endif()
 if(BUILD_DEBUG_OUTPUT)
     add_definitions(-DCPD_DEBUG_OUTPUT)
 endif()
-
-
-# Targets and directories
-set(CPD_CLI_TARGET cpd-cli)
-set(CPD_LIB_TARGET cpd-lib)
-set(CPD_TEST_TARGET cpd-test)
-set(CPD_COVERAGE_TARGET coverage)
-set(CPD_PERFORMANCE_TEST_TARGET cpd-performance)
-set(CPD_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/include")
-
-set(CPD_LIB_NAME cpd)
-
-set(CPD_EXPORT CPDTargets)
 
 
 # Output paths
@@ -94,7 +81,10 @@ if("${isSystemDir}" STREQUAL "-1")
 endif()
 
 
-# Includes
+# Includes and targets
+include(cmake/configure_target.cmake)
+set(CPD_EXPORT CPDTargets)
+
 add_subdirectory(include)
 add_subdirectory(src)
 
@@ -126,7 +116,7 @@ write_basic_package_version_file(
     VERSION ${CPD_VERSION}
     COMPATIBILITY SameMajorVersion
     )
-export(TARGETS ${CPD_LIB_TARGET} FILE ${PROJECT_BINARY_DIR}/CPDTargets.cmake)
+export(TARGETS cpd-lib FILE ${PROJECT_BINARY_DIR}/CPDTargets.cmake)
 
 install(
     FILES

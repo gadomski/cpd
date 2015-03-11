@@ -61,7 +61,7 @@ double find_P(const arma::mat& X, const arma::mat& Y, double sigma2,
     }
     P1 = transformX->compute(Y, q);
 
-    for (int i = 0; i < D; ++i) {
+    for (arma::uword i = 0; i < D; ++i) {
         q = X.col(i) / denomP;
         arma::vec c = PX.unsafe_col(i);
         PX.col(i) = transformX->compute(Y, q);

@@ -33,13 +33,13 @@ public:
                       bool use_fgt = DefaultFgt, float epsilon = DefaultEpsilon,
                       float beta = DefaultBeta, float lambda = DefaultLambda);
 
-    inline float get_beta() const { return m_beta; }
-    inline float get_lambda() const { return m_lambda; }
+    float get_beta() const { return m_beta; }
+    float get_lambda() const { return m_lambda; }
 
-    inline void set_beta(float beta) { m_beta = beta; }
-    inline void set_lambda(float lambda) { m_lambda = lambda; }
+    void set_beta(float beta) { m_beta = beta; }
+    void set_lambda(float lambda) { m_lambda = lambda; }
 
-    virtual ~Nonrigid(){};
+    virtual ~Nonrigid();
 
 private:
     virtual ResultPtr execute(const arma::mat& X, const arma::mat& Y,

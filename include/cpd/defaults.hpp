@@ -25,13 +25,13 @@ namespace cpd {
 
 
 // Common
-const float DefaultTolerance = 1e-5;
+const float DefaultTolerance = 1e-5f;
 const int DefaultMaxIterations = 150;
-const float DefaultOutliers = 0.1;
+const float DefaultOutliers = 0.1f;
 const bool DefaultFgt = true;
-const float DefaultEpsilon = 1e-4;
+const float DefaultEpsilon = 1e-4f;
 const float DefaultZExaggeration = 1.0f;
-const float DefaultSigma2 = 0;
+const float DefaultSigma2 = 0.0f;
 
 // Rigid
 const bool DefaultStrictRotation = true;

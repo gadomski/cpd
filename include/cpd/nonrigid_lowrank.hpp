@@ -36,11 +36,11 @@ public:
         // M ^ (1/2), where M is the number of points in Y
         arma::uword numeig = DefaultNumeig);
 
-    inline arma::uword get_numeig() const { return m_numeig; }
+    arma::uword get_numeig() const { return m_numeig; }
 
-    inline void set_numeig(int numeig) { m_numeig = numeig; }
+    void set_numeig(arma::uword numeig) { m_numeig = numeig; }
 
-    virtual ~NonrigidLowrank(){};
+    virtual ~NonrigidLowrank();
 
 private:
     virtual ResultPtr execute(const arma::mat& X, const arma::mat& Y,

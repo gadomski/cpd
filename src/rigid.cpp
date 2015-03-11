@@ -33,6 +33,9 @@ Rigid::Rigid(float tol, int max_it, float outliers, bool use_fgt, float epsilon,
       m_use_scaling(use_scaling) {}
 
 
+Rigid::~Rigid() {}
+
+
 Registration::ResultPtr Rigid::execute(const arma::mat& X, const arma::mat& Y,
                                        double sigma2) const {
     const arma::uword M = Y.n_rows;

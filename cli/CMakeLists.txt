@@ -18,7 +18,7 @@ else()
 endif()
 
 include_directories(
-    ${CPD_INCLUDE_DIR}
+    ${PROJECT_SOURCE_DIR}/include
     ${GFLAGS_INCLUDE_DIR}
     )
 
@@ -26,12 +26,12 @@ set(SRC
     cpd.cpp
     )
 
-add_executable(${CPD_CLI_TARGET} ${SRC})
-set_property(TARGET ${CPD_CLI_TARGET} PROPERTY OUTPUT_NAME cpd)
-target_link_libraries(${CPD_CLI_TARGET}
-    ${CPD_LIB_TARGET}
+add_executable(cpd-cli ${SRC})
+cpd_configure_target(cpd-cli NAME cpd EXTRA_COMPILE_FLAGS "-w")
+target_link_libraries(cpd-cli
+    cpd-lib
     ${GFLAGS_TARGET}
     )
-install(TARGETS ${CPD_CLI_TARGET}
+install(TARGETS cpd-cli
     DESTINATION bin
     )

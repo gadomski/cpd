@@ -7,9 +7,10 @@ set(src
     )
 
 set(deps
-    ${CPD_LIB_TARGET}
+    cpd-lib
     gtest_main
     )
 
-add_executable(${CPD_PERFORMANCE_TEST_TARGET} ${src})
-target_link_libraries(${CPD_PERFORMANCE_TEST_TARGET} ${deps})
+add_executable(cpd-performance ${src})
+target_link_libraries(cpd-performance ${deps})
+cpd_configure_target(cpd-performance EXTRA_COMPILE_FLAGS "-w")
