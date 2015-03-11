@@ -25,7 +25,7 @@ set(src
     version_test.cpp
     )
 
-if(BUILD_64BIT)
+if(ARMA_64BIT_WORD)
     set(src ${src} arma_64bit_test.cpp)
 else()
     set(src ${src} arma_32bit_test.cpp)
