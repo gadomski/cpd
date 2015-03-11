@@ -38,7 +38,6 @@ NonrigidLowrank::NonrigidLowrank(float tol, int max_it, float outliers,
 Registration::ResultPtr NonrigidLowrank::execute(const arma::mat& X,
                                                  const arma::mat& Y,
                                                  double sigma2) const {
-    const arma::uword N = X.n_rows;
     const arma::uword M = Y.n_rows;
     const arma::uword D = Y.n_cols;
 
@@ -50,8 +49,6 @@ Registration::ResultPtr NonrigidLowrank::execute(const arma::mat& X,
     const arma::uword numeig =
         (get_numeig() == 0) ? arma::uword(std::sqrt(Y.n_rows)) : get_numeig();
     DEBUG("number of eigenvectors: " << numeig);
-
-    const double sigma2_init = sigma2;
 
     arma::mat T = Y;
     arma::mat W = arma::zeros<arma::mat>(M, D);

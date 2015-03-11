@@ -35,11 +35,8 @@ Rigid::Rigid(float tol, int max_it, float outliers, bool use_fgt, float epsilon,
 
 Registration::ResultPtr Rigid::execute(const arma::mat& X, const arma::mat& Y,
                                        double sigma2) const {
-    const arma::uword N = X.n_rows;
     const arma::uword M = Y.n_rows;
     const arma::uword D = Y.n_cols;
-
-    const double sigma2_init = sigma2;
 
     arma::mat T = Y;
     double s = 1;

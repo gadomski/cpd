@@ -47,8 +47,6 @@ void run_aupd(const arma::uword n_eigvals, char* which, const arma::mat& Y,
               arma::podarray<double>& workd, arma::podarray<double>& workl,
               arma::blas_int& lworkl, arma::podarray<double>& rwork,
               arma::blas_int& info, const double beta, const float epsilon) {
-    const arma::uword D = Y.n_cols;
-    const arma::uword M = Y.n_rows;
     double h = std::sqrt(2) * beta;
     fgt::GaussTransformUnqPtr transform =
         fgt::choose_gauss_transform(Y, h, epsilon);

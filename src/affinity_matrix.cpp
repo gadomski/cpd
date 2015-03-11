@@ -28,7 +28,6 @@ void construct_affinity_matrix(const arma::mat& X, const arma::mat& Y,
     double k = -2 * std::pow(beta, 2);
     const arma::uword N = X.n_rows;
     const arma::uword M = Y.n_rows;
-    const arma::uword D = Y.n_cols;
 
     G.set_size(N, M);
 
