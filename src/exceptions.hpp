@@ -18,6 +18,7 @@
 ******************************************************************************/
 
 #pragma once
+#pragma clang diagnostic ignored "-Wweak-vtables"
 
 #include <exception>
 
@@ -27,18 +28,18 @@ namespace cpd {
 
 class cpd_error : public std::runtime_error {
 public:
-    cpd_error(const std::string& msg) : std::runtime_error(msg) {}
+    using std::runtime_error::runtime_error;
 };
 
 
 class dimension_mismatch : public cpd_error {
 public:
-    dimension_mismatch(const std::string& msg) : cpd_error(msg) {}
+    using cpd_error::cpd_error;
 };
 
 
 class arpack_error : public cpd_error {
 public:
-    arpack_error(const std::string& msg) : cpd_error(msg) {}
+    using cpd_error::cpd_error;
 };
 }

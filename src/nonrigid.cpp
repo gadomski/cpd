@@ -34,6 +34,9 @@ Nonrigid::Nonrigid(float tol, int max_it, float outliers, bool use_fgt,
       m_lambda(lambda) {}
 
 
+Nonrigid::~Nonrigid() {}
+
+
 Registration::ResultPtr
 Nonrigid::execute(const arma::mat& X, const arma::mat& Y, double sigma2) const {
     const arma::uword M = Y.n_rows;

@@ -35,6 +35,9 @@ NonrigidLowrank::NonrigidLowrank(float tol, int max_it, float outliers,
       m_numeig(numeig) {}
 
 
+NonrigidLowrank::~NonrigidLowrank() {}
+
+
 Registration::ResultPtr NonrigidLowrank::execute(const arma::mat& X,
                                                  const arma::mat& Y,
                                                  double sigma2) const {

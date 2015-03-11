@@ -33,10 +33,10 @@ public:
     void start();
     void end();
 
-    inline float clock_time() const {
+    double clock_time() const {
         return 1000.0 * (m_c_end - m_c_start) / CLOCKS_PER_SEC;
     }
-    inline float chrono_time() const {
+    double chrono_time() const {
         return std::chrono::duration<double, std::milli>(m_t_end - m_t_start)
             .count();
     }

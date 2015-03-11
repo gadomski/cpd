@@ -5,7 +5,7 @@ configure_file(
 
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}
-    ${CPD_INCLUDE_DIR}
+    ${PROJECT_SOURCE_DIR}/include
     ${ARMADILLO_INCLUDE_DIRS}
     ${FGT_INCLUDE_DIRS}
     )
@@ -28,22 +28,10 @@ set(deps
     ${ARMADILLO_LIBRARIES}
     )
 
-add_library(${CPD_LIB_TARGET} ${src})
-
-set_property(TARGET ${CPD_LIB_TARGET} PROPERTY OUTPUT_NAME ${CPD_LIB_NAME})
-set_property(TARGET ${CPD_LIB_TARGET} PROPERTY VERSION ${CPD_VERSION})
-set_property(TARGET ${CPD_LIB_TARGET} PROPERTY SOVERSION ${CPD_SOVERSION})
-
-target_link_libraries(${CPD_LIB_TARGET} ${deps})
-if(ARMA_64BIT_WORD)
-    target_compile_definitions(${CPD_LIB_TARGET} PUBLIC ARMA_64BIT_WORD)
-endif()
-if(ARMA_NO_DEBUG)
-    target_compile_definitions(${CPD_LIB_TARGET} PUBLIC ARMA_NO_DEBUG)
-endif()
-
-
-install(TARGETS ${CPD_LIB_TARGET}
+add_library(cpd-lib ${src})
+target_link_libraries(cpd-lib ${deps})
+cpd_configure_target(cpd-lib NAME cpd)
+install(TARGETS cpd-lib
     EXPORT ${CPD_EXPORT}
     LIBRARY DESTINATION lib
     ARCHIVE DESTINATION lib
