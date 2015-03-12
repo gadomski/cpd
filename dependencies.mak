@@ -16,6 +16,7 @@ install-on-ubuntu-precise: \
 install-dependencies-apt-general: \
 	install-armadillo-dependencies-apt \
 	install-armadillo-src \
+	install-fgt-git \
 	install-gflags-src
 
 install-build-system-apt-trusty:
@@ -40,6 +41,14 @@ install-armadillo-src:
 	tar xzf armadillo-$(ARMADILLO_VERSION).tar.gz
 	mkdir armadillo-$(ARMADILLO_VERSION)/build
 	cd armadillo-$(ARMADILLO_VERSION)/build && \
+		cmake .. $(CMAKE_COMMON_OPTIONS) && \
+		ninja && \
+		sudo ninja install
+
+install-fgt-git:
+	git clone http://github.com/gadomski/fgt
+	mkdir fgt/build
+	cd fgt/build && \
 		cmake .. $(CMAKE_COMMON_OPTIONS) && \
 		ninja && \
 		sudo ninja install
