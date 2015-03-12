@@ -18,10 +18,6 @@ install-dependencies-apt-general: \
 	install-armadillo-src \
 	install-gflags-src
 
-install-on-osx: install-build-system-homebrew
-	brew install armadillo
-	brew install gflags
-
 install-build-system-apt-trusty:
 	sudo apt-get update -qq
 	sudo apt-get install -y build-essential cmake ninja-build git
@@ -31,11 +27,6 @@ install-build-system-apt-precise:
 	sudo add-apt-repository ppa:smspillaz/cmake-2.8.12 -y
 	sudo apt-get update -qq
 	sudo apt-get install -y g++-4.8 cmake cmake-data ninja-build git
-
-install-build-system-homebrew:
-	brew update
-	brew install cmake
-	brew install ninja
 
 install-armadillo-dependencies-apt:
 	sudo apt-get -y install \
@@ -68,10 +59,8 @@ install-gflags-src:
 	install-on-ubuntu-trusty \
 	install-on-ubuntu-precise \
 	install-dependencies-apt-general \
-	install-on-osx \
 	install-build-system-apt-trusty \
 	install-build-system-apt-precise \
-	install-build-system-homebrew \
 	install-armadillo-dependencies-apt \
 	install-armadillo-src \
 	install-gflags-src
