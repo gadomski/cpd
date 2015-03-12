@@ -76,7 +76,7 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib)
 
 
 # Dependencies
-find_package(Armadillo 4.600.1 REQUIRED NO_CMAKE_SYSTEM_PATH)
+find_package(Armadillo 4.600.1 REQUIRED)
 find_package(Fgt 0.1.0 REQUIRED)
 
 
