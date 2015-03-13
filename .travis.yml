@@ -5,8 +5,8 @@ compiler:
     - gcc
 
 env:
-    - CPD_64BIT=true
-    - CPD_64BIT=false
+    - ARMA_64BIT_WORD=ON
+    - ARMA_64BIT_WORD=OFF
 
 install:
     - make -f dependencies.mak install-build-system-apt-precise
