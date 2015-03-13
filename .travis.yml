@@ -9,16 +9,15 @@ env:
     - CPD_64BIT=false
 
 install:
-    - make -f dependencies.mak install-on-ubuntu-precise
-    - sudo pip install cpp-coveralls
-
-before_script:
+    - make -f dependencies.mak install-build-system-apt-precise
     - if [[ $CXX == "g++" ]]; then
       export CPD_BUILD_COVERAGE="ON";
       export CXX="g++-4.8";
       else
       export CPD_BUILD_COVERAGE="OFF";
       fi
+    - make -f dependencies.mak install-dependencies-apt-general
+    - sudo pip install cpp-coveralls
 
 script:
     - scripts/build_and_test.sh
