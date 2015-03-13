@@ -19,6 +19,7 @@ endif()
 
 include_directories(
     ${PROJECT_SOURCE_DIR}/include
+    ${ARMADILLO_INCLUDE_DIRS}
     ${GFLAGS_INCLUDE_DIR}
     )
 
