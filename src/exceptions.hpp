@@ -18,7 +18,6 @@
 ******************************************************************************/
 
 #pragma once
-#pragma clang diagnostic ignored "-Wweak-vtables"
 
 #include <exception>
 
