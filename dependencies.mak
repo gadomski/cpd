@@ -49,7 +49,7 @@ install-fgt-git:
 	git clone http://github.com/gadomski/fgt
 	mkdir fgt/build
 	cd fgt/build && \
-		cmake .. $(CMAKE_COMMON_OPTIONS) && \
+		cmake .. $(CMAKE_COMMON_OPTIONS) -DARMA_64BIT_WORD=$(ARMA_64BIT_WORD) && \
 		ninja && \
 		sudo ninja install
 
