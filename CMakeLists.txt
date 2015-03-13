@@ -40,6 +40,11 @@ option(BUILD_DEBUG_OUTPUT "Build with debug output" OFF)
 option(BUILD_SHARED_LIBS "Create shared libraries" ON)
 option(BUILD_TESTS "Build tests" ON)
 
+message(STATUS "cpd options:
+       ARMA_64BIT_WORD: ${ARMA_64BIT_WORD}
+       ARMA_NO_DEBUG: ${ARMA_NO_DEBUG}
+       BUILD_DEBUG_OUTPUT: ${BUILD_DEBUG_OUTPUT}")
+
 
 # Checks
 if(BUILD_COVERAGE)
