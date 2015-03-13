@@ -9,8 +9,6 @@ if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release CACHE STRING "Choose the type of build" FORCE)
 endif()
 
-set(CMAKE_INCLUDE_DIRECTORIES_BEFORE ON)
-
 
 # RPath
 set(CMAKE_MACOSX_RPATH ON)
