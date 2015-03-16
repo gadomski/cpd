@@ -9,7 +9,7 @@ env:
     - ARMA_64BIT_WORD=OFF
 
 install:
-    - make -f dependencies.mak install-build-system-apt-precise
+    - make -f make/dependencies.mak install-build-system-apt-precise
     - if [[ $CXX == "g++" ]]; then
       export CPD_BUILD_COVERAGE="ON";
       export CXX="g++-4.8";
@@ -17,7 +17,7 @@ install:
       else
       export CPD_BUILD_COVERAGE="OFF";
       fi
-    - make -f dependencies.mak install-dependencies-apt-general
+    - make -f make/dependencies.mak install-dependencies-apt-general
 
 script:
     - scripts/build_and_test.sh
