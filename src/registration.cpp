@@ -84,7 +84,12 @@ Registration::Normalization Registration::normalize(arma::mat& X,
     X = X - arma::repmat(normal.xd, N, 1);
     Y = Y - arma::repmat(normal.yd, M, 1);
 
-    normal.scale = std::sqrt(arma::accu(arma::pow(Y, 2)) / M);
+    auto scale = [](const arma::mat& mat) -> arma::uword {
+        return arma::as_scalar(
+            arma::max(arma::max(mat, 0) - arma::min(mat, 0), 1));
+    };
+
+    normal.scale = std::max(scale(X), scale(Y));
 
     X = X / normal.scale;
     Y = Y / normal.scale;
