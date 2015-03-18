@@ -6,11 +6,21 @@ set(src
     rigid_performance_test.cpp
     )
 
-set(deps
-    cpd-lib
+add_executable(Performance ${src})
+configure_target(Performance)
+set_target_properties(Performance PROPERTIES
+    OUTPUT_NAME cpd-performance
+    )
+target_include_directories(Performance
+    PRIVATE
+    ${PROJECT_SOURCE_DIR}/include
+    ${PROJECT_SOURCE_DIR}/src
+    ${PROJECT_SOURCE_DIR}/test
+    ${CMAKE_CURRENT_BINARY_DIR}/..
+    ${gtest_SOURCE_DIR}/include
+    )
+target_link_libraries(Performance
+    PRIVATE
+    Library
     gtest_main
     )
-
-add_executable(cpd-performance ${src})
-target_link_libraries(cpd-performance ${deps})
-cpd_configure_target(cpd-performance EXTRA_COMPILE_FLAGS "-w")

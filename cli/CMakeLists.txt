@@ -17,22 +17,24 @@ else()
     endif()
 endif()
 
-include_directories(
-    ${PROJECT_SOURCE_DIR}/include
-    ${ARMADILLO_INCLUDE_DIRS}
-    ${GFLAGS_INCLUDE_DIR}
-    )
-
-set(SRC
+set(src
     cpd.cpp
     )
 
-add_executable(cpd-cli ${SRC})
-cpd_configure_target(cpd-cli NAME cpd EXTRA_COMPILE_FLAGS "-w")
-target_link_libraries(cpd-cli
-    cpd-lib
+add_executable(Cli ${src})
+configure_target(Cli)
+set_target_properties(Cli PROPERTIES
+    OUTPUT_NAME cpd
+    )
+target_include_directories(Cli
+    PRIVATE
+    ${PROJECT_SOURCE_DIR}/include
+    )
+target_link_libraries(Cli
+    PRIVATE
+    Library
     ${GFLAGS_TARGET}
     )
-install(TARGETS cpd-cli
-    DESTINATION bin
+install(TARGETS Cli
+    RUNTIME DESTINATION bin
     )

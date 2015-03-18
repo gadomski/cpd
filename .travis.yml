@@ -9,20 +9,19 @@ env:
     - ARMA_64BIT_WORD=OFF
 
 install:
-    - make -f make/dependencies.mak install-build-system-apt-precise
+    - make -f make/dependencies.mak install-build-system
     - if [[ $CXX == "g++" ]]; then
       export CPD_BUILD_COVERAGE="ON";
       export CXX="g++-4.8";
-      sudo pip install cpp-coveralls;
       else
       export CPD_BUILD_COVERAGE="OFF";
       fi
-    - make -f make/dependencies.mak install-dependencies-apt-general
+    - make -f make/dependencies.mak install-dependencies
 
 script:
-    - scripts/build_and_test.sh
+    - make -f make/travis.mak build-and-test
 
 after_script:
     - if [[ $CPD_BUILD_COVERAGE == "ON" ]]; then
-      scripts/coveralls.sh;
+      make -f make/travis.mak coverage
       fi

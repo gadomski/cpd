@@ -5,38 +5,22 @@ CMAKE_COMMON_OPTIONS=-DCMAKE_BUILD_TYPE=Release -G Ninja
 
 default:
 
-install-on-ubuntu-trusty: \
-	install-build-system-apt-trusty \
-	install-dependencies-apt-general
-
-install-on-ubuntu-precise: \
-	install-build-system-apt-precise \
-	install-dependencies-apt-general
-
-install-dependencies-apt-general: \
-	install-armadillo-dependencies-apt \
-	install-armadillo-src \
-	install-fgt-git \
-	install-gflags-src
-
-install-build-system-apt-trusty:
+install-build-system:
+	sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+	sudo add-apt-repository -y ppa:smspillaz/cmake-2.8.12
 	sudo apt-get update -qq
-	sudo apt-get install -y build-essential cmake ninja-build git
-
-install-build-system-apt-precise:
-	sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
-	sudo add-apt-repository ppa:smspillaz/cmake-2.8.12 -y
-	sudo apt-get update -qq
-	sudo apt-get install -y g++-4.8 cmake cmake-data ninja-build git
-
-install-armadillo-dependencies-apt:
-	sudo apt-get -y install \
+	sudo apt-get install -y \
+		g++-4.8 \
+		ninja-build \
+		git \
 		liblapack-dev \
 		libarpack2-dev \
 		libsuperlu3-dev \
-		gfortran
+		gfortran \
+		cmake \
+		cmake-data
 
-install-armadillo-src:
+install-dependencies:
 	wget https://downloads.sourceforge.net/project/arma/armadillo-$(ARMADILLO_VERSION).tar.gz --no-check-certificate
 	tar xzf armadillo-$(ARMADILLO_VERSION).tar.gz
 	mkdir armadillo-$(ARMADILLO_VERSION)/build
@@ -44,16 +28,12 @@ install-armadillo-src:
 		cmake .. $(CMAKE_COMMON_OPTIONS) && \
 		ninja && \
 		sudo ninja install
-
-install-fgt-git:
 	git clone http://github.com/gadomski/fgt
 	mkdir fgt/build
 	cd fgt/build && \
 		cmake .. $(CMAKE_COMMON_OPTIONS) -DARMA_64BIT_WORD=$(ARMA_64BIT_WORD) && \
 		ninja && \
 		sudo ninja install
-
-install-gflags-src:
 	wget https://github.com/schuhschuh/gflags/archive/v$(GFLAGS_VERSION).tar.gz
 	tar xzvf v$(GFLAGS_VERSION).tar.gz
 	mkdir gflags-$(GFLAGS_VERSION)/build
@@ -62,14 +42,4 @@ install-gflags-src:
 		ninja && \
 		sudo ninja install
 
-
-.PHONY: \
-	default \
-	install-on-ubuntu-trusty \
-	install-on-ubuntu-precise \
-	install-dependencies-apt-general \
-	install-build-system-apt-trusty \
-	install-build-system-apt-precise \
-	install-armadillo-dependencies-apt \
-	install-armadillo-src \
-	install-gflags-src
+.PHONY: default install-build-system install-dependencies

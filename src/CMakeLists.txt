@@ -3,13 +3,6 @@ configure_file(
     ${CMAKE_CURRENT_BINARY_DIR}/version.cpp
     )
 
-include_directories(
-    ${CMAKE_CURRENT_SOURCE_DIR}
-    ${PROJECT_SOURCE_DIR}/include
-    ${ARMADILLO_INCLUDE_DIRS}
-    ${FGT_INCLUDE_DIRS}
-    )
-
 set(src
     affinity_eigenvectors.cpp
     affinity_matrix.cpp
@@ -23,16 +16,29 @@ set(src
     ${CMAKE_CURRENT_BINARY_DIR}/version.cpp
     )
 
-set(deps
-    fgt-lib
-    ${ARMADILLO_LIBRARIES}
+add_library(Library ${src})
+configure_target(Library)
+set_target_properties(Library PROPERTIES
+    OUTPUT_NAME cpd
+    VERSION ${CPD_VERSION}
+    SOVERSION ${CPD_SOVERSION}
     )
-
-add_library(cpd-lib ${src})
-target_link_libraries(cpd-lib ${deps})
-cpd_configure_target(cpd-lib NAME cpd)
-install(TARGETS cpd-lib
-    EXPORT ${CPD_EXPORT}
+target_include_directories(Library
+    PUBLIC
+    ${ARMADILLO_INCLUDE_DIRS}
+    PRIVATE
+    ${PROJECT_SOURCE_DIR}/include
+    ${PROJECT_SOURCE_DIR}/src
+    )
+target_link_libraries(Library
+    PUBLIC
+    armadillo
+    PRIVATE
+    Fgt::Library
+    )
+install(TARGETS Library
+    EXPORT CpdTargets
+    INCLUDES DESTINATION include
     LIBRARY DESTINATION lib
     ARCHIVE DESTINATION lib
     )
