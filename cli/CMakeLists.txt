@@ -29,6 +29,7 @@ set_target_properties(Cli PROPERTIES
 target_include_directories(Cli
     PRIVATE
     ${PROJECT_SOURCE_DIR}/include
+    ${gflags_INCLUDE_DIR}
     )
 target_link_libraries(Cli
     PRIVATE
