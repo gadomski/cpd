@@ -7,7 +7,7 @@ if (NOT Armadillo_FOUND)
       set(cmake_fd_quiet_arg QUIET)
     endif()
     find_package(Armadillo
-        4.650.1
+        @ARMA_MINIMUM_VERSION@
         ${cmake_fd_quiet_arg}
         REQUIRED
         NO_CMAKE_SYSTEM_PATH)
