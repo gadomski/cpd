@@ -38,6 +38,7 @@ public:
 
     struct Result {
         arma::mat Y;
+        arma::mat transformation;
     };
 
     typedef std::shared_ptr<Result> ResultPtr;

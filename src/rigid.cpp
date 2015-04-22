@@ -106,8 +106,13 @@ Registration::ResultPtr Rigid::execute(const arma::mat& X, const arma::mat& Y,
         iter++;
     }
 
+    arma::mat transformation(4, 4);
+    transformation.submat(0, 0, 2, 2) = R;
+    transformation.submat(0, 3, 2, 3) = t;
+    transformation(3, 3) = 1;
     ResultPtr result(new Result());
     result->Y = T;
+    result->transformation = transformation;
     return result;
 }
 }
