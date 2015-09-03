@@ -24,6 +24,11 @@ endif()
 
 add_executable(Test ${src})
 configure_target(Test)
+# Armadillo accesses `mem_local` on a matrix before initializing the base class,
+# which trips this warning in clang 3.6 and *not* on some other compilers.
+target_compile_options(Test
+	PRIVATE -Wno-uninitialized
+	)
 set_target_properties(Test PROPERTIES
     OUTPUT_NAME cpd-test
     )
