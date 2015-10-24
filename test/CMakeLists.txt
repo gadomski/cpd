@@ -14,6 +14,8 @@ set(src
     rigid_test.cpp
     sigma2_test.cpp
     version_test.cpp
+
+    issues/41-rigid-transformation.cpp
     )
 
 if(ARMA_64BIT_WORD)
