@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
 project(cpd-example-project CXX)
 
-find_package(CPD REQUIRED)
+find_package(Cpd REQUIRED)
 
 add_executable(cpd-example-project main.cpp)
 

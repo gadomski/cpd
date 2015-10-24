@@ -32,6 +32,7 @@ target_compile_options(Test
 set_target_properties(Test PROPERTIES
     OUTPUT_NAME cpd-test
     )
+target_compile_options(Test PRIVATE -Wno-uninitialized)
 target_include_directories(Test
     PRIVATE
     ${PROJECT_SOURCE_DIR}/include
