@@ -115,4 +115,12 @@ Registration::ResultPtr Rigid::execute(const arma::mat& X, const arma::mat& Y,
     result->transformation = transformation;
     return result;
 }
+
+void Rigid::denormalize(ResultPtr& result, const Normalization& normal) const {
+    Registration::denormalize(result, normal);
+    arma::mat t = result->transformation.submat(0, 3, 2, 3);
+    arma::mat R = result->transformation.submat(0, 0, 2, 2);
+    result->transformation.submat(0, 3, 2, 3) =
+        normal.scale * t + normal.xd.t() - R * normal.yd.t();
+}
 }

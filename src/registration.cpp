@@ -62,7 +62,7 @@ Registration::ResultPtr Registration::run(const arma::mat& X,
           << ", z-exaggeration: " << get_z_exaggeration()
           << ", sigma2_init: " << sigma2);
     ResultPtr result = execute(Xn, Yn, sigma2);
-    denormalize(result->Y, normal);
+    denormalize(result, normal);
     return result;
 }
 
@@ -98,10 +98,10 @@ Registration::Normalization Registration::normalize(arma::mat& X,
 }
 
 
-void Registration::denormalize(arma::mat& Y,
+void Registration::denormalize(ResultPtr& result,
                                const Normalization& normal) const {
-    Y = Y * normal.scale + arma::repmat(normal.xd, Y.n_rows, 1);
-    Y.col(2) = Y.col(2) / get_z_exaggeration();
+    result->Y = result->Y * normal.scale + arma::repmat(normal.xd, result->Y.n_rows, 1);
+    result->Y.col(2) = result->Y.col(2) / get_z_exaggeration();
 }
 
 

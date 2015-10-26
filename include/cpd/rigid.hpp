@@ -36,6 +36,7 @@ public:
 
     bool strict_rot() const { return m_strict_rot; }
     bool use_scaling() const { return m_use_scaling; }
+    void denormalize(ResultPtr& Y, const Normalization& normal) const override;
 
     void strict_rot(bool strict_rot) { m_strict_rot = strict_rot; }
     void use_scaling(bool use_scaling) { m_use_scaling = use_scaling; }
@@ -44,7 +45,7 @@ public:
 
 private:
     virtual ResultPtr execute(const arma::mat& X, const arma::mat& Y,
-                              double sigma2) const;
+                              double sigma2) const override;
 
     bool m_strict_rot;
     bool m_use_scaling;
