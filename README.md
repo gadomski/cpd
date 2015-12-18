@@ -57,6 +57,7 @@ And the following compilers:
 
 **cpd** depends on the following:
 
+- [fgt](https://github.com/gadomski/fgt): C++ library for performing a Fast Gauss Transform
 - [armadillo](http://arma.sourceforge.net/): C++ linear algebra library
 - [lapack](http://www.netlib.org/lapack/): linear algebra package
 - [arpack](http://www.caam.rice.edu/software/ARPACK/): large scale eigenvalue solutions
@@ -112,7 +113,9 @@ Again, you can just follow the scripts: [armadillo](https://github.com/gadomski/
 Now you're ready to [install cpd](#installing-cpd-on-both-mac-os-x-and-linux).
 
 
-### Installing cpd on both Mac OS X and linux
+### Installing fgt and cpd on both Mac OS X and linux
+
+First, install [fgt](https://github.com/gadomski/fgt), following its installation instructions.
 
 Now download and install **cpd**:
 

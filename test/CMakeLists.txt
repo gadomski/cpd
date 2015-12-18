@@ -14,6 +14,8 @@ set(src
     rigid_test.cpp
     sigma2_test.cpp
     version_test.cpp
+
+    issues/41-rigid-transformation.cpp
     )
 
 if(ARMA_64BIT_WORD)
@@ -24,9 +26,15 @@ endif()
 
 add_executable(Test ${src})
 configure_target(Test)
+# Armadillo accesses `mem_local` on a matrix before initializing the base class,
+# which trips this warning in clang 3.6 and *not* on some other compilers.
+target_compile_options(Test
+	PRIVATE -Wno-uninitialized
+	)
 set_target_properties(Test PROPERTIES
     OUTPUT_NAME cpd-test
     )
+target_compile_options(Test PRIVATE -Wno-uninitialized)
 target_include_directories(Test
     PRIVATE
     ${PROJECT_SOURCE_DIR}/include
