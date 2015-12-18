@@ -18,7 +18,11 @@
 ******************************************************************************/
 
 #include <gtest/gtest.h>
+
+#pragma GCC diagnostic warning "-Wuninitialized"
 #include "sigma2.hpp"
+#pragma GCC diagnostic error "-Wuninitialized"
+
 
 
 namespace cpd {
