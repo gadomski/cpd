@@ -18,6 +18,8 @@
 ******************************************************************************/
 
 #include <gtest/gtest.h>
+#pragma GCC diagnostic warning "-Wuninitialized"
+
 #include "affinity_eigenvectors.hpp"
 
 #include "fixtures.hpp"

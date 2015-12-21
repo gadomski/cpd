@@ -18,10 +18,12 @@
 ******************************************************************************/
 
 #include <gtest/gtest.h>
+
+#pragma GCC diagnostic warning "-Wuninitialized"
 #include "affinity_matrix.hpp"
+#pragma GCC diagnostic error "-Wuninitialized"
 
 #include "fixtures.hpp"
-
 
 namespace cpd {
 namespace test {

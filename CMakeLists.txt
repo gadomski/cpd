@@ -61,11 +61,6 @@ endif()
 
 # Dependencies
 find_package(Armadillo ${ARMA_MINIMUM_VERSION} REQUIRED NO_CMAKE_SYSTEM_PATH)
-if (${Armadillo_VERSION} VERSION_GREATER 6)
-    message(FATAL_ERROR "Your armadillo version is ${Armadillo_VERSION}. "
-        "The 6.* line of armadillo is known to break cpd (https://github.com/gadomski/cpd/issues/43). "
-        "Please downgrade your Armadillo.")
-endif()
 find_package(Fgt 0.1.0 REQUIRED)
 
 
@@ -88,26 +83,26 @@ endif()
 # CPDConfig.cmake
 include(CMakePackageConfigHelpers)
 configure_package_config_file(
-    cmake/CpdConfig.cmake.in
-    ${PROJECT_BINARY_DIR}/CpdConfig.cmake
+    cmake/CPDConfig.cmake.in
+    ${PROJECT_BINARY_DIR}/CPDConfig.cmake
     INSTALL_DESTINATION lib/cpd/cmake
     NO_SET_AND_CHECK_MACRO
     NO_CHECK_REQUIRED_COMPONENTS_MACRO
     )
 write_basic_package_version_file(
-    ${PROJECT_BINARY_DIR}/CpdConfigVersion.cmake
+    ${PROJECT_BINARY_DIR}/CPDConfigVersion.cmake
     VERSION ${CPD_VERSION}
     COMPATIBILITY SameMajorVersion
     )
 install(
     FILES
-    ${PROJECT_BINARY_DIR}/CpdConfig.cmake
-    ${PROJECT_BINARY_DIR}/CpdConfigVersion.cmake
+    ${PROJECT_BINARY_DIR}/CPDConfig.cmake
+    ${PROJECT_BINARY_DIR}/CPDConfigVersion.cmake
     DESTINATION
     lib/cpd/cmake
     )
 install(
     EXPORT CpdTargets
-    NAMESPACE Cpd::
+    NAMESPACE cpd::
     DESTINATION lib/cpd/cmake
     )

@@ -18,7 +18,10 @@
 ******************************************************************************/
 
 #include <gtest/gtest.h>
+
+#pragma GCC diagnostic warning "-Wuninitialized"
 #include <cpd/nonrigid_lowrank.hpp>
+#pragma GCC diagnostic error "-Wuninitialized"
 
 #include "fixtures.hpp"
 

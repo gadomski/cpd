@@ -19,7 +19,9 @@
 
 #pragma once
 
+#pragma GCC diagnostic warning "-Wuninitialized"
 #include <armadillo>
+#pragma GCC diagnostic error "-Wuninitialized"
 
 
 namespace cpd {
