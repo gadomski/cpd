@@ -61,11 +61,6 @@ endif()
 
 # Dependencies
 find_package(Armadillo ${ARMA_MINIMUM_VERSION} REQUIRED NO_CMAKE_SYSTEM_PATH)
-if (${Armadillo_VERSION} VERSION_GREATER 6)
-    message(FATAL_ERROR "Your armadillo version is ${Armadillo_VERSION}. "
-        "The 6.* line of armadillo is known to break cpd (https://github.com/gadomski/cpd/issues/43). "
-        "Please downgrade your Armadillo.")
-endif()
 find_package(Fgt 0.1.0 REQUIRED)
 
 
