@@ -37,7 +37,6 @@ message(STATUS "cpd version ${CPD_VERSION}")
 option(ARMA_64BIT_WORD "Use 64 bit words for armadillo" ON)
 option(ARMA_NO_DEBUG "Disable range checks in armadillo" OFF)
 option(BUILD_CLI "Build the command-line interface" OFF)
-option(BUILD_COVERAGE "Build with code coverage support" OFF)
 option(BUILD_DEBUG_OUTPUT "Build with debug output" OFF)
 option(BUILD_SHARED_LIBS "Create shared libraries" ON)
 option(BUILD_TESTS "Build tests" ON)
@@ -46,17 +45,6 @@ message(STATUS "cpd options:
        ARMA_64BIT_WORD: ${ARMA_64BIT_WORD}
        ARMA_NO_DEBUG: ${ARMA_NO_DEBUG}
        BUILD_DEBUG_OUTPUT: ${BUILD_DEBUG_OUTPUT}")
-
-
-# Checks
-if(BUILD_COVERAGE)
-    if(NOT BUILD_TESTS)
-        message(FATAL_ERROR "Cannot build coverage without tests, set BUILD_TESTS to ON")
-    endif()
-    if(NOT CMAKE_BUILD_TYPE STREQUAL "Debug")
-        message(WARNING "Code coverage results with an optimized (non-Debug) build may be misleading")
-    endif()
-endif()
 
 
 # Dependencies
