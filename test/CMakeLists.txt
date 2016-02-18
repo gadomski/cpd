@@ -50,12 +50,4 @@ target_link_libraries(Test
     )
 add_test(NAME unit-tests COMMAND Test)
 
-if(BUILD_COVERAGE)
-    add_custom_target(Coverage
-        COMMAND Test
-        WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
-        COMMENT "Generating code coverage"
-        )
-endif()
-
 add_subdirectory(performance)

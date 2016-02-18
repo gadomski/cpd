@@ -11,17 +11,9 @@ env:
 install:
     - make -f make/dependencies.mak install-build-system
     - if [[ $CXX == "g++" ]]; then
-      export CPD_BUILD_COVERAGE="ON";
       export CXX="g++-4.8";
-      else
-      export CPD_BUILD_COVERAGE="OFF";
       fi
     - make -f make/dependencies.mak install-dependencies
 
 script:
     - make -f make/travis.mak build-and-test
-
-after_script:
-    - if [[ $CPD_BUILD_COVERAGE == "ON" ]]; then
-      make -f make/travis.mak coverage
-      fi
