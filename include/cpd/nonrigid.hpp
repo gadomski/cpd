@@ -1,51 +1,72 @@
-/******************************************************************************
-* Coherent Point Drift
-* Copyright (C) 2014 Pete Gadomski <pete.gadomski@gmail.com>
-*
-* This program is free software; you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation; either version 2 of the License, or
-* (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License along
-* with this program; if not, write to the Free Software Foundation, Inc.,
-* 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-******************************************************************************/
+// cpd - Coherent Point Drift
+// Copyright (C) 2016 Pete Gadomski <pete.gadomski@gmail.com>
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License along
+// with this program; if not, write to the Free Software Foundation, Inc.,
+// 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #pragma once
 
+#include <cpd/matrix.hpp>
 #include <cpd/registration.hpp>
-
 
 namespace cpd {
 
+/// The result of a nonrigid CPD registration.
+struct NonrigidResult {
+    /// The aligned dataset.
+    Matrix points;
+};
 
-class Nonrigid : public Registration {
+/// Class-based interface for running a nonrigid registration.
+class Nonrigid : public Registration<NonrigidResult> {
 public:
-    explicit Nonrigid(float tol = DefaultTolerance,
-                      int max_it = DefaultMaxIterations,
-                      float outliers = DefaultOutliers,
-                      bool use_fgt = DefaultFgt, float epsilon = DefaultEpsilon,
-                      float beta = DefaultBeta, float lambda = DefaultLambda);
+    /// Default beta parameter.
+    const double DEFAULT_BETA = 3.0;
+    /// Default lambda parameter.
+    const double DEFAULT_LAMBDA = 3.0;
 
-    float get_beta() const { return m_beta; }
-    float get_lambda() const { return m_lambda; }
+    /// Creates a new nonrigid registration with default parameters.
+    Nonrigid();
 
-    void set_beta(float beta) { m_beta = beta; }
-    void set_lambda(float lambda) { m_lambda = lambda; }
-
-    virtual ~Nonrigid();
+    /// Returns the value for beta.
+    double beta() const { return m_beta; }
+    /// Sets the value for beta.
+    Nonrigid& beta(double beta) {
+        m_beta = beta;
+        return *this;
+    }
+    /// Returns the value for lambda.
+    double lambda() const { return m_lambda; }
+    /// Sets the value for lambda.
+    Nonrigid& lambda(double lambda) {
+        m_lambda = lambda;
+        return *this;
+    }
 
 private:
-    virtual ResultPtr execute(const arma::mat& X, const arma::mat& Y,
-                              double sigma2) const;
+    virtual NonrigidResult compute_impl(const MatrixRef source,
+                                        const MatrixRef target,
+                                        double sigma2) const;
 
-    float m_beta;
-    float m_lambda;
+    double m_beta;
+    double m_lambda;
 };
+
+/// Runs nonrigid CPD on two data sets, using all default parameters.
+NonrigidResult nonrigid(const MatrixRef source, const MatrixRef target);
+
+/// Runs nonrigid CPD with the provided sigma2.
+NonrigidResult nonrigid(const MatrixRef source, const MatrixRef target,
+                        double sigma2);
 }

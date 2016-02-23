@@ -1,53 +1,76 @@
-/******************************************************************************
-* Coherent Point Drift
-* Copyright (C) 2014 Pete Gadomski <pete.gadomski@gmail.com>
-*
-* This program is free software; you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation; either version 2 of the License, or
-* (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License along
-* with this program; if not, write to the Free Software Foundation, Inc.,
-* 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-******************************************************************************/
+// cpd - Coherent Point Drift
+// Copyright (C) 2016 Pete Gadomski <pete.gadomski@gmail.com>
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License along
+// with this program; if not, write to the Free Software Foundation, Inc.,
+// 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #pragma once
 
+#include <cpd/matrix.hpp>
 #include <cpd/registration.hpp>
-
 
 namespace cpd {
 
+/// The result of a rigid CPD registration.
+struct RigidResult {
+    /// The aligned dataset.
+    Matrix points;
+    /// The calculated rotation matrix.
+    Matrix rotation;
+    /// The calculated translation vector.
+    RowVector translation;
+};
 
-class Rigid : public Registration {
+/// Class-based interface for running a rigid registration.
+class Rigid : public Registration<RigidResult> {
 public:
-    explicit Rigid(float tol = DefaultTolerance,
-                   int max_it = DefaultMaxIterations,
-                   float outliers = DefaultOutliers, bool use_fgt = DefaultFgt,
-                   float epsilon = DefaultEpsilon,
-                   bool strict_rot = DefaultStrictRotation,
-                   bool use_scaling = DefaultUseScaling);
+    /// Default value for `no_reflections`.
+    const bool DEFAULT_NO_REFLECTIONS = true;
+    /// Default value for `allow_scaling`.
+    const bool DEFAULT_ALLOW_SCALING = false;
 
-    bool strict_rot() const { return m_strict_rot; }
-    bool use_scaling() const { return m_use_scaling; }
-    void denormalize(ResultPtr& Y, const Normalization& normal) const override;
+    /// Creates a new rigid registration with default parameters.
+    Rigid();
 
-    void strict_rot(bool strict_rot) { m_strict_rot = strict_rot; }
-    void use_scaling(bool use_scaling) { m_use_scaling = use_scaling; }
-
-    virtual ~Rigid();
+    /// Returns true if this registration guards against reflections.
+    bool no_reflections() const { return m_no_reflections; }
+    /// Enables or disables reflections.
+    Rigid& no_reflections(bool no_reflections) {
+        m_no_reflections = no_reflections;
+        return *this;
+    }
+    /// Returns true if this registration allows scaling of the data.
+    bool allow_scaling() const { return m_allow_scaling; }
+    /// Enables or disables scaling.
+    Rigid& allow_scaling(bool allow_scaling) {
+        m_allow_scaling = allow_scaling;
+        return *this;
+    }
 
 private:
-    virtual ResultPtr execute(const arma::mat& X, const arma::mat& Y,
-                              double sigma2) const override;
+    virtual RigidResult compute_impl(const MatrixRef source,
+                                     const MatrixRef target,
+                                     double sigma2) const;
 
-    bool m_strict_rot;
-    bool m_use_scaling;
+    bool m_no_reflections;
+    bool m_allow_scaling;
 };
+
+/// Runs rigid CPD on two data sets, using all default parameters.
+RigidResult rigid(const MatrixRef source, const MatrixRef target);
+
+/// Runs rigid CPD with the provided sigma2.
+RigidResult rigid(const MatrixRef source, const MatrixRef target,
+                  double sigma2);
 }

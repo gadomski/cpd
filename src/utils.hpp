@@ -15,17 +15,16 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-#include "cpd/registration.hpp"
+#pragma once
+
+#include "cpd/matrix.hpp"
 
 namespace cpd {
 
-double default_sigma2(const MatrixRef X, const MatrixRef Y) {
-    assert(X.cols() == Y.cols());
-    auto N = X.rows();
-    auto M = Y.rows();
-    auto D = X.cols();
-    return (N * (X.transpose() * X).trace() + M * (Y.transpose() * Y).trace() -
-            2 * X.colwise().sum() * Y.colwise().sum().transpose()) /
-           (N * M * D);
-}
+Matrix construct_affinity_matrix(const MatrixRef source, const MatrixRef target,
+                                 double beta);
+
+std::tuple<Vector, Vector, Matrix, double>
+calculate_probabilities(const MatrixRef source, const MatrixRef target,
+                        double sigma2, double outliers);
 }

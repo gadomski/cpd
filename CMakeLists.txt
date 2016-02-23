@@ -1,113 +1,85 @@
-# Top-level cmakelists for cpd
+project(cpd CXX)
+cmake_minimum_required(VERSION 2.8.12)
 
-cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
-project(cpd CXX C)
-
-set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
-
-set(ARMA_MINIMUM_VERSION 4.600.1)
-
-
-# RPath
-set(CMAKE_MACOSX_RPATH ON)
-set(CMAKE_SKIP_BUILD_RPATH  OFF)
-set(CMAKE_BUILD_WITH_INSTALL_RPATH OFF)
-set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
-set(CMAKE_INSTALL_RPATH_USE_LINK_PATH ON)
-list(FIND CMAKE_PLATFORM_IMPLICIT_LINK_DIRECTORIES "${CMAKE_INSTALL_PREFIX}/lib" isSystemDir)
-if("${isSystemDir}" STREQUAL "-1")
-   set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
+if(POLICY CMP0042)
+    cmake_policy(SET CMP0042 NEW)
 endif()
 
-
-# Version
-include(GetGitRevisionDescription)
-get_git_head_revision(GIT_REFSPEC GIT_SHA1)
-git_describe(CPD_VERSION_DESCRIBE)
-string(SUBSTRING ${CPD_VERSION_DESCRIBE} 1 -1 CPD_VERSION)
+set(CPD_VERSION 0.3.0)
 set(CPD_SOVERSION 0)
+message(STATUS "[cpd] Version: ${CPD_VERSION}")
 
-message(STATUS "cpd version ${CPD_VERSION}")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+set(GTEST_SOURCE_DIR "${PROJECT_SOURCE_DIR}/vendor/gtest-1.7.0")
 
+option(WITH_TESTS "Build unit tests" ON)
 
-# Options
-option(ARMA_64BIT_WORD "Use 64 bit words for armadillo" ON)
-option(ARMA_NO_DEBUG "Disable range checks in armadillo" OFF)
-option(BUILD_CLI "Build the command-line interface" OFF)
-option(BUILD_COVERAGE "Build with code coverage support" OFF)
-option(BUILD_DEBUG_OUTPUT "Build with debug output" OFF)
-option(BUILD_SHARED_LIBS "Create shared libraries" ON)
-option(BUILD_TESTS "Build tests" ON)
+find_package(Fgt 0.4 REQUIRED)
+message(STATUS "[cpd] Fgt version: ${Fgt_VERSION}")
 
-message(STATUS "cpd options:
-       ARMA_64BIT_WORD: ${ARMA_64BIT_WORD}
-       ARMA_NO_DEBUG: ${ARMA_NO_DEBUG}
-       BUILD_DEBUG_OUTPUT: ${BUILD_DEBUG_OUTPUT}")
+add_library(Library-C++
+    src/nonrigid.cpp
+    src/registration.cpp
+    src/rigid.cpp
+    src/transformer.cpp
+    src/utils.cpp
+    )
+target_include_directories(Library-C++
+    INTERFACE
+    ${CMAKE_INSTALL_PREFIX}/include
+    PRIVATE
+    include
+    )
+target_link_libraries(Library-C++
+    PUBLIC
+    Fgt::Library-C++
+    )
+target_compile_options(Library-C++
+    PRIVATE
+    -pedantic -Wall
+    )
+set_target_properties(Library-C++ PROPERTIES
+    OUTPUT_NAME cpd
+    VERSION ${CPD_VERSION}
+    SOVERSION ${CPD_SOVERSION}
+    )
+install(DIRECTORY include/cpd
+    DESTINATION include
+    )
+install(TARGETS Library-C++
+    DESTINATION lib
+    EXPORT cpd-targets
+    )
 
+configure_file(Doxyfile.in ${PROJECT_BINARY_DIR}/Doxyfile)
+add_custom_target(docs
+    COMMAND doxygen ${PROJECT_BINARY_DIR}/Doxyfile
+    )
 
-# Checks
-if(BUILD_COVERAGE)
-    if(NOT BUILD_TESTS)
-        message(FATAL_ERROR "Cannot build coverage without tests, set BUILD_TESTS to ON")
-    endif()
-    if(NOT CMAKE_BUILD_TYPE STREQUAL "Debug")
-        message(WARNING "Code coverage results with an optimized (non-Debug) build may be misleading")
-    endif()
-endif()
-
-
-# Dependencies
-find_package(Armadillo ${ARMA_MINIMUM_VERSION} REQUIRED NO_CMAKE_SYSTEM_PATH)
-if (${Armadillo_VERSION} VERSION_GREATER 6)
-    message(FATAL_ERROR "Your armadillo version is ${Armadillo_VERSION}. "
-        "The 6.* line of armadillo is known to break cpd (https://github.com/gadomski/cpd/issues/43). "
-        "Please downgrade your Armadillo.")
-endif()
-find_package(Fgt 0.1.0 REQUIRED)
-
-
-# Includes and targets
-include(configure_target)
-add_subdirectory(include)
-add_subdirectory(src)
-
-if(BUILD_TESTS)
+if(WITH_TESTS)
     enable_testing()
-    add_subdirectory(vendor/gtest-1.7.0)
+    add_subdirectory(${GTEST_SOURCE_DIR})
+    set_target_properties(gtest PROPERTIES MACOSX_RPATH ON)
+    set_target_properties(gtest_main PROPERTIES MACOSX_RPATH ON)
     add_subdirectory(test)
 endif()
 
-if(BUILD_CLI)
-    add_subdirectory(cli)
-endif()
-
-
-# CPDConfig.cmake
 include(CMakePackageConfigHelpers)
-configure_package_config_file(
-    cmake/CpdConfig.cmake.in
-    ${PROJECT_BINARY_DIR}/CpdConfig.cmake
-    INSTALL_DESTINATION lib/cpd/cmake
-    NO_SET_AND_CHECK_MACRO
-    NO_CHECK_REQUIRED_COMPONENTS_MACRO
+configure_file(cmake/cpd-config.cmake
+    ${PROJECT_BINARY_DIR}/cpd-config.cmake
+    COPYONLY
     )
 write_basic_package_version_file(
-    ${PROJECT_BINARY_DIR}/CpdConfigVersion.cmake
+    ${PROJECT_BINARY_DIR}/cpd-config-version.cmake
     VERSION ${CPD_VERSION}
-    COMPATIBILITY SameMajorVersion
+    COMPATIBILITY AnyNewerVersion
     )
-install(
-    FILES
-    ${PROJECT_BINARY_DIR}/CpdConfig.cmake
-    ${PROJECT_BINARY_DIR}/CpdConfigVersion.cmake
-    DESTINATION
-    lib/cpd/cmake
+install(FILES
+    ${PROJECT_BINARY_DIR}/cpd-config.cmake
+    ${PROJECT_BINARY_DIR}/cpd-config-version.cmake
+    DESTINATION lib/cmake/cpd
     )
-install(
-    EXPORT CpdTargets
+install(EXPORT cpd-targets
+    DESTINATION lib/cmake/cpd
     NAMESPACE Cpd::
-    DESTINATION lib/cpd/cmake
     )

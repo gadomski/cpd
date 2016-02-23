@@ -1,181 +1,112 @@
 # cpd
 
-C++ library for point set registration using the [Coherent Point Drift](https://sites.google.com/site/myronenko/research/cpd) algorithm.
-This library is derived from Matlab code written by Andriy Myronenko and is available under the same license (GPL2).
+**Coherent Point Drift (CPD)** is a point-set registration algorithm, originally developed by [Andriy Myronenko](https://sites.google.com/site/myronenko/research/cpd) et al.
+This is a C++ library that runs CPD.
 
-![Registering glacier data](doc/helheim-cpd.gif)
+This library supports two varients of CPD:
 
-This project provides a library, **libcpd**, for use in your own applications.
-It also provides an optional command-line executable, called simply **cpd**, which provides a subset of the library's functionality for quick command-line usage.
+- **rigid**: Uses a rigid transformation (i.e. rotation and translation, with an optional scaling) to align the two datasets.
+- **nonrigid**: Uses a two-parameter non-rigid transformation function to align the two datasets.
 
-[![Build Status](https://travis-ci.org/gadomski/cpd.svg?branch=master)](https://travis-ci.org/gadomski/cpd)
-[![Coverage Status](https://img.shields.io/coveralls/gadomski/cpd.svg)](https://coveralls.io/r/gadomski/cpd)
+Andriy's reference implementation comes with two other types of registrations, **affine** and **nonrigid_lowrank**, which are not implemented in this library (yet).
 
+This code lives [on Github](https://github.com/gadomski/cpd).
+It has some [Doxygen documentation](http://gadomski.github.io/cpd) and is tested [by Travis](https://travis-ci.org/gadomski/cpd).
 
-## Usage (C++ API)
+![Build Status](https://travis-ci.org/gadomski/fgt.svg?branch=master)
 
-The CPD source includes an example project, located in `example/`, that demonstrates a simple usage of the C++ API.
-The latest example code is also available at https://github.com/gadomski/cpd/tree/master/example.
+## Usage
 
-If CPD is installed to a non-standard location, you will have to provide the `CPD_DIR` option to cmake.
-This directory should point to the location of the cmake configure scripts — these are usually located in the `lib/cpd/cmake` directory underneath the installation prefix.
+**cpd** has a simple functional interface, which accepts [Eigen](http://eigen.tuxfamily.org/index.php?title=Main_Page) matrices and aligns them using some sensible default parameters:
 
-For example, if I installed cpd with `CMAKE_INSTALL_PREFIX=/home/gadomski/local/`, I would set `CPD_DIR` to `/home/gadomski/local/lib/cpd/cmake`.
+```cpp
+#include <cpd/rigid.hpp>
 
-If you install CPD to one of the standard library locations (`/usr`, `/usr/local`), CPD's cmake configure scripts should be picked up automatically, and you should not need to set `CPD_DIR`.
-
-
-## Usage (command-line)
-
-Register two point sets using the nonrigid_lowrank algorithm:
-
-```bash
-cpd file1.txt file2.txt > output.txt
+cpd::RigidResult align_with_rigid(const Eigen::MatrixXd& X, const Eigen::MatrixXd& Y) {
+    return cpd::rigid(X, Y);
+}
 ```
 
-The input files must be whitespace-delimited files with XYZ values only.
-The output file will be whitespace-delimited with the following columns: X, Y, Z, dX, dY, dZ, where dX, dY, and dZ are the change in position in the X, Y, and Z directions respectively for that point.
+If you want more control over the parameters, you can use the class-based interface:
 
-Run `cpd --help` for a description of the command-line options available for customizing the CPD algorithm.
+```cpp
+#include <cpd/rigid.hpp>
 
-
-## System requirements
-
-**cpd** has been tested on the following systems:
-
-- Mac OSX 10.10.1, x86_64-apple-darwin14.0.0
-- Ubuntu 12.04 LTS Server Edition 64 bit
-
-And the following compilers:
-
-- Apple LLVM verison 6.0 (clang-600.0.54) (based on LLVM 3.5svn)
-- Clang 3.2.x
-- GCC 4.8.x
-
+cpd::RigidResult align_with_rigid(const Eigen::MatrixXd& X, const Eigen::MatrixXd& Y) {
+    cpd::Rigid rigid;
+    rigid.allow_scaling(true).no_reflections(false);
+    return rigid.compute(X, Y);
+}
+```
 
 ## Installation
 
-**cpd** depends on the following:
+**cpd** depends on [fgt](https://github.com/gadomski/fgt) at runtime and [CMake](https://cmake.org/) and Eigen at build-time.
 
-- [fgt](https://github.com/gadomski/fgt): C++ library for performing a Fast Gauss Transform
-- [armadillo](http://arma.sourceforge.net/): C++ linear algebra library
-- [lapack](http://www.netlib.org/lapack/): linear algebra package
-- [arpack](http://www.caam.rice.edu/software/ARPACK/): large scale eigenvalue solutions
-- [gflags](https://code.google.com/p/gflags/) (optional): commandline flags
-  processing, required only if you're building the commandline application
+### On OSX
 
-To build **cpd** yourself, you will need all of the above, plus:
-
-- [git](http://git-scm.com/): distributed version control system
-- [cmake](http://www.cmake.org/): cross-platform, open-source build system
-  (version 2.8.12 or higher required)
-- a modern compiler that supports `-std=c++0x`, e.g. gcc-4.8 or a newer clang
-
-Instructions are provided below for installing on Mac OSX and linux.
-Windoze, you're on your own.
-
-### Dependencies on Mac OSX
-
-OSX comes with lapack and arpack, so you're all set there.
-Most of the rest of the dependencies are available through **homebrew**, a great package manager for OSX.
-If you're don't have **homebrew**, [get it](http://brew.sh/).
-Then, install stuff:
+If you're on a Mac, use [homebrew](http://brew.sh/) and [my tap](https://github.com/gadomski/homebrew-gadomski) to install:
 
 ```bash
-brew update
-brew install cmake armadillo
+brew tap gadomski/gadomski
+brew install cpd
 ```
 
-If you're planning on using the command line application, additionally do:
+### From source
+
+Install fgt (which also requires Eigen) and CMake, then use the usual CMake build incantation for cpd:
 
 ```bash
-brew install gflags
-```
-
-Now you're ready to [install cpd](#installing-cpd-on-both-mac-os-x-and-linux).
-
-
-### Dependencies on Linux
-
-Use apt-get to grab some stuff:
-
-```bash
-sudo apt-get update
-sudo apt-get install git cmake liblapack-dev libarpack2-dev libsuperlu3-dev gfortran
-```
-
-If you have an old gcc, you may need to update it.
-See [one of cpd's continuous integration scripts](https://github.com/gadomski/cpd/blob/master/scripts/install_compilers.sh) for one way to update your gcc.
-
-You'll need to install armadillo from source.
-Again, you can just follow the scripts: [armadillo](https://github.com/gadomski/cpd/blob/master/scripts/install_armadillo.sh).
-
-Now you're ready to [install cpd](#installing-cpd-on-both-mac-os-x-and-linux).
-
-
-### Installing fgt and cpd on both Mac OS X and linux
-
-First, install [fgt](https://github.com/gadomski/fgt), following its installation instructions.
-
-Now download and install **cpd**:
-
-```bash
-git clone https://github.com/gadomski/cpd.git
-mkdir cpd/build && cd cpd/build
-
-# you can omit the -DBUILD_CLI=ON part if you don't need the commandline app
-cmake .. -DBUILD_CLI=ON
-
+mkdir build
+cd build
+cmake ..
 make
 ```
 
-To test that things built correctly:
+### Using downstream
 
-```bash
-bin/cpd-test
+**cpd** provides CMake export targets that you can import and use in your own project:
+
+```cmake
+find_package(Cpd REQUIRED)
+add_library(my-great-library
+    the_code.cpp
+    )
+target_link_libraries(my-great-library
+    PUBLIC
+    Cpd::Library-C++
+    )
 ```
 
-If you want to install **cpd** to system-wide directories:
+The `Cpd::Library-C++` target includes all the interface settings you need, so you shouldn't need any other calls to get set up.
 
-```bash
-make install
-```
+## OpenMP
 
-If you're on a linux or didn't use homebrew on OSX, you may need a `sudo make install`.
+Both fgt and Eigen support OpenMP for some operations.
+As of yet, the interaction between the two is untested, so our official recommendation is to only use OpenMP with one of the projects, not both.
+If you do some work with OpenMP we'd love to hear how it goes.
 
-If you have problems at any point during the build, please [open a new
-issue](https://github.com/gadomski/cpd/issues/new).
+## Contributing
 
+Github [issues](https://github.com/gadomski/cpd/issues) and [pull requests](https://github.com/gadomski/cpd/pulls), per usual.
 
-## Versioning
+## History
 
-**cpd** follows [semantic versioning](http://semver.org/).
-In particular, any release with a 0.x.x prefix should be considered initial development, and used with the understanding that anything could change at any time.
-However, when in initial development we will do our best to increment the MINOR version when we make big, breaking changes, and notify users accordingly in the release notes.
+The [v0.1](https://github.com/gadomski/cpd/tree/v0.1) and [v0.2](https://github.com/gadomski/cpd/tree/v0.2) lineages of **cpd** used [armadillo](http://arma.sourceforge.net/) for linear arithmetic instead of Eigen.
+Armadillo is a bit smoother for doing advanced eigenvalue decompositions and other operations, which made it a bit easier at first to directly port the Matlab reference implementation.
+For a couple of reasons, we decided to switch to Eigen for v0.3.
 
-Releases will be tagged and available [via Github](https://github.com/gadomski/cpd/releases).
-The latest release is also available as the [**production** branch](https://github.com/gadomski/cpd/tree/production).
-Main development will occur in the [**master** branch](https://github.com/gadomski/cpd/tree/master).
+First, the Armadillo project had the bad habit of removing old versions from their download site, making it hard to maintain working code as their codebase developed.
+Second, many downstream applications use Eigen themselves, making Eigen a lower-friction choice for those users.
 
+As of this writing, the Eigen implementation is less feature-full than the old Armadillo implementation, particularly with respect to the nonrigid_lowrank version.
+If you require some of that old functionality, use the [v0.2](https://github.com/gadomski/cpd/tree/v0.2) branch.
+If you need armadillo-5.x, which is required for the old **cpd** but is no longer available from the armadillo website, you can use [my mirror](https://github.com/gadomski/armadillo).
+Thanks for your understanding during this switch.
 
 ## License
 
-This software is distributed under the terms of the original Matlab implementation.
-A complete copy of the GPL2 license can be found in LICENSE.txt of this source tree.
-Each source file also contains a brief preamble specifying the license.
+This library is GPL2, copyright 2016 Peter J. Gadomski.
+See LICENSE.txt for the full license text.
 
-This version is copyright (c) 2014 Pete Gadomski <pete.gadomski@gmail.com>.
-
-The original Matlab implementation was copyright (c) 2008-2009 Andriy Myronenko.
-His website is here: https://sites.google.com/site/myronenko/home.
-
-
-## Issues and Contributing
-
-We use github's [issues](https://github.com/gadomski/cpd/issues) and [pull requests](https://github.com/gadomski/cpd/pulls).
-Please feel free to contribute either.
-
-
-## Contributers
-
-This library was developed by [@gadomski](https://github.com/gadomski) with support from the Army Corps of Engineers [Cold Regions Research and Development Lab](https://github.com/CRREL).
+This work is directly inspired by Andriy Myronenko's reference implementation, and we owe him many thanks.

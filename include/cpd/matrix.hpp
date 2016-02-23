@@ -15,17 +15,24 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-#include "cpd/registration.hpp"
+#pragma once
+
+#include <fgt.hpp>
 
 namespace cpd {
 
-double default_sigma2(const MatrixRef X, const MatrixRef Y) {
-    assert(X.cols() == Y.cols());
-    auto N = X.rows();
-    auto M = Y.rows();
-    auto D = X.cols();
-    return (N * (X.transpose() * X).trace() + M * (Y.transpose() * Y).trace() -
-            2 * X.colwise().sum() * Y.colwise().sum().transpose()) /
-           (N * M * D);
-}
+/// Convenience typedef to a matrix that plays well with fgt.
+typedef fgt::Matrix Matrix;
+
+/// Convenience typedef to a reference to a matrix.
+typedef fgt::MatrixRef MatrixRef;
+
+/// Convenience typedef to a vector that plays well with fgt.
+typedef fgt::Vector Vector;
+
+/// Convenience typedef for a vector reference.
+typedef fgt::VectorRef VectorRef;
+
+/// Convenience typedef for a row vector.
+typedef Eigen::RowVectorXd RowVector;
 }

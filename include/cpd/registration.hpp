@@ -1,107 +1,97 @@
-/******************************************************************************
-* Coherent Point Drift
-* Copyright (C) 2014 Pete Gadomski <pete.gadomski@gmail.com>
-*
-* This program is free software; you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation; either version 2 of the License, or
-* (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License along
-* with this program; if not, write to the Free Software Foundation, Inc.,
-* 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-******************************************************************************/
+// cpd - Coherent Point Drift
+// Copyright (C) 2016 Pete Gadomski <pete.gadomski@gmail.com>
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License along
+// with this program; if not, write to the Free Software Foundation, Inc.,
+// 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #pragma once
 
-#include <memory>
+#include <iostream>
 
-#include <armadillo>
-
-#include <cpd/defaults.hpp>
-
+#include <cpd/matrix.hpp>
 
 namespace cpd {
 
+/// Returns the default sigma2 value for these two datasets.
+///
+/// This is a default value that is based upton the variance of those datasets.
+double default_sigma2(const MatrixRef source, const MatrixRef target);
 
+/// Template class that makes it easier to create new registrations.
+template <typename T>
 class Registration {
 public:
-    struct Normalization {
-        double scale;
-        arma::mat xd, yd;
-    };
+    /// Default maximum number of iterations.
+    const size_t DEFAULT_MAX_ITERATIONS = 150;
+    /// Default error tolerance.
+    const double DEFAULT_TOLERANCE = 1e-5;
+    /// Default outlier weight.
+    const double DEFAULT_OUTLIER_WEIGHT = 0.1;
 
-    struct Result {
-        arma::mat Y;
-        arma::mat transformation;
-    };
+    /// Creates a new registration with default values.
+    Registration()
+        : m_max_iterations(DEFAULT_MAX_ITERATIONS),
+          m_tolerance(DEFAULT_TOLERANCE),
+          m_outlier_weight(DEFAULT_OUTLIER_WEIGHT),
+          m_ostream(std::cout) {}
 
-    typedef std::shared_ptr<Result> ResultPtr;
+    /// Returns an ostream that can be used to print messages.
+    ///
+    /// Defaults to std::cout.
+    std::ostream& log() const { return m_ostream; }
 
-    explicit Registration(
-        // Tolerance criterium
-        float tol = DefaultTolerance,
-
-        // Maximum number of iterations allowed
-        int max_it = DefaultMaxIterations,
-
-        // The weight of noise and outliers
-        float outliers = DefaultOutliers,
-
-        // Use a Fast Gauss Transform (less accurate but faster)
-        bool use_fgt = DefaultFgt,
-
-        // Tolerance level for the Fast Gauss Transform
-        float epsilon = DefaultEpsilon,
-
-        // Factor by which to exaggerate the z values
-        float z_exaggeration = DefaultZExaggeration,
-
-        // Initial sigma2 value, if zero determine auto-magically
-        float sigma2 = DefaultSigma2);
-
-    ResultPtr run(const arma::mat& X, const arma::mat& Y) const;
-    Normalization normalize(arma::mat& X, arma::mat& Y) const;
-    virtual void denormalize(ResultPtr& result, const Normalization& normal) const;
-
-    double find_P(const arma::mat& X, const arma::mat& Y, double sigma2,
-                  arma::vec& P1, arma::vec& Pt1, arma::mat& PX) const;
-
-    float get_tol() const { return m_tol; }
-    int get_max_it() const { return m_max_it; }
-    float get_outliers() const { return m_outliers; }
-    bool use_fgt() const { return m_use_fgt; }
-    float get_epsilon() const { return m_epsilon; }
-    float get_z_exaggeration() const { return m_z_exaggeration; }
-    float get_sigma2() const { return m_sigma2; }
-
-    void set_tol(float tol) { m_tol = tol; }
-    void set_max_it(int max_it) { m_max_it = max_it; }
-    void set_outliers(float outliers) { m_outliers = outliers; }
-    void use_fgt(bool use_fgt) { m_use_fgt = use_fgt; }
-    void set_epsilon(float epsilon) { m_epsilon = epsilon; }
-    void set_z_exaggeration(float z_exaggeration) {
-        m_z_exaggeration = z_exaggeration;
+    /// Returns the maximum number of iterations allowed.
+    size_t max_iterations() const { return m_max_iterations; }
+    /// Sets the maximum number of iterations.
+    Registration& set_max_iterations(size_t max_iterations) {
+        m_max_iterations = max_iterations;
+        return *this;
     }
-    void set_sigma2(float sigma2) { m_sigma2 = sigma2; }
+    /// Returns the error tolerance.
+    double tolerance() const { return m_tolerance; }
+    /// Sets the error tolerance.
+    Registration& set_tolerance(double tolerance) {
+        m_tolerance = tolerance;
+        return *this;
+    }
+    /// Returns the weight given to outliers.
+    double outlier_weight() const { return m_outlier_weight; }
+    /// Sets the outlier weight.
+    Registration& set_outlier_weight(double outlier_weight) {
+        m_outlier_weight = outlier_weight;
+        return *this;
+    }
 
-    virtual ~Registration();
+    /// Registers two datasets.
+    T compute(const MatrixRef source, const MatrixRef target) const {
+        double sigma2 = default_sigma2(source, target);
+        return compute(source, target, sigma2);
+    }
+
+    /// Registers two datasets with the provided sigma2.
+    T compute(const MatrixRef source, const MatrixRef target,
+              double sigma2) const {
+        return compute_impl(source, target, sigma2);
+    }
 
 private:
-    virtual ResultPtr execute(const arma::mat& X, const arma::mat& Y,
-                              double sigma2) const = 0;
+    virtual T compute_impl(const MatrixRef source, const MatrixRef target,
+                           double sigma2) const = 0;
 
-    float m_tol;
-    int m_max_it;
-    float m_outliers;
-    bool m_use_fgt;
-    float m_epsilon;
-    float m_z_exaggeration;
-    float m_sigma2;
+    size_t m_max_iterations;
+    double m_tolerance;
+    double m_outlier_weight;
+    std::ostream& m_ostream;
 };
 }

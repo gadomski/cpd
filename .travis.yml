@@ -1,27 +1,30 @@
+sudo: false
 language: cpp
 
-compiler:
-    - clang
-    - gcc
-
 env:
-    - ARMA_64BIT_WORD=ON
-    - ARMA_64BIT_WORD=OFF
+  global:
+    secure: CQVCboz7xZV5gxHlJ9PBBR8BUT8HA0AWaq3My+dixHvb/4qxw9Qux/brxNObEv4nzu2CUFLpVjsj9kLRzmcvPOMmbLR2NdJFIDkl0g4BgZJcq4+YTlNyMj76x4DWpFupDDtrJKL/RUNCMURXTgHQnZMjJmhx4mrL4RbY4ZcR6VI=
 
+compiler:
+  - clang
+  - gcc
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - gcc-4.8
+      - g++-4.8
+
+before_install:
+  - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8"; fi
+    
 install:
-    - make -f make/dependencies.mak install-build-system
-    - if [[ $CXX == "g++" ]]; then
-      export CPD_BUILD_COVERAGE="ON";
-      export CXX="g++-4.8";
-      else
-      export CPD_BUILD_COVERAGE="OFF";
-      fi
-    - make -f make/dependencies.mak install-dependencies
+  - scripts/travis-install-cmake.sh && export PATH=$(pwd)/cmake/bin:$PATH
+  - scripts/travis-install-eigen3.sh
+  - scripts/travis-install-fgt.sh
 
-script:
-    - make -f make/travis.mak build-and-test
+script: scripts/travis-script.sh
 
-after_script:
-    - if [[ $CPD_BUILD_COVERAGE == "ON" ]]; then
-      make -f make/travis.mak coverage
-      fi
+after_success: scripts/gh-pages.sh

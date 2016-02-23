@@ -1,0 +1,67 @@
+#pragma once
+
+#include <fstream>
+
+#include <Eigen/Geometry>
+
+#include "gtest/gtest.h"
+
+#include "cpd/matrix.hpp"
+
+namespace cpd {
+std::string test_data_filename(const std::string& filename) {
+    return "@PROJECT_SOURCE_DIR@/test/data/" + filename;
+}
+
+Matrix load_test_data_matrix(const std::string& filename) {
+    std::ifstream file(test_data_filename(filename));
+    if (!file.is_open()) {
+        std::stringstream ss;
+        ss << "Could not open file: " << test_data_filename(filename);
+        throw std::runtime_error(ss.str());
+    }
+    std::vector<double> data;
+    size_t rows = 0;
+    size_t cols = 0;
+    std::string line;
+    while (std::getline(file, line)) {
+        std::stringstream ss(line);
+        size_t nvalues = 0;
+        double value;
+        while (ss >> value) {
+            data.push_back(value);
+            ++nvalues;
+        }
+        if (cols == 0) {
+            cols = nvalues;
+        } else if (cols != nvalues) {
+            std::stringstream ss;
+            ss << "Dimension mismatch";
+            throw std::runtime_error(ss.str());
+        }
+        ++rows;
+    }
+    Matrix matrix(rows, cols);
+    for (size_t i = 0; i < rows; ++i) {
+        for (size_t j = 0; j < cols; ++j) {
+            matrix(i, j) = data[i * cols + j];
+        }
+    }
+    return matrix;
+}
+
+class FishTest : public ::testing::Test {
+public:
+    FishTest()
+        : m_fish1(load_test_data_matrix("fish.txt")),
+          m_rotation(M_PI / 6),
+          m_translation(1, 2),
+          m_fish2((m_fish1 +
+                  m_translation.replicate(m_fish1.rows(), 1)) * m_rotation.matrix()) {}
+
+    Matrix m_fish1;
+    Eigen::Rotation2D<double> m_rotation;
+    Eigen::RowVector2d m_translation;
+    Matrix m_fish2;
+};
+}
