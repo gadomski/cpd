@@ -1,5 +1,7 @@
 # cpd
 
+[![Join the chat at https://gitter.im/gadomski/cpd](https://badges.gitter.im/gadomski/cpd.svg)](https://gitter.im/gadomski/cpd?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 C++ library for point set registration using the [Coherent Point Drift](https://sites.google.com/site/myronenko/research/cpd) algorithm.
 This library is derived from Matlab code written by Andriy Myronenko and is available under the same license (GPL2).
 
