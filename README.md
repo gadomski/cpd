@@ -3,12 +3,17 @@
 **Coherent Point Drift (CPD)** is a point-set registration algorithm, originally developed by [Andriy Myronenko](https://sites.google.com/site/myronenko/research/cpd) et al.
 This is a C++ library that runs CPD.
 
-This library supports two varients of CPD:
+CPD can be compared to [Iterative Closest Point](https://en.wikipedia.org/wiki/Iterative_closest_point), another point-set registration algorithm that is widely used.
+While ICP minimizes point-to-point distances, CPD uses a [Gaussian Mixture Model](https://en.wikipedia.org/wiki/Mixture_model) to minimize the error between a point and *all other points*.
+If you're thinking that this is very computationally intensive, you're right — both the CPD algorithm and the underlying error calculations take a lot of time, which is why we've created [fgt](https://github.com/gadomski/fgt) to speed up those Gauss transforms.
+We hope this library provides a freer and more performant alternative to the original reference Matlab implementation.
+
+This library supports two variants of CPD:
 
 - **rigid**: Uses a rigid transformation (i.e. rotation and translation, with an optional scaling) to align the two datasets.
 - **nonrigid**: Uses a two-parameter non-rigid transformation function to align the two datasets.
 
-Andriy's reference implementation comes with two other types of registrations, **affine** and **nonrigid_lowrank**, which are not implemented in this library (yet).
+Andriy's reference implementation comes with two other types of registrations, **affine** and **nonrigid_lowrank**, which are not implemented in the latest version of this library (yet) (see [History](#History) for information on how to find and use a previous version of this library that has **nonrigid_lowrank**).
 
 This code lives [on Github](https://github.com/gadomski/cpd).
 It has some [Doxygen documentation](http://gadomski.github.io/cpd) and is tested [by Travis](https://travis-ci.org/gadomski/cpd).
