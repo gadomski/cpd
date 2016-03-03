@@ -28,7 +28,7 @@ namespace cpd {
 /// This is a default value that is based upton the variance of those datasets.
 double default_sigma2(const MatrixRef source, const MatrixRef target);
 
-/// Template class that makes it easier to create new registrations.
+/// Class template that makes it easier to create new registrations.
 template <typename T>
 class Registration {
 public:
