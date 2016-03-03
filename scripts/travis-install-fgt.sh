@@ -3,7 +3,7 @@
 
 set -ex
 
-fgt_version=0.4.1
+fgt_version=0.4.2
 home=$(pwd)
 
 wget https://github.com/gadomski/fgt/archive/v${fgt_version}.tar.gz
