@@ -42,14 +42,14 @@ public:
     /// Returns the value for beta.
     double beta() const { return m_beta; }
     /// Sets the value for beta.
-    Nonrigid& beta(double beta) {
+    Nonrigid& set_beta(double beta) {
         m_beta = beta;
         return *this;
     }
     /// Returns the value for lambda.
     double lambda() const { return m_lambda; }
     /// Sets the value for lambda.
-    Nonrigid& lambda(double lambda) {
+    Nonrigid& set_lambda(double lambda) {
         m_lambda = lambda;
         return *this;
     }
