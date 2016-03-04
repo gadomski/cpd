@@ -5,7 +5,7 @@ if(POLICY CMP0042)
     cmake_policy(SET CMP0042 NEW)
 endif()
 
-set(CPD_VERSION 0.3.0)
+set(CPD_VERSION 0.3.1)
 set(CPD_SOVERSION 0)
 message(STATUS "[cpd] Version: ${CPD_VERSION}")
 
