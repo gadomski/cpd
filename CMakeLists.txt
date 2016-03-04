@@ -14,7 +14,8 @@ set(GTEST_SOURCE_DIR "${PROJECT_SOURCE_DIR}/vendor/gtest-1.7.0")
 
 option(WITH_TESTS "Build unit tests" ON)
 
-find_package(Fgt 0.4 REQUIRED)
+set(FGT_MINIMUM_VERSION 0.4)
+find_package(Fgt ${FGT_MINIMUM_VERSION} REQUIRED)
 message(STATUS "[cpd] Fgt version: ${Fgt_VERSION}")
 
 add_library(Library-C++
@@ -67,7 +68,7 @@ endif()
 include(CMakePackageConfigHelpers)
 configure_file(cmake/cpd-config.cmake
     ${PROJECT_BINARY_DIR}/cpd-config.cmake
-    COPYONLY
+    @ONLY
     )
 write_basic_package_version_file(
     ${PROJECT_BINARY_DIR}/cpd-config-version.cmake
