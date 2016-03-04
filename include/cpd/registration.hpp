@@ -33,11 +33,11 @@ template <typename T>
 class Registration {
 public:
     /// Default maximum number of iterations.
-    const size_t DEFAULT_MAX_ITERATIONS = 150;
+    static const size_t DEFAULT_MAX_ITERATIONS = 150;
     /// Default error tolerance.
-    const double DEFAULT_TOLERANCE = 1e-5;
+    constexpr static const double DEFAULT_TOLERANCE = 1e-5;
     /// Default outlier weight.
-    const double DEFAULT_OUTLIER_WEIGHT = 0.1;
+    constexpr static const double DEFAULT_OUTLIER_WEIGHT = 0.1;
 
     /// Creates a new registration with default values.
     Registration()

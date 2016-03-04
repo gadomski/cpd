@@ -32,9 +32,9 @@ struct NonrigidResult {
 class Nonrigid : public Registration<NonrigidResult> {
 public:
     /// Default beta parameter.
-    const double DEFAULT_BETA = 3.0;
+    constexpr static const double DEFAULT_BETA = 3.0;
     /// Default lambda parameter.
-    const double DEFAULT_LAMBDA = 3.0;
+    constexpr static const double DEFAULT_LAMBDA = 3.0;
 
     /// Creates a new nonrigid registration with default parameters.
     Nonrigid();

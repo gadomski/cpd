@@ -36,9 +36,9 @@ struct RigidResult {
 class Rigid : public Registration<RigidResult> {
 public:
     /// Default value for `no_reflections`.
-    const bool DEFAULT_NO_REFLECTIONS = true;
+    static const bool DEFAULT_NO_REFLECTIONS = true;
     /// Default value for `allow_scaling`.
-    const bool DEFAULT_ALLOW_SCALING = false;
+    static const bool DEFAULT_ALLOW_SCALING = false;
 
     /// Creates a new rigid registration with default parameters.
     Rigid();
