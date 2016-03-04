@@ -13,7 +13,7 @@ This library supports two variants of CPD:
 - **rigid**: Uses a rigid transformation (i.e. rotation and translation, with an optional scaling) to align the two datasets.
 - **nonrigid**: Uses a two-parameter non-rigid transformation function to align the two datasets.
 
-Andriy's reference implementation comes with two other types of registrations, **affine** and **nonrigid_lowrank**, which are not implemented in the latest version of this library (yet) (see [History](#History) for information on how to find and use a previous version of this library that has **nonrigid_lowrank**).
+Andriy's reference implementation comes with two other types of registrations, **affine** and **nonrigid_lowrank**, which are not implemented in the latest version of this library (yet) (see [History](#history) for information on how to find and use a previous version of this library that has **nonrigid_lowrank**).
 
 This code lives [on Github](https://github.com/gadomski/cpd).
 It has some [Doxygen documentation](http://gadomski.github.io/cpd) and is tested [by Travis](https://travis-ci.org/gadomski/cpd).
