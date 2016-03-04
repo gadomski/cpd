@@ -44,8 +44,12 @@ set_target_properties(Library-C++ PROPERTIES
     VERSION ${CPD_VERSION}
     SOVERSION ${CPD_SOVERSION}
     )
-install(DIRECTORY include/cpd
-    DESTINATION include
+install(FILES 
+    include/cpd/matrix.hpp
+    include/cpd/nonrigid.hpp
+    include/cpd/registration.hpp
+    include/cpd/rigid.hpp
+    DESTINATION include/cpd
     )
 install(TARGETS Library-C++
     DESTINATION lib
