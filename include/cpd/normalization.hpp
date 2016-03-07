@@ -25,6 +25,8 @@ namespace cpd {
 /// fgt doesn't like things that are way away from a unit cube.
 class Normalization {
 public:
+    /// Creates a new normalization without a sigma2.
+    Normalization(const MatrixRef source, const MatrixRef target);
     /// Creates a new normalization.
     Normalization(const MatrixRef source, const MatrixRef target,
                   double sigma2);
