@@ -20,6 +20,7 @@
 #include <iostream>
 
 #include <cpd/matrix.hpp>
+#include <cpd/normalization.hpp>
 
 namespace cpd {
 
@@ -82,7 +83,10 @@ public:
     /// Registers two datasets with the provided sigma2.
     T compute(const MatrixRef source, const MatrixRef target,
               double sigma2) const {
-        return compute_impl(source, target, sigma2);
+        Normalization normalization(source, target, sigma2);
+        T result = compute_impl(normalization.source(), normalization.target(),
+                                normalization.sigma2());
+        return normalization.denormalize(result);
     }
 
 private:
