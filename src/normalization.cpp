@@ -22,8 +22,8 @@
 #include <iostream>
 
 namespace cpd {
-Normalization::Normalization(const MatrixRef source, const MatrixRef target,
-                             double sigma2) {
+Normalization::Normalization(const MatrixRef source, const MatrixRef target)
+    : m_sigma2(0.0) {
     auto N = source.rows();
     auto M = target.rows();
     m_translation = source.colwise().minCoeff().array().min(
@@ -39,6 +39,11 @@ Normalization::Normalization(const MatrixRef source, const MatrixRef target,
                     .maxCoeff();
     m_source = (source - m_translation.replicate(N, 1)) / m_scaling;
     m_target = (target - m_translation.replicate(M, 1)) / m_scaling;
+}
+
+Normalization::Normalization(const MatrixRef source, const MatrixRef target,
+                             double sigma2)
+    : Normalization(source, target) {
     m_sigma2 = sigma2 / m_scaling;
 }
 }
