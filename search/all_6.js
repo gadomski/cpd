@@ -5,5 +5,5 @@ var searchData=
   ['nonrigid',['Nonrigid',['../classcpd_1_1_nonrigid.html#a4cde26216af54d793dbd24fac0bc0072',1,'cpd::Nonrigid']]],
   ['nonrigidresult',['NonrigidResult',['../structcpd_1_1_nonrigid_result.html',1,'cpd']]],
   ['normalization',['Normalization',['../classcpd_1_1_normalization.html',1,'cpd']]],
-  ['normalization',['Normalization',['../classcpd_1_1_normalization.html#a2e96c78f779fb3970ce6eae6147d1255',1,'cpd::Normalization']]]
+  ['normalization',['Normalization',['../classcpd_1_1_normalization.html#a4a8b9cc9898a6f4f60c6649e4c30abe3',1,'cpd::Normalization::Normalization(const MatrixRef source, const MatrixRef target)'],['../classcpd_1_1_normalization.html#a2e96c78f779fb3970ce6eae6147d1255',1,'cpd::Normalization::Normalization(const MatrixRef source, const MatrixRef target, double sigma2)']]]
 ];
