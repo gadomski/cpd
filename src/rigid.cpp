@@ -105,6 +105,6 @@ RigidResult Rigid::compute_impl(const MatrixRef X, const MatrixRef Y,
         T = s * Y * R.transpose() + t.transpose().replicate(M, 1);
         ++iter;
     }
-    return {T, R, t};
+    return {T, R};
 }
 }

@@ -20,6 +20,7 @@ message(STATUS "[cpd] Fgt version: ${Fgt_VERSION}")
 
 add_library(Library-C++
     src/nonrigid.cpp
+    src/normalization.cpp
     src/registration.cpp
     src/rigid.cpp
     src/transformer.cpp
@@ -44,8 +45,9 @@ set_target_properties(Library-C++ PROPERTIES
     VERSION ${CPD_VERSION}
     SOVERSION ${CPD_SOVERSION}
     )
-install(FILES 
+install(FILES
     include/cpd/matrix.hpp
+    include/cpd/normalization.hpp
     include/cpd/nonrigid.hpp
     include/cpd/registration.hpp
     include/cpd/rigid.hpp
