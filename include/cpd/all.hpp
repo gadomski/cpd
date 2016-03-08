@@ -18,6 +18,8 @@
 /// \file all.hpp
 /// \brief Top-level file that includes all types of registrations.
 
+#pragma once
+
 #include <cpd/nonrigid.hpp>
 #include <cpd/rigid.hpp>
 
