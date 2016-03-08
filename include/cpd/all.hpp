@@ -20,6 +20,7 @@
 
 #pragma once
 
+#include <cpd/affine.hpp>
 #include <cpd/nonrigid.hpp>
 #include <cpd/rigid.hpp>
 
