@@ -1,0 +1,6 @@
+#include "cpd/version.hpp"
+
+namespace cpd {
+
+const char* version() { return "@CPD_VERSION@"; }
+}

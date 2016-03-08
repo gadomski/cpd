@@ -6,6 +6,10 @@ if(POLICY CMP0042)
 endif()
 
 set(CPD_VERSION 0.3.1)
+configure_file(
+    src/version.cpp.in
+    ${PROJECT_BINARY_DIR}/src/version.cpp
+    )
 set(CPD_SOVERSION 0)
 message(STATUS "[cpd] Version: ${CPD_VERSION}")
 
@@ -25,6 +29,7 @@ add_library(Library-C++
     src/rigid.cpp
     src/transformer.cpp
     src/utils.cpp
+    ${PROJECT_BINARY_DIR}/src/version.cpp
     )
 target_include_directories(Library-C++
     INTERFACE
