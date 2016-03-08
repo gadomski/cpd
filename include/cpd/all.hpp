@@ -15,27 +15,11 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-/// \file matrix.hpp
-/// \brief Eigen matrix typdefs.
+/// \file all.hpp
+/// \brief Top-level file that includes all types of registrations.
 
-#pragma once
+#include <cpd/nonrigid.hpp>
+#include <cpd/rigid.hpp>
 
-#include <fgt.hpp>
-
-namespace cpd {
-
-/// Convenience typedef to a matrix that plays well with fgt.
-typedef fgt::Matrix Matrix;
-
-/// Convenience typedef to a reference to a matrix.
-typedef fgt::MatrixRef MatrixRef;
-
-/// Convenience typedef to a vector that plays well with fgt.
-typedef fgt::Vector Vector;
-
-/// Convenience typedef for a vector reference.
-typedef fgt::VectorRef VectorRef;
-
-/// Convenience typedef for a row vector.
-typedef Eigen::RowVectorXd RowVector;
-}
+/// The top-level cpd namespace.
+namespace cpd {}

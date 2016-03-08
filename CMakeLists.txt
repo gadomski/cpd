@@ -46,6 +46,7 @@ set_target_properties(Library-C++ PROPERTIES
     SOVERSION ${CPD_SOVERSION}
     )
 install(FILES
+    include/cpd/all.hpp
     include/cpd/matrix.hpp
     include/cpd/normalization.hpp
     include/cpd/nonrigid.hpp

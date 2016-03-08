@@ -15,6 +15,9 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+/// \file normalization.hpp
+/// \brief Shrink a point set down to a unit cube (or whatever dimensionality).
+
 #pragma once
 
 #include <cpd/matrix.hpp>
