@@ -23,6 +23,7 @@ find_package(Fgt ${FGT_MINIMUM_VERSION} REQUIRED)
 message(STATUS "[cpd] Fgt version: ${Fgt_VERSION}")
 
 add_library(Library-C++
+    src/affine.cpp
     src/nonrigid.cpp
     src/normalization.cpp
     src/registration.cpp
@@ -52,6 +53,7 @@ set_target_properties(Library-C++ PROPERTIES
     )
 install(FILES
     include/cpd/all.hpp
+    include/cpd/affine.hpp
     include/cpd/matrix.hpp
     include/cpd/normalization.hpp
     include/cpd/nonrigid.hpp

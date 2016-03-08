@@ -19,6 +19,7 @@ configure_file(support.hpp.in
     ${CMAKE_CURRENT_BINARY_DIR}/support.hpp
     )
 
+cpd_test(affine affine_test.cpp)
 cpd_test(nonrigid nonrigid_test.cpp)
 cpd_test(normalization normalization_test.cpp)
 cpd_test(registration registration_test.cpp)
