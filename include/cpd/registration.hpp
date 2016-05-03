@@ -42,13 +42,21 @@ public:
     constexpr static const double DEFAULT_TOLERANCE = 1e-5;
     /// Default outlier weight.
     constexpr static const double DEFAULT_OUTLIER_WEIGHT = 0.1;
+    /// Default error tolerance for the Fast Gauss Transform.
+    constexpr static const double DEFAULT_FGT_EPSILON = 1e-4;
+    /// Default Fast Gauss Transform bandwidth breakpoint.
+    ///
+    /// Above this point, we use IFGT — below, we use direct+tree.
+    constexpr static const double DEFAULT_FGT_BREAKPOINT = 0.2;
 
     /// Creates a new registration with default values.
     Registration()
         : m_max_iterations(DEFAULT_MAX_ITERATIONS),
           m_tolerance(DEFAULT_TOLERANCE),
           m_outlier_weight(DEFAULT_OUTLIER_WEIGHT),
-          m_ostream(std::cout) {}
+          m_ostream(std::cout),
+          m_fgt_epsilon(DEFAULT_FGT_EPSILON),
+          m_fgt_breakpoint(DEFAULT_FGT_BREAKPOINT) {}
 
     /// Returns an ostream that can be used to print messages.
     ///
@@ -74,6 +82,22 @@ public:
     /// Sets the outlier weight.
     Registration& set_outlier_weight(double outlier_weight) {
         m_outlier_weight = outlier_weight;
+        return *this;
+    }
+
+    /// Returns the fgt error tolerance.
+    double fgt_epsilon() const { return m_fgt_epsilon; }
+    /// Sets the fgt error tolerance.
+    Registration& set_fgt_epsilon(double fgt_epsilon) {
+        m_fgt_epsilon = fgt_epsilon;
+        return *this;
+    }
+
+    /// Returns the fgt breakpoint.
+    double fgt_breakpoint() const { return m_fgt_breakpoint; }
+    /// Sets the fgt breakpoint.
+    Registration& set_fgt_breakpoint(double fgt_breakpoint) {
+        m_fgt_breakpoint = fgt_breakpoint;
         return *this;
     }
 
@@ -104,5 +128,7 @@ private:
     double m_tolerance;
     double m_outlier_weight;
     std::ostream& m_ostream;
+    double m_fgt_epsilon;
+    double m_fgt_breakpoint;
 };
 }

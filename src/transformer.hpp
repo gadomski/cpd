@@ -30,13 +30,6 @@ namespace cpd {
 /// This class also lets us store pre-computed clusterings for multiple runs.
 class Transformer {
 public:
-    /// Default error tolerance for fgts.
-    const double DEFAULT_EPSILON = 1e-4;
-    /// Default breakpoint.
-    const double DEFAULT_BREAKPOINT = 0.2;
-
-    /// Creates a new transformer with default parameters.
-    Transformer();
     /// Creates a new transformer with specified parameters.
     Transformer(double epsilon, double breakpoint);
 

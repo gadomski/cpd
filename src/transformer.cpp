@@ -19,10 +19,6 @@
 
 namespace cpd {
 
-Transformer::Transformer()
-    : m_epsilon(Transformer::DEFAULT_EPSILON),
-      m_breakpoint(Transformer::DEFAULT_BREAKPOINT) {}
-
 Transformer::Transformer(double epsilon, double breakpoint)
     : m_epsilon(epsilon), m_breakpoint(breakpoint) {}
 
