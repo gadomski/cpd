@@ -39,12 +39,12 @@ Matrix construct_affinity_matrix(const MatrixRef X, const MatrixRef Y,
 
 std::tuple<Vector, Vector, Matrix, double>
 calculate_probabilities(const MatrixRef X, const MatrixRef Y, double sigma2,
-                        double outliers) {
+                        double outliers, double fgt_epsilon, double fgt_breakpoint) {
     assert(X.cols() == Y.cols());
     unsigned long N = X.rows();
     unsigned long M = Y.rows();
     unsigned long D = X.cols();
-    Transformer transformer;
+    Transformer transformer(fgt_epsilon, fgt_breakpoint);
     double hsigma = std::sqrt(2.0 * sigma2);
     Vector Kt1 = transformer.fgt(Y, X, hsigma);
     double ndi = outliers / (1 - outliers) * M / N *

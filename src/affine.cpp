@@ -45,8 +45,8 @@ RigidResult Affine::compute_impl(const MatrixRef X, const MatrixRef Y,
            sigma2 > 10 * std::numeric_limits<double>::epsilon()) {
         double L_old = L;
 
-        std::tie(Pt1, P1, PX, L) =
-            calculate_probabilities(X, T, sigma2, outliers);
+        std::tie(Pt1, P1, PX, L) = calculate_probabilities(
+            X, T, sigma2, outliers, fgt_epsilon(), fgt_breakpoint());
         ntol = std::abs((L - L_old) / L);
 
         log() << "CPD Affine (FGT) : dL= " << ntol << ", iter= " << iter

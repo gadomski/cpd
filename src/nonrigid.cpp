@@ -53,8 +53,8 @@ NonrigidResult Nonrigid::compute_impl(const MatrixRef X, const MatrixRef Y,
     while (iter < max_iter && ntol > tol &&
            sigma2 > 10 * std::numeric_limits<double>::epsilon()) {
         double L_old = L;
-        std::tie(Pt1, P1, PX, L) =
-            calculate_probabilities(X, T, sigma2, outliers);
+        std::tie(Pt1, P1, PX, L) = calculate_probabilities(
+            X, T, sigma2, outliers, fgt_epsilon(), fgt_breakpoint());
         L = L + lambda / 2 * (W.transpose() * G * W).trace();
         ntol = std::abs((L - L_old) / L);
 
