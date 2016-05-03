@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['vector',['Vector',['../namespacecpd.html#adf86167806c7bed2e85caec40121d38a',1,'cpd']]],
-  ['vectorref',['VectorRef',['../namespacecpd.html#a86b58c9f0b2c51b17bf7aa07cfbe28ba',1,'cpd']]],
-  ['version',['version',['../namespacecpd.html#ad10c0656d758f11e9a06fb22dfc0c8fd',1,'cpd']]],
-  ['version_2ehpp',['version.hpp',['../version_8hpp.html',1,'']]]
+  ['target',['target',['../classcpd_1_1_normalization.html#a907a0e52e96f5bbf3747ec81e319d3f9',1,'cpd::Normalization']]],
+  ['tolerance',['tolerance',['../classcpd_1_1_registration.html#a8e3372007dfa0d3bae1cbe7de0807e6a',1,'cpd::Registration']]]
 ];
