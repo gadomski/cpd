@@ -1,0 +1,37 @@
+version: 1.0.{build}
+
+branches:
+  except:
+    - gh-pages
+
+skip_commits:
+  message: /(\[skip ci\]|\[ci skip\])/
+
+os: Visual Studio 2015
+platform: x64
+configuration: Release
+
+matrix:
+  fast_finish: true
+
+install:
+  - ps: cd C:\projects
+  - ps: wget http://bitbucket.org/eigen/eigen/get/3.2.8.zip -OutFile eigen.zip
+  - cmd: 7z x eigen.zip -y > nul
+  - cmd: git clone https://github.com/gadomski/fgt
+  - ps: mkdir fgt\build
+  - ps: cd fgt\build
+  - cmd: cmake -G "Visual Studio 14 2015 Win64" -DEIGEN3_INCLUDE_DIR=C:\projects\eigen-eigen-07105f7124f9 -DWITH_TESTS=OFF -DCMAKE_INSTALL_PREFIX=C:\projects\local ..
+  - cmd: msbuild INSTALL.vcxproj
+  - ps: cd ..\..\cpd
+
+before_build:
+  - cmd: cmake -G "Visual Studio 14 2015 Win64" -DCMAKE_INSTALL_PREFIX=C:\projects\local -Dgtest_force_shared_crt=ON .
+
+build:
+  parallel: true
+  project: cpd.sln
+  verbosity: minimal
+
+test_script:
+  - ctest -V --output-on-failure -C Release

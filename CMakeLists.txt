@@ -4,6 +4,9 @@ cmake_minimum_required(VERSION 2.8.12)
 if(POLICY CMP0042)
     cmake_policy(SET CMP0042 NEW)
 endif()
+if(POLICY CMP0054)
+    cmake_policy(SET CMP0054 NEW) # Quoted variables in IF statements
+endif()
 
 set(CPD_VERSION 0.3.2)
 configure_file(
@@ -13,7 +16,6 @@ configure_file(
 set(CPD_SOVERSION 0)
 message(STATUS "[cpd] Version: ${CPD_VERSION}")
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 set(GTEST_SOURCE_DIR "${PROJECT_SOURCE_DIR}/vendor/gtest-1.7.0")
 
 option(WITH_TESTS "Build unit tests" ON)
@@ -42,10 +44,12 @@ target_link_libraries(Library-C++
     PUBLIC
     Fgt::Library-C++
     )
-target_compile_options(Library-C++
-    PRIVATE
-    -pedantic -Wall
-    )
+if("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang" OR "${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU")
+    target_compile_options(Library-C++
+        PRIVATE
+        -pedantic -Wall
+        )
+endif()
 set_target_properties(Library-C++ PROPERTIES
     OUTPUT_NAME cpd
     VERSION ${CPD_VERSION}

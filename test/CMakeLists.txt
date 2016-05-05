@@ -12,6 +12,12 @@ function(cpd_test target)
         gtest_main
         Library-C++
         )
+    if("${CMAKE_CXX_COMPILER_ID}" MATCHES "MSVC")
+        target_compile_options(${target}
+            PRIVATE
+            # Heap allocated object alignment whatever man
+            /wd4316)
+    endif()
     add_test(NAME ${target} COMMAND ${target})
 endfunction()
 
