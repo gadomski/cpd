@@ -33,6 +33,11 @@ public:
     /// Creates a new transformer with specified parameters.
     Transformer(double epsilon, double breakpoint);
 
+    /// Deleted copy constructor.
+    Transformer(Transformer&) = delete;
+    /// Deleted assignment operator.
+    Transformer& operator=(const Transformer&) = delete;
+
     /// Returns the error tolerance for this transformer.
     double epsilon() const { return m_epsilon; }
     /// Returns the breakpoint, when we switch from ifgt to direct_tree.
