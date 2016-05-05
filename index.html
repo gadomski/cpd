@@ -90,9 +90,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li><b>affine</b>: Uses an affine transformation (with an optional scaling) to align the two datasets.</li>
 </ul>
 <p>Andriy's reference implementation comes with one other type of registration, <b>nonrigid_lowrank</b>, which is not implemented in the latest version of this library (yet) (see <a href="#history">History</a> for information on how to find and use a previous version of this library that has <b>nonrigid_lowrank</b>).</p>
-<p>This code lives <a href="https://github.com/gadomski/cpd">on Github</a>. It has some <a href="http://gadomski.github.io/cpd">Doxygen documentation</a> and is tested <a href="https://travis-ci.org/gadomski/cpd">by Travis</a>. We also have a <a href="https://gitter.im/gadomski/cpd">gitter chatroom</a>.</p>
+<p>This code lives <a href="https://github.com/gadomski/cpd">on Github</a>. It has some <a href="http://gadomski.github.io/cpd">Doxygen documentation</a> and is tested <a href="https://travis-ci.org/gadomski/cpd">by Travis</a> and <a href="https:://ci.appveyor.com/project/gadomski/cpd/branch/master">by AppVeyor</a>. We also have a <a href="https://gitter.im/gadomski/cpd">gitter chatroom</a>.</p>
 <div class="image">
 <img src="https://travis-ci.org/gadomski/fgt.svg?branch=master"  alt="Build Status"/>
+</div>
+ <div class="image">
+<img src="https://ci.appveyor.com/api/projects/status/iktu9w7gt5bkb63p/branch/master?svg=true"  alt="Build status"/>
 </div>
 <h2>Usage</h2>
 <p><b>cpd</b> has a simple functional interface, which accepts <a href="http://eigen.tuxfamily.org/index.php?title=Main_Page">Eigen</a> matrices and aligns them using some sensible default parameters:</p>
