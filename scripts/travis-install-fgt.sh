@@ -3,15 +3,11 @@
 
 set -ex
 
-fgt_version=0.4.2
 home=$(pwd)
 
-wget https://github.com/gadomski/fgt/archive/v${fgt_version}.tar.gz
-tar xzf v${fgt_version}.tar.gz
-rm v${fgt_version}.tar.gz
-cd fgt-${fgt_version}
-mkdir build
-cd build
+git clone https://github.com/gadomski/fgt.git
+mkdir fgt/build
+cd fgt/build
 cmake .. \
     -DCMAKE_INSTALL_PREFIX=$home/local \
     -DWITH_TESTS=OFF \
