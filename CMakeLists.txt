@@ -16,7 +16,6 @@ configure_file(
 set(CPD_SOVERSION 0)
 message(STATUS "[cpd] Version: ${CPD_VERSION}")
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 set(GTEST_SOURCE_DIR "${PROJECT_SOURCE_DIR}/vendor/gtest-1.7.0")
 
 option(WITH_TESTS "Build unit tests" ON)
