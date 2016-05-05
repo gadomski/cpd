@@ -8,7 +8,7 @@ if(POLICY CMP0054)
     cmake_policy(SET CMP0054 NEW) # Quoted variables in IF statements
 endif()
 
-set(CPD_VERSION 0.3.2)
+set(CPD_VERSION 0.3.3)
 configure_file(
     src/version.cpp.in
     ${PROJECT_BINARY_DIR}/src/version.cpp
