@@ -31,6 +31,10 @@ struct RigidResult {
     Matrix points;
     /// The calculated rotation matrix.
     Matrix rotation;
+    /// The calculated translation vector.
+    Vector translation;
+    /// The calculated scale factor.
+    double scaling;
 };
 
 /// Class-based interface for running a rigid registration.
