@@ -105,6 +105,17 @@ RigidResult Rigid::compute_impl(const MatrixRef X, const MatrixRef Y,
         T = s * Y * R.transpose() + t.transpose().replicate(M, 1);
         ++iter;
     }
-    return {T, R};
+    return {T, R, t, s};
+}
+
+template <>
+RigidResult Normalization::denormalize(const RigidResult& result) const {
+    RigidResult out(result);
+    out.points = result.points * m_scaling +
+                 m_translation.replicate(result.points.rows(), 1);
+    out.translation =
+        m_scaling * result.translation + m_translation.transpose() -
+        result.scaling * result.rotation * m_translation.transpose();
+    return out;
 }
 }

@@ -73,7 +73,7 @@ RigidResult Affine::compute_impl(const MatrixRef X, const MatrixRef Y,
             (Np * D);
         ++iter;
     }
-    return {T, B};
+    return {T, B, t, 1.0};
 }
 
 RigidResult affine(const MatrixRef source, const MatrixRef target) {
