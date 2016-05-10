@@ -44,4 +44,11 @@ TEST(Rigid, UTM) {
     auto result = rigid(utm, utm2, 3.0);
     EXPECT_TRUE(utm.isApprox(result.points, 1e-4));
 }
+
+TEST_F(RigidTest, NoFGT) {
+    Rigid rigid;
+    rigid.use_fgt(false);
+    auto result = rigid.compute(m_fish1, m_fish2);
+    EXPECT_TRUE(m_fish1.isApprox(result.points, 1e-4));
+}
 }

@@ -28,7 +28,6 @@ add_library(Library-C++
     src/affine.cpp
     src/nonrigid.cpp
     src/normalization.cpp
-    src/probability_calculator.cpp
     src/registration.cpp
     src/rigid.cpp
     src/utils.cpp
@@ -43,6 +42,10 @@ target_include_directories(Library-C++
 target_link_libraries(Library-C++
     PUBLIC
     Fgt::Library-C++
+    )
+target_compile_definitions(Library-C++
+    PRIVATE
+    _USE_MATH_DEFINES
     )
 if("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang" OR "${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU")
     target_compile_options(Library-C++

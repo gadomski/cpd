@@ -42,6 +42,8 @@ public:
     constexpr static const double DEFAULT_TOLERANCE = 1e-5;
     /// Default outlier weight.
     constexpr static const double DEFAULT_OUTLIER_WEIGHT = 0.1;
+    /// Default value for whether we should use the Fast Gauss Transform.
+    static const bool DEFAULT_USE_FGT = true;
     /// Default error tolerance for the Fast Gauss Transform.
     constexpr static const double DEFAULT_FGT_EPSILON = 1e-4;
     /// Default Fast Gauss Transform bandwidth breakpoint.
@@ -55,6 +57,7 @@ public:
           m_tolerance(DEFAULT_TOLERANCE),
           m_outlier_weight(DEFAULT_OUTLIER_WEIGHT),
           m_ostream(std::cout),
+          m_use_fgt(DEFAULT_USE_FGT),
           m_fgt_epsilon(DEFAULT_FGT_EPSILON),
           m_fgt_breakpoint(DEFAULT_FGT_BREAKPOINT) {}
 
@@ -85,6 +88,14 @@ public:
         return *this;
     }
 
+    /// Returns true if this registration will use the Fast Gauss Transform.
+    bool use_fgt() const { return m_use_fgt; }
+    /// Sets whether this registration will use the Fast Gauss Transform.
+    Registration& use_fgt(bool use_fgt) {
+        m_use_fgt = use_fgt;
+        return *this;
+    }
+
     /// Returns the fgt error tolerance.
     double fgt_epsilon() const { return m_fgt_epsilon; }
     /// Sets the fgt error tolerance.
@@ -101,14 +112,14 @@ public:
         return *this;
     }
 
+    /// Calculates the probability matrices for a given bandwidth.
+    std::tuple<Vector, Vector, Matrix, double>
+    calculate_probabilities(const MatrixRef source, const MatrixRef target,
+                            double sigma2) const;
+
     /// Registers two datasets.
     T compute(const MatrixRef source, const MatrixRef target) const {
-        Normalization normalization(source, target);
-        double sigma2 =
-            default_sigma2(normalization.source(), normalization.target());
-        T result = compute_impl(normalization.source(), normalization.target(),
-                                sigma2);
-        return normalization.denormalize(result);
+        return compute(source, target, default_sigma2(source, target));
     }
 
     /// Registers two datasets with the provided sigma2.
@@ -128,6 +139,7 @@ private:
     double m_tolerance;
     double m_outlier_weight;
     std::ostream& m_ostream;
+    bool m_use_fgt;
     double m_fgt_epsilon;
     double m_fgt_breakpoint;
 };

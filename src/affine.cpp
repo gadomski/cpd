@@ -18,7 +18,7 @@
 #include <Eigen/QR>
 
 #include "cpd/affine.hpp"
-#include "probability_calculator.hpp"
+#include "registration_impl.hpp"
 
 namespace cpd {
 
@@ -26,29 +26,25 @@ RigidResult Affine::compute_impl(const MatrixRef X, const MatrixRef Y,
                                  double sigma2) const {
     assert(X.cols() == Y.cols());
 
-    unsigned long D = X.cols();
-    unsigned long M = Y.rows();
+    auto D = X.cols();
+    auto M = Y.rows();
     size_t max_iter = this->max_iterations();
     size_t iter = 0;
     double tol = this->tolerance();
     double ntol = std::numeric_limits<double>::max();
     double L = 0.0;
-    double outliers = this->outlier_weight();
     Vector t(D);
     Matrix T = Y;
     Matrix B(D, D);
     Vector Pt1;
     Vector P1;
     Matrix PX;
-    ProbabilityCalculator probability_calculator(outliers, fgt_epsilon(),
-                                                 fgt_breakpoint());
 
     while (iter < max_iter && ntol > tol &&
            sigma2 > 10 * std::numeric_limits<double>::epsilon()) {
         double L_old = L;
 
-        std::tie(Pt1, P1, PX, L) =
-            probability_calculator.calculate(X, T, sigma2);
+        std::tie(Pt1, P1, PX, L) = calculate_probabilities(X, T, sigma2);
         ntol = std::abs((L - L_old) / L);
 
         log() << "CPD Affine (FGT) : dL= " << ntol << ", iter= " << iter
