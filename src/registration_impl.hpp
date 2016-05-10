@@ -30,29 +30,61 @@ Registration<T>::calculate_probabilities(const MatrixRef X, const MatrixRef Y,
     unsigned long N = X.rows();
     unsigned long M = Y.rows();
     unsigned long D = X.cols();
-    double hsigma = std::sqrt(2.0 * sigma2);
-    std::unique_ptr<fgt::Transform> transform;
-    std::function<void(const MatrixRef)> reset_transform = [&](
-        const MatrixRef matrix) {
-        if (hsigma > fgt_breakpoint()) {
-            transform.reset(new fgt::Ifgt(matrix, hsigma, fgt_epsilon()));
-        } else {
-            transform.reset(new fgt::DirectTree(matrix, hsigma, fgt_epsilon()));
+    if (use_fgt()) {
+        double hsigma = std::sqrt(2.0 * sigma2);
+        std::unique_ptr<fgt::Transform> transform;
+        std::function<void(const MatrixRef)> reset_transform = [&](
+            const MatrixRef matrix) {
+            if (hsigma > fgt_breakpoint()) {
+                transform.reset(new fgt::Ifgt(matrix, hsigma, fgt_epsilon()));
+            } else {
+                transform.reset(
+                    new fgt::DirectTree(matrix, hsigma, fgt_epsilon()));
+            }
+        };
+        reset_transform(Y);
+        Vector Kt1 = transform->compute(X);
+        double ndi = outlier_weight() / (1 - outlier_weight()) * M / N *
+                     std::pow(2.0 * M_PI * sigma2, 0.5 * double(D));
+        Eigen::ArrayXd denomP = Kt1.array() + ndi;
+        Vector Pt1 = 1 - ndi / denomP;
+        reset_transform(X);
+        Vector P1 = transform->compute(Y, 1 / denomP);
+        Matrix PX(M, D);
+        for (size_t i = 0; i < D; ++i) {
+            PX.col(i) = transform->compute(Y, X.col(i).array() / denomP);
         }
-    };
-    reset_transform(Y);
-    Vector Kt1 = transform->compute(X);
-    double ndi = outlier_weight() / (1 - outlier_weight()) * M / N *
-                 std::pow(2.0 * M_PI * sigma2, 0.5 * double(D));
-    Eigen::ArrayXd denomP = Kt1.array() + ndi;
-    Vector Pt1 = 1 - ndi / denomP;
-    reset_transform(X);
-    Vector P1 = transform->compute(Y, 1 / denomP);
-    Matrix PX(M, D);
-    for (size_t i = 0; i < D; ++i) {
-        PX.col(i) = transform->compute(Y, X.col(i).array() / denomP);
+        double L = -denomP.log().sum() + D * N * std::log(sigma2) / 2.0;
+        return std::make_tuple(Pt1, P1, PX, L);
+    } else {
+        Vector P(M);
+        Vector Pt1(N);
+        Vector P1 = Vector::Zero(M);
+        Matrix PX = Matrix::Zero(M, D);
+        double E = 0.0;
+        double ksig = -2.0 * sigma2;
+        double outlier_tmp = outlier_weight() * M *
+                             std::pow(-ksig * M_PI, 0.5 * D) /
+                             ((1 - outlier_weight()) * N);
+
+        for (size_t n = 0; n < N; ++n) {
+            double sp = 0;
+            for (size_t m = 0; m < M; ++m) {
+                double razn = (X.row(n) - Y.row(m)).array().pow(2).sum();
+                P(m) = std::exp(razn / ksig);
+                sp += P(m);
+            }
+            sp += outlier_tmp;
+            Pt1(n) = 1 - outlier_tmp / sp;
+            Vector temp_x = X.row(n) / sp;
+            for (size_t m = 0; m < M; ++m) {
+                P1(m) += P(m) / sp;
+                PX.row(m) += temp_x * P(m);
+            }
+            E += std::log(sp);
+        }
+        E += D * N * std::log(sigma2) / 2;
+        return std::make_tuple(Pt1, P1, PX, E);
     }
-    double L = -denomP.log().sum() + D * N * std::log(sigma2) / 2.0;
-    return std::make_tuple(Pt1, P1, PX, L);
 }
 }
