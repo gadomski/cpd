@@ -26,8 +26,8 @@ RigidResult Affine::compute_impl(const MatrixRef X, const MatrixRef Y,
                                  double sigma2) const {
     assert(X.cols() == Y.cols());
 
-    unsigned long D = X.cols();
-    unsigned long M = Y.rows();
+    auto D = X.cols();
+    auto M = Y.rows();
     size_t max_iter = this->max_iterations();
     size_t iter = 0;
     double tol = this->tolerance();

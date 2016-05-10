@@ -15,7 +15,6 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-#define _USE_MATH_DEFINES
 #include <cmath>
 
 #include <cpd/registration.hpp>
@@ -27,9 +26,9 @@ std::tuple<Vector, Vector, Matrix, double>
 Registration<T>::calculate_probabilities(const MatrixRef X, const MatrixRef Y,
                                          double sigma2) const {
     assert(X.cols() == Y.cols());
-    unsigned long N = X.rows();
-    unsigned long M = Y.rows();
-    unsigned long D = X.cols();
+    auto N = X.rows();
+    auto M = Y.rows();
+    auto D = X.cols();
     if (use_fgt()) {
         double hsigma = std::sqrt(2.0 * sigma2);
         std::unique_ptr<fgt::Transform> transform;

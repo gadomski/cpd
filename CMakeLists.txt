@@ -43,6 +43,10 @@ target_link_libraries(Library-C++
     PUBLIC
     Fgt::Library-C++
     )
+target_compile_definitions(Library-C++
+    PRIVATE
+    _USE_MATH_DEFINES
+    )
 if("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang" OR "${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU")
     target_compile_options(Library-C++
         PRIVATE
