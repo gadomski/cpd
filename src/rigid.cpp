@@ -19,6 +19,7 @@
 #include <Eigen/SVD>
 
 #include "cpd/rigid.hpp"
+#include "probability_calculator.hpp"
 #include "utils.hpp"
 
 namespace cpd {
@@ -57,6 +58,8 @@ RigidResult Rigid::compute_impl(const MatrixRef X, const MatrixRef Y,
     Vector Pt1;
     Vector P1;
     Matrix PX;
+    ProbabilityCalculator probability_calculator(outliers, fgt_epsilon(),
+                                                 fgt_breakpoint());
 
     while (iter < max_iter && ntol > tol &&
            sigma2 > 10 * std::numeric_limits<double>::epsilon()) {
@@ -64,8 +67,8 @@ RigidResult Rigid::compute_impl(const MatrixRef X, const MatrixRef Y,
         // TODO myronenko has a sigma2 floor, which we may need for real
         // datasets
 
-        std::tie(Pt1, P1, PX, L) = calculate_probabilities(
-            X, T, sigma2, outliers, fgt_epsilon(), fgt_breakpoint());
+        std::tie(Pt1, P1, PX, L) =
+            probability_calculator.calculate(X, T, sigma2);
         ntol = std::abs((L - L_old) / L);
 
         log() << "CPD Rigid (FGT) : dL= " << ntol << ", iter= " << iter

@@ -28,9 +28,9 @@ add_library(Library-C++
     src/affine.cpp
     src/nonrigid.cpp
     src/normalization.cpp
+    src/probability_calculator.cpp
     src/registration.cpp
     src/rigid.cpp
-    src/transformer.cpp
     src/utils.cpp
     ${PROJECT_BINARY_DIR}/src/version.cpp
     )
