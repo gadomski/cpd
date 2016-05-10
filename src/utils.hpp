@@ -23,9 +23,4 @@ namespace cpd {
 
 Matrix construct_affinity_matrix(const MatrixRef source, const MatrixRef target,
                                  double beta);
-
-std::tuple<Vector, Vector, Matrix, double>
-calculate_probabilities(const MatrixRef source, const MatrixRef target,
-                        double sigma2, double outliers, double fgt_epsilon,
-                        double fgt_breakpoint);
 }

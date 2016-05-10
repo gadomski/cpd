@@ -15,24 +15,27 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-#include "utils.hpp"
+#pragma once
+
+#include <tuple>
+
+#include <cpd/matrix.hpp>
 
 namespace cpd {
 
-Matrix construct_affinity_matrix(const MatrixRef X, const MatrixRef Y,
-                                 double beta) {
-    assert(X.cols() == Y.cols());
-    double k = -2.0 * beta * beta;
-    unsigned long N = X.rows();
-    unsigned long M = Y.rows();
-    Matrix G(N, M);
-    for (size_t i = 0; i < M; ++i) {
-        G.col(i) = ((X.array() - Y.row(i).replicate(N, 1).array())
-                        .pow(2)
-                        .rowwise()
-                        .sum() /
-                    k).exp();
-    }
-    return G;
-}
+/// Class for calculating P1, Pt1, PX, and L for each type of CPD.
+class ProbabilityCalculator {
+public:
+    /// Creates a new probability calculator that will use FGT.
+    ProbabilityCalculator(double outliers, double epsilon, double breakpoint);
+
+    /// Calculates the probability matrices.
+    std::tuple<Vector, Vector, Matrix, double>
+    calculate(const MatrixRef source, const MatrixRef target, double sigma2);
+
+private:
+    double m_outliers;
+    double m_epsilon;
+    double m_breakpoint;
+};
 }

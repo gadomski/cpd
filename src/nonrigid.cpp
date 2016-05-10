@@ -19,6 +19,7 @@
 #include <Eigen/Sparse>
 
 #include "cpd/nonrigid.hpp"
+#include "probability_calculator.hpp"
 #include "utils.hpp"
 
 namespace cpd {
@@ -49,12 +50,14 @@ NonrigidResult Nonrigid::compute_impl(const MatrixRef X, const MatrixRef Y,
     Matrix PX;
 
     Matrix G = construct_affinity_matrix(Y, Y, beta);
+    ProbabilityCalculator probability_calculator(outliers, fgt_epsilon(),
+                                                 fgt_breakpoint());
 
     while (iter < max_iter && ntol > tol &&
            sigma2 > 10 * std::numeric_limits<double>::epsilon()) {
         double L_old = L;
-        std::tie(Pt1, P1, PX, L) = calculate_probabilities(
-            X, T, sigma2, outliers, fgt_epsilon(), fgt_breakpoint());
+        std::tie(Pt1, P1, PX, L) =
+            probability_calculator.calculate(X, T, sigma2);
         L = L + lambda / 2 * (W.transpose() * G * W).trace();
         ntol = std::abs((L - L_old) / L);
 
