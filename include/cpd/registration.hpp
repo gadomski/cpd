@@ -101,6 +101,11 @@ public:
         return *this;
     }
 
+    /// Calculates the probability matrices for a given bandwidth.
+    std::tuple<Vector, Vector, Matrix, double>
+    calculate_probabilities(const MatrixRef source, const MatrixRef target,
+                            double sigma2) const;
+
     /// Registers two datasets.
     T compute(const MatrixRef source, const MatrixRef target) const {
         return compute(source, target, default_sigma2(source, target));

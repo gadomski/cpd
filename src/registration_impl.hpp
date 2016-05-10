@@ -18,34 +18,31 @@
 #define _USE_MATH_DEFINES
 #include <cmath>
 
-#include "probability_calculator.hpp"
+#include <cpd/registration.hpp>
 
 namespace cpd {
 
-ProbabilityCalculator::ProbabilityCalculator(double outliers, double epsilon,
-                                             double breakpoint)
-    : m_outliers(outliers), m_epsilon(epsilon), m_breakpoint(breakpoint) {}
-
+template <typename T>
 std::tuple<Vector, Vector, Matrix, double>
-ProbabilityCalculator::calculate(const MatrixRef X, const MatrixRef Y,
-                                 double sigma2) {
+Registration<T>::calculate_probabilities(const MatrixRef X, const MatrixRef Y,
+                                         double sigma2) const {
     assert(X.cols() == Y.cols());
     unsigned long N = X.rows();
     unsigned long M = Y.rows();
     unsigned long D = X.cols();
     double hsigma = std::sqrt(2.0 * sigma2);
     std::unique_ptr<fgt::Transform> transform;
-    std::function<void(const MatrixRef)> reset_transform =
-        [&](const MatrixRef matrix) {
-            if (hsigma > m_breakpoint) {
-                transform.reset(new fgt::Ifgt(matrix, hsigma, m_epsilon));
-            } else {
-                transform.reset(new fgt::DirectTree(matrix, hsigma, m_epsilon));
-            }
-        };
+    std::function<void(const MatrixRef)> reset_transform = [&](
+        const MatrixRef matrix) {
+        if (hsigma > fgt_breakpoint()) {
+            transform.reset(new fgt::Ifgt(matrix, hsigma, fgt_epsilon()));
+        } else {
+            transform.reset(new fgt::DirectTree(matrix, hsigma, fgt_epsilon()));
+        }
+    };
     reset_transform(Y);
     Vector Kt1 = transform->compute(X);
-    double ndi = m_outliers / (1 - m_outliers) * M / N *
+    double ndi = outlier_weight() / (1 - outlier_weight()) * M / N *
                  std::pow(2.0 * M_PI * sigma2, 0.5 * double(D));
     Eigen::ArrayXd denomP = Kt1.array() + ndi;
     Vector Pt1 = 1 - ndi / denomP;
