@@ -1,5 +1,5 @@
-#include "test/support.hpp"
 #include "cpd/nonrigid.hpp"
+#include "test/support.hpp"
 
 namespace cpd {
 

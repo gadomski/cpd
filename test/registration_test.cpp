@@ -1,5 +1,5 @@
-#include "test/support.hpp"
 #include "cpd/registration.hpp"
+#include "test/support.hpp"
 
 namespace cpd {
 

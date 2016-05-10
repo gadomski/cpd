@@ -42,7 +42,8 @@ Matrix construct_affinity_matrix(const MatrixRef X, const MatrixRef Y,
 
 std::tuple<Vector, Vector, Matrix, double>
 calculate_probabilities(const MatrixRef X, const MatrixRef Y, double sigma2,
-                        double outliers, double fgt_epsilon, double fgt_breakpoint) {
+                        double outliers, double fgt_epsilon,
+                        double fgt_breakpoint) {
     assert(X.cols() == Y.cols());
     unsigned long N = X.rows();
     unsigned long M = Y.rows();

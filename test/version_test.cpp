@@ -1,6 +1,4 @@
-#include "test/support.hpp"
 #include "cpd/version.hpp"
+#include "test/support.hpp"
 
-TEST(Version, Compiles) {
-    cpd::version();
-}
+TEST(Version, Compiles) { cpd::version(); }
