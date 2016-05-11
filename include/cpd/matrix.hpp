@@ -38,4 +38,7 @@ typedef fgt::VectorRef VectorRef;
 
 /// Convenience typedef for a row vector.
 typedef Eigen::RowVectorXd RowVector;
+
+/// Reads a Eigen matrix from a file.
+Matrix matrix_from_path(const std::string& path);
 }

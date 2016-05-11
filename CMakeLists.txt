@@ -26,6 +26,7 @@ message(STATUS "[cpd] Fgt version: ${Fgt_VERSION}")
 
 add_library(Library-C++
     src/affine.cpp
+    src/matrix.cpp
     src/nonrigid.cpp
     src/normalization.cpp
     src/rigid.cpp
