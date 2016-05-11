@@ -119,7 +119,11 @@ public:
 
     /// Registers two datasets.
     T compute(const MatrixRef source, const MatrixRef target) const {
-        return compute(source, target, default_sigma2(source, target));
+        Normalization normalization(source, target);
+        double sigma2 = default_sigma2(normalization.source(), normalization.target());
+        T result = compute_impl(normalization.source(), normalization.target(),
+                                sigma2);
+        return normalization.denormalize(result);
     }
 
     /// Registers two datasets with the provided sigma2.
