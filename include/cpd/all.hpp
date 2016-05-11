@@ -23,6 +23,7 @@
 #include <cpd/affine.hpp>
 #include <cpd/nonrigid.hpp>
 #include <cpd/rigid.hpp>
+#include <cpd/version.hpp>
 
 /// The top-level cpd namespace.
 namespace cpd {}
