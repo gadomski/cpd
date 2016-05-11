@@ -25,6 +25,10 @@
 #include <cpd/matrix.hpp>
 #include <cpd/normalization.hpp>
 
+namespace spdlog {
+class logger;
+}
+
 namespace cpd {
 
 /// Returns the default sigma2 value for these two datasets.
@@ -56,15 +60,18 @@ public:
         : m_max_iterations(DEFAULT_MAX_ITERATIONS),
           m_tolerance(DEFAULT_TOLERANCE),
           m_outlier_weight(DEFAULT_OUTLIER_WEIGHT),
-          m_ostream(std::cout),
           m_use_fgt(DEFAULT_USE_FGT),
           m_fgt_epsilon(DEFAULT_FGT_EPSILON),
-          m_fgt_breakpoint(DEFAULT_FGT_BREAKPOINT) {}
+          m_fgt_breakpoint(DEFAULT_FGT_BREAKPOINT),
+          m_logger() {}
 
-    /// Returns an ostream that can be used to print messages.
+    /// Returns this registration's logger.
     ///
-    /// Defaults to std::cout.
-    std::ostream& log() const { return m_ostream; }
+    /// If there's no logger set, this registration will create an unregistered
+    /// stdout logger and return that.
+    std::shared_ptr<spdlog::logger> log();
+    /// Sets this registration's logger.
+    Registration& set_logger(std::shared_ptr<spdlog::logger> logger);
 
     /// Returns the maximum number of iterations allowed.
     size_t max_iterations() const { return m_max_iterations; }
@@ -118,7 +125,7 @@ public:
                             double sigma2) const;
 
     /// Registers two datasets.
-    T compute(const MatrixRef source, const MatrixRef target) const {
+    T compute(const MatrixRef source, const MatrixRef target) {
         Normalization normalization(source, target);
         double sigma2 = default_sigma2(normalization.source(), normalization.target());
         T result = compute_impl(normalization.source(), normalization.target(),
@@ -127,8 +134,7 @@ public:
     }
 
     /// Registers two datasets with the provided sigma2.
-    T compute(const MatrixRef source, const MatrixRef target,
-              double sigma2) const {
+    T compute(const MatrixRef source, const MatrixRef target, double sigma2) {
         Normalization normalization(source, target, sigma2);
         T result = compute_impl(normalization.source(), normalization.target(),
                                 normalization.sigma2());
@@ -137,14 +143,14 @@ public:
 
 private:
     virtual T compute_impl(const MatrixRef source, const MatrixRef target,
-                           double sigma2) const = 0;
+                           double sigma2) = 0;
 
     size_t m_max_iterations;
     double m_tolerance;
     double m_outlier_weight;
-    std::ostream& m_ostream;
     bool m_use_fgt;
     double m_fgt_epsilon;
     double m_fgt_breakpoint;
+    std::shared_ptr<spdlog::logger> m_logger;
 };
 }

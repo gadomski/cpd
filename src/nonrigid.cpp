@@ -30,7 +30,7 @@ Nonrigid::Nonrigid()
       m_lambda(Nonrigid::DEFAULT_LAMBDA) {}
 
 NonrigidResult Nonrigid::compute_impl(const MatrixRef X, const MatrixRef Y,
-                                      double sigma2) const {
+                                      double sigma2) {
     assert(X.cols() == Y.cols());
 
     auto M = Y.rows();
@@ -57,8 +57,8 @@ NonrigidResult Nonrigid::compute_impl(const MatrixRef X, const MatrixRef Y,
         L = L + lambda / 2 * (W.transpose() * G * W).trace();
         ntol = std::abs((L - L_old) / L);
 
-        log() << "CPD Nonrigid (FGT) : dL= " << ntol << ", iter= " << iter
-              << ", sigma2= " << sigma2 << std::endl;
+        log()->info() << "CPD Nonrigid (FGT) : dL= " << ntol
+                      << ", iter= " << iter << ", sigma2= " << sigma2;
 
         auto dP = P1.asDiagonal();
         W = (dP * G + lambda * sigma2 * Matrix::Identity(M, M))

@@ -38,6 +38,7 @@ target_include_directories(Library-C++
     ${CMAKE_INSTALL_PREFIX}/include
     PRIVATE
     include
+    vendor/spdlog-9b984ddbed015de8c8212e388be4754fede57049/include
     )
 target_link_libraries(Library-C++
     PUBLIC

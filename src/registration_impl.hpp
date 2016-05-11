@@ -19,6 +19,8 @@
 
 #include <cpd/registration.hpp>
 
+#include "spdlog/spdlog.h"
+
 namespace cpd {
 
 template <typename T>
@@ -85,5 +87,22 @@ Registration<T>::calculate_probabilities(const MatrixRef X, const MatrixRef Y,
         E += D * N * std::log(sigma2) / 2;
         return std::make_tuple(Pt1, P1, PX, E);
     }
+}
+
+template <typename T>
+std::shared_ptr<spdlog::logger> Registration<T>::log() {
+    if (!m_logger) {
+        auto sink = std::make_shared<spdlog::sinks::stdout_sink_mt>();
+        m_logger = std::make_shared<spdlog::logger>("registration", sink);
+        // We don't register the logger so we don't get name conflicts.
+    }
+    return m_logger;
+}
+
+template <typename T>
+Registration<T>&
+Registration<T>::set_logger(std::shared_ptr<spdlog::logger> logger) {
+    m_logger = logger;
+    return *this;
 }
 }

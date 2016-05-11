@@ -59,8 +59,7 @@ public:
 
 private:
     virtual NonrigidResult compute_impl(const MatrixRef source,
-                                        const MatrixRef target,
-                                        double sigma2) const;
+                                        const MatrixRef target, double sigma2);
 
     double m_beta;
     double m_lambda;

@@ -65,8 +65,7 @@ public:
 
 private:
     virtual RigidResult compute_impl(const MatrixRef source,
-                                     const MatrixRef target,
-                                     double sigma2) const;
+                                     const MatrixRef target, double sigma2);
 
     bool m_no_reflections;
     bool m_allow_scaling;

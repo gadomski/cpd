@@ -28,8 +28,7 @@ namespace cpd {
 class Affine : public Rigid {
 private:
     virtual RigidResult compute_impl(const MatrixRef source,
-                                     const MatrixRef target,
-                                     double sigma2) const;
+                                     const MatrixRef target, double sigma2);
 };
 
 /// Runs affine CPD on two data sets, using all default parameters.
