@@ -112,10 +112,10 @@ template <>
 RigidResult Normalization::denormalize(const RigidResult& result) const {
     RigidResult out(result);
     out.points = result.points * m_scaling +
-                 m_translation.replicate(result.points.rows(), 1);
+                 m_translation_x.replicate(result.points.rows(), 1);
     out.translation =
-        m_scaling * result.translation + m_translation.transpose() -
-        result.scaling * result.rotation * m_translation.transpose();
+        m_scaling * result.translation + m_translation_x.transpose() -
+        result.scaling * result.rotation * m_translation_y.transpose();
     return out;
 }
 

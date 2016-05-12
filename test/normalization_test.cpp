@@ -22,10 +22,13 @@ namespace cpd {
 
 class NormalizationTest : public FishTest {};
 
-TEST_F(NormalizationTest, SourceTargetRows) {
-    Normalization normalization(m_fish1, m_fish2, 1.0);
-    EXPECT_EQ(m_fish1.rows(), normalization.source().rows());
-    EXPECT_EQ(m_fish2.rows(), normalization.target().rows());
-    EXPECT_GT(1.0, normalization.sigma2());
+TEST_F(NormalizationTest, Reference) {
+    Normalization normalization(m_fish1, m_fish2);
+    RowVector yd(2);
+    yd << 1.866, 1.232;
+    EXPECT_TRUE(normalization.translation_x().isZero(0.1))
+        << normalization.translation_x();
+    EXPECT_TRUE(yd.isApprox(normalization.translation_y(), 1e-4))
+        << normalization.translation_y();
 }
 }

@@ -23,26 +23,26 @@ namespace cpd {
 class Normalization {
 public:
     Normalization(const MatrixRef source, const MatrixRef target);
-    Normalization(const MatrixRef source, const MatrixRef target,
-                  double sigma2);
 
     const Matrix& source() const { return m_source; }
     const Matrix& target() const { return m_target; }
-    double sigma2() const { return m_sigma2; }
+    const RowVector& translation_x() const { return m_translation_x; }
+    const RowVector& translation_y() const { return m_translation_y; }
+    double scaling() const { return m_scaling; }
 
     template <typename T>
     T denormalize(const T& result) const {
         T out(result);
         out.points = result.points * m_scaling +
-                     m_translation.replicate(result.points.rows(), 1);
+                     m_translation_x.replicate(result.points.rows(), 1);
         return out;
     }
 
 private:
     Matrix m_source;
     Matrix m_target;
-    double m_sigma2;
-    RowVector m_translation;
+    RowVector m_translation_x;
+    RowVector m_translation_y;
     double m_scaling;
 };
 }
