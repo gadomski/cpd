@@ -17,7 +17,6 @@
 
 #include <cpd/rigid.hpp>
 
-#include "registration_impl.hpp"
 #include "test/support.hpp"
 
 namespace cpd {

@@ -118,4 +118,6 @@ RigidResult Normalization::denormalize(const RigidResult& result) const {
         result.scaling * result.rotation * m_translation.transpose();
     return out;
 }
+
+template class Registration<RigidResult>;
 }
