@@ -17,7 +17,7 @@
 
 #pragma once
 
-#include "cpd/matrix.hpp"
+#include <cpd/matrix.hpp>
 
 namespace cpd {
 

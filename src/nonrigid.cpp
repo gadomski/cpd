@@ -18,7 +18,8 @@
 #include <Eigen/QR>
 #include <Eigen/Sparse>
 
-#include "cpd/nonrigid.hpp"
+#include <cpd/nonrigid.hpp>
+
 #include "registration_impl.hpp"
 #include "utils.hpp"
 

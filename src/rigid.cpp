@@ -18,7 +18,8 @@
 #include <Eigen/LU>
 #include <Eigen/SVD>
 
-#include "cpd/rigid.hpp"
+#include <cpd/rigid.hpp>
+
 #include "registration_impl.hpp"
 #include "utils.hpp"
 
