@@ -88,7 +88,6 @@ public:
         m_outlier_weight = outlier_weight;
         return *this;
     }
-
     /// Returns true if this registration will use the Fast Gauss Transform.
     bool use_fgt() const { return m_use_fgt; }
     /// Sets whether this registration will use the Fast Gauss Transform.
@@ -96,7 +95,6 @@ public:
         m_use_fgt = use_fgt;
         return *this;
     }
-
     /// Returns the fgt error tolerance.
     double fgt_epsilon() const { return m_fgt_epsilon; }
     /// Sets the fgt error tolerance.
@@ -104,7 +102,6 @@ public:
         m_fgt_epsilon = fgt_epsilon;
         return *this;
     }
-
     /// Returns the fgt breakpoint.
     double fgt_breakpoint() const { return m_fgt_breakpoint; }
     /// Sets the fgt breakpoint.
