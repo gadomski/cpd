@@ -21,6 +21,7 @@
 #pragma once
 
 #include <cpd/affine.hpp>
+#include <cpd/matrix.hpp>
 #include <cpd/nonrigid.hpp>
 #include <cpd/rigid.hpp>
 #include <cpd/version.hpp>
