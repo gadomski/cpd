@@ -88,4 +88,6 @@ NonrigidResult nonrigid(const MatrixRef source, const MatrixRef target,
                         double sigma2) {
     return Nonrigid().compute(source, target, sigma2);
 }
+
+template class Registration<NonrigidResult>;
 }
