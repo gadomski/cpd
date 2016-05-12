@@ -15,33 +15,17 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-#include <iostream>
-
 #include "normalization.hpp"
 
 namespace cpd {
 Normalization::Normalization(const MatrixRef source, const MatrixRef target)
-    : m_sigma2(0.0) {
-    auto N = source.rows();
-    auto M = target.rows();
-    m_translation = source.colwise().minCoeff().array().min(
-        target.colwise().minCoeff().array());
-    m_scaling = (source - m_translation.replicate(N, 1))
-                    .colwise()
-                    .maxCoeff()
-                    .array()
-                    .max((target - m_translation.replicate(M, 1))
-                             .colwise()
-                             .maxCoeff()
-                             .array())
-                    .maxCoeff();
-    m_source = (source - m_translation.replicate(N, 1)) / m_scaling;
-    m_target = (target - m_translation.replicate(M, 1)) / m_scaling;
-}
-
-Normalization::Normalization(const MatrixRef source, const MatrixRef target,
-                             double sigma2)
-    : Normalization(source, target) {
-    m_sigma2 = sigma2 / m_scaling;
+    : m_translation_x(source.colwise().mean()),
+      m_translation_y(target.colwise().mean()) {
+    auto x = source - m_translation_x.replicate(source.rows(), 1);
+    auto y = target - m_translation_y.replicate(target.rows(), 1);
+    m_scaling = std::max(std::sqrt(x.array().pow(2).sum() / source.rows()),
+                         std::sqrt(y.array().pow(2).sum() / target.rows()));
+    m_source = x / m_scaling;
+    m_target = y / m_scaling;
 }
 }

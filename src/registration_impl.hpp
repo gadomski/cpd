@@ -121,9 +121,9 @@ T Registration<T>::compute(const MatrixRef source, const MatrixRef target) {
 template <typename T>
 T Registration<T>::compute(const MatrixRef source, const MatrixRef target,
                            double sigma2) {
-    Normalization normalization(source, target, sigma2);
+    Normalization normalization(source, target);
     T result = compute_impl(normalization.source(), normalization.target(),
-                            normalization.sigma2());
+                            sigma2 / normalization.scaling());
     return normalization.denormalize(result);
 }
 
