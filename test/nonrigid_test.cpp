@@ -1,4 +1,5 @@
 #include "cpd/nonrigid.hpp"
+#include "registration_impl.hpp"
 #include "test/support.hpp"
 
 namespace cpd {

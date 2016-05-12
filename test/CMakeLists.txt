@@ -3,6 +3,7 @@ function(cpd_test target)
     target_include_directories(${target}
         PRIVATE
         ${GTEST_SOURCE_DIR}/include
+        ${SPDLOG_SOURCE_DIR}/include
         ${PROJECT_SOURCE_DIR}/include
         ${PROJECT_SOURCE_DIR}/src
         ${PROJECT_BINARY_DIR}

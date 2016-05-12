@@ -20,6 +20,7 @@
 #include <cpd/registration.hpp>
 
 #include "spdlog/spdlog.h"
+#include "utils.hpp"
 
 namespace cpd {
 
@@ -104,5 +105,24 @@ Registration<T>&
 Registration<T>::set_logger(std::shared_ptr<spdlog::logger> logger) {
     m_logger = logger;
     return *this;
+}
+
+template <typename T>
+T Registration<T>::compute(const MatrixRef source, const MatrixRef target) {
+    Normalization normalization(source, target);
+    double sigma2 =
+        default_sigma2(normalization.source(), normalization.target());
+    T result =
+        compute_impl(normalization.source(), normalization.target(), sigma2);
+    return normalization.denormalize(result);
+}
+
+template <typename T>
+T Registration<T>::compute(const MatrixRef source, const MatrixRef target,
+                           double sigma2) {
+    Normalization normalization(source, target, sigma2);
+    T result = compute_impl(normalization.source(), normalization.target(),
+                            normalization.sigma2());
+    return normalization.denormalize(result);
 }
 }

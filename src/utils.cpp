@@ -19,6 +19,16 @@
 
 namespace cpd {
 
+double default_sigma2(const MatrixRef X, const MatrixRef Y) {
+    assert(X.cols() == Y.cols());
+    auto N = X.rows();
+    auto M = Y.rows();
+    auto D = X.cols();
+    return (N * (X.transpose() * X).trace() + M * (Y.transpose() * Y).trace() -
+            2 * X.colwise().sum() * Y.colwise().sum().transpose()) /
+           (N * M * D);
+}
+
 Matrix construct_affinity_matrix(const MatrixRef X, const MatrixRef Y,
                                  double beta) {
     assert(X.cols() == Y.cols());
