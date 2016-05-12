@@ -29,7 +29,6 @@ configure_file(support.hpp.in
 cpd_test(affine affine_test.cpp)
 cpd_test(nonrigid nonrigid_test.cpp)
 cpd_test(normalization normalization_test.cpp)
-cpd_test(registration registration_test.cpp)
 cpd_test(rigid rigid_test.cpp)
 cpd_test(utils utils_test.cpp)
 cpd_test(version version_test.cpp)
