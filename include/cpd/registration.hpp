@@ -23,10 +23,7 @@
 #include <iostream>
 
 #include <cpd/matrix.hpp>
-
-namespace spdlog {
-class logger;
-}
+#include <cpd/vendor/spdlog/spdlog.h>
 
 namespace cpd {
 

@@ -21,7 +21,6 @@
 #include <cpd/rigid.hpp>
 
 #include "normalization.hpp"
-#include "spdlog/spdlog.h"
 #include "utils.hpp"
 
 namespace cpd {
