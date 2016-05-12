@@ -18,7 +18,9 @@
 #include <cmath>
 
 #include <cpd/registration.hpp>
+#include <cpd/rigid.hpp>
 
+#include "normalization.hpp"
 #include "spdlog/spdlog.h"
 #include "utils.hpp"
 
@@ -125,4 +127,7 @@ T Registration<T>::compute(const MatrixRef source, const MatrixRef target,
                             normalization.sigma2());
     return normalization.denormalize(result);
 }
+
+template <>
+RigidResult Normalization::denormalize(const RigidResult& result) const;
 }

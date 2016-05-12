@@ -77,7 +77,4 @@ RigidResult rigid(const MatrixRef source, const MatrixRef target);
 /// Runs rigid CPD with the provided sigma2.
 RigidResult rigid(const MatrixRef source, const MatrixRef target,
                   double sigma2);
-
-template <>
-RigidResult Normalization::denormalize(const RigidResult& result) const;
 }

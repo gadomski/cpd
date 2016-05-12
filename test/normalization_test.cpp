@@ -1,4 +1,4 @@
-#include "cpd/normalization.hpp"
+#include "normalization.hpp"
 #include "test/support.hpp"
 
 namespace cpd {
