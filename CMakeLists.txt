@@ -17,6 +17,7 @@ set(CPD_SOVERSION 0)
 message(STATUS "[cpd] Version: ${CPD_VERSION}")
 
 set(GTEST_SOURCE_DIR "${PROJECT_SOURCE_DIR}/vendor/gtest-1.7.0")
+set(SPDLOG_SOURCE_DIR "${PROJECT_SOURCE_DIR}/vendor/spdlog-9b984ddbed015de8c8212e388be4754fede57049")
 
 option(WITH_TESTS "Build unit tests" ON)
 
@@ -36,8 +37,10 @@ add_library(Library-C++
 target_include_directories(Library-C++
     INTERFACE
     ${CMAKE_INSTALL_PREFIX}/include
+    ${CMAKE_INSTALL_PREFIX}/include/cpd/vendor
     PRIVATE
     include
+    ${SPDLOG_SOURCE_DIR}/include
     )
 target_link_libraries(Library-C++
     PUBLIC
@@ -58,16 +61,8 @@ set_target_properties(Library-C++ PROPERTIES
     VERSION ${CPD_VERSION}
     SOVERSION ${CPD_SOVERSION}
     )
-install(FILES
-    include/cpd/all.hpp
-    include/cpd/affine.hpp
-    include/cpd/matrix.hpp
-    include/cpd/normalization.hpp
-    include/cpd/nonrigid.hpp
-    include/cpd/registration.hpp
-    include/cpd/rigid.hpp
-    DESTINATION include/cpd
-    )
+install(DIRECTORY include/cpd DESTINATION include)
+install(DIRECTORY "${SPDLOG_SOURCE_DIR}/include/spdlog" DESTINATION include/cpd/vendor)
 install(TARGETS Library-C++
     DESTINATION lib
     EXPORT cpd-targets

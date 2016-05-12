@@ -38,7 +38,7 @@ Rigid::Rigid()
       m_allow_scaling(Rigid::DEFAULT_ALLOW_SCALING) {}
 
 RigidResult Rigid::compute_impl(const MatrixRef X, const MatrixRef Y,
-                                double sigma2) const {
+                                double sigma2) {
     assert(X.cols() == Y.cols());
 
     unsigned long M = Y.rows();
@@ -67,8 +67,8 @@ RigidResult Rigid::compute_impl(const MatrixRef X, const MatrixRef Y,
         std::tie(Pt1, P1, PX, L) = calculate_probabilities(X, T, sigma2);
         ntol = std::abs((L - L_old) / L);
 
-        log() << "CPD Rigid (FGT) : dL= " << ntol << ", iter= " << iter
-              << ", sigma2= " << sigma2 << std::endl;
+        log()->info() << "CPD Rigid (FGT) : dL= " << ntol << ", iter= " << iter
+                      << ", sigma2= " << sigma2;
 
         double Np = Pt1.sum();
         Vector mu_x = X.transpose() * Pt1 / Np;
