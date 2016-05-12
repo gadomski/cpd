@@ -31,11 +31,6 @@ class logger;
 
 namespace cpd {
 
-/// Returns the default sigma2 value for these two datasets.
-///
-/// This is a default value that is based upton the variance of those datasets.
-double default_sigma2(const MatrixRef source, const MatrixRef target);
-
 /// Class template that makes it easier to create new registrations.
 template <typename T>
 class Registration {
@@ -125,21 +120,9 @@ public:
                             double sigma2) const;
 
     /// Registers two datasets.
-    T compute(const MatrixRef source, const MatrixRef target) {
-        Normalization normalization(source, target);
-        double sigma2 = default_sigma2(normalization.source(), normalization.target());
-        T result = compute_impl(normalization.source(), normalization.target(),
-                                sigma2);
-        return normalization.denormalize(result);
-    }
-
+    T compute(const MatrixRef source, const MatrixRef target);
     /// Registers two datasets with the provided sigma2.
-    T compute(const MatrixRef source, const MatrixRef target, double sigma2) {
-        Normalization normalization(source, target, sigma2);
-        T result = compute_impl(normalization.source(), normalization.target(),
-                                normalization.sigma2());
-        return normalization.denormalize(result);
-    }
+    T compute(const MatrixRef source, const MatrixRef target, double sigma2);
 
 private:
     virtual T compute_impl(const MatrixRef source, const MatrixRef target,
