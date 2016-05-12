@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['target',['target',['../classcpd_1_1_normalization.html#a907a0e52e96f5bbf3747ec81e319d3f9',1,'cpd::Normalization']]],
-  ['tolerance',['tolerance',['../classcpd_1_1_registration.html#a8e3372007dfa0d3bae1cbe7de0807e6a',1,'cpd::Registration']]]
+  ['use_5ffgt',['use_fgt',['../classcpd_1_1_registration.html#a8a16a8a95e9141a3996e7ddabb2af759',1,'cpd::Registration::use_fgt() const '],['../classcpd_1_1_registration.html#a9d0467a92a5d3968f83b576100cd1397',1,'cpd::Registration::use_fgt(bool use_fgt)']]]
 ];

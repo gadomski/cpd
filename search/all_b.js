@@ -8,7 +8,5 @@ var searchData=
   ['set_5flogger',['set_logger',['../classcpd_1_1_registration.html#a59157496a35c8439c10eb4b43cd38ed9',1,'cpd::Registration']]],
   ['set_5fmax_5fiterations',['set_max_iterations',['../classcpd_1_1_registration.html#a7993194689341b337bcb47e24ad11d97',1,'cpd::Registration']]],
   ['set_5foutlier_5fweight',['set_outlier_weight',['../classcpd_1_1_registration.html#a74746c856243cf1bfe8b0b2b14ff8624',1,'cpd::Registration']]],
-  ['set_5ftolerance',['set_tolerance',['../classcpd_1_1_registration.html#aacd63fc0d581cc5ff57fb1e9d25ef74c',1,'cpd::Registration']]],
-  ['sigma2',['sigma2',['../classcpd_1_1_normalization.html#a16d13ad939a541cdfd7a44ba0020ca3a',1,'cpd::Normalization']]],
-  ['source',['source',['../classcpd_1_1_normalization.html#a324b523d61bb095a769fe9fa92572f5b',1,'cpd::Normalization']]]
+  ['set_5ftolerance',['set_tolerance',['../classcpd_1_1_registration.html#aacd63fc0d581cc5ff57fb1e9d25ef74c',1,'cpd::Registration']]]
 ];

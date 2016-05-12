@@ -9,6 +9,5 @@ var searchData=
   ['default_5fno_5freflections',['DEFAULT_NO_REFLECTIONS',['../classcpd_1_1_rigid.html#a887f29bc760240d8419fb4ce6cdd1752',1,'cpd::Rigid']]],
   ['default_5foutlier_5fweight',['DEFAULT_OUTLIER_WEIGHT',['../classcpd_1_1_registration.html#a4a070c1c79f613579b4de725799394ea',1,'cpd::Registration']]],
   ['default_5ftolerance',['DEFAULT_TOLERANCE',['../classcpd_1_1_registration.html#a6f1baa90355b7fb8d60a4b6dde0a739a',1,'cpd::Registration']]],
-  ['default_5fuse_5ffgt',['DEFAULT_USE_FGT',['../classcpd_1_1_registration.html#a7bbf5c535e05dfcd578a3e123e067cde',1,'cpd::Registration']]],
-  ['denormalize',['denormalize',['../classcpd_1_1_normalization.html#abef48dc1ce82338df046615fc4e06b4b',1,'cpd::Normalization']]]
+  ['default_5fuse_5ffgt',['DEFAULT_USE_FGT',['../classcpd_1_1_registration.html#a7bbf5c535e05dfcd578a3e123e067cde',1,'cpd::Registration']]]
 ];
