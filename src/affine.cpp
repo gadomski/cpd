@@ -17,7 +17,8 @@
 
 #include <Eigen/QR>
 
-#include "cpd/affine.hpp"
+#include <cpd/affine.hpp>
+
 #include "registration_impl.hpp"
 
 namespace cpd {
