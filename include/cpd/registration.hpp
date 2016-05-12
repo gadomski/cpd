@@ -23,7 +23,6 @@
 #include <iostream>
 
 #include <cpd/matrix.hpp>
-#include <cpd/normalization.hpp>
 
 namespace spdlog {
 class logger;

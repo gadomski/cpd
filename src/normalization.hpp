@@ -15,33 +15,21 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-/// \file normalization.hpp
-/// \brief Shrink a point set down to a unit cube (or whatever dimensionality).
-
 #pragma once
 
 #include <cpd/matrix.hpp>
 
 namespace cpd {
-/// Normalizes cpd parameters to (roughly) fit in a unit cube.
-///
-/// fgt doesn't like things that are way away from a unit cube.
 class Normalization {
 public:
-    /// Creates a new normalization without a sigma2.
     Normalization(const MatrixRef source, const MatrixRef target);
-    /// Creates a new normalization.
     Normalization(const MatrixRef source, const MatrixRef target,
                   double sigma2);
 
-    /// Returns the normalized source dataset.
     const Matrix& source() const { return m_source; }
-    /// Returns the normalized target dataset.
     const Matrix& target() const { return m_target; }
-    /// Returns the normalized sigma2.
     double sigma2() const { return m_sigma2; }
 
-    /// Denormalizeses the result of a registration.
     template <typename T>
     T denormalize(const T& result) const {
         T out(result);
