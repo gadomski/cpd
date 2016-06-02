@@ -36,10 +36,8 @@ add_library(Library-C++
 target_include_directories(Library-C++
     INTERFACE
     ${CMAKE_INSTALL_PREFIX}/include
-    ${CMAKE_INSTALL_PREFIX}/include/cpd/vendor
     PRIVATE
     include
-    include/cpd/vendor
     )
 target_link_libraries(Library-C++
     PUBLIC

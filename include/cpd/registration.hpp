@@ -23,7 +23,6 @@
 #include <iostream>
 
 #include <cpd/matrix.hpp>
-#include <cpd/vendor/spdlog/spdlog.h>
 
 namespace cpd {
 
@@ -45,6 +44,8 @@ public:
     ///
     /// Above this point, we use IFGT — below, we use direct+tree.
     constexpr static const double DEFAULT_FGT_BREAKPOINT = 0.2;
+    /// Should we print stuff by default?
+    static const bool DEFAULT_VERBOSE = false;
 
     /// Creates a new registration with default values.
     Registration()
@@ -53,16 +54,7 @@ public:
           m_outlier_weight(DEFAULT_OUTLIER_WEIGHT),
           m_use_fgt(DEFAULT_USE_FGT),
           m_fgt_epsilon(DEFAULT_FGT_EPSILON),
-          m_fgt_breakpoint(DEFAULT_FGT_BREAKPOINT),
-          m_logger() {}
-
-    /// Returns this registration's logger.
-    ///
-    /// If there's no logger set, this registration will create an unregistered
-    /// stdout logger and return that.
-    std::shared_ptr<spdlog::logger> log();
-    /// Sets this registration's logger.
-    Registration& set_logger(std::shared_ptr<spdlog::logger> logger);
+          m_fgt_breakpoint(DEFAULT_FGT_BREAKPOINT) {}
 
     /// Returns the maximum number of iterations allowed.
     size_t max_iterations() const { return m_max_iterations; }
@@ -127,6 +119,5 @@ private:
     bool m_use_fgt;
     double m_fgt_epsilon;
     double m_fgt_breakpoint;
-    std::shared_ptr<spdlog::logger> m_logger;
 };
 }

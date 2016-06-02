@@ -58,8 +58,9 @@ NonrigidResult Nonrigid::compute_impl(const MatrixRef X, const MatrixRef Y,
         L = L + lambda / 2 * (W.transpose() * G * W).trace();
         ntol = std::abs((L - L_old) / L);
 
-        log()->info() << "CPD Nonrigid (FGT) : dL= " << ntol
-                      << ", iter= " << iter << ", sigma2= " << sigma2;
+        // TODO this shouldn't be cout
+        std::cout << "CPD Nonrigid (FGT) : dL= " << ntol << ", iter= " << iter
+                  << ", sigma2= " << sigma2;
 
         auto dP = P1.asDiagonal();
         W = (dP * G + lambda * sigma2 * Matrix::Identity(M, M))

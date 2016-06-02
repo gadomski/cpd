@@ -92,23 +92,6 @@ Registration<T>::calculate_probabilities(const MatrixRef X, const MatrixRef Y,
 }
 
 template <typename T>
-std::shared_ptr<spdlog::logger> Registration<T>::log() {
-    if (!m_logger) {
-        auto sink = std::make_shared<spdlog::sinks::stdout_sink_mt>();
-        m_logger = std::make_shared<spdlog::logger>("registration", sink);
-        // We don't register the logger so we don't get name conflicts.
-    }
-    return m_logger;
-}
-
-template <typename T>
-Registration<T>&
-Registration<T>::set_logger(std::shared_ptr<spdlog::logger> logger) {
-    m_logger = logger;
-    return *this;
-}
-
-template <typename T>
 T Registration<T>::compute(const MatrixRef source, const MatrixRef target) {
     Normalization normalization(source, target);
     double sigma2 =

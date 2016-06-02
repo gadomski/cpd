@@ -48,8 +48,9 @@ RigidResult Affine::compute_impl(const MatrixRef X, const MatrixRef Y,
         std::tie(Pt1, P1, PX, L) = calculate_probabilities(X, T, sigma2);
         ntol = std::abs((L - L_old) / L);
 
-        log()->info() << "CPD Affine (FGT) : dL= " << ntol << ", iter= " << iter
-                      << ", sigma2= " << sigma2;
+        // TODO this shouldn't be cout
+        std::cout << "CPD Affine (FGT) : dL= " << ntol << ", iter= " << iter
+                  << ", sigma2= " << sigma2;
 
         double Np = P1.sum();
         Vector mu_x = X.transpose() * Pt1 / Np;
