@@ -60,7 +60,7 @@ NonrigidResult Nonrigid::compute_impl(const MatrixRef X, const MatrixRef Y,
 
         // TODO this shouldn't be cout
         std::cout << "CPD Nonrigid (FGT) : dL= " << ntol << ", iter= " << iter
-                  << ", sigma2= " << sigma2;
+                  << ", sigma2= " << sigma2 << "\n";
 
         auto dP = P1.asDiagonal();
         W = (dP * G + lambda * sigma2 * Matrix::Identity(M, M))

@@ -50,7 +50,7 @@ RigidResult Affine::compute_impl(const MatrixRef X, const MatrixRef Y,
 
         // TODO this shouldn't be cout
         std::cout << "CPD Affine (FGT) : dL= " << ntol << ", iter= " << iter
-                  << ", sigma2= " << sigma2;
+                  << ", sigma2= " << sigma2 << "\n";
 
         double Np = P1.sum();
         Vector mu_x = X.transpose() * Pt1 / Np;

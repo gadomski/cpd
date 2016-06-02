@@ -70,7 +70,7 @@ RigidResult Rigid::compute_impl(const MatrixRef X, const MatrixRef Y,
 
         // TODO this shouldn't be std::cout
         std::cout << "CPD Rigid (FGT) : dL= " << ntol << ", iter= " << iter
-                  << ", sigma2= " << sigma2;
+                  << ", sigma2= " << sigma2 << "\n";
 
         double Np = Pt1.sum();
         Vector mu_x = X.transpose() * Pt1 / Np;
