@@ -109,13 +109,6 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcpd_1_1_registration.html#a8c23a2a9917210642b5c68469b672f26">Registration</a> ()</td></tr>
 <tr class="memdesc:a8c23a2a9917210642b5c68469b672f26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new registration with default values. <br /></td></tr>
 <tr class="separator:a8c23a2a9917210642b5c68469b672f26"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeb434f2bff826a403d0cded194e69c6c"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; spdlog::logger &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcpd_1_1_registration.html#aeb434f2bff826a403d0cded194e69c6c">log</a> ()</td></tr>
-<tr class="memdesc:aeb434f2bff826a403d0cded194e69c6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns this registration's logger.  <a href="#aeb434f2bff826a403d0cded194e69c6c">More...</a><br /></td></tr>
-<tr class="separator:aeb434f2bff826a403d0cded194e69c6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a59157496a35c8439c10eb4b43cd38ed9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a59157496a35c8439c10eb4b43cd38ed9"></a>
-<a class="el" href="classcpd_1_1_registration.html">Registration</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcpd_1_1_registration.html#a59157496a35c8439c10eb4b43cd38ed9">set_logger</a> (std::shared_ptr&lt; spdlog::logger &gt; logger)</td></tr>
-<tr class="memdesc:a59157496a35c8439c10eb4b43cd38ed9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets this registration's logger. <br /></td></tr>
-<tr class="separator:a59157496a35c8439c10eb4b43cd38ed9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aca56e65c9f41a3134d4a5e056345bcec"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aca56e65c9f41a3134d4a5e056345bcec"></a>
 size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcpd_1_1_registration.html#aca56e65c9f41a3134d4a5e056345bcec">max_iterations</a> () const </td></tr>
 <tr class="memdesc:aca56e65c9f41a3134d4a5e056345bcec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the maximum number of iterations allowed. <br /></td></tr>
@@ -202,34 +195,17 @@ static constexpr const double&#160;</td><td class="memItemRight" valign="bottom"
 <tr class="memitem:aab4bc9dd50c907e10e1143d215ea9682"><td class="memItemLeft" align="right" valign="top">static constexpr const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcpd_1_1_registration.html#aab4bc9dd50c907e10e1143d215ea9682">DEFAULT_FGT_BREAKPOINT</a> = 0.2</td></tr>
 <tr class="memdesc:aab4bc9dd50c907e10e1143d215ea9682"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default Fast Gauss Transform bandwidth breakpoint.  <a href="#aab4bc9dd50c907e10e1143d215ea9682">More...</a><br /></td></tr>
 <tr class="separator:aab4bc9dd50c907e10e1143d215ea9682"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6f959685491e6636f165cdbb5b48574"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af6f959685491e6636f165cdbb5b48574"></a>
+static const bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcpd_1_1_registration.html#af6f959685491e6636f165cdbb5b48574">DEFAULT_VERBOSE</a> = false</td></tr>
+<tr class="memdesc:af6f959685491e6636f165cdbb5b48574"><td class="mdescLeft">&#160;</td><td class="mdescRight">Should we print stuff by default? <br /></td></tr>
+<tr class="separator:af6f959685491e6636f165cdbb5b48574"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;typename T&gt;<br />
 class cpd::Registration&lt; T &gt;</h3>
 
 <p>Class template that makes it easier to create new registrations. </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="aeb434f2bff826a403d0cded194e69c6c"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">std::shared_ptr&lt;spdlog::logger&gt; <a class="el" href="classcpd_1_1_registration.html">cpd::Registration</a>&lt; T &gt;::log </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns this registration's logger. </p>
-<p>If there's no logger set, this registration will create an unregistered stdout logger and return that. </p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
+</div><h2 class="groupheader">Member Data Documentation</h2>
 <a class="anchor" id="aab4bc9dd50c907e10e1143d215ea9682"></a>
 <div class="memitem">
 <div class="memproto">
