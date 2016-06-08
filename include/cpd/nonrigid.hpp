@@ -58,17 +58,17 @@ public:
     }
 
 private:
-    virtual NonrigidResult compute_impl(const MatrixRef source,
-                                        const MatrixRef target, double sigma2);
+    virtual NonrigidResult compute_impl(const MatrixRef fixed,
+                                        const MatrixRef moving, double sigma2);
 
     double m_beta;
     double m_lambda;
 };
 
 /// Runs nonrigid CPD on two data sets, using all default parameters.
-NonrigidResult nonrigid(const MatrixRef source, const MatrixRef target);
+NonrigidResult nonrigid(const MatrixRef fixed, const MatrixRef moving);
 
 /// Runs nonrigid CPD with the provided sigma2.
-NonrigidResult nonrigid(const MatrixRef source, const MatrixRef target,
+NonrigidResult nonrigid(const MatrixRef fixed, const MatrixRef moving,
                         double sigma2);
 }

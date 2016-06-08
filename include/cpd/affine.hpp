@@ -27,14 +27,14 @@ namespace cpd {
 /// Affine registration.
 class Affine : public Rigid {
 private:
-    virtual RigidResult compute_impl(const MatrixRef source,
-                                     const MatrixRef target, double sigma2);
+    virtual RigidResult compute_impl(const MatrixRef fixed,
+                                     const MatrixRef moving, double sigma2);
 };
 
 /// Runs affine CPD on two data sets, using all default parameters.
-RigidResult affine(const MatrixRef source, const MatrixRef target);
+RigidResult affine(const MatrixRef fixed, const MatrixRef moving);
 
 /// Runs affine CPD with the provided sigma2.
-RigidResult affine(const MatrixRef source, const MatrixRef target,
+RigidResult affine(const MatrixRef fixed, const MatrixRef moving,
                    double sigma2);
 }

@@ -92,20 +92,20 @@ Registration<T>::calculate_probabilities(const MatrixRef X, const MatrixRef Y,
 }
 
 template <typename T>
-T Registration<T>::compute(const MatrixRef source, const MatrixRef target) {
-    Normalization normalization(source, target);
+T Registration<T>::compute(const MatrixRef fixed, const MatrixRef moving) {
+    Normalization normalization(fixed, moving);
     double sigma2 =
-        default_sigma2(normalization.source(), normalization.target());
+        default_sigma2(normalization.fixed(), normalization.moving());
     T result =
-        compute_impl(normalization.source(), normalization.target(), sigma2);
+        compute_impl(normalization.fixed(), normalization.moving(), sigma2);
     return normalization.denormalize(result);
 }
 
 template <typename T>
-T Registration<T>::compute(const MatrixRef source, const MatrixRef target,
+T Registration<T>::compute(const MatrixRef fixed, const MatrixRef moving,
                            double sigma2) {
-    Normalization normalization(source, target);
-    T result = compute_impl(normalization.source(), normalization.target(),
+    Normalization normalization(fixed, moving);
+    T result = compute_impl(normalization.fixed(), normalization.moving(),
                             sigma2 / normalization.scaling());
     return normalization.denormalize(result);
 }
