@@ -75,6 +75,5 @@ private:
 RigidResult rigid(const MatrixRef fixed, const MatrixRef moving);
 
 /// Runs rigid CPD with the provided sigma2.
-RigidResult rigid(const MatrixRef fixed, const MatrixRef moving,
-                  double sigma2);
+RigidResult rigid(const MatrixRef fixed, const MatrixRef moving, double sigma2);
 }
