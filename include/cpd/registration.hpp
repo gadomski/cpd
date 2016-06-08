@@ -101,16 +101,16 @@ public:
 
     /// Calculates the probability matrices for a given bandwidth.
     std::tuple<Vector, Vector, Matrix, double>
-    calculate_probabilities(const MatrixRef source, const MatrixRef target,
+    calculate_probabilities(const MatrixRef fixed, const MatrixRef moving,
                             double sigma2) const;
 
     /// Registers two datasets.
-    T compute(const MatrixRef source, const MatrixRef target);
+    T compute(const MatrixRef fixed, const MatrixRef moving);
     /// Registers two datasets with the provided sigma2.
-    T compute(const MatrixRef source, const MatrixRef target, double sigma2);
+    T compute(const MatrixRef fixed, const MatrixRef moving, double sigma2);
 
 private:
-    virtual T compute_impl(const MatrixRef source, const MatrixRef target,
+    virtual T compute_impl(const MatrixRef fixed, const MatrixRef moving,
                            double sigma2) = 0;
 
     size_t m_max_iterations;

@@ -22,10 +22,10 @@
 namespace cpd {
 class Normalization {
 public:
-    Normalization(const MatrixRef source, const MatrixRef target);
+    Normalization(const MatrixRef fixed, const MatrixRef moving);
 
-    const Matrix& source() const { return m_source; }
-    const Matrix& target() const { return m_target; }
+    const Matrix& fixed() const { return m_fixed; }
+    const Matrix& moving() const { return m_moving; }
     const RowVector& translation_x() const { return m_translation_x; }
     const RowVector& translation_y() const { return m_translation_y; }
     double scaling() const { return m_scaling; }
@@ -39,8 +39,8 @@ public:
     }
 
 private:
-    Matrix m_source;
-    Matrix m_target;
+    Matrix m_fixed;
+    Matrix m_moving;
     RowVector m_translation_x;
     RowVector m_translation_y;
     double m_scaling;

@@ -18,14 +18,14 @@
 #include "normalization.hpp"
 
 namespace cpd {
-Normalization::Normalization(const MatrixRef source, const MatrixRef target)
-    : m_translation_x(source.colwise().mean()),
-      m_translation_y(target.colwise().mean()) {
-    auto x = source - m_translation_x.replicate(source.rows(), 1);
-    auto y = target - m_translation_y.replicate(target.rows(), 1);
-    m_scaling = std::max(std::sqrt(x.array().pow(2).sum() / source.rows()),
-                         std::sqrt(y.array().pow(2).sum() / target.rows()));
-    m_source = x / m_scaling;
-    m_target = y / m_scaling;
+Normalization::Normalization(const MatrixRef fixed, const MatrixRef moving)
+    : m_translation_x(fixed.colwise().mean()),
+      m_translation_y(moving.colwise().mean()) {
+    auto x = fixed - m_translation_x.replicate(fixed.rows(), 1);
+    auto y = moving - m_translation_y.replicate(moving.rows(), 1);
+    m_scaling = std::max(std::sqrt(x.array().pow(2).sum() / fixed.rows()),
+                         std::sqrt(y.array().pow(2).sum() / moving.rows()));
+    m_fixed = x / m_scaling;
+    m_moving = y / m_scaling;
 }
 }

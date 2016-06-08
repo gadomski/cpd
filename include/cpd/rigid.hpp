@@ -64,17 +64,16 @@ public:
     }
 
 private:
-    virtual RigidResult compute_impl(const MatrixRef source,
-                                     const MatrixRef target, double sigma2);
+    virtual RigidResult compute_impl(const MatrixRef fixed,
+                                     const MatrixRef moving, double sigma2);
 
     bool m_no_reflections;
     bool m_allow_scaling;
 };
 
 /// Runs rigid CPD on two data sets, using all default parameters.
-RigidResult rigid(const MatrixRef source, const MatrixRef target);
+RigidResult rigid(const MatrixRef fixed, const MatrixRef moving);
 
 /// Runs rigid CPD with the provided sigma2.
-RigidResult rigid(const MatrixRef source, const MatrixRef target,
-                  double sigma2);
+RigidResult rigid(const MatrixRef fixed, const MatrixRef moving, double sigma2);
 }

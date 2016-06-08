@@ -21,8 +21,8 @@
 
 namespace cpd {
 
-Matrix construct_affinity_matrix(const MatrixRef source, const MatrixRef target,
+Matrix construct_affinity_matrix(const MatrixRef fixed, const MatrixRef moving,
                                  double beta);
 
-double default_sigma2(const MatrixRef source, const MatrixRef target);
+double default_sigma2(const MatrixRef fixed, const MatrixRef moving);
 }

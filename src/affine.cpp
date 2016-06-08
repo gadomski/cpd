@@ -76,12 +76,12 @@ RigidResult Affine::compute_impl(const MatrixRef X, const MatrixRef Y,
     return {T, B, t, 1.0};
 }
 
-RigidResult affine(const MatrixRef source, const MatrixRef target) {
-    return Affine().compute(source, target);
+RigidResult affine(const MatrixRef fixed, const MatrixRef moving) {
+    return Affine().compute(fixed, moving);
 }
 
-RigidResult affine(const MatrixRef source, const MatrixRef target,
+RigidResult affine(const MatrixRef fixed, const MatrixRef moving,
                    double sigma2) {
-    return Affine().compute(source, target, sigma2);
+    return Affine().compute(fixed, moving, sigma2);
 }
 }

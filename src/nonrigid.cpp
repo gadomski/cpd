@@ -81,13 +81,13 @@ NonrigidResult Nonrigid::compute_impl(const MatrixRef X, const MatrixRef Y,
     return {T};
 }
 
-NonrigidResult nonrigid(const MatrixRef source, const MatrixRef target) {
-    return Nonrigid().compute(source, target);
+NonrigidResult nonrigid(const MatrixRef fixed, const MatrixRef moving) {
+    return Nonrigid().compute(fixed, moving);
 }
 
-NonrigidResult nonrigid(const MatrixRef source, const MatrixRef target,
+NonrigidResult nonrigid(const MatrixRef fixed, const MatrixRef moving,
                         double sigma2) {
-    return Nonrigid().compute(source, target, sigma2);
+    return Nonrigid().compute(fixed, moving, sigma2);
 }
 
 template class Registration<NonrigidResult>;
