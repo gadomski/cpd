@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['calculate_5fprobabilities',['calculate_probabilities',['../classcpd_1_1_registration.html#aa1ece9d74172a6a4317d4bcae15a2c4b',1,'cpd::Registration']]],
-  ['compute',['compute',['../classcpd_1_1_registration.html#a7e127b702007812dd40e52f46b73e401',1,'cpd::Registration::compute(const MatrixRef source, const MatrixRef target)'],['../classcpd_1_1_registration.html#a5200a7e3e16c56719e014621adb48918',1,'cpd::Registration::compute(const MatrixRef source, const MatrixRef target, double sigma2)']]],
+  ['calculate_5fprobabilities',['calculate_probabilities',['../classcpd_1_1_registration.html#a774f0aaf35bfc61850a6e7fae66c63c9',1,'cpd::Registration']]],
+  ['compute',['compute',['../classcpd_1_1_registration.html#a9ed854c56372a7b569a54728247e04ee',1,'cpd::Registration::compute(const MatrixRef fixed, const MatrixRef moving)'],['../classcpd_1_1_registration.html#ac0fa3a59a4a5c0f43c8fe7d70ea593fb',1,'cpd::Registration::compute(const MatrixRef fixed, const MatrixRef moving, double sigma2)']]],
   ['cpd',['cpd',['../namespacecpd.html',1,'']]],
   ['cpd',['cpd',['../index.html',1,'']]]
 ];
