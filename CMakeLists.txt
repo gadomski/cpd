@@ -36,10 +36,10 @@ endif()
 # Targets
 set(library_src
     src/affinity_matrix.cpp
+    src/comparer.cpp
     src/nonrigid.cpp
     src/normalize.cpp
     src/rigid.cpp
-    src/probabilities.cpp
     src/utils.cpp
     "${PROJECT_BINARY_DIR}/src/version.cpp"
     )

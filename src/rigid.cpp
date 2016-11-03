@@ -80,8 +80,7 @@ void Rigid::denormalize(const Normalization& normalization,
 }
 
 Rigid::Result rigid(const Matrix& fixed, const Matrix& moving) {
-    Runner<Rigid, DirectProbabilityComputer> runner;
-    return runner.run(fixed, moving);
+    return run<Rigid>(fixed, moving);
 }
 
 std::ostream& operator<<(std::ostream& stream, const Rigid::Result& result) {

@@ -15,14 +15,12 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-#include "cpd/probabilities.hpp"
+#include "cpd/comparer.hpp"
 
 namespace cpd {
 
-Probabilities DirectProbabilityComputer::compute(const Matrix& fixed,
-                                                 const Matrix& moving,
-                                                 double sigma2,
-                                                 double outliers) const {
+Probabilities DirectComparer::compute(const Matrix& fixed, const Matrix& moving,
+                                      double sigma2, double outliers) const {
     double ksig = -2.0 * sigma2;
     size_t cols = fixed.cols();
     double outlier_tmp =
@@ -59,17 +57,28 @@ Probabilities DirectProbabilityComputer::compute(const Matrix& fixed,
     return { p1, pt1, px, l, correspondence };
 }
 
-std::unique_ptr<fgt::Transform> FgtProbabilityComputer::create_transform(
+std::unique_ptr<fgt::Transform> FgtComparer::create_transform(
     const Matrix& points, double bandwidth) const {
-    // TODO make this smarter
-    return std::unique_ptr<fgt::Transform>(
-        new fgt::DirectTree(points, bandwidth, m_epsilon));
+    switch (m_method) {
+        case FgtMethod::DirectTree:
+            return std::unique_ptr<fgt::Transform>(
+                new fgt::DirectTree(points, bandwidth, m_epsilon));
+        case FgtMethod::Ifgt:
+            return std::unique_ptr<fgt::Transform>(
+                new fgt::Ifgt(points, bandwidth, m_epsilon));
+        case FgtMethod::Switched:
+            if (bandwidth > m_breakpoint) {
+                return std::unique_ptr<fgt::Transform>(
+                    new fgt::Ifgt(points, bandwidth, m_epsilon));
+            } else {
+                return std::unique_ptr<fgt::Transform>(
+                    new fgt::DirectTree(points, bandwidth, m_epsilon));
+            }
+    }
 }
 
-Probabilities FgtProbabilityComputer::compute(const Matrix& fixed,
-                                              const Matrix& moving,
-                                              double sigma2,
-                                              double outliers) const {
+Probabilities FgtComparer::compute(const Matrix& fixed, const Matrix& moving,
+                                   double sigma2, double outliers) const {
     double bandwidth = std::sqrt(2.0 * sigma2);
     size_t cols = fixed.cols();
     std::unique_ptr<fgt::Transform> transform =

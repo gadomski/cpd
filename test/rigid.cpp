@@ -17,6 +17,7 @@
 
 #include <Eigen/Geometry>
 
+#include "cpd/comparer.hpp"
 #include "cpd/matrix.hpp"
 #include "cpd/rigid.hpp"
 #include "support.hpp"
@@ -65,7 +66,7 @@ public:
 
 TEST_F(Rigid2DTest, AllowScaling) {
     m_fish_transformed = test_data_matrix("fish-distorted.csv");
-    DirectProbabilityComputer computer;
+    DirectComparer computer;
     Probabilities probabilities =
         computer.compute(m_fish, m_fish_transformed, 1.0, 0.1);
     Rigid rigid;
@@ -76,7 +77,7 @@ TEST_F(Rigid2DTest, AllowScaling) {
 
 TEST_F(Rigid2DTest, NoScaling) {
     m_fish_transformed = test_data_matrix("fish-distorted.csv");
-    DirectProbabilityComputer computer;
+    DirectComparer computer;
     Probabilities probabilities =
         computer.compute(m_fish, m_fish_transformed, 1.0, 0.1);
     Rigid rigid;

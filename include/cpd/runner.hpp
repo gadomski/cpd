@@ -20,6 +20,7 @@
 
 #pragma once
 
+#include <cpd/comparer.hpp>
 #include <cpd/logging.hpp>
 #include <cpd/normalize.hpp>
 #include <cpd/utils.hpp>
@@ -147,8 +148,8 @@ public:
             m_transform.denormalize(normalization, result);
         }
         if (m_correspondence) {
-            auto probabilities = DirectProbabilityComputer().compute(
-                fixed, result.points, m_sigma2, m_outliers);
+            auto probabilities = DirectComparer().compute(fixed, result.points,
+                                                          m_sigma2, m_outliers);
             result.correspondence = probabilities.correspondence;
         }
         return result;
@@ -165,4 +166,11 @@ private:
     double m_tolerance;
     Transform m_transform;
 };
+
+/// Runs a registration with a default comparer.
+template <typename Transform>
+typename Transform::Result run(const Matrix& fixed, const Matrix& source) {
+    Runner<Transform, DirectComparer> runner;
+    return runner.run(fixed, source);
+}
 }
