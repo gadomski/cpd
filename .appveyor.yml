@@ -21,12 +21,12 @@ install:
   - cmd: git clone https://github.com/gadomski/fgt
   - ps: mkdir fgt\build
   - ps: cd fgt\build
-  - cmd: cmake -G "Visual Studio 14 2015 Win64" -DEIGEN3_INCLUDE_DIR=C:\projects\eigen-eigen-07105f7124f9 -DWITH_TESTS=OFF -DCMAKE_INSTALL_PREFIX=C:\projects\local ..
+  - cmd: cmake -G "Visual Studio 14 2015 Win64" -DEIGEN3_INCLUDE_DIR=C:\projects\eigen-eigen-07105f7124f9 -DWITH_TESTS=OFF -DCMAKE_INSTALL_PREFIX=C:\projects\local -DBUILD_SHARED_LIBS=OFF ..
   - cmd: msbuild INSTALL.vcxproj
   - ps: cd ..\..\cpd
 
 before_build:
-  - cmd: cmake -G "Visual Studio 14 2015 Win64" -DCMAKE_INSTALL_PREFIX=C:\projects\local -Dgtest_force_shared_crt=ON .
+  - cmd: cmake -G "Visual Studio 14 2015 Win64" -DCMAKE_INSTALL_PREFIX=C:\projects\local -Dgtest_force_shared_crt=ON -DBUILD_SHARED_LIBS=OFF .
 
 build:
   parallel: true
