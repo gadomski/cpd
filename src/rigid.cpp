@@ -80,9 +80,7 @@ void Rigid::denormalize(const Normalization& normalization,
 }
 
 Rigid::Result rigid(const Matrix& fixed, const Matrix& moving) {
-    // TODO generalize this
-    Runner<Rigid, DirectComparer> runner;
-    return runner.run(fixed, moving);
+    return run<Rigid>(fixed, moving);
 }
 
 std::ostream& operator<<(std::ostream& stream, const Rigid::Result& result) {

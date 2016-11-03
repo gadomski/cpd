@@ -166,4 +166,11 @@ private:
     double m_tolerance;
     Transform m_transform;
 };
+
+/// Runs a registration with a default comparer.
+template <typename Transform>
+typename Transform::Result run(const Matrix& fixed, const Matrix& source) {
+    Runner<Transform, FgtComparer> runner;
+    return runner.run(fixed, source);
+}
 }
