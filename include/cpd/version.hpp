@@ -15,13 +15,13 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-/// \file version.hpp
-/// \brief Query the built cpd version.
+/// \file
+/// Query the cpd library version.
 
 #pragma once
 
 namespace cpd {
 
-/// Returns the major.minor.tiny cpd version.
+/// Returns this library's version.
 const char* version();
 }

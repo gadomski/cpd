@@ -15,60 +15,62 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-/// \file nonrigid.hpp
-/// \brief Nonrigid CPD registration.
+/// \file
+/// Nonrigid cpd registration.
 
 #pragma once
 
 #include <cpd/matrix.hpp>
-#include <cpd/registration.hpp>
+#include <cpd/normalize.hpp>
+#include <cpd/probabilities.hpp>
 
 namespace cpd {
 
-/// The result of a nonrigid CPD registration.
-struct NonrigidResult {
-    /// The aligned dataset.
-    Matrix points;
-};
+/// Default value for beta.
+const double DEFAULT_BETA = 3.0;
+/// Default value for lambda.
+const double DEFAULT_LAMBDA = 3.0;
 
-/// Class-based interface for running a nonrigid registration.
-class Nonrigid : public Registration<NonrigidResult> {
+/// A nonrigid registration.
+class Nonrigid {
 public:
-    /// Default beta parameter.
-    constexpr static const double DEFAULT_BETA = 3.0;
-    /// Default lambda parameter.
-    constexpr static const double DEFAULT_LAMBDA = 3.0;
+    /// The result of a nonrigid transformation.
+    struct Result {
+        /// The resultant points.
+        Matrix points;
+        /// The last sigma2.
+        double sigma2;
+        /// The correspondence vector (optional).
+        IndexVector correspondence;
+    };
 
-    /// Creates a new nonrigid registration with default parameters.
-    Nonrigid();
+    /// Creates a default nonrigid registration.
+    Nonrigid()
+      : m_beta(DEFAULT_BETA)
+      , m_lambda(DEFAULT_LAMBDA)
+      , m_g()
+      , m_w() {}
 
-    /// Returns the value for beta.
-    double beta() const { return m_beta; }
-    /// Sets the value for beta.
-    Nonrigid& set_beta(double beta) {
-        m_beta = beta;
-        return *this;
-    }
-    /// Returns the value for lambda.
-    double lambda() const { return m_lambda; }
-    /// Sets the value for lambda.
-    Nonrigid& set_lambda(double lambda) {
-        m_lambda = lambda;
-        return *this;
-    }
+    /// Initializes the nonrigid transformation.
+    void init(const Matrix& fixed, const Matrix& moving);
+
+    /// Modifies the probabilities after calculation.
+    void modify_probabilities(Probabilities& probabilities) const;
+
+    /// Computes one iteration of the nonrigid transformation.
+    Result compute(const Matrix& fixed, const Matrix& moving,
+                   const Probabilities& probabilities, double sigma2);
+
+    /// Denormalizes a result.
+    void denormalize(const Normalization& normalization, Result& result) const;
 
 private:
-    virtual NonrigidResult compute_impl(const MatrixRef fixed,
-                                        const MatrixRef moving, double sigma2);
-
     double m_beta;
     double m_lambda;
+    Matrix m_g;
+    Matrix m_w;
 };
 
-/// Runs nonrigid CPD on two data sets, using all default parameters.
-NonrigidResult nonrigid(const MatrixRef fixed, const MatrixRef moving);
-
-/// Runs nonrigid CPD with the provided sigma2.
-NonrigidResult nonrigid(const MatrixRef fixed, const MatrixRef moving,
-                        double sigma2);
+/// Runs nonrigid registration using sensible defaults.
+Nonrigid::Result nonrigid(const Matrix& fixed, const Matrix& moving);
 }

@@ -15,30 +15,24 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-/// \file matrix.hpp
-/// \brief Eigen matrix typdefs.
+/// \file
+/// typedefs for matrices used in cpd.
 
 #pragma once
 
-#include <fgt.hpp>
+#include <Eigen/Dense>
 
 namespace cpd {
 
-/// Convenience typedef to a matrix that plays well with fgt.
-typedef fgt::Matrix Matrix;
+/// Typedef for our specific type of matrix.
+typedef Eigen::MatrixXd Matrix;
 
-/// Convenience typedef to a reference to a matrix.
-typedef fgt::MatrixRef MatrixRef;
+/// Typedef for our specific type of vector.
+typedef Eigen::VectorXd Vector;
 
-/// Convenience typedef to a vector that plays well with fgt.
-typedef fgt::Vector Vector;
+/// Typedef for an index vector, used to index other matrices.
+typedef Eigen::Matrix<size_t, Eigen::Dynamic, 1> IndexVector;
 
-/// Convenience typedef for a vector reference.
-typedef fgt::VectorRef VectorRef;
-
-/// Convenience typedef for a row vector.
-typedef Eigen::RowVectorXd RowVector;
-
-/// Reads a Eigen matrix from a file.
-Matrix matrix_from_path(const std::string& path);
+/// Typedef for our specific type of array.
+typedef Eigen::ArrayXd Array;
 }

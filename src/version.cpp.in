@@ -15,9 +15,11 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-#include <cpd/version.hpp>
+#include "cpd/version.hpp"
 
 namespace cpd {
 
-const char* version() { return "@CPD_VERSION@"; }
+const char* version() {
+    return "@CPD_VERSION@";
+}
 }

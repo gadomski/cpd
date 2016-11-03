@@ -1,32 +1,25 @@
-#pragma once
+// cpd - Coherent Point Drift
+// Copyright (C) 2016 Pete Gadomski <pete.gadomski@gmail.com>
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License along
+// with this program; if not, write to the Free Software Foundation, Inc.,
+// 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-#include <Eigen/Geometry>
-
-#include "gtest/gtest.h"
-
-#include "cpd/matrix.hpp"
+#include "cpd/utils.hpp"
 
 namespace cpd {
-std::string test_data_filename(const std::string& filename) {
-    return "@PROJECT_SOURCE_DIR@/test/data/" + filename;
+
+Matrix test_data_matrix(const std::string& filename) {
+    return matrix_from_path("@PROJECT_SOURCE_DIR@/test/data/" + filename);
 }
-
-Matrix load_test_data_matrix(const std::string& filename) {
-    return matrix_from_path(test_data_filename(filename));
-}
-
-class FishTest : public ::testing::Test {
-public:
-    FishTest()
-        : m_fish1(load_test_data_matrix("fish.txt")),
-          m_rotation(M_PI / 6),
-          m_translation(1, 2),
-          m_fish2((m_fish1 + m_translation.replicate(m_fish1.rows(), 1)) *
-                  m_rotation.matrix()) {}
-
-    Matrix m_fish1;
-    Eigen::Rotation2D<double> m_rotation;
-    Eigen::RowVector2d m_translation;
-    Matrix m_fish2;
-};
 }

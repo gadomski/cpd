@@ -8,13 +8,12 @@ While ICP minimizes point-to-point distances, CPD uses a [Gaussian Mixture Model
 If you're thinking that this is very computationally intensive, you're right — both the CPD algorithm and the underlying error calculations take a lot of time, which is why we've created [fgt](https://github.com/gadomski/fgt) to speed up those Gauss transforms.
 We hope this library provides a freer and more performant alternative to the original reference Matlab implementation.
 
-This library supports three variants of CPD:
+This library supports two variants of CPD:
 
 - **rigid**: Uses a rigid transformation (i.e. rotation and translation, with an optional scaling) to align the two datasets.
 - **nonrigid**: Uses a two-parameter non-rigid transformation function to align the two datasets.
-- **affine**: Uses an affine transformation (with an optional scaling) to align the two datasets.
 
-Andriy's reference implementation comes with one other type of registration, **nonrigid_lowrank**, which is not implemented in the latest version of this library (yet) (see [History](#history) for information on how to find and use a previous version of this library that has **nonrigid_lowrank**).
+Andriy's reference implementation comes with two other type of registrations, **affine** and **nonrigid_lowrank**, which are not implemented in the latest version of this library (yet) (see [History](#history) for information on how to find and use a previous version of this library that has **nonrigid_lowrank** and **affine**).
 
 This code lives [on Github](https://github.com/gadomski/cpd).
 It has some [Doxygen documentation](http://gadomski.github.io/cpd) and is tested [by Travis](https://travis-ci.org/gadomski/cpd) and [by AppVeyor](https:://ci.appveyor.com/project/gadomski/cpd/branch/master).
@@ -25,31 +24,42 @@ We also have a [gitter chatroom](https://gitter.im/gadomski/cpd).
 
 ## Usage
 
-**cpd** has a simple functional interface, which accepts [Eigen](http://eigen.tuxfamily.org/index.php?title=Main_Page) matrices and aligns them using some sensible default parameters:
+Basic, default usage can be accomplished via some namespace-level methods:
 
 ```cpp
 #include <cpd/rigid.hpp>
 
-cpd::RigidResult align_with_rigid(const Eigen::MatrixXd& X, const Eigen::MatrixXd& Y) {
-    return cpd::rigid(X, Y);
+int main(int argc, char** argv) {
+    cpd::Matrix fixed = load_points_from_somewhere();
+    cpd::Matrix moving = load_points_from_somewhere();
+    cpd::Rigid::Result result = cpd::rigid(fixed, moving);
 }
 ```
 
-If you want more control over the parameters, you can use the class-based interface:
+More advanced configuration can be accomplished by using a `Runner`:
 
 ```cpp
 #include <cpd/rigid.hpp>
+#include <cpd/runner.hpp>
 
-cpd::RigidResult align_with_rigid(const Eigen::MatrixXd& X, const Eigen::MatrixXd& Y) {
-    cpd::Rigid rigid;
-    rigid.allow_scaling(true).no_reflections(false);
-    return rigid.compute(X, Y);
+int main(int argc, char** argv) {
+    cpd::Matrix fixed = load_points_from_somewhere();
+    cpd::Matrix moving = load_points_from_somewhere();
+    cpd::Runner<cpd::Rigid, cpd::FgtProbabilityComputer> runner;
+    runner.correspondence(true).outliers(0.2);
+    cpd::Rigid::Result result = runner.run(fixed, moving);
 }
 ```
+
+See the code and the [documentation](http://gadomski.github.io/cpd) to discover all possible options, transformation methods, and probability calculation methods.
+
+## Examples
+
+See `examples/` in this code repository for some basic usage examples, including examples of how to set up a downstream CMake project that depends on cpd.
 
 ## Installation
 
-**cpd** depends on [fgt](https://github.com/gadomski/fgt) at runtime and [CMake](https://cmake.org/) and Eigen at build-time.
+**cpd** depends on [fgt](https://github.com/gadomski/fgt) at runtime and [CMake](https://cmake.org/) and [Eigen](http://eigen.tuxfamily.org/index.php?title=Main_Page) at build-time.
 
 ### On OSX
 

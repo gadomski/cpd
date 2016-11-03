@@ -1,34 +1,31 @@
-function(cpd_test target)
-    add_executable(${target} ${ARGN})
-    target_include_directories(${target}
-        PRIVATE
-        ${GTEST_SOURCE_DIR}/include
-        ${PROJECT_SOURCE_DIR}/include
-        ${PROJECT_SOURCE_DIR}/include/cpd/vendor
-        ${PROJECT_SOURCE_DIR}/src
-        ${PROJECT_BINARY_DIR}
+configure_file(support.hpp.in "${CMAKE_CURRENT_BINARY_DIR}/support.hpp")
+
+find_package(Threads)
+
+function(cpd_test name)
+    set(target ${name}-test)
+    add_executable(${target} ${name}.cpp "${GOOGLETEST_DIR}/src/gtest-all.cc" "${GOOGLETEST_DIR}/src/gtest_main.cc")
+    set_target_properties(${target} PROPERTIES OUTPUT_NAME ${name})
+    add_test(NAME ${name} COMMAND ${target})
+    target_link_libraries(${target} PRIVATE Library-C++)
+    target_include_directories(${target} PRIVATE
+        "${GOOGLETEST_DIR}"
+        "${GOOGLETEST_DIR}/include"
+        "${PROJECT_SOURCE_DIR}/src"
+        "${PROJECT_SOURCE_DIR}/include"
+        "${PROJECT_SOURCE_DIR}/include/cpd/vendor"
+        "${CMAKE_CURRENT_BINARY_DIR}"
         )
-    target_link_libraries(${target}
-        PRIVATE
-        gtest_main
-        Library-C++
-        )
-    if("${CMAKE_CXX_COMPILER_ID}" MATCHES "MSVC")
-        target_compile_options(${target}
-            PRIVATE
-            # Heap allocated object alignment whatever man
-            /wd4316)
+
+    if(CMAKE_USE_PTHREADS_INIT)
+        target_link_libraries(${target} PRIVATE ${CMAKE_THREAD_LIBS_INIT})
     endif()
-    add_test(NAME ${target} COMMAND ${target})
 endfunction()
 
-configure_file(support.hpp.in
-    ${CMAKE_CURRENT_BINARY_DIR}/support.hpp
-    )
-
-cpd_test(affine affine_test.cpp)
-cpd_test(nonrigid nonrigid_test.cpp)
-cpd_test(normalization normalization_test.cpp)
-cpd_test(rigid rigid_test.cpp)
-cpd_test(utils utils_test.cpp)
-cpd_test(version version_test.cpp)
+cpd_test(affinity_matrix)
+cpd_test(nonrigid)
+cpd_test(normalize)
+cpd_test(probabilities)
+cpd_test(rigid)
+cpd_test(utils)
+cpd_test(version)

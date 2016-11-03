@@ -15,65 +15,73 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-/// \file rigid.hpp
-/// \brief Rigid CPD registration.
+/// \file
+/// Rigid cpd registration.
 
 #pragma once
 
 #include <cpd/matrix.hpp>
-#include <cpd/registration.hpp>
+#include <cpd/normalize.hpp>
+#include <cpd/probabilities.hpp>
 
 namespace cpd {
 
-/// The result of a rigid CPD registration.
-struct RigidResult {
-    /// The aligned dataset.
-    Matrix points;
-    /// The calculated rotation matrix.
-    Matrix rotation;
-    /// The calculated translation vector.
-    Vector translation;
-    /// The calculated scale factor.
-    double scaling;
-};
+const bool DEFAULT_ALLOW_REFLECTIONS = false;
+const bool DEFAULT_SCALE = false;
 
-/// Class-based interface for running a rigid registration.
-class Rigid : public Registration<RigidResult> {
+/// Rigid coherent point drift.
+///
+/// Rotation, translation, and possibly scaling.
+class Rigid {
 public:
-    /// Default value for `no_reflections`.
-    static const bool DEFAULT_NO_REFLECTIONS = true;
-    /// Default value for `allow_scaling`.
-    static const bool DEFAULT_ALLOW_SCALING = false;
+    /// The result of a rigid transformation.
+    struct Result {
+        /// The rotation from the moving points onto the fixed points.
+        Matrix rotation;
+        /// The translation from the moving points onto the fixed points.
+        Vector translation;
+        /// The scaling factor.
+        double scale;
+        /// The transformed points.
+        Matrix points;
+        /// The final sigma2.
+        double sigma2;
+        /// The correspondence vector (optional).
+        IndexVector correspondence;
+    };
 
-    /// Creates a new rigid registration with default parameters.
-    Rigid();
+    /// Creates a default rigid transformation.
+    Rigid()
+      : m_allow_reflections(DEFAULT_ALLOW_REFLECTIONS)
+      , m_scale(DEFAULT_SCALE) {}
 
-    /// Returns true if this registration guards against reflections.
-    bool no_reflections() const { return m_no_reflections; }
-    /// Enables or disables reflections.
-    Rigid& no_reflections(bool no_reflections) {
-        m_no_reflections = no_reflections;
+    /// No initialization necessary.
+    void init(const Matrix&, const Matrix&) {}
+
+    /// No modificatino of probabilities necessary.
+    void modify_probabilities(Probabilities&) const {}
+
+    /// Sets whether this rigid allows scaling or not.
+    Rigid& scale(bool scale) {
+        m_scale = scale;
         return *this;
     }
-    /// Returns true if this registration allows scaling of the data.
-    bool allow_scaling() const { return m_allow_scaling; }
-    /// Enables or disables scaling.
-    Rigid& allow_scaling(bool allow_scaling) {
-        m_allow_scaling = allow_scaling;
-        return *this;
-    }
+
+    /// Computes one iteration of the rigid transformation.
+    Result compute(const Matrix& fixed, const Matrix& moving,
+                   const Probabilities& probabilities, double sigma2) const;
+
+    /// Denormalizes a result.
+    void denormalize(const Normalization& normalization, Result& result) const;
 
 private:
-    virtual RigidResult compute_impl(const MatrixRef fixed,
-                                     const MatrixRef moving, double sigma2);
-
-    bool m_no_reflections;
-    bool m_allow_scaling;
+    bool m_allow_reflections;
+    bool m_scale;
 };
 
-/// Runs rigid CPD on two data sets, using all default parameters.
-RigidResult rigid(const MatrixRef fixed, const MatrixRef moving);
+/// Computes a rigid transformation from the target onto the source.
+Rigid::Result rigid(const Matrix& fixed, const Matrix& moving);
 
-/// Runs rigid CPD with the provided sigma2.
-RigidResult rigid(const MatrixRef fixed, const MatrixRef moving, double sigma2);
+/// Prints the rigid result to an ostream.
+std::ostream& operator<<(std::ostream& stream, const Rigid::Result& result);
 }

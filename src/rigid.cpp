@@ -15,110 +15,84 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-#include <Eigen/LU>
-#include <Eigen/SVD>
-
-#include <cpd/rigid.hpp>
-
-#include "registration_impl.hpp"
-#include "utils.hpp"
+#include "cpd/rigid.hpp"
+#include "cpd/probabilities.hpp"
+#include "cpd/runner.hpp"
 
 namespace cpd {
 
-RigidResult rigid(const MatrixRef X, const MatrixRef Y) {
-    return Rigid().compute(X, Y);
-}
-
-RigidResult rigid(const MatrixRef X, const MatrixRef Y, double sigma2) {
-    return Rigid().compute(X, Y, sigma2);
-}
-
-Rigid::Rigid()
-    : Registration<RigidResult>(),
-      m_no_reflections(Rigid::DEFAULT_NO_REFLECTIONS),
-      m_allow_scaling(Rigid::DEFAULT_ALLOW_SCALING) {}
-
-RigidResult Rigid::compute_impl(const MatrixRef X, const MatrixRef Y,
-                                double sigma2) {
-    assert(X.cols() == Y.cols());
-
-    unsigned long M = Y.rows();
-    unsigned long D = X.cols();
-    Matrix T = Y;
-    double s = 1.0;
-    Matrix R = Matrix::Identity(D, D);
-    Vector t(D);
-    size_t max_iter = this->max_iterations();
-    size_t iter = 0;
-    double tol = this->tolerance();
-    double ntol = std::numeric_limits<double>::max();
-    double L = 0.0;
-    bool no_reflections = this->no_reflections();
-    bool scale = this->allow_scaling();
-    Vector Pt1;
-    Vector P1;
-    Matrix PX;
-
-    while (iter < max_iter && ntol > tol &&
-           sigma2 > 10 * std::numeric_limits<double>::epsilon()) {
-        double L_old = L;
-        // TODO myronenko has a sigma2 floor, which we may need for real
-        // datasets
-
-        std::tie(Pt1, P1, PX, L) = calculate_probabilities(X, T, sigma2);
-        ntol = std::abs((L - L_old) / L);
-
-        // TODO this shouldn't be std::cout
-        std::cout << "CPD Rigid (FGT) : dL= " << ntol << ", iter= " << iter
-                  << ", sigma2= " << sigma2 << "\n";
-
-        double Np = Pt1.sum();
-        Vector mu_x = X.transpose() * Pt1 / Np;
-        Vector mu_y = Y.transpose() * P1 / Np;
-        Matrix A = PX.transpose() * Y - Np * mu_x * mu_y.transpose();
-        Eigen::JacobiSVD<Matrix, Eigen::NoQRPreconditioner> svd(
-            A, Eigen::ComputeThinU | Eigen::ComputeThinV);
-        Matrix S = svd.singularValues().asDiagonal();
-        Matrix C = Matrix::Identity(D, D);
-
-        if (no_reflections) {
-            C(D - 1, D - 1) =
-                (svd.matrixU() * svd.matrixV().transpose()).determinant();
-        }
-        R = svd.matrixU() * C * svd.matrixV();
-
-        if (scale) {
-            s = (S * C).trace() /
-                    (Y.array().pow(2) * P1.replicate(1, D).array()).sum() -
-                Np * mu_y.transpose() * mu_y;
-            sigma2 = ((X.array().pow(2) * Pt1.replicate(1, D).array()).sum() -
-                      Np * mu_x.transpose() * mu_x - s * (S * C).trace()) /
-                     (Np * D);
-        } else {
-            sigma2 = ((X.array().pow(2) * Pt1.replicate(1, D).array()).sum() +
-                      (Y.array().pow(2) * P1.replicate(1, D).array()).sum() -
-                      Np * mu_x.transpose() * mu_x -
-                      Np * mu_y.transpose() * mu_y - 2 * (S * C).trace()) /
-                     (Np * D);
-        }
-
-        t = mu_x - s * R * mu_y;
-        T = s * Y * R.transpose() + t.transpose().replicate(M, 1);
-        ++iter;
+Rigid::Result Rigid::compute(const Matrix& fixed, const Matrix& moving,
+                             const Probabilities& probabilities, double) const {
+    size_t cols = fixed.cols();
+    double np = probabilities.pt1.sum();
+    Vector mu_x = fixed.transpose() * probabilities.pt1 / np;
+    Vector mu_y = moving.transpose() * probabilities.p1 / np;
+    Matrix a =
+        probabilities.px.transpose() * moving - np * mu_x * mu_y.transpose();
+    Eigen::JacobiSVD<Matrix, Eigen::NoQRPreconditioner> svd(
+        a, Eigen::ComputeThinU | Eigen::ComputeThinV);
+    Matrix s = svd.singularValues().asDiagonal();
+    Matrix c = Matrix::Identity(cols, cols);
+    if (!m_allow_reflections) {
+        c(cols - 1, cols - 1) =
+            (svd.matrixU() * svd.matrixV().transpose()).determinant();
     }
-    return {T, R, t, s};
+    Rigid::Result result;
+    result.rotation = svd.matrixU() * c * svd.matrixV().transpose();
+    if (m_scale) {
+        result.scale =
+            (s * c).trace() / ((moving.array().pow(2) *
+                                probabilities.p1.replicate(1, cols).array())
+                                   .sum() -
+                               np * mu_y.transpose() * mu_y);
+        result.sigma2 = std::abs(((fixed.array().pow(2) *
+                                   probabilities.pt1.replicate(1, cols).array())
+                                      .sum()) -
+                                 np * mu_x.transpose() * mu_x -
+                                 result.scale * (s * c).trace()) /
+                        (np * cols);
+    } else {
+        result.scale = 1.0;
+        result.sigma2 =
+            std::abs(((fixed.array().pow(2) *
+                       probabilities.pt1.replicate(1, cols).array())
+                          .sum() +
+                      (moving.array().pow(2) *
+                       probabilities.p1.replicate(1, cols).array())
+                          .sum() -
+                      np * mu_x.transpose() * mu_x -
+                      np * mu_y.transpose() * mu_y - 2 * (s * c).trace())) /
+            (np * cols);
+    }
+    result.translation = mu_x - result.scale * result.rotation * mu_y;
+    result.points = result.scale * moving * result.rotation.transpose() +
+                    result.translation.transpose().replicate(fixed.rows(), 1);
+    return result;
 }
 
-template <>
-RigidResult Normalization::denormalize(const RigidResult& result) const {
-    RigidResult out(result);
-    out.points = result.points * m_scaling +
-                 m_translation_x.replicate(result.points.rows(), 1);
-    out.translation =
-        m_scaling * result.translation + m_translation_x.transpose() -
-        result.scaling * result.rotation * m_translation_y.transpose();
-    return out;
+void Rigid::denormalize(const Normalization& normalization,
+                        Rigid::Result& result) const {
+    result.translation =
+        normalization.scale * result.translation + normalization.fixed_mean -
+        result.scale * result.rotation * normalization.moving_mean;
+    result.points = result.points * normalization.scale +
+                    normalization.fixed_mean.replicate(result.points.rows(), 1);
 }
 
-template class Registration<RigidResult>;
+Rigid::Result rigid(const Matrix& fixed, const Matrix& moving) {
+    Runner<Rigid, DirectProbabilityComputer> runner;
+    return runner.run(fixed, moving);
+}
+
+std::ostream& operator<<(std::ostream& stream, const Rigid::Result& result) {
+    Eigen::IOFormat json_format(Eigen::StreamPrecision, 0, ", ", ",", "[", "]",
+                                "[", "]");
+    stream << "{\n"
+           << "    \"translation\": "
+           << result.translation.transpose().format(json_format)
+           << ",\n    \"rotation\": "
+           << result.rotation.transpose().format(json_format)
+           << ",\n    \"scale\": " << result.scale << "\n}";
+    return stream;
+}
 }
