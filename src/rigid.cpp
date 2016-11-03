@@ -80,7 +80,8 @@ void Rigid::denormalize(const Normalization& normalization,
 }
 
 Rigid::Result rigid(const Matrix& fixed, const Matrix& moving) {
-    Runner<Rigid, DirectProbabilityComputer> runner;
+    // TODO generalize this
+    Runner<Rigid, DirectComparer> runner;
     return runner.run(fixed, moving);
 }
 

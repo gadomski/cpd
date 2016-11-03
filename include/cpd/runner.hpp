@@ -20,6 +20,7 @@
 
 #pragma once
 
+#include <cpd/comparer.hpp>
 #include <cpd/logging.hpp>
 #include <cpd/normalize.hpp>
 #include <cpd/utils.hpp>
@@ -147,8 +148,8 @@ public:
             m_transform.denormalize(normalization, result);
         }
         if (m_correspondence) {
-            auto probabilities = DirectProbabilityComputer().compute(
-                fixed, result.points, m_sigma2, m_outliers);
+            auto probabilities = DirectComparer().compute(fixed, result.points,
+                                                          m_sigma2, m_outliers);
             result.correspondence = probabilities.correspondence;
         }
         return result;

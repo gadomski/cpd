@@ -25,7 +25,7 @@ namespace cpd {
 TEST(Nonrigid, 2D) {
     auto fish = test_data_matrix("fish.csv");
     auto fish_distorted = test_data_matrix("fish-distorted.csv");
-    Runner<Nonrigid, DirectProbabilityComputer> runner;
+    Runner<Nonrigid, DirectComparer> runner;
     auto result = runner.run(fish, fish_distorted);
     EXPECT_TRUE(result.points.isApprox(fish, 0.1));
 }
@@ -33,7 +33,7 @@ TEST(Nonrigid, 2D) {
 TEST(Nonrigid, 3D) {
     auto face = test_data_matrix("face.csv");
     auto face_distorted = test_data_matrix("face-distorted.csv");
-    Runner<Nonrigid, DirectProbabilityComputer> runner;
+    Runner<Nonrigid, DirectComparer> runner;
     runner.normalize(false).sigma2(1.0).outliers(0.1);
     auto result = runner.run(face, face_distorted);
     EXPECT_TRUE(result.points.row(0).isApprox(face.row(0), 0.01));

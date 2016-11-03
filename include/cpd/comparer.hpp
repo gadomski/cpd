@@ -20,19 +20,37 @@
 
 #pragma once
 
+#include <fgt.hpp>
+
 #include <cpd/matrix.hpp>
+#include <cpd/probabilities.hpp>
 
 namespace cpd {
 
-/// Probabilities of correspondence between two datasets.
-struct Probabilities {
-    Vector p1;
-    Vector pt1;
-    Matrix px;
-    double l;
-    /// Corrsepondence vector between the two datasets.
-    ///
-    /// Only produced by the DirectProbabilityComputer.
-    IndexVector correspondence;
+/// Default error tolerance for fgt.
+const double DEFAULT_EPSILON = 1e-4;
+
+/// Use Myronenko's slow direct method to calculate probabilities.
+class DirectComparer {
+public:
+    Probabilities compute(const Matrix& fixed, const Matrix& moving,
+                          double sigma2, double outliers) const;
+};
+
+/// Use the fgt library to calculate probabilities.
+class FgtComparer {
+public:
+    FgtComparer()
+      : m_epsilon(DEFAULT_EPSILON) {}
+
+    /// Computes the probabilities using the fgt library.
+    Probabilities compute(const Matrix& fixed, const Matrix& moving,
+                          double sigma2, double outliers) const;
+
+private:
+    std::unique_ptr<fgt::Transform> create_transform(const Matrix& points,
+                                                     double bandwidth) const;
+
+    double m_epsilon;
 };
 }

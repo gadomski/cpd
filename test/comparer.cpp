@@ -15,20 +15,19 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-#include "cpd/probabilities.hpp"
+#include "cpd/comparer.hpp"
 #include "support.hpp"
 #include "gtest/gtest.h"
 
 namespace cpd {
 
-template <typename ProbabilityComputer>
-class ProbabilityComputerTest : public ::testing::Test {};
+template <typename Comparer>
+class ComparerTest : public ::testing::Test {};
 
-typedef ::testing::Types<DirectProbabilityComputer, FgtProbabilityComputer>
-    ProbabilityComputerTypes;
-TYPED_TEST_CASE(ProbabilityComputerTest, ProbabilityComputerTypes);
+typedef ::testing::Types<DirectComparer, FgtComparer> ComparerTypes;
+TYPED_TEST_CASE(ComparerTest, ComparerTypes);
 
-TYPED_TEST(ProbabilityComputerTest, 2D) {
+TYPED_TEST(ComparerTest, 2D) {
     TypeParam computer;
     auto fish = test_data_matrix("fish.csv");
     auto fish_distorted = test_data_matrix("fish-distorted.csv");
@@ -49,8 +48,8 @@ TYPED_TEST(ProbabilityComputerTest, 2D) {
     EXPECT_NEAR(-338.4930, probabilities.l, 1e-3);
 }
 
-TEST(DirectProbabilityComputer, Correspondence) {
-    DirectProbabilityComputer computer;
+TEST(DirectComparer, Correspondence) {
+    DirectComparer computer;
     auto fish = test_data_matrix("fish.csv");
     auto fish_distorted = test_data_matrix("fish-distorted.csv");
     IndexVector correspondence =
@@ -61,7 +60,7 @@ TEST(DirectProbabilityComputer, Correspondence) {
     EXPECT_EQ(correspondence, probabilities.correspondence);
 }
 
-TYPED_TEST(ProbabilityComputerTest, 3D) {
+TYPED_TEST(ComparerTest, 3D) {
     TypeParam computer;
     auto face = test_data_matrix("face.csv");
     auto face_distorted = test_data_matrix("face-distorted.csv");

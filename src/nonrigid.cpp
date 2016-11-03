@@ -61,7 +61,7 @@ void Nonrigid::denormalize(const Normalization& normalization,
 }
 
 Nonrigid::Result nonrigid(const Matrix& fixed, const Matrix& moving) {
-    Runner<Nonrigid, DirectProbabilityComputer> runner;
+    Runner<Nonrigid, DirectComparer> runner;
     return runner.run(fixed, moving);
 }
 }
