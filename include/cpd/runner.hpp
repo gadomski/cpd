@@ -159,7 +159,7 @@ private:
     ProbabilityComputer m_probability_computer;
     bool m_correspondence;
     std::shared_ptr<spdlog::logger> m_logger;
-    double m_max_iterations;
+    size_t m_max_iterations;
     bool m_normalize;
     double m_outliers;
     double m_sigma2;
