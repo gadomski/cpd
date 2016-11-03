@@ -59,9 +59,22 @@ Probabilities DirectComparer::compute(const Matrix& fixed, const Matrix& moving,
 
 std::unique_ptr<fgt::Transform> FgtComparer::create_transform(
     const Matrix& points, double bandwidth) const {
-    // TODO make this smarter
-    return std::unique_ptr<fgt::Transform>(
-        new fgt::DirectTree(points, bandwidth, m_epsilon));
+    switch (m_method) {
+        case FgtMethod::DirectTree:
+            return std::unique_ptr<fgt::Transform>(
+                new fgt::DirectTree(points, bandwidth, m_epsilon));
+        case FgtMethod::Ifgt:
+            return std::unique_ptr<fgt::Transform>(
+                new fgt::Ifgt(points, bandwidth, m_epsilon));
+        case FgtMethod::Switched:
+            if (bandwidth > m_breakpoint) {
+                return std::unique_ptr<fgt::Transform>(
+                    new fgt::Ifgt(points, bandwidth, m_epsilon));
+            } else {
+                return std::unique_ptr<fgt::Transform>(
+                    new fgt::DirectTree(points, bandwidth, m_epsilon));
+            }
+    }
 }
 
 Probabilities FgtComparer::compute(const Matrix& fixed, const Matrix& moving,

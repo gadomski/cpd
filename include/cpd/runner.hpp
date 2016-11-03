@@ -170,7 +170,7 @@ private:
 /// Runs a registration with a default comparer.
 template <typename Transform>
 typename Transform::Result run(const Matrix& fixed, const Matrix& source) {
-    Runner<Transform, FgtComparer> runner;
+    Runner<Transform, DirectComparer> runner;
     return runner.run(fixed, source);
 }
 }

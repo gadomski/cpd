@@ -27,8 +27,28 @@
 
 namespace cpd {
 
+/// Choosing an fgt method.
+enum class FgtMethod {
+    /// Use the direct tree method
+    ///
+    /// This is the standard transform but with simplification via clustering.
+    DirectTree,
+    /// Use the improved fast gauss transform.
+    ///
+    /// This method does clustering simplifications and a series expansion to
+    /// reduce the computational complexity, but works poorly with few points or
+    /// small bandwidths.
+    Ifgt,
+    /// Switch between DirectTree and Ifgt at a breakpoint.
+    Switched,
+};
+
 /// Default error tolerance for fgt.
 const double DEFAULT_EPSILON = 1e-4;
+/// Default Fgt method.
+const FgtMethod DEFAULT_METHOD = FgtMethod::DirectTree;
+/// Default ifgt->direct-tree breakpoint for fgt.
+const double DEFAULT_BREAKPOINT = 0.2;
 
 /// Use Myronenko's slow direct method to calculate probabilities.
 class DirectComparer {
@@ -41,7 +61,27 @@ public:
 class FgtComparer {
 public:
     FgtComparer()
-      : m_epsilon(DEFAULT_EPSILON) {}
+      : m_breakpoint(DEFAULT_BREAKPOINT)
+      , m_epsilon(DEFAULT_EPSILON)
+      , m_method(DEFAULT_METHOD) {}
+
+    /// Sets the ifgt->direct-tree breakpoint.
+    FgtComparer& breakpoint(double breakpoint) {
+        m_breakpoint = breakpoint;
+        return *this;
+    }
+
+    /// Sets the epsilon.
+    FgtComparer& epsilon(double epsilon) {
+        m_epsilon = epsilon;
+        return *this;
+    }
+
+    /// Sets the method.
+    FgtComparer& method(FgtMethod method) {
+        m_method = method;
+        return *this;
+    }
 
     /// Computes the probabilities using the fgt library.
     Probabilities compute(const Matrix& fixed, const Matrix& moving,
@@ -51,6 +91,8 @@ private:
     std::unique_ptr<fgt::Transform> create_transform(const Matrix& points,
                                                      double bandwidth) const;
 
+    double m_breakpoint;
     double m_epsilon;
+    FgtMethod m_method;
 };
 }
