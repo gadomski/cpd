@@ -23,7 +23,11 @@ endif()
 find_package(Fgt REQUIRED)
 
 # Configuration
-option(BUILD_SHARED_LIBS "Build shared libraries" ON)
+if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
+    option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
+else()
+    option(BUILD_SHARED_LIBS "Build shared libraries" ON)
+endif()
 
 include(CMakePackageConfigHelpers)
 write_basic_package_version_file("${PROJECT_BINARY_DIR}/cmake/cpd-config-version.cmake" VERSION ${CPD_VERSION} COMPATIBILITY AnyNewerVersion)

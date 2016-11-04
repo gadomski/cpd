@@ -31,7 +31,7 @@ typedef Eigen::MatrixXd Matrix;
 typedef Eigen::VectorXd Vector;
 
 /// Typedef for an index vector, used to index other matrices.
-typedef Eigen::Matrix<size_t, Eigen::Dynamic, 1> IndexVector;
+typedef Eigen::Matrix<Matrix::Index, Eigen::Dynamic, 1> IndexVector;
 
 /// Typedef for our specific type of array.
 typedef Eigen::ArrayXd Array;
