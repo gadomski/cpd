@@ -36,8 +36,8 @@ if [ "${TRAVIS}" = "true" ]; then
     git config --global user.email "travis@localhost"
 fi
 
-mkdir -p build/doc
-cd build/doc
+mkdir -p build/docs
+cd build/docs
 rm -rf html
 git clone -b gh-pages https://github.com/gadomski/cpd html
 cd html
@@ -45,7 +45,7 @@ rm -rf .git/index
 git clean -df
 cd ../../..
 doxygen build/Doxyfile
-cd build/doc/html
+cd build/docs/html
 git add --all
 git diff-index --quiet HEAD || git commit -m "scripts/gh-pages.sh"
 
