@@ -22,19 +22,19 @@ namespace cpd {
 Normalization normalize(const Matrix& fixed, const Matrix& moving) {
     Normalization normalization;
     normalization.fixed_mean = fixed.colwise().mean();
-    normalization.moving_mean = moving.colwise().mean();
-    double fixed_scale = std::sqrt(fixed.array().pow(2).sum() / fixed.rows());
-    double moving_scale =
-        std::sqrt(moving.array().pow(2).sum() / moving.rows());
-    normalization.scale = std::max(fixed_scale, moving_scale);
     normalization.fixed =
-        (fixed -
-         normalization.fixed_mean.transpose().replicate(fixed.rows(), 1)) /
-        normalization.scale;
+        fixed - normalization.fixed_mean.transpose().replicate(fixed.rows(), 1);
+    normalization.moving_mean = moving.colwise().mean();
     normalization.moving =
-        (moving -
-         normalization.moving_mean.transpose().replicate(moving.rows(), 1)) /
-        normalization.scale;
+        moving -
+        normalization.moving_mean.transpose().replicate(moving.rows(), 1);
+    double fixed_scale =
+        std::sqrt(normalization.fixed.array().pow(2).sum() / fixed.rows());
+    double moving_scale =
+        std::sqrt(normalization.moving.array().pow(2).sum() / moving.rows());
+    normalization.scale = std::max(fixed_scale, moving_scale);
+    normalization.fixed /= normalization.scale;
+    normalization.moving /= normalization.scale;
     return normalization;
 }
 }
