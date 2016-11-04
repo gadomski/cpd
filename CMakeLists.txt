@@ -15,6 +15,10 @@ if(POLICY CMP0042) # MACOSX_RPATH
     cmake_policy(SET CMP0042 NEW)
 endif()
 
+if(POLICY CMP0054) # Quoted variables in if statements
+    cmake_policy(SET CMP0054 NEW)
+endif()
+
 # Depdencies
 find_package(Fgt REQUIRED)
 
