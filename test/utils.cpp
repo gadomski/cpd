@@ -28,6 +28,13 @@ TEST(Utils, DefaultSigma2) {
     EXPECT_NEAR(1.0, sigma2, 0.1);
 }
 
+TEST(Utils, Sigma2SamePoints) {
+    auto fish = test_data_matrix("fish.csv");
+    double sigma2 = default_sigma2(fish, fish);
+    std::cout << sigma2 << std::endl;
+    EXPECT_NEAR(1.0, sigma2, 0.001);
+}
+
 TEST(Utils, MatrixFromFile) {
     auto fish = test_data_matrix("fish.csv");
     EXPECT_EQ(91, fish.rows());
