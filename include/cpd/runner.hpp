@@ -145,7 +145,7 @@ public:
             m_transform.modify_probabilities(probabilities);
             ntol = std::abs((probabilities.l - l) / probabilities.l);
             if (m_logger) {
-                m_logger->info("iter={}, dL={:.8f}, sigma2={:.4f}", iter, ntol,
+                m_logger->info("iter={}, dL={:.8f}, sigma2={:.8f}", iter, ntol,
                                result.sigma2);
             }
             l = probabilities.l;
