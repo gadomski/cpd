@@ -66,6 +66,7 @@ public:
       : m_probability_computer(probability_computer)
       , m_transform(transform)
       , m_max_iterations(DEFAULT_MAX_ITERATIONS)
+      , m_logger(spdlog::get(LOGGER_NAME))
       , m_normalize(DEFAULT_NORMALIZE)
       , m_outliers(DEFAULT_OUTLIERS)
       , m_sigma2(DEFAULT_SIGMA2)
