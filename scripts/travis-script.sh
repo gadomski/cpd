@@ -9,6 +9,7 @@ mkdir build
 cd build
 cmake .. \
     -DWITH_TESTS=ON \
+    -DWITH_DOCS=ON \
     -DBUILD_SHARED_LIBS=ON \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=${home}/local
