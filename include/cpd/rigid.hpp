@@ -58,7 +58,7 @@ public:
     /// No initialization necessary.
     void init(const Matrix&, const Matrix&) {}
 
-    /// No modificatino of probabilities necessary.
+    /// No modification of probabilities necessary.
     void modify_probabilities(Probabilities&) const {}
 
     /// Sets whether this rigid allows scaling or not.
