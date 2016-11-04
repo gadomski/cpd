@@ -34,16 +34,16 @@ Probabilities DirectComparer::compute(const Matrix& fixed, const Matrix& moving,
     IndexVector correspondence = IndexVector::Zero(moving.rows());
     double l = 0.0;
 
-    for (size_t i = 0; i < fixed.rows(); ++i) {
+    for (Matrix::Index i = 0; i < fixed.rows(); ++i) {
         double sp = 0;
-        for (size_t j = 0; j < moving.rows(); ++j) {
+        for (Matrix::Index j = 0; j < moving.rows(); ++j) {
             double razn = (fixed.row(i) - moving.row(j)).array().pow(2).sum();
             p(j) = std::exp(razn / ksig);
             sp += p(j);
         }
         sp += outlier_tmp;
         pt1(i) = 1 - outlier_tmp / sp;
-        for (size_t j = 0; j < moving.rows(); ++j) {
+        for (Matrix::Index j = 0; j < moving.rows(); ++j) {
             p1(j) += p(j) / sp;
             px.row(j) += fixed.row(i) * p(j) / sp;
             if (p(j) / sp > p1_max(j)) {
@@ -75,6 +75,7 @@ std::unique_ptr<fgt::Transform> FgtComparer::create_transform(
                     new fgt::DirectTree(points, bandwidth, m_epsilon));
             }
     }
+    return std::unique_ptr<fgt::Transform>();
 }
 
 Probabilities FgtComparer::compute(const Matrix& fixed, const Matrix& moving,

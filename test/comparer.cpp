@@ -31,8 +31,6 @@ TYPED_TEST(ComparerTest, 2D) {
     TypeParam computer;
     auto fish = test_data_matrix("fish.csv");
     auto fish_distorted = test_data_matrix("fish-distorted.csv");
-    IndexVector correspondence =
-        test_data_matrix("fish-correspondence.csv").cast<size_t>();
     Probabilities probabilities =
         computer.compute(fish, fish_distorted, 1.0, 0.1);
     ASSERT_EQ(91, probabilities.p1.size());
@@ -53,7 +51,7 @@ TEST(DirectComparer, Correspondence) {
     auto fish = test_data_matrix("fish.csv");
     auto fish_distorted = test_data_matrix("fish-distorted.csv");
     IndexVector correspondence =
-        test_data_matrix("fish-correspondence.csv").cast<size_t>();
+        test_data_matrix("fish-correspondence.csv").cast<Matrix::Index>();
     Probabilities probabilities =
         computer.compute(fish, fish_distorted, 1.0, 0.1);
     EXPECT_EQ(correspondence.size(), probabilities.correspondence.size());
