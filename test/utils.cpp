@@ -31,6 +31,12 @@ TEST(Utils, DefaultSigma2) {
 TEST(Utils, Sigma2SamePoints) {
     auto fish = test_data_matrix("fish.csv");
     double sigma2 = default_sigma2(fish, fish);
+    EXPECT_NEAR(1.0, sigma2, 0.001);
+}
+
+TEST(Utils, Sigma2Helheim) {
+    auto helheim = test_data_matrix("helheim.csv");
+    double sigma2 = default_sigma2(helheim, helheim);
     std::cout << sigma2 << std::endl;
     EXPECT_NEAR(1.0, sigma2, 0.001);
 }

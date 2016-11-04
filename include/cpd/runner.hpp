@@ -127,9 +127,17 @@ public:
         double l = 0.0;
         typename Transform::Result result;
         result.points = *moving_ptr;
-        result.sigma2 = m_sigma2 == 0.0
-                            ? default_sigma2(*fixed_ptr, *moving_ptr)
-                            : m_sigma2;
+        if (m_sigma2 == 0.0) {
+            result.sigma2 = default_sigma2(*fixed_ptr, *moving_ptr);
+            if (m_logger) {
+                m_logger->info("Initializing sigma2 to {}", result.sigma2);
+            }
+        } else {
+            result.sigma2 = m_sigma2;
+            if (m_logger) {
+                m_logger->info("sigma2 previously set to {}", result.sigma2);
+            }
+        }
         while (iter < m_max_iterations && ntol > m_tolerance &&
                result.sigma2 > 10 * std::numeric_limits<double>::epsilon()) {
             auto probabilities = m_probability_computer.compute(
