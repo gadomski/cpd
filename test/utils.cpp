@@ -37,8 +37,7 @@ TEST(Utils, Sigma2SamePoints) {
 TEST(Utils, Sigma2Helheim) {
     auto helheim = test_data_matrix("helheim.csv");
     double sigma2 = default_sigma2(helheim, helheim);
-    std::cout << sigma2 << std::endl;
-    EXPECT_NEAR(1.0, sigma2, 0.001);
+    EXPECT_NEAR(23235, sigma2, 1.0);
 }
 
 TEST(Utils, MatrixFromFile) {
