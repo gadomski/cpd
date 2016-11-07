@@ -20,6 +20,8 @@
 
 #pragma once
 
+#include <chrono>
+
 #include <cpd/matrix.hpp>
 #include <cpd/normalize.hpp>
 #include <cpd/probabilities.hpp>
@@ -42,6 +44,8 @@ public:
         double sigma2;
         /// The correspondence vector (optional).
         IndexVector correspondence;
+        /// The runtime.
+        std::chrono::microseconds runtime;
     };
 
     /// Creates a default nonrigid registration.

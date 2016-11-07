@@ -116,6 +116,7 @@ public:
         const Matrix* fixed_ptr(&fixed);
         const Matrix* moving_ptr(&moving);
         Normalization normalization;
+        const auto tic = std::chrono::high_resolution_clock::now();
         if (m_normalize) {
             normalization = cpd::normalize(fixed, moving);
             fixed_ptr = &normalization.fixed;
@@ -161,6 +162,9 @@ public:
                                                           m_sigma2, m_outliers);
             result.correspondence = probabilities.correspondence;
         }
+        const auto toc = std::chrono::high_resolution_clock::now();
+        result.runtime =
+            std::chrono::duration_cast<std::chrono::microseconds>(toc - tic);
         return result;
     }
 
