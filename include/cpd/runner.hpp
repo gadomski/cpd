@@ -165,6 +165,7 @@ public:
         const auto toc = std::chrono::high_resolution_clock::now();
         result.runtime =
             std::chrono::duration_cast<std::chrono::microseconds>(toc - tic);
+        result.iterations = iter;
         return result;
     }
 

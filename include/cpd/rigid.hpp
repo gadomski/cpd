@@ -52,6 +52,8 @@ public:
         IndexVector correspondence;
         /// The runtime.
         std::chrono::microseconds runtime;
+        /// The number of iterations until convergence.
+        size_t iterations;
     };
 
     /// Creates a default rigid transformation.
