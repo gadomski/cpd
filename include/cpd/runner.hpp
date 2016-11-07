@@ -113,6 +113,12 @@ public:
 
     /// Runs the cpd registration.
     typename Transform::Result run(const Matrix& fixed, const Matrix& moving) {
+        if (m_logger) {
+            m_logger->info("Number of points in fixed matrix: {}",
+                           fixed.rows());
+            m_logger->info("Number of points in moving matrix: {}",
+                           moving.rows());
+        }
         const Matrix* fixed_ptr(&fixed);
         const Matrix* moving_ptr(&moving);
         Normalization normalization;
