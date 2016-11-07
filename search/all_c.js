@@ -7,7 +7,8 @@ var searchData=
   ['rigid_2ehpp',['rigid.hpp',['../rigid_8hpp.html',1,'']]],
   ['rotation',['rotation',['../structcpd_1_1_rigid_1_1_result.html#afad304e5460d91c921fc3d5d1321596b',1,'cpd::Rigid::Result']]],
   ['run',['run',['../classcpd_1_1_runner.html#a720018c2d61bd46596e04639418cb33b',1,'cpd::Runner::run()'],['../runner_8hpp.html#a46e3c568da94792e886eeeb690198e60',1,'cpd::run()']]],
-  ['runner',['Runner',['../classcpd_1_1_runner.html',1,'cpd']]],
   ['runner',['Runner',['../classcpd_1_1_runner.html#a62682c60e195ddebd6035016c5411d22',1,'cpd::Runner::Runner()'],['../classcpd_1_1_runner.html#ab4f573be5fd85be3496d7a5df89c811d',1,'cpd::Runner::Runner(Transform transform, ProbabilityComputer probability_computer)']]],
-  ['runner_2ehpp',['runner.hpp',['../runner_8hpp.html',1,'']]]
+  ['runner',['Runner',['../classcpd_1_1_runner.html',1,'cpd']]],
+  ['runner_2ehpp',['runner.hpp',['../runner_8hpp.html',1,'']]],
+  ['runtime',['runtime',['../structcpd_1_1_nonrigid_1_1_result.html#a589ea0243182936c4ed959bd006753e5',1,'cpd::Nonrigid::Result::runtime()'],['../structcpd_1_1_rigid_1_1_result.html#a27048e091ffb6ed10ea47b0618b99958',1,'cpd::Rigid::Result::runtime()']]]
 ];

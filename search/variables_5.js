@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['points',['points',['../structcpd_1_1_nonrigid_1_1_result.html#a0d05c5d8fd77927152013492368d4ab6',1,'cpd::Nonrigid::Result::points()'],['../structcpd_1_1_rigid_1_1_result.html#ac8300058c4bdf54df9c6e8d3a4011c1d',1,'cpd::Rigid::Result::points()']]]
+  ['moving',['moving',['../structcpd_1_1_normalization.html#ac93d7d752245736440a7cd95978605bc',1,'cpd::Normalization']]],
+  ['moving_5fmean',['moving_mean',['../structcpd_1_1_normalization.html#a6fd65c328d50566c941a3b115842e795',1,'cpd::Normalization']]]
 ];

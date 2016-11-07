@@ -120,6 +120,12 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a3daf583d1fb8aceb5750a46a3f10703f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="matrix_8hpp.html#ac12d823ab0054be6c021236accb7d212">IndexVector</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcpd_1_1_rigid_1_1_result.html#a3daf583d1fb8aceb5750a46a3f10703f">correspondence</a></td></tr>
 <tr class="memdesc:a3daf583d1fb8aceb5750a46a3f10703f"><td class="mdescLeft">&#160;</td><td class="mdescRight">The correspondence vector (optional).  <a href="#a3daf583d1fb8aceb5750a46a3f10703f">More...</a><br /></td></tr>
 <tr class="separator:a3daf583d1fb8aceb5750a46a3f10703f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27048e091ffb6ed10ea47b0618b99958"><td class="memItemLeft" align="right" valign="top">std::chrono::microseconds&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcpd_1_1_rigid_1_1_result.html#a27048e091ffb6ed10ea47b0618b99958">runtime</a></td></tr>
+<tr class="memdesc:a27048e091ffb6ed10ea47b0618b99958"><td class="mdescLeft">&#160;</td><td class="mdescRight">The runtime.  <a href="#a27048e091ffb6ed10ea47b0618b99958">More...</a><br /></td></tr>
+<tr class="separator:a27048e091ffb6ed10ea47b0618b99958"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a693f1d20d7b349a9609c2c96055f6dbd"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcpd_1_1_rigid_1_1_result.html#a693f1d20d7b349a9609c2c96055f6dbd">iterations</a></td></tr>
+<tr class="memdesc:a693f1d20d7b349a9609c2c96055f6dbd"><td class="mdescLeft">&#160;</td><td class="mdescRight">The number of iterations until convergence.  <a href="#a693f1d20d7b349a9609c2c96055f6dbd">More...</a><br /></td></tr>
+<tr class="separator:a693f1d20d7b349a9609c2c96055f6dbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The result of a rigid transformation. </p>
@@ -135,6 +141,20 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The correspondence vector (optional). </p>
+
+</div>
+</div>
+<a class="anchor" id="a693f1d20d7b349a9609c2c96055f6dbd"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t cpd::Rigid::Result::iterations</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The number of iterations until convergence. </p>
 
 </div>
 </div>
@@ -163,6 +183,20 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The rotation from the moving points onto the fixed points. </p>
+
+</div>
+</div>
+<a class="anchor" id="a27048e091ffb6ed10ea47b0618b99958"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::chrono::microseconds cpd::Rigid::Result::runtime</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The runtime. </p>
 
 </div>
 </div>
