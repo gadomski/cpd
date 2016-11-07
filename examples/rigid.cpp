@@ -1,3 +1,5 @@
+/// Computes the rigid transformation between two text files.
+
 #include <iostream>
 
 #include <cpd/logging.hpp>
