@@ -93,6 +93,7 @@ TEST_F(Rigid2DTest, Normalize) {
     m_fish_transformed = m_fish * rotation;
     auto result = rigid(m_fish_transformed, m_fish);
     EXPECT_TRUE(result.rotation.isApprox(rotation.transpose(), TOLERANCE));
+    EXPECT_EQ(result.points.rows(), m_fish.rows());
 }
 
 TEST_P(Rotation2D, IsRecovered) {

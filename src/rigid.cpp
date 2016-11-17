@@ -75,8 +75,9 @@ void Rigid::denormalize(const Normalization& normalization,
     result.translation =
         normalization.scale * result.translation + normalization.fixed_mean -
         result.scale * result.rotation * normalization.moving_mean;
-    result.points = result.points * normalization.scale +
-                    normalization.fixed_mean.replicate(result.points.rows(), 1);
+    result.points =
+        result.points * normalization.scale +
+        normalization.fixed_mean.transpose().replicate(result.points.rows(), 1);
 }
 
 Rigid::Result rigid(const Matrix& fixed, const Matrix& moving) {
