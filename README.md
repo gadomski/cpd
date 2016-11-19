@@ -60,7 +60,8 @@ See `examples/` in this code repository for some basic usage examples, including
 
 ## Installation
 
-**cpd** depends on [fgt](https://github.com/gadomski/fgt) at runtime and [CMake](https://cmake.org/) and [Eigen](http://eigen.tuxfamily.org/index.php?title=Main_Page) at build-time.
+**cpd** depends on and [CMake](https://cmake.org/) and [Eigen](http://eigen.tuxfamily.org/index.php?title=Main_Page) at build time only — no runtime dependencies.
+For additional speed, it can also built with [fgt](https://github.com/gadomski/fgt).
 
 ### On OSX
 
@@ -73,7 +74,7 @@ brew install cpd
 
 ### From source
 
-Install fgt (which also requires Eigen) and CMake, then use the usual CMake build incantation for cpd:
+Use the usual CMake build incantation:
 
 ```bash
 mkdir build
