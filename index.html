@@ -90,7 +90,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <p>Andriy's reference implementation comes with two other type of registrations, <b>affine</b> and <b>nonrigid_lowrank</b>, which are not implemented in the latest version of this library (yet) (see <a href="#history">History</a> for information on how to find and use a previous version of this library that has <b>nonrigid_lowrank</b> and <b>affine</b>).</p>
 <p>This code lives <a href="https://github.com/gadomski/cpd">on Github</a>. It has some <a href="http://gadomski.github.io/cpd">Doxygen documentation</a> and is tested <a href="https://travis-ci.org/gadomski/cpd">by Travis</a> and <a href="https://ci.appveyor.com/project/gadomski/cpd/branch/master">by AppVeyor</a>. We also have a <a href="https://gitter.im/gadomski/cpd">gitter chatroom</a>.</p>
 <div class="image">
-<img src="https://travis-ci.org/gadomski/fgt.svg?branch=master"  alt="Build Status"/>
+<img src="https://travis-ci.org/gadomski/cpd.svg?branch=master"  alt="Build Status"/>
 </div>
  <div class="image">
 <img src="https://ci.appveyor.com/api/projects/status/iktu9w7gt5bkb63p/branch/master?svg=true"  alt="Build status"/>
@@ -102,11 +102,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <h2>Examples</h2>
 <p>See <code>examples/</code> in this code repository for some basic usage examples, including examples of how to set up a downstream CMake project that depends on cpd.</p>
 <h2>Installation</h2>
-<p><b>cpd</b> depends on <a href="https://github.com/gadomski/fgt">fgt</a> at runtime and <a href="https://cmake.org/">CMake</a> and <a href="http://eigen.tuxfamily.org/index.php?title=Main_Page">Eigen</a> at build-time.</p>
+<p><b>cpd</b> depends on and <a href="https://cmake.org/">CMake</a> and <a href="http://eigen.tuxfamily.org/index.php?title=Main_Page">Eigen</a> at build time only — no runtime dependencies. For additional speed, it can also built with <a href="https://github.com/gadomski/fgt">fgt</a>.</p>
 <h3>On OSX</h3>
 <p>If you're on a Mac, use <a href="http://brew.sh/">homebrew</a> and <a href="https://github.com/gadomski/homebrew-gadomski">my tap</a> to install:</p>
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;brew tap gadomski/gadomski</div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;brew install cpd</div></div><!-- fragment --><h3>From source</h3>
-<p>Install fgt (which also requires Eigen) and CMake, then use the usual CMake build incantation for cpd:</p>
+<p>Use the usual CMake build incantation:</p>
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;mkdir build</div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;cd build</div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;cmake ..</div><div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;make</div></div><!-- fragment --><h3>Using downstream</h3>
 <p><b>cpd</b> provides CMake export targets that you can import and use in your own project:</p>
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;find_package(Cpd REQUIRED)</div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;add_library(my-great-library</div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;    the_code.cpp</div><div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;    )</div><div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;target_link_libraries(my-great-library</div><div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;    PUBLIC</div><div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;    Cpd::Library-C++</div><div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    )</div></div><!-- fragment --><p>The <code>Cpd::Library-C++</code> target includes all the interface settings you need, so you shouldn't need any other calls to get set up.</p>
