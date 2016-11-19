@@ -19,7 +19,7 @@ This code lives [on Github](https://github.com/gadomski/cpd).
 It has some [Doxygen documentation](http://gadomski.github.io/cpd) and is tested [by Travis](https://travis-ci.org/gadomski/cpd) and [by AppVeyor](https://ci.appveyor.com/project/gadomski/cpd/branch/master).
 We also have a [gitter chatroom](https://gitter.im/gadomski/cpd).
 
-![Build Status](https://travis-ci.org/gadomski/fgt.svg?branch=master)
+![Build Status](https://travis-ci.org/gadomski/cpd.svg?branch=master)
 ![Build status](https://ci.appveyor.com/api/projects/status/iktu9w7gt5bkb63p/branch/master?svg=true)
 
 ## Usage
