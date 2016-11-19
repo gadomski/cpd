@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['comparer_2ehpp',['comparer.hpp',['../comparer_8hpp.html',1,'']]]
+  ['logging_2ehpp',['logging.hpp',['../logging_8hpp.html',1,'']]]
 ];

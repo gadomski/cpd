@@ -1,7 +1,12 @@
 var searchData=
 [
-  ['comparer_2ehpp',['comparer.hpp',['../comparer_8hpp.html',1,'']]],
-  ['compute',['compute',['../classcpd_1_1_fgt_comparer.html#a2617814f324d133d74321305edd4fda8',1,'cpd::FgtComparer::compute()'],['../classcpd_1_1_nonrigid.html#a6beb194fecc67db590850e82cdc5ab8a',1,'cpd::Nonrigid::compute()'],['../classcpd_1_1_rigid.html#a4975724ab5fd82d9dc4b80209bb84fe8',1,'cpd::Rigid::compute()']]],
-  ['correspondence',['correspondence',['../structcpd_1_1_nonrigid_1_1_result.html#ae9117b54cf86186ee3ffd45e7406a3cc',1,'cpd::Nonrigid::Result::correspondence()'],['../structcpd_1_1_probabilities.html#a3a359563abfb7059a77b7e5f27f67438',1,'cpd::Probabilities::correspondence()'],['../structcpd_1_1_rigid_1_1_result.html#a3daf583d1fb8aceb5750a46a3f10703f',1,'cpd::Rigid::Result::correspondence()'],['../classcpd_1_1_runner.html#aca9bee4f7ef988e0f6437864539bd31e',1,'cpd::Runner::correspondence()']]],
-  ['cpd',['cpd',['../index.html',1,'']]]
+  ['default_5fbeta',['DEFAULT_BETA',['../nonrigid_8hpp.html#aad955a1cb1ff4e49ef6eeff7d7785578',1,'cpd']]],
+  ['default_5fcorrespondence',['DEFAULT_CORRESPONDENCE',['../runner_8hpp.html#a481ccb4650cc981d2b7312773f90b74b',1,'cpd']]],
+  ['default_5flambda',['DEFAULT_LAMBDA',['../nonrigid_8hpp.html#a1e61042f2d049e263d51403a82ba9c4b',1,'cpd']]],
+  ['default_5fmax_5fiterations',['DEFAULT_MAX_ITERATIONS',['../runner_8hpp.html#a0551efd7d09a3f751a3332b201285b6a',1,'cpd']]],
+  ['default_5fnormalize',['DEFAULT_NORMALIZE',['../runner_8hpp.html#aa36624d6f9ac76830cf9db06c7bf8e31',1,'cpd']]],
+  ['default_5foutliers',['DEFAULT_OUTLIERS',['../runner_8hpp.html#ad01ac5a176e8aeeed80294d804bbf11d',1,'cpd']]],
+  ['default_5fsigma2',['default_sigma2',['../utils_8hpp.html#af7fa64a361e61e622748ff828e0cb5f9',1,'cpd::default_sigma2(const Matrix &amp;fixed, const Matrix &amp;moving)'],['../runner_8hpp.html#a9668ea7f1294377698888be196439cbc',1,'cpd::DEFAULT_SIGMA2()']]],
+  ['default_5ftolerance',['DEFAULT_TOLERANCE',['../runner_8hpp.html#a1c2505fb169ea031aaffaef336a4f362',1,'cpd']]],
+  ['denormalize',['denormalize',['../classcpd_1_1_nonrigid.html#a528f92a20db0fe9919de8eb6b3b64fcf',1,'cpd::Nonrigid::denormalize()'],['../classcpd_1_1_rigid.html#a36c9df1de17b1cb0ec6229bba521c2ff',1,'cpd::Rigid::denormalize()']]]
 ];
