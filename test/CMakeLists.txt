@@ -6,12 +6,11 @@ function(cpd_test name)
     set(src ${name}.cpp)
     string(REPLACE "/" "-" name ${name})
     set(target ${name}-test)
-    add_executable(${target} ${src} "${GOOGLETEST_DIR}/src/gtest-all.cc" "${GOOGLETEST_DIR}/src/gtest_main.cc")
+    add_executable(${target} ${src})
     set_target_properties(${target} PROPERTIES OUTPUT_NAME ${name})
     add_test(NAME ${name} COMMAND ${target})
-    target_link_libraries(${target} PRIVATE Library-C++)
+    target_link_libraries(${target} PRIVATE Library-C++ gtest_main)
     target_include_directories(${target} PRIVATE
-        "${GOOGLETEST_DIR}"
         "${GOOGLETEST_DIR}/include"
         "${PROJECT_SOURCE_DIR}/src"
         "${PROJECT_SOURCE_DIR}/include"
