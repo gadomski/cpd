@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 2.8.12)
 set(CPD_LANGUAGES CXX C)
 set(CPD_VERSION 0.4.2)
 set(CPD_SOVERSION 0)
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 # Policies
 if(POLICY CMP0048) # Project version
@@ -20,7 +21,12 @@ if(POLICY CMP0054) # Quoted variables in if statements
 endif()
 
 # Depdencies
-find_package(Fgt REQUIRED)
+option(WITH_FGT "Build with libfgt" OFF)
+if(WITH_FGT)
+    find_package(Fgt REQUIRED)
+else()
+    find_package(Eigen3 REQUIRED)
+endif()
 
 # Configuration
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
@@ -34,35 +40,61 @@ write_basic_package_version_file("${PROJECT_BINARY_DIR}/cmake/cpd-config-version
 install(FILES cmake/cpd-config.cmake "${PROJECT_BINARY_DIR}/cmake/cpd-config-version.cmake" DESTINATION lib/cmake/cpd)
 configure_file(src/version.cpp.in "${PROJECT_BINARY_DIR}/src/version.cpp")
 
-option(WITH_STRICT_WARNINGS "Build with stricter warnings" ON)
-if(WITH_STRICT_WARNINGS)
-    if("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -pedantic -Wno-gnu-zero-variadic-macro-arguments")
-    endif()
-endif()
-
 # Targets
+set(library_headers
+    include/cpd/comparer/direct.hpp
+    include/cpd/logging.hpp
+    include/cpd/matrix.hpp
+    include/cpd/nonrigid.hpp
+    include/cpd/normalize.hpp
+    include/cpd/probabilities.hpp
+    include/cpd/rigid.hpp
+    include/cpd/runner.hpp
+    include/cpd/utils.hpp
+    include/cpd/version.hpp
+    )
 set(library_src
     src/affinity_matrix.cpp
-    src/comparer.cpp
+    src/comparer/direct.cpp
     src/nonrigid.cpp
     src/normalize.cpp
     src/rigid.cpp
     src/utils.cpp
     "${PROJECT_BINARY_DIR}/src/version.cpp"
     )
+if(WITH_FGT)
+    list(APPEND library_headers include/cpd/comparer/fgt.hpp)
+    list(APPEND library_src src/comparer/fgt.cpp)
+endif()
+
 add_library(Library-C++ ${library_src})
 set_target_properties(Library-C++ PROPERTIES
     OUTPUT_NAME cpd
     VERSION ${CPD_VERSION}
     SOVERSION ${CPD_SOVERSION}
     )
-target_link_libraries(Library-C++ PUBLIC Fgt::Library-C++)
 target_include_directories(Library-C++
     INTERFACE $<INSTALL_INTERFACE:include> $<INSTALL_INTERFACE:include/cpd/vendor>
     PRIVATE include include/cpd/vendor)
+if(WITH_FGT)
+    target_link_libraries(Library-C++ PUBLIC Fgt::Library-C++)
+    target_compile_definitions(Library-C++ PUBLIC CPD_WITH_FGT)
+else()
+    target_include_directories(Library-C++ PUBLIC ${EIGEN3_INCLUDE_DIR})
+    target_compile_options(Library-C++ PUBLIC -std=c++11)
+endif()
+
+option(WITH_STRICT_WARNINGS "Build with stricter warnings" ON)
+if(WITH_STRICT_WARNINGS)
+    if("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
+        target_compile_options(Library-C++ PRIVATE -Wall -pedantic -Wno-gnu-zero-variadic-macro-arguments)
+    endif()
+endif()
+
+
 install(TARGETS Library-C++ DESTINATION lib EXPORT cpd-targets)
-install(DIRECTORY include/cpd DESTINATION include)
+install(FILES ${library_headers} DESTINATION include/cpd)
+install(DIRECTORY include/cpd/vendor DESTINATION include/cpd)
 install(EXPORT cpd-targets NAMESPACE Cpd:: DESTINATION lib/cmake/cpd)
 
 # Optional targets
@@ -73,7 +105,7 @@ if(WITH_TESTS)
     add_subdirectory(test)
 endif()
 
-option(WITH_DOCS "Build documentation" OFF)
+option(WITH_DOCS "Add documentation target" OFF)
 if(WITH_DOCS)
     configure_file(Doxyfile.in "${PROJECT_BINARY_DIR}/Doxyfile")
     add_custom_target(docs COMMAND doxygen "${PROJECT_BINARY_DIR}/Doxyfile")

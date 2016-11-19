@@ -16,14 +16,12 @@
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 /// \file
-/// Compute correpondence proabilities between two datasets.
+/// Compute correpondence proabilities using libfgt.
 
 #pragma once
 
-#include <fgt.hpp>
-
-#include <cpd/matrix.hpp>
 #include <cpd/probabilities.hpp>
+#include <fgt.hpp>
 
 namespace cpd {
 
@@ -49,13 +47,6 @@ const double DEFAULT_EPSILON = 1e-4;
 const FgtMethod DEFAULT_METHOD = FgtMethod::DirectTree;
 /// Default ifgt->direct-tree breakpoint for fgt.
 const double DEFAULT_BREAKPOINT = 0.2;
-
-/// Use Myronenko's slow direct method to calculate probabilities.
-class DirectComparer {
-public:
-    Probabilities compute(const Matrix& fixed, const Matrix& moving,
-                          double sigma2, double outliers) const;
-};
 
 /// Use the fgt library to calculate probabilities.
 class FgtComparer {

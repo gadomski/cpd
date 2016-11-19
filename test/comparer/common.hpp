@@ -15,24 +15,14 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-#include "cpd/comparer.hpp"
-#include "support.hpp"
+#pragma once
+
+#include "cpd/probabilities.hpp"
 #include "gtest/gtest.h"
 
 namespace cpd {
 
-template <typename Comparer>
-class ComparerTest : public ::testing::Test {};
-
-typedef ::testing::Types<DirectComparer, FgtComparer> ComparerTypes;
-TYPED_TEST_CASE(ComparerTest, ComparerTypes);
-
-TYPED_TEST(ComparerTest, 2D) {
-    TypeParam computer;
-    auto fish = test_data_matrix("fish.csv");
-    auto fish_distorted = test_data_matrix("fish-distorted.csv");
-    Probabilities probabilities =
-        computer.compute(fish, fish_distorted, 1.0, 0.1);
+void check_fish_probabilities(const Probabilities& probabilities) {
     ASSERT_EQ(91, probabilities.p1.size());
     EXPECT_NEAR(0.6850, probabilities.p1(0), 1e-4);
     EXPECT_NEAR(1.0689, probabilities.p1(90), 1e-4);
@@ -46,24 +36,7 @@ TYPED_TEST(ComparerTest, 2D) {
     EXPECT_NEAR(-338.4930, probabilities.l, 1e-3);
 }
 
-TEST(DirectComparer, Correspondence) {
-    DirectComparer computer;
-    auto fish = test_data_matrix("fish.csv");
-    auto fish_distorted = test_data_matrix("fish-distorted.csv");
-    IndexVector correspondence =
-        test_data_matrix("fish-correspondence.csv").cast<Matrix::Index>();
-    Probabilities probabilities =
-        computer.compute(fish, fish_distorted, 1.0, 0.1);
-    EXPECT_EQ(correspondence.size(), probabilities.correspondence.size());
-    EXPECT_EQ(correspondence, probabilities.correspondence);
-}
-
-TYPED_TEST(ComparerTest, 3D) {
-    TypeParam computer;
-    auto face = test_data_matrix("face.csv");
-    auto face_distorted = test_data_matrix("face-distorted.csv");
-    Probabilities probabilities =
-        computer.compute(face, face_distorted, 1.0, 0.1);
+void check_face_probabilities(const Probabilities& probabilities) {
     ASSERT_EQ(392, probabilities.p1.size());
     EXPECT_NEAR(0.6171, probabilities.p1(0), 1e-4);
     EXPECT_NEAR(0.4869, probabilities.p1(391), 1e-4);

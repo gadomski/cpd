@@ -20,7 +20,7 @@
 
 #pragma once
 
-#include <cpd/comparer.hpp>
+#include <cpd/comparer/default.hpp>
 #include <cpd/logging.hpp>
 #include <cpd/normalize.hpp>
 #include <cpd/utils.hpp>
@@ -190,7 +190,7 @@ private:
 /// Runs a registration with a default comparer.
 template <typename Transform>
 typename Transform::Result run(const Matrix& fixed, const Matrix& source) {
-    Runner<Transform, DirectComparer> runner;
+    Runner<Transform, DefaultComparer> runner;
     return runner.run(fixed, source);
 }
 }
