@@ -26,7 +26,8 @@ install:
   - ps: cd ..\..\cpd
 
 before_build:
-  - cmd: cmake -G "Visual Studio 14 2015 Win64" -DCMAKE_INSTALL_PREFIX=C:\projects\local -Dgtest_force_shared_crt=ON -DBUILD_SHARED_LIBS=OFF .
+  # TODO use build matrix to test with and w/o libfgt
+  - cmd: cmake -G "Visual Studio 14 2015 Win64" -DCMAKE_INSTALL_PREFIX=C:\projects\local -Dgtest_force_shared_crt=ON -DBUILD_SHARED_LIBS=OFF -DWITH_FGT=ON .
 
 build:
   parallel: true
