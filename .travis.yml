@@ -19,7 +19,7 @@ addons:
 
 before_install:
   - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8"; fi
-    
+
 install:
   - scripts/travis-install-cmake.sh && export PATH=$(pwd)/cmake/bin:$PATH
   - scripts/travis-install-eigen3.sh
