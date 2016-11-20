@@ -3,14 +3,12 @@
 
 set -ex
 
-home=$(pwd)
-
 mkdir build
 cd build
 cmake .. \
     -DBUILD_SHARED_LIBS=ON \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=${home}/local \
+    -DCMAKE_INSTALL_PREFIX=$HOME/local \
     -DWITH_DOCS=ON \
     -DWITH_FGT=$CPD_WITH_FGT \
     -DWITH_TESTS=ON
