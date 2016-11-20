@@ -92,7 +92,6 @@ if(WITH_STRICT_WARNINGS)
     endif()
 endif()
 
-
 install(TARGETS Library-C++ DESTINATION lib EXPORT cpd-targets)
 install(FILES ${library_headers} DESTINATION include/cpd)
 install(DIRECTORY include/cpd/vendor DESTINATION include/cpd)
