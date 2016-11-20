@@ -28,7 +28,9 @@
 
 namespace cpd {
 
+/// Should rigid registrations allow reflections by default?
 const bool DEFAULT_ALLOW_REFLECTIONS = false;
+/// Should rigid registrations scale the data by default?
 const bool DEFAULT_SCALE = false;
 
 /// Rigid coherent point drift.

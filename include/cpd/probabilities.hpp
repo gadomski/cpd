@@ -26,9 +26,13 @@ namespace cpd {
 
 /// Probabilities of correspondence between two datasets.
 struct Probabilities {
+    /// The probablity matrix times a column vector of all ones.
     Vector p1;
+    /// The tranpsosed probability matrix times a column vector of all ones.
     Vector pt1;
+    /// The probability matrix times the fixed matrix.
     Matrix px;
+    /// The total accumulated error.
     double l;
     /// Corrsepondence vector between the two datasets.
     ///
