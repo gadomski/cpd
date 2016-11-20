@@ -21,7 +21,8 @@ if(POLICY CMP0054) # Quoted variables in if statements
 endif()
 
 # Depdencies
-option(WITH_FGT "Build with libfgt" OFF)
+find_package(Fgt QUIET)
+option(WITH_FGT "Build with libfgt" ${Fgt_FOUND})
 if(WITH_FGT)
     find_package(Fgt REQUIRED)
 else()
