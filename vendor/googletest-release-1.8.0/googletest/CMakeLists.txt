@@ -47,6 +47,10 @@ endif()
 project(gtest CXX C)
 cmake_minimum_required(VERSION 2.6.2)
 
+if(POLICY CMP0042) # MACOSX_RPATH
+    cmake_policy(SET CMP0042 NEW)
+endif()
+
 if (COMMAND set_up_hermetic_build)
   set_up_hermetic_build()
 endif()
@@ -65,9 +69,6 @@ config_compiler_and_linker()  # Defined in internal_utils.cmake.
 include_directories(
   ${gtest_SOURCE_DIR}/include
   ${gtest_SOURCE_DIR})
-
-# Where Google Test's libraries can be found.
-link_directories(${gtest_BINARY_DIR}/src)
 
 # Summary of tuple support for Microsoft Visual Studio:
 # Compiler    version(MS)  version(cmake)  Support

@@ -102,6 +102,7 @@ option(WITH_TESTS "Build test suite" ON)
 if(WITH_TESTS)
     enable_testing()
     set(GOOGLETEST_DIR "${PROJECT_SOURCE_DIR}/vendor/googletest-release-1.8.0/googletest")
+    add_subdirectory(${GOOGLETEST_DIR})
     add_subdirectory(test)
 endif()
 
