@@ -55,7 +55,7 @@ set(library_headers
     include/cpd/version.hpp
     )
 set(library_src
-    src/affinity_matrix.cpp
+    src/affinity.cpp
     src/comparer/direct.cpp
     src/nonrigid.cpp
     src/normalize.cpp

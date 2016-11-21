@@ -16,13 +16,13 @@
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include "cpd/nonrigid.hpp"
-#include "affinity_matrix.hpp"
+#include "affinity.hpp"
 #include "cpd/runner.hpp"
 
 namespace cpd {
 
 void Nonrigid::init(const Matrix&, const Matrix& moving) {
-    m_g = affinity_matrix(moving, moving, m_beta);
+    m_g = affinity(moving, moving, m_beta);
     m_w = Matrix::Zero(moving.rows(), moving.cols());
 }
 

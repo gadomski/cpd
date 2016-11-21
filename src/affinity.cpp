@@ -15,11 +15,22 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-#pragma once
-
-#include "cpd/matrix.hpp"
+#include "affinity.hpp"
 
 namespace cpd {
 
-Matrix affinity_matrix(const Matrix& x, const Matrix& y, double beta);
+Matrix affinity(const Matrix& x, const Matrix& y, double beta) {
+    double k = -2.0 * beta * beta;
+    size_t x_rows = x.rows();
+    size_t y_rows = y.rows();
+    Matrix g(x_rows, y_rows);
+    for (size_t i = 0; i < y_rows; ++i) {
+        g.col(i) = ((x.array() - y.row(i).replicate(x_rows, 1).array())
+                        .pow(2)
+                        .rowwise()
+                        .sum() /
+                    k).exp();
+    }
+    return g;
+}
 }
