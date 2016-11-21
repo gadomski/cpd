@@ -22,21 +22,17 @@
 
 namespace cpd {
 
-TEST(Nonrigid, 2D) {
-    auto fish = test_data_matrix("fish.csv");
-    auto fish_distorted = test_data_matrix("fish-distorted.csv");
+TEST_F(FishTest, Works) {
     Runner<Nonrigid, DirectComparer> runner;
-    auto result = runner.run(fish, fish_distorted);
-    EXPECT_TRUE(result.points.isApprox(fish, 0.1));
+    auto result = runner.run(m_fish, m_fish_transformed);
+    EXPECT_TRUE(result.points.isApprox(m_fish, 0.1));
 }
 
-TEST(Nonrigid, 3D) {
-    auto face = test_data_matrix("face.csv");
-    auto face_distorted = test_data_matrix("face-distorted.csv");
+TEST_F(FaceTest, Works) {
     Runner<Nonrigid, DirectComparer> runner;
     runner.normalize(false).sigma2(1.0).outliers(0.1);
-    auto result = runner.run(face, face_distorted);
-    EXPECT_TRUE(result.points.row(0).isApprox(face.row(0), 0.01));
-    EXPECT_TRUE(result.points.row(391).isApprox(face.row(391), 0.5));
+    auto result = runner.run(m_face, m_face_transformed);
+    EXPECT_TRUE(result.points.row(0).isApprox(m_face.row(0), 0.01));
+    EXPECT_TRUE(result.points.row(391).isApprox(m_face.row(391), 0.5));
 }
 }

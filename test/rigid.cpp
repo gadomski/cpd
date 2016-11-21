@@ -27,22 +27,11 @@ namespace cpd {
 
 const double TOLERANCE = 1e-3;
 
-class Rigid2DTest : public ::testing::Test {
+class FishRotationTest : public FishTest,
+                         public ::testing::WithParamInterface<double> {
 public:
-    Rigid2DTest()
-      : ::testing::Test()
-      , m_fish(test_data_matrix("fish.csv"))
-      , m_fish_transformed(m_fish) {}
-
-    Matrix m_fish;
-    Matrix m_fish_transformed;
-};
-
-class Rotation2D : public Rigid2DTest,
-                   public ::testing::WithParamInterface<double> {
-public:
-    Rotation2D()
-      : Rigid2DTest()
+    FishRotationTest()
+      : FishTest()
       , m_rotation(Eigen::Rotation2D<double>(M_PI * GetParam() / 180.0)
                        .toRotationMatrix()) {
         m_fish_transformed = m_fish * m_rotation;
@@ -51,11 +40,11 @@ public:
     Matrix m_rotation;
 };
 
-class Translation2D : public Rigid2DTest,
-                      public ::testing::WithParamInterface<double> {
+class FishTranslationTest : public FishTest,
+                            public ::testing::WithParamInterface<double> {
 public:
-    Translation2D()
-      : Rigid2DTest()
+    FishTranslationTest()
+      : FishTest()
       , m_translation(Eigen::Vector2d(GetParam(), GetParam())) {
         m_fish_transformed =
             m_fish + m_translation.transpose().replicate(m_fish.rows(), 1);
@@ -64,7 +53,7 @@ public:
     Vector m_translation;
 };
 
-TEST_F(Rigid2DTest, AllowScaling) {
+TEST_F(FishTest, AllowScaling) {
     m_fish_transformed = test_data_matrix("fish-distorted.csv");
     DefaultComparer computer;
     Probabilities probabilities =
@@ -75,7 +64,7 @@ TEST_F(Rigid2DTest, AllowScaling) {
     EXPECT_NEAR(0.4165, result.sigma2, 1e-2);
 }
 
-TEST_F(Rigid2DTest, NoScaling) {
+TEST_F(FishTest, NoScaling) {
     m_fish_transformed = test_data_matrix("fish-distorted.csv");
     DefaultComparer computer;
     Probabilities probabilities =
@@ -86,7 +75,7 @@ TEST_F(Rigid2DTest, NoScaling) {
     EXPECT_NEAR(0.5238, result.sigma2, 1e-2);
 }
 
-TEST_F(Rigid2DTest, Normalize) {
+TEST_F(FishTest, Normalize) {
     m_fish = m_fish * 10.0;
     Matrix rotation =
         Eigen::Rotation2D<double>(M_PI * 20.0 / 180.0).toRotationMatrix();
@@ -96,35 +85,25 @@ TEST_F(Rigid2DTest, Normalize) {
     EXPECT_EQ(result.points.rows(), m_fish.rows());
 }
 
-TEST_P(Rotation2D, IsRecovered) {
+TEST_P(FishRotationTest, IsRecovered) {
     auto result = rigid(m_fish_transformed, m_fish);
     EXPECT_TRUE(result.rotation.isApprox(m_rotation.transpose(), TOLERANCE));
 }
 
-TEST_P(Translation2D, IsRecovered) {
+TEST_P(FishTranslationTest, IsRecovered) {
     auto result = rigid(m_fish_transformed, m_fish);
     EXPECT_TRUE(result.translation.isApprox(m_translation, TOLERANCE));
 }
 
-INSTANTIATE_TEST_CASE_P(Rigid2D, Rotation2D, ::testing::Range(0.0, 70.0, 10.0));
-INSTANTIATE_TEST_CASE_P(Rigid2D, Translation2D, ::testing::Range(1.0, 10.0));
+INSTANTIATE_TEST_CASE_P(Fish, FishRotationTest,
+                        ::testing::Range(0.0, 70.0, 10.0));
+INSTANTIATE_TEST_CASE_P(Fish, FishTranslationTest, ::testing::Range(1.0, 10.0));
 
-class Rigid3DTest : public ::testing::Test {
+class FaceRotationTest : public FaceTest,
+                         public ::testing::WithParamInterface<double> {
 public:
-    Rigid3DTest()
-      : ::testing::Test()
-      , m_face(test_data_matrix("face.csv"))
-      , m_face_transformed(m_face) {}
-
-    Matrix m_face;
-    Matrix m_face_transformed;
-};
-
-class Rotation3D : public Rigid3DTest,
-                   public ::testing::WithParamInterface<double> {
-public:
-    Rotation3D()
-      : Rigid3DTest()
+    FaceRotationTest()
+      : FaceTest()
       , m_rotation(Eigen::AngleAxisd(GetParam() * M_PI / 180.0,
                                      Eigen::Vector3d::UnitX())
                        .toRotationMatrix()) {
@@ -134,11 +113,11 @@ public:
     Matrix m_rotation;
 };
 
-class Translation3D : public Rigid3DTest,
-                      public ::testing::WithParamInterface<double> {
+class FaceTranslationTest : public FaceTest,
+                            public ::testing::WithParamInterface<double> {
 public:
-    Translation3D()
-      : Rigid3DTest()
+    FaceTranslationTest()
+      : FaceTest()
       , m_translation(Eigen::Vector3d(GetParam(), GetParam(), GetParam())) {
         m_face_transformed =
             m_face +
@@ -148,16 +127,17 @@ public:
     Vector m_translation;
 };
 
-TEST_P(Rotation3D, IsRecovered) {
+TEST_P(FaceRotationTest, IsRecovered) {
     auto result = rigid(m_face_transformed, m_face);
     EXPECT_TRUE(result.rotation.isApprox(m_rotation.transpose(), TOLERANCE));
 }
 
-TEST_P(Translation3D, IsRecovered) {
+TEST_P(FaceTranslationTest, IsRecovered) {
     auto result = rigid(m_face_transformed, m_face);
     EXPECT_TRUE(result.translation.isApprox(m_translation, TOLERANCE));
 }
 
-INSTANTIATE_TEST_CASE_P(Rigid3D, Rotation3D, ::testing::Range(0.0, 70.0, 10.0));
-INSTANTIATE_TEST_CASE_P(Rigid3D, Translation3D, ::testing::Range(1.0, 10.0));
+INSTANTIATE_TEST_CASE_P(Face, FaceRotationTest,
+                        ::testing::Range(0.0, 70.0, 10.0));
+INSTANTIATE_TEST_CASE_P(Face, FaceTranslationTest, ::testing::Range(1.0, 10.0));
 }
