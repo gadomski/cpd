@@ -20,6 +20,7 @@
 #include "cpd/comparer/default.hpp"
 #include "cpd/matrix.hpp"
 #include "cpd/rigid.hpp"
+#include "cpd/runner.hpp"
 #include "support.hpp"
 #include "gtest/gtest.h"
 
@@ -83,6 +84,14 @@ TEST_F(FishTest, Normalize) {
     auto result = rigid(m_fish_transformed, m_fish);
     EXPECT_TRUE(result.rotation.isApprox(rotation.transpose(), TOLERANCE));
     EXPECT_EQ(result.points.rows(), m_fish.rows());
+}
+
+TEST_F(FishTest, DifferentlySized) {
+    Runner<Rigid, DirectComparer> runner;
+    runner.normalize(false);
+    Rigid::Result result = runner.run(
+        m_fish, m_fish.block(0, 0, m_fish.rows() - 1, m_fish.cols()));
+    EXPECT_EQ(m_fish.rows() - 1, result.points.rows());
 }
 
 TEST_P(FishRotationTest, IsRecovered) {
