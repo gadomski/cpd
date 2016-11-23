@@ -42,18 +42,6 @@ install(FILES cmake/cpd-config.cmake "${PROJECT_BINARY_DIR}/cmake/cpd-config-ver
 configure_file(src/version.cpp.in "${PROJECT_BINARY_DIR}/src/version.cpp")
 
 # Targets
-set(library_headers
-    include/cpd/comparer/direct.hpp
-    include/cpd/logging.hpp
-    include/cpd/matrix.hpp
-    include/cpd/nonrigid.hpp
-    include/cpd/normalize.hpp
-    include/cpd/probabilities.hpp
-    include/cpd/rigid.hpp
-    include/cpd/runner.hpp
-    include/cpd/utils.hpp
-    include/cpd/version.hpp
-    )
 set(library_src
     src/affinity.cpp
     src/comparer/direct.cpp
@@ -64,7 +52,6 @@ set(library_src
     "${PROJECT_BINARY_DIR}/src/version.cpp"
     )
 if(WITH_FGT)
-    list(APPEND library_headers include/cpd/comparer/fgt.hpp)
     list(APPEND library_src src/comparer/fgt.cpp)
 endif()
 
@@ -93,7 +80,29 @@ if(WITH_STRICT_WARNINGS)
 endif()
 
 install(TARGETS Library-C++ DESTINATION lib EXPORT cpd-targets)
-install(FILES ${library_headers} DESTINATION include/cpd)
+install(FILES
+    include/cpd/logging.hpp
+    include/cpd/matrix.hpp
+    include/cpd/nonrigid.hpp
+    include/cpd/normalize.hpp
+    include/cpd/probabilities.hpp
+    include/cpd/rigid.hpp
+    include/cpd/runner.hpp
+    include/cpd/utils.hpp
+    include/cpd/version.hpp
+    DESTINATION include/cpd
+    )
+install(FILES
+    include/cpd/comparer/default.hpp
+    include/cpd/comparer/direct.hpp
+    DESTINATION include/cpd/comparer
+    )
+if(WITH_FGT)
+    install(FILES
+        include/cpd/comparer/fgt.hpp
+        DESTINATION include/cpd/comparer
+        )
+endif()
 install(DIRECTORY include/cpd/vendor DESTINATION include/cpd)
 install(EXPORT cpd-targets NAMESPACE Cpd:: DESTINATION lib/cmake/cpd)
 
