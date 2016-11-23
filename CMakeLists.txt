@@ -43,6 +43,7 @@ configure_file(src/version.cpp.in "${PROJECT_BINARY_DIR}/src/version.cpp")
 
 # Targets
 set(library_src
+    src/affine.cpp
     src/affinity.cpp
     src/comparer/direct.cpp
     src/nonrigid.cpp
@@ -81,6 +82,7 @@ endif()
 
 install(TARGETS Library-C++ DESTINATION lib EXPORT cpd-targets)
 install(FILES
+    include/cpd/affine.hpp
     include/cpd/logging.hpp
     include/cpd/matrix.hpp
     include/cpd/nonrigid.hpp

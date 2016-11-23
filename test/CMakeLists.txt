@@ -24,6 +24,7 @@ function(cpd_test name)
     endif()
 endfunction()
 
+cpd_test(affine)
 cpd_test(affinity)
 cpd_test(comparer/direct)
 if(WITH_FGT)
