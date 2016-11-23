@@ -66,7 +66,7 @@ Rigid::Result Rigid::compute(const Matrix& fixed, const Matrix& moving,
     }
     result.translation = mu_x - result.scale * result.rotation * mu_y;
     result.points = result.scale * moving * result.rotation.transpose() +
-                    result.translation.transpose().replicate(fixed.rows(), 1);
+                    result.translation.transpose().replicate(moving.rows(), 1);
     return result;
 }
 
