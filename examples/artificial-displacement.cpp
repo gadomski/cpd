@@ -6,7 +6,7 @@
 /// This examples demonstrates configuring the runner, comparer, and
 /// transformation.
 
-#include <cpd/comparer.hpp>
+#include <cpd/comparer/fgt.hpp>
 #include <cpd/logging.hpp>
 #include <cpd/matrix.hpp>
 #include <cpd/rigid.hpp>

@@ -38,7 +38,8 @@ endif()
 
 include(CMakePackageConfigHelpers)
 write_basic_package_version_file("${PROJECT_BINARY_DIR}/cmake/cpd-config-version.cmake" VERSION ${CPD_VERSION} COMPATIBILITY AnyNewerVersion)
-install(FILES cmake/cpd-config.cmake "${PROJECT_BINARY_DIR}/cmake/cpd-config-version.cmake" DESTINATION lib/cmake/cpd)
+configure_file(cmake/cpd-config.cmake.in "${PROJECT_BINARY_DIR}/cmake/cpd-config.cmake" @ONLY)
+install(FILES "${PROJECT_BINARY_DIR}/cmake/cpd-config.cmake" "${PROJECT_BINARY_DIR}/cmake/cpd-config-version.cmake" DESTINATION lib/cmake/cpd)
 configure_file(src/version.cpp.in "${PROJECT_BINARY_DIR}/src/version.cpp")
 
 # Targets
