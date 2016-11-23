@@ -8,7 +8,7 @@ var searchData=
   ['default_5fnormalize',['DEFAULT_NORMALIZE',['../namespacecpd.html#aa36624d6f9ac76830cf9db06c7bf8e31',1,'cpd']]],
   ['default_5foutliers',['DEFAULT_OUTLIERS',['../namespacecpd.html#ad01ac5a176e8aeeed80294d804bbf11d',1,'cpd']]],
   ['default_5fscale',['DEFAULT_SCALE',['../namespacecpd.html#a0dedec7810330a1a4e4e47a246a5ad69',1,'cpd']]],
-  ['default_5fsigma2',['default_sigma2',['../namespacecpd.html#af7fa64a361e61e622748ff828e0cb5f9',1,'cpd::default_sigma2(const Matrix &amp;fixed, const Matrix &amp;moving)'],['../namespacecpd.html#a9668ea7f1294377698888be196439cbc',1,'cpd::DEFAULT_SIGMA2()']]],
+  ['default_5fsigma2',['DEFAULT_SIGMA2',['../namespacecpd.html#a9668ea7f1294377698888be196439cbc',1,'cpd::DEFAULT_SIGMA2()'],['../namespacecpd.html#af7fa64a361e61e622748ff828e0cb5f9',1,'cpd::default_sigma2(const Matrix &amp;fixed, const Matrix &amp;moving)']]],
   ['default_5ftolerance',['DEFAULT_TOLERANCE',['../namespacecpd.html#a1c2505fb169ea031aaffaef336a4f362',1,'cpd']]],
-  ['denormalize',['denormalize',['../classcpd_1_1_nonrigid.html#a528f92a20db0fe9919de8eb6b3b64fcf',1,'cpd::Nonrigid::denormalize()'],['../classcpd_1_1_rigid.html#a36c9df1de17b1cb0ec6229bba521c2ff',1,'cpd::Rigid::denormalize()']]]
+  ['denormalize',['denormalize',['../classcpd_1_1_affine.html#ac9b858cb6e72dfd69b19e6b59369e937',1,'cpd::Affine::denormalize()'],['../classcpd_1_1_nonrigid.html#a528f92a20db0fe9919de8eb6b3b64fcf',1,'cpd::Nonrigid::denormalize()'],['../classcpd_1_1_rigid.html#a36c9df1de17b1cb0ec6229bba521c2ff',1,'cpd::Rigid::denormalize()']]]
 ];

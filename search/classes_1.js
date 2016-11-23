@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['probabilities',['Probabilities',['../structcpd_1_1_probabilities.html',1,'cpd']]]
+  ['nonrigid',['Nonrigid',['../classcpd_1_1_nonrigid.html',1,'cpd']]],
+  ['normalization',['Normalization',['../structcpd_1_1_normalization.html',1,'cpd']]]
 ];
