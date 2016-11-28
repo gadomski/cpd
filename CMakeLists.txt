@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8.12)
 set(CPD_LANGUAGES CXX C)
-set(CPD_VERSION 0.4.2)
+set(CPD_VERSION 0.4.3)
 set(CPD_SOVERSION 0)
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
