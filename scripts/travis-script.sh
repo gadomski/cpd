@@ -15,3 +15,8 @@ cmake .. \
 make
 CTEST_OUTPUT_ON_FAIULRE=1 make test
 make install
+cd ../examples
+mkdir build
+cd build
+cmake .. -DCMAKE_PREFIX_PATH=$HOME/local
+make

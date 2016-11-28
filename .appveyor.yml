@@ -35,4 +35,5 @@ build:
   verbosity: minimal
 
 test_script:
+  # TODO build examples/ on Windoze
   - ctest -V --output-on-failure -C Release
