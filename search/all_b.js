@@ -1,5 +1,9 @@
 var searchData=
 [
-  ['scale',['scale',['../structcpd_1_1_normalization.html#aebb84c5c7645db3477717676639d3359',1,'cpd::Normalization::scale()'],['../structcpd_1_1_rigid_1_1_result.html#ad3dbd3fa154bb76d3670fb02152c7ea7',1,'cpd::Rigid::Result::scale()'],['../classcpd_1_1_rigid.html#af241271a5e1142ca9bbd7555ad6a608b',1,'cpd::Rigid::scale()']]],
-  ['sigma2',['sigma2',['../structcpd_1_1_affine_1_1_result.html#a4683bd12b2e08d9ee5ef168d13a1f7b5',1,'cpd::Affine::Result::sigma2()'],['../structcpd_1_1_nonrigid_1_1_result.html#af9305d5f02bb50b9b07febb0eb7ba29b',1,'cpd::Nonrigid::Result::sigma2()'],['../structcpd_1_1_rigid_1_1_result.html#acfcc73677b222d1704d6f1fe022d6b8d',1,'cpd::Rigid::Result::sigma2()'],['../classcpd_1_1_runner.html#a5a19a64244f69d5268122568ef405af8',1,'cpd::Runner::sigma2()']]]
+  ['p1',['p1',['../structcpd_1_1_probabilities.html#a3c3b6b4968abef2e725fc6f80a60f036',1,'cpd::Probabilities']]],
+  ['points',['points',['../structcpd_1_1_affine_1_1_result.html#af48bb2bb0efc64a99949c5b31159e54c',1,'cpd::Affine::Result::points()'],['../structcpd_1_1_nonrigid_1_1_result.html#a0d05c5d8fd77927152013492368d4ab6',1,'cpd::Nonrigid::Result::points()'],['../structcpd_1_1_rigid_1_1_result.html#ac8300058c4bdf54df9c6e8d3a4011c1d',1,'cpd::Rigid::Result::points()']]],
+  ['probabilities',['Probabilities',['../structcpd_1_1_probabilities.html',1,'cpd']]],
+  ['probabilities_2ehpp',['probabilities.hpp',['../probabilities_8hpp.html',1,'']]],
+  ['pt1',['pt1',['../structcpd_1_1_probabilities.html#ab079d8d9378701f63b77ef658494586b',1,'cpd::Probabilities']]],
+  ['px',['px',['../structcpd_1_1_probabilities.html#a1ac83fe75b7efbf10c34afe2fde3861b',1,'cpd::Probabilities']]]
 ];

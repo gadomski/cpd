@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['nonrigid',['Nonrigid',['../classcpd_1_1_nonrigid.html#a4cde26216af54d793dbd24fac0bc0072',1,'cpd::Nonrigid::Nonrigid()'],['../namespacecpd.html#a71134b7d77f3627b01e942f189185fec',1,'cpd::nonrigid()']]],
-  ['normalize',['normalize',['../classcpd_1_1_runner.html#afc725463a360d36e5f24705870201de5',1,'cpd::Runner::normalize()'],['../namespacecpd.html#ad050057e85ca196ca6f4ef2b335ead95',1,'cpd::normalize()']]]
+  ['init',['init',['../classcpd_1_1_affine.html#a1824ec9207bf252fa526cc2daa94dab6',1,'cpd::Affine::init()'],['../classcpd_1_1_nonrigid.html#af0cbc91d4a4409cb4f5821934384ee19',1,'cpd::Nonrigid::init()'],['../classcpd_1_1_rigid.html#a413d558690404c5e2c16faf04603ccd9',1,'cpd::Rigid::init()']]]
 ];

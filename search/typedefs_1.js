@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['indexvector',['IndexVector',['../namespacecpd.html#ac12d823ab0054be6c021236accb7d212',1,'cpd']]]
+  ['defaultcomparer',['DefaultComparer',['../namespacecpd.html#a1637dde8b590f924a6a6f0d7b59a5abd',1,'cpd']]]
 ];

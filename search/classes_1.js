@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['nonrigid',['Nonrigid',['../classcpd_1_1_nonrigid.html',1,'cpd']]],
-  ['normalization',['Normalization',['../structcpd_1_1_normalization.html',1,'cpd']]]
+  ['directcomparer',['DirectComparer',['../classcpd_1_1_direct_comparer.html',1,'cpd']]]
 ];

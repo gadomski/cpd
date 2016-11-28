@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['l',['l',['../structcpd_1_1_probabilities.html#aa7dcb64c047451647a44ad0f81ca44b7',1,'cpd::Probabilities']]],
-  ['logger_5fname',['LOGGER_NAME',['../namespacecpd.html#a8051fdf3762fd08b08c54a4f2cdd00d1',1,'cpd']]],
-  ['logging_2ehpp',['logging.hpp',['../logging_8hpp.html',1,'']]]
+  ['fgt_2ehpp',['fgt.hpp',['../fgt_8hpp.html',1,'']]],
+  ['fgtcomparer',['FgtComparer',['../classcpd_1_1_fgt_comparer.html',1,'cpd']]],
+  ['fgtmethod',['FgtMethod',['../namespacecpd.html#a0ba4b5279d597c3f9c2da70713fb8f4b',1,'cpd']]],
+  ['fixed',['fixed',['../structcpd_1_1_normalization.html#a2db2968f4d05665eaa821f9dbc0d7b4c',1,'cpd::Normalization']]],
+  ['fixed_5fmean',['fixed_mean',['../structcpd_1_1_normalization.html#a1133da5c2244c81be1bafa44e1b17742',1,'cpd::Normalization']]]
 ];

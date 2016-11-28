@@ -86,6 +86,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
@@ -100,6 +101,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcpd_1_1_affine.html">Affine</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An affine transformation.  <a href="classcpd_1_1_affine.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcpd_1_1_direct_comparer.html">DirectComparer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Use Myronenko's slow direct method to calculate probabilities.  <a href="classcpd_1_1_direct_comparer.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcpd_1_1_fgt_comparer.html">FgtComparer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Use the fgt library to calculate probabilities.  <a href="classcpd_1_1_fgt_comparer.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcpd_1_1_nonrigid.html">Nonrigid</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A nonrigid registration.  <a href="classcpd_1_1_nonrigid.html#details">More...</a><br /></td></tr>
@@ -131,6 +138,18 @@ Typedefs</h2></td></tr>
 <tr class="memitem:a740dba00ff3c8119a4c4562829439db2"><td class="memItemLeft" align="right" valign="top">typedef Eigen::ArrayXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecpd.html#a740dba00ff3c8119a4c4562829439db2">Array</a></td></tr>
 <tr class="memdesc:a740dba00ff3c8119a4c4562829439db2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Typedef for our specific type of array.  <a href="#a740dba00ff3c8119a4c4562829439db2">More...</a><br /></td></tr>
 <tr class="separator:a740dba00ff3c8119a4c4562829439db2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1637dde8b590f924a6a6f0d7b59a5abd"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="classcpd_1_1_direct_comparer.html">DirectComparer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecpd.html#a1637dde8b590f924a6a6f0d7b59a5abd">DefaultComparer</a></td></tr>
+<tr class="memdesc:a1637dde8b590f924a6a6f0d7b59a5abd"><td class="mdescLeft">&#160;</td><td class="mdescRight">The default comparer.  <a href="#a1637dde8b590f924a6a6f0d7b59a5abd">More...</a><br /></td></tr>
+<tr class="separator:a1637dde8b590f924a6a6f0d7b59a5abd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:a0ba4b5279d597c3f9c2da70713fb8f4b"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecpd.html#a0ba4b5279d597c3f9c2da70713fb8f4b">FgtMethod</a> { <a class="el" href="namespacecpd.html#a0ba4b5279d597c3f9c2da70713fb8f4baa658b5b756e7e4a0ccc033b0d2c792b8">FgtMethod::DirectTree</a>, 
+<a class="el" href="namespacecpd.html#a0ba4b5279d597c3f9c2da70713fb8f4ba586dabf3a45686768350aa3b3669b460">FgtMethod::Ifgt</a>, 
+<a class="el" href="namespacecpd.html#a0ba4b5279d597c3f9c2da70713fb8f4bae95589f4d6357f5680d489ad6997f338">FgtMethod::Switched</a>
+ }<tr class="memdesc:a0ba4b5279d597c3f9c2da70713fb8f4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Choosing an fgt method.  <a href="namespacecpd.html#a0ba4b5279d597c3f9c2da70713fb8f4b">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:a0ba4b5279d597c3f9c2da70713fb8f4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -198,6 +217,15 @@ Variables</h2></td></tr>
 <tr class="memitem:a481ccb4650cc981d2b7312773f90b74b"><td class="memItemLeft" align="right" valign="top">const bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecpd.html#a481ccb4650cc981d2b7312773f90b74b">DEFAULT_CORRESPONDENCE</a> = false</td></tr>
 <tr class="memdesc:a481ccb4650cc981d2b7312773f90b74b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether correspondence vector should be computed by default.  <a href="#a481ccb4650cc981d2b7312773f90b74b">More...</a><br /></td></tr>
 <tr class="separator:a481ccb4650cc981d2b7312773f90b74b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a99ba37838c2f1b5e1c12352efd363598"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecpd.html#a99ba37838c2f1b5e1c12352efd363598">DEFAULT_EPSILON</a> = 1e-4</td></tr>
+<tr class="memdesc:a99ba37838c2f1b5e1c12352efd363598"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default error tolerance for fgt.  <a href="#a99ba37838c2f1b5e1c12352efd363598">More...</a><br /></td></tr>
+<tr class="separator:a99ba37838c2f1b5e1c12352efd363598"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae972c6ce9278a8880a0396e24f495b3e"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespacecpd.html#a0ba4b5279d597c3f9c2da70713fb8f4b">FgtMethod</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecpd.html#ae972c6ce9278a8880a0396e24f495b3e">DEFAULT_METHOD</a> = <a class="el" href="namespacecpd.html#a0ba4b5279d597c3f9c2da70713fb8f4baa658b5b756e7e4a0ccc033b0d2c792b8">FgtMethod::DirectTree</a></td></tr>
+<tr class="memdesc:ae972c6ce9278a8880a0396e24f495b3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default Fgt method.  <a href="#ae972c6ce9278a8880a0396e24f495b3e">More...</a><br /></td></tr>
+<tr class="separator:ae972c6ce9278a8880a0396e24f495b3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac85cc22905296a4d4235c2781a0245c5"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecpd.html#ac85cc22905296a4d4235c2781a0245c5">DEFAULT_BREAKPOINT</a> = 0.2</td></tr>
+<tr class="memdesc:ac85cc22905296a4d4235c2781a0245c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default ifgt-&gt;direct-tree breakpoint for fgt.  <a href="#ac85cc22905296a4d4235c2781a0245c5">More...</a><br /></td></tr>
+<tr class="separator:ac85cc22905296a4d4235c2781a0245c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Top-level cpd namespace. </p>
@@ -213,6 +241,20 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Typedef for our specific type of array. </p>
+
+</div>
+</div>
+<a class="anchor" id="a1637dde8b590f924a6a6f0d7b59a5abd"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef <a class="el" href="classcpd_1_1_direct_comparer.html">DirectComparer</a> <a class="el" href="namespacecpd.html#a1637dde8b590f924a6a6f0d7b59a5abd">cpd::DefaultComparer</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The default comparer. </p>
 
 </div>
 </div>
@@ -255,6 +297,42 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Typedef for our specific type of vector. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a class="anchor" id="a0ba4b5279d597c3f9c2da70713fb8f4b"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="namespacecpd.html#a0ba4b5279d597c3f9c2da70713fb8f4b">cpd::FgtMethod</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Choosing an fgt method. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a class="anchor" id="a0ba4b5279d597c3f9c2da70713fb8f4baa658b5b756e7e4a0ccc033b0d2c792b8"></a>DirectTree&#160;</td><td class="fielddoc">
+<p>Use the direct tree method. </p>
+<p>This is the standard transform but with simplification via clustering. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a0ba4b5279d597c3f9c2da70713fb8f4ba586dabf3a45686768350aa3b3669b460"></a>Ifgt&#160;</td><td class="fielddoc">
+<p>Use the improved fast gauss transform. </p>
+<p>This method does clustering simplifications and a series expansion to reduce the computational complexity, but works poorly with few points or small bandwidths. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a0ba4b5279d597c3f9c2da70713fb8f4bae95589f4d6357f5680d489ad6997f338"></a>Switched&#160;</td><td class="fielddoc">
+<p>Switch between DirectTree and Ifgt at a breakpoint. </p>
+</td></tr>
+</table>
 
 </div>
 </div>
@@ -521,6 +599,20 @@ template&lt;typename Transform &gt; </div>
 
 </div>
 </div>
+<a class="anchor" id="ac85cc22905296a4d4235c2781a0245c5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const double cpd::DEFAULT_BREAKPOINT = 0.2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Default ifgt-&gt;direct-tree breakpoint for fgt. </p>
+
+</div>
+</div>
 <a class="anchor" id="a481ccb4650cc981d2b7312773f90b74b"></a>
 <div class="memitem">
 <div class="memproto">
@@ -532,6 +624,20 @@ template&lt;typename Transform &gt; </div>
 </div><div class="memdoc">
 
 <p>Whether correspondence vector should be computed by default. </p>
+
+</div>
+</div>
+<a class="anchor" id="a99ba37838c2f1b5e1c12352efd363598"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const double cpd::DEFAULT_EPSILON = 1e-4</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Default error tolerance for fgt. </p>
 
 </div>
 </div>
@@ -560,6 +666,20 @@ template&lt;typename Transform &gt; </div>
 </div><div class="memdoc">
 
 <p>The default number of iterations allowed. </p>
+
+</div>
+</div>
+<a class="anchor" id="ae972c6ce9278a8880a0396e24f495b3e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="namespacecpd.html#a0ba4b5279d597c3f9c2da70713fb8f4b">FgtMethod</a> cpd::DEFAULT_METHOD = <a class="el" href="namespacecpd.html#a0ba4b5279d597c3f9c2da70713fb8f4baa658b5b756e7e4a0ccc033b0d2c792b8">FgtMethod::DirectTree</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Default Fgt method. </p>
 
 </div>
 </div>
