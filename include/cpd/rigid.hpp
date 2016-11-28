@@ -69,6 +69,18 @@ public:
     /// No modification of probabilities necessary.
     void modify_probabilities(Probabilities&) const {}
 
+    /// Returns whether this rigid transformation allows reflections.
+    bool allow_reflections() const { return m_allow_reflections; }
+
+    /// Sets whether this rigid allows reflections.
+    Rigid& allow_reflections(bool allow_reflections) {
+        m_allow_reflections = allow_reflections;
+        return *this;
+    }
+
+    /// Returns whether this rigid allows scaling.
+    bool scale() const { return m_scale; }
+
     /// Sets whether this rigid allows scaling or not.
     Rigid& scale(bool scale) {
         m_scale = scale;
