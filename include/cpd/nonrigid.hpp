@@ -57,6 +57,24 @@ public:
       , m_g()
       , m_w() {}
 
+    /// Returns the value for beta.
+    double beta() const { return m_beta; }
+
+    /// Sets the beta value.
+    Nonrigid& beta(double beta) {
+        m_beta = beta;
+        return *this;
+    }
+
+    /// Returns the lambda value.
+    double lambda() const { return m_lambda; }
+
+    /// Sets the lambda value.
+    Nonrigid& lambda(double lambda) {
+        m_lambda = lambda;
+        return *this;
+    }
+
     /// Initializes the nonrigid transformation.
     void init(const Matrix& fixed, const Matrix& moving);
 

@@ -73,17 +73,35 @@ public:
       , m_tolerance(DEFAULT_TOLERANCE)
       , m_correspondence(DEFAULT_CORRESPONDENCE) {}
 
+    /// Returrns whether the correspondence vector should be calculated.
+    bool correspondence() const { return m_correspondence; }
+
+    /// Sets whether the correspondence vector should be calculated.
+    Runner& correspondence(bool correspondence) {
+        m_correspondence = correspondence;
+        return *this;
+    }
+
+    /// Returns the maximum number of iterations allowed.
+    size_t max_iterations() const { return m_max_iterations; }
+
     /// Sets the maximum number of iterations allowed.
     Runner& max_iterations(size_t max_iterations) {
         m_max_iterations = max_iterations;
         return *this;
     }
 
+    /// Returns whether the points should be normalized before running.
+    bool normalize() const { return m_normalize; }
+
     /// Sets whether the points should be normalized before running.
     Runner& normalize(bool normalize) {
         m_normalize = normalize;
         return *this;
     }
+
+    /// Returns the sigma2 value.
+    double sigma2() const { return m_sigma2; }
 
     /// Sets the initial sigma2.
     ///
@@ -93,21 +111,21 @@ public:
         return *this;
     }
 
+    /// Returns the tolerance value.
+    double tolerance() const { return m_tolerance; }
+
     /// Sets the tolerance.
     Runner& tolerance(double tolerance) {
         m_tolerance = tolerance;
         return *this;
     }
 
+    /// Returns the outliers value.
+    double outliers() const { return m_outliers; }
+
     /// Sets the outlier weight.
     Runner& outliers(double outliers) {
         m_outliers = outliers;
-        return *this;
-    }
-
-    /// Sets whether the correspondence vector is computed.
-    Runner& correspondence(bool correspondence) {
-        m_correspondence = correspondence;
         return *this;
     }
 
