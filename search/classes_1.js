@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['directcomparer',['DirectComparer',['../classcpd_1_1_direct_comparer.html',1,'cpd']]]
+  ['comparer',['Comparer',['../classcpd_1_1_comparer.html',1,'cpd']]],
+  ['cpd_5ferror',['cpd_error',['../classcpd_1_1cpd__error.html',1,'cpd']]]
 ];

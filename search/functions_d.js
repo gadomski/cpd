@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['version',['version',['../namespacecpd.html#ad10c0656d758f11e9a06fb22dfc0c8fd',1,'cpd']]]
+  ['tolerance',['tolerance',['../classcpd_1_1_runner.html#a161a80237b86cf639766c7a0382ea8ea',1,'cpd::Runner::tolerance() const '],['../classcpd_1_1_runner.html#ade0816595d13db5638dbbbbea018f67d',1,'cpd::Runner::tolerance(double tolerance)']]]
 ];

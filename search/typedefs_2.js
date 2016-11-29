@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['indexvector',['IndexVector',['../namespacecpd.html#ac12d823ab0054be6c021236accb7d212',1,'cpd']]]
+  ['matrix',['Matrix',['../namespacecpd.html#ae17f59c1f6eeb435087329fc8c54081e',1,'cpd']]]
 ];

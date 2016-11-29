@@ -65,6 +65,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -100,6 +101,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
  <a href="classcpd_1_1_fgt_comparer.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="fgt_8hpp_source.html">fgt.hpp</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for cpd::FgtComparer:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="classcpd_1_1_fgt_comparer.png" usemap="#cpd::FgtComparer_map" alt=""/>
+  <map id="cpd::FgtComparer_map" name="cpd::FgtComparer_map">
+<area href="classcpd_1_1_comparer.html" title="An abstract base class. " alt="cpd::Comparer" shape="rect" coords="0,0,113,24"/>
+</map>
+ </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -115,6 +125,16 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a2617814f324d133d74321305edd4fda8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcpd_1_1_probabilities.html">Probabilities</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcpd_1_1_fgt_comparer.html#a2617814f324d133d74321305edd4fda8">compute</a> (const <a class="el" href="namespacecpd.html#ae17f59c1f6eeb435087329fc8c54081e">Matrix</a> &amp;fixed, const <a class="el" href="namespacecpd.html#ae17f59c1f6eeb435087329fc8c54081e">Matrix</a> &amp;moving, double sigma2, double outliers) const </td></tr>
 <tr class="memdesc:a2617814f324d133d74321305edd4fda8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the probabilities using the fgt library.  <a href="#a2617814f324d133d74321305edd4fda8">More...</a><br /></td></tr>
 <tr class="separator:a2617814f324d133d74321305edd4fda8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pub_static_methods_classcpd_1_1_comparer"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_classcpd_1_1_comparer')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="classcpd_1_1_comparer.html">cpd::Comparer</a></td></tr>
+<tr class="memitem:a84e6880ce3b8a6d43512f5ef7e5ea776 inherit pub_static_methods_classcpd_1_1_comparer"><td class="memItemLeft" align="right" valign="top">static std::unique_ptr&lt; <a class="el" href="classcpd_1_1_comparer.html">Comparer</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcpd_1_1_comparer.html#a84e6880ce3b8a6d43512f5ef7e5ea776">create</a> ()</td></tr>
+<tr class="memdesc:a84e6880ce3b8a6d43512f5ef7e5ea776 inherit pub_static_methods_classcpd_1_1_comparer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the default comparer.  <a href="#a84e6880ce3b8a6d43512f5ef7e5ea776">More...</a><br /></td></tr>
+<tr class="separator:a84e6880ce3b8a6d43512f5ef7e5ea776 inherit pub_static_methods_classcpd_1_1_comparer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0fcf5dd87eec2610c07e6faa02fb195 inherit pub_static_methods_classcpd_1_1_comparer"><td class="memItemLeft" align="right" valign="top">static std::unique_ptr&lt; <a class="el" href="classcpd_1_1_comparer.html">Comparer</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcpd_1_1_comparer.html#ab0fcf5dd87eec2610c07e6faa02fb195">from_name</a> (const std::string &amp;name)</td></tr>
+<tr class="memdesc:ab0fcf5dd87eec2610c07e6faa02fb195 inherit pub_static_methods_classcpd_1_1_comparer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a default comparer from the provided name.  <a href="#ab0fcf5dd87eec2610c07e6faa02fb195">More...</a><br /></td></tr>
+<tr class="separator:ab0fcf5dd87eec2610c07e6faa02fb195 inherit pub_static_methods_classcpd_1_1_comparer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Use the fgt library to calculate probabilities. </p>
@@ -148,6 +168,9 @@ Public Member Functions</h2></td></tr>
 <a class="anchor" id="a2617814f324d133d74321305edd4fda8"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="structcpd_1_1_probabilities.html">Probabilities</a> cpd::FgtComparer::compute </td>
@@ -179,9 +202,16 @@ Public Member Functions</h2></td></tr>
           <td></td><td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Computes the probabilities using the fgt library. </p>
+
+<p>Implements <a class="el" href="classcpd_1_1_comparer.html#a131072a57f8c6dc7858143b3b3d05c08">cpd::Comparer</a>.</p>
 
 </div>
 </div>

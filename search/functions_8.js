@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['nonrigid',['Nonrigid',['../classcpd_1_1_nonrigid.html#a4cde26216af54d793dbd24fac0bc0072',1,'cpd::Nonrigid::Nonrigid()'],['../namespacecpd.html#a71134b7d77f3627b01e942f189185fec',1,'cpd::nonrigid()']]],
-  ['normalize',['normalize',['../classcpd_1_1_runner.html#ad7a39dfeacadb9ceb7ef66beae4dafce',1,'cpd::Runner::normalize() const '],['../classcpd_1_1_runner.html#afc725463a360d36e5f24705870201de5',1,'cpd::Runner::normalize(bool normalize)'],['../namespacecpd.html#ad050057e85ca196ca6f4ef2b335ead95',1,'cpd::normalize()']]]
+  ['matrix_5ffrom_5fpath',['matrix_from_path',['../namespacecpd.html#a9f75bb5c51ea24db8c45439a4b1017a5',1,'cpd']]],
+  ['max_5fiterations',['max_iterations',['../classcpd_1_1_runner.html#a447c78bea0b973b20aa736d2bbd57982',1,'cpd::Runner::max_iterations() const '],['../classcpd_1_1_runner.html#a76d51ba2bce31af9a4c0ba4b05711897',1,'cpd::Runner::max_iterations(size_t max_iterations)']]],
+  ['method',['method',['../classcpd_1_1_fgt_comparer.html#a0f7fdc81ff5fc961d70d15d67364bbcb',1,'cpd::FgtComparer']]],
+  ['modify_5fprobabilities',['modify_probabilities',['../classcpd_1_1_affine.html#a8518a3413fc24ae8efe4c00fcfc3e484',1,'cpd::Affine::modify_probabilities()'],['../classcpd_1_1_nonrigid.html#afce4538a97e123bcb1b984340719e7ab',1,'cpd::Nonrigid::modify_probabilities()'],['../classcpd_1_1_rigid.html#a1fdbd02179c70ad1bf5f18f900e4944b',1,'cpd::Rigid::modify_probabilities()']]]
 ];

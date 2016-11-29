@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['default_2ehpp',['default.hpp',['../default_8hpp.html',1,'']]],
   ['default_5fallow_5freflections',['DEFAULT_ALLOW_REFLECTIONS',['../namespacecpd.html#abd1aae56347de804a3bb5e3fd18e14a1',1,'cpd']]],
   ['default_5fbeta',['DEFAULT_BETA',['../namespacecpd.html#aad955a1cb1ff4e49ef6eeff7d7785578',1,'cpd']]],
   ['default_5fbreakpoint',['DEFAULT_BREAKPOINT',['../namespacecpd.html#ac85cc22905296a4d4235c2781a0245c5',1,'cpd']]],
@@ -14,7 +13,6 @@ var searchData=
   ['default_5fscale',['DEFAULT_SCALE',['../namespacecpd.html#a0dedec7810330a1a4e4e47a246a5ad69',1,'cpd']]],
   ['default_5fsigma2',['DEFAULT_SIGMA2',['../namespacecpd.html#a9668ea7f1294377698888be196439cbc',1,'cpd::DEFAULT_SIGMA2()'],['../namespacecpd.html#af7fa64a361e61e622748ff828e0cb5f9',1,'cpd::default_sigma2(const Matrix &amp;fixed, const Matrix &amp;moving)']]],
   ['default_5ftolerance',['DEFAULT_TOLERANCE',['../namespacecpd.html#a1c2505fb169ea031aaffaef336a4f362',1,'cpd']]],
-  ['defaultcomparer',['DefaultComparer',['../namespacecpd.html#a1637dde8b590f924a6a6f0d7b59a5abd',1,'cpd']]],
   ['denormalize',['denormalize',['../classcpd_1_1_affine.html#ac9b858cb6e72dfd69b19e6b59369e937',1,'cpd::Affine::denormalize()'],['../classcpd_1_1_nonrigid.html#a528f92a20db0fe9919de8eb6b3b64fcf',1,'cpd::Nonrigid::denormalize()'],['../classcpd_1_1_rigid.html#a36c9df1de17b1cb0ec6229bba521c2ff',1,'cpd::Rigid::denormalize()']]],
   ['direct_2ehpp',['direct.hpp',['../direct_8hpp.html',1,'']]],
   ['directcomparer',['DirectComparer',['../classcpd_1_1_direct_comparer.html',1,'cpd']]],

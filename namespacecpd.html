@@ -102,6 +102,12 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcpd_1_1_affine.html">Affine</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An affine transformation.  <a href="classcpd_1_1_affine.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcpd_1_1_comparer.html">Comparer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An abstract base class.  <a href="classcpd_1_1_comparer.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcpd_1_1cpd__error.html">cpd_error</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for all cpd errors.  <a href="classcpd_1_1cpd__error.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcpd_1_1_direct_comparer.html">DirectComparer</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Use Myronenko's slow direct method to calculate probabilities.  <a href="classcpd_1_1_direct_comparer.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -123,6 +129,9 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcpd_1_1_runner.html">Runner</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Template class for running cpd registrations.  <a href="classcpd_1_1_runner.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcpd_1_1unknown__comparer.html">unknown_comparer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The requested comparer is unknown.  <a href="classcpd_1_1unknown__comparer.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
@@ -138,9 +147,6 @@ Typedefs</h2></td></tr>
 <tr class="memitem:a740dba00ff3c8119a4c4562829439db2"><td class="memItemLeft" align="right" valign="top">typedef Eigen::ArrayXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecpd.html#a740dba00ff3c8119a4c4562829439db2">Array</a></td></tr>
 <tr class="memdesc:a740dba00ff3c8119a4c4562829439db2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Typedef for our specific type of array.  <a href="#a740dba00ff3c8119a4c4562829439db2">More...</a><br /></td></tr>
 <tr class="separator:a740dba00ff3c8119a4c4562829439db2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1637dde8b590f924a6a6f0d7b59a5abd"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="classcpd_1_1_direct_comparer.html">DirectComparer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecpd.html#a1637dde8b590f924a6a6f0d7b59a5abd">DefaultComparer</a></td></tr>
-<tr class="memdesc:a1637dde8b590f924a6a6f0d7b59a5abd"><td class="mdescLeft">&#160;</td><td class="mdescRight">The default comparer.  <a href="#a1637dde8b590f924a6a6f0d7b59a5abd">More...</a><br /></td></tr>
-<tr class="separator:a1637dde8b590f924a6a6f0d7b59a5abd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -241,20 +247,6 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Typedef for our specific type of array. </p>
-
-</div>
-</div>
-<a class="anchor" id="a1637dde8b590f924a6a6f0d7b59a5abd"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef <a class="el" href="classcpd_1_1_direct_comparer.html">DirectComparer</a> <a class="el" href="namespacecpd.html#a1637dde8b590f924a6a6f0d7b59a5abd">cpd::DefaultComparer</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>The default comparer. </p>
 
 </div>
 </div>
