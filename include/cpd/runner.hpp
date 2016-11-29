@@ -20,7 +20,8 @@
 
 #pragma once
 
-#include <cpd/comparer/default.hpp>
+#include <cpd/comparer/base.hpp>
+#include <cpd/comparer/direct.hpp>
 #include <cpd/logging.hpp>
 #include <cpd/normalize.hpp>
 #include <cpd/utils.hpp>
@@ -43,14 +44,18 @@ const bool DEFAULT_CORRESPONDENCE = false;
 
 /// Template class for running cpd registrations.
 ///
-/// The two template arguments set the type of transform (e.g. Rigid) and the
-/// type of probability computer (e.g. FgtProbabilityComputer).
-template <typename Transform, typename ProbabilityComputer>
+/// The template argument is the type of transform (e.g. Rigid).
+template <typename Transform>
 class Runner {
 public:
     /// Creates a default Runner.
     Runner()
-      : m_probability_computer(ProbabilityComputer())
+      : Runner(Transform()) {}
+
+    /// Creates a runner with a pre-constructed probability computer and
+    /// transform.
+    Runner(Transform transform)
+      : m_comparer(Comparer::create())
       , m_correspondence(DEFAULT_CORRESPONDENCE)
       , m_logger(spdlog::get(LOGGER_NAME))
       , m_max_iterations(DEFAULT_MAX_ITERATIONS)
@@ -58,20 +63,13 @@ public:
       , m_outliers(DEFAULT_OUTLIERS)
       , m_sigma2(DEFAULT_SIGMA2)
       , m_tolerance(DEFAULT_TOLERANCE)
-      , m_transform(Transform()) {}
+      , m_transform(transform) {}
 
-    /// Creates a runner with a pre-constructed probability computer and
-    /// transform.
-    Runner(Transform transform, ProbabilityComputer probability_computer)
-      : m_probability_computer(probability_computer)
-      , m_transform(transform)
-      , m_max_iterations(DEFAULT_MAX_ITERATIONS)
-      , m_logger(spdlog::get(LOGGER_NAME))
-      , m_normalize(DEFAULT_NORMALIZE)
-      , m_outliers(DEFAULT_OUTLIERS)
-      , m_sigma2(DEFAULT_SIGMA2)
-      , m_tolerance(DEFAULT_TOLERANCE)
-      , m_correspondence(DEFAULT_CORRESPONDENCE) {}
+    /// Sets the comparer.
+    Runner& comparer(std::unique_ptr<Comparer> comparer) {
+        m_comparer = std::move(comparer);
+        return *this;
+    };
 
     /// Returrns whether the correspondence vector should be calculated.
     bool correspondence() const { return m_correspondence; }
@@ -165,8 +163,8 @@ public:
         }
         while (iter < m_max_iterations && ntol > m_tolerance &&
                result.sigma2 > 10 * std::numeric_limits<double>::epsilon()) {
-            auto probabilities = m_probability_computer.compute(
-                *fixed_ptr, result.points, result.sigma2, m_outliers);
+            auto probabilities = m_comparer->compute(*fixed_ptr, result.points,
+                                                     result.sigma2, m_outliers);
             m_transform.modify_probabilities(probabilities);
             ntol = std::abs((probabilities.l - l) / probabilities.l);
             if (m_logger) {
@@ -194,7 +192,7 @@ public:
     }
 
 private:
-    ProbabilityComputer m_probability_computer;
+    std::unique_ptr<Comparer> m_comparer;
     bool m_correspondence;
     std::shared_ptr<spdlog::logger> m_logger;
     size_t m_max_iterations;
@@ -208,7 +206,7 @@ private:
 /// Runs a registration with a default comparer.
 template <typename Transform>
 typename Transform::Result run(const Matrix& fixed, const Matrix& source) {
-    Runner<Transform, DefaultComparer> runner;
+    Runner<Transform> runner;
     return runner.run(fixed, source);
 }
 }

@@ -20,6 +20,7 @@
 
 #pragma once
 
+#include <cpd/comparer/base.hpp>
 #include <cpd/probabilities.hpp>
 #include <fgt.hpp>
 
@@ -49,10 +50,11 @@ const FgtMethod DEFAULT_METHOD = FgtMethod::DirectTree;
 const double DEFAULT_BREAKPOINT = 0.2;
 
 /// Use the fgt library to calculate probabilities.
-class FgtComparer {
+class FgtComparer : public Comparer {
 public:
     FgtComparer()
-      : m_breakpoint(DEFAULT_BREAKPOINT)
+      : Comparer()
+      , m_breakpoint(DEFAULT_BREAKPOINT)
       , m_epsilon(DEFAULT_EPSILON)
       , m_method(DEFAULT_METHOD) {}
 

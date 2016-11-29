@@ -46,6 +46,7 @@ configure_file(src/version.cpp.in "${PROJECT_BINARY_DIR}/src/version.cpp")
 set(library_src
     src/affine.cpp
     src/affinity.cpp
+    src/comparer/base.cpp
     src/comparer/direct.cpp
     src/nonrigid.cpp
     src/normalize.cpp
@@ -84,6 +85,7 @@ endif()
 install(TARGETS Library-C++ DESTINATION lib EXPORT cpd-targets)
 install(FILES
     include/cpd/affine.hpp
+    include/cpd/exceptions.hpp
     include/cpd/logging.hpp
     include/cpd/matrix.hpp
     include/cpd/nonrigid.hpp
@@ -96,7 +98,7 @@ install(FILES
     DESTINATION include/cpd
     )
 install(FILES
-    include/cpd/comparer/default.hpp
+    include/cpd/comparer/base.hpp
     include/cpd/comparer/direct.hpp
     DESTINATION include/cpd/comparer
     )

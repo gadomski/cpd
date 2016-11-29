@@ -17,7 +17,7 @@
 
 #include <Eigen/Geometry>
 
-#include "cpd/comparer/default.hpp"
+#include "cpd/comparer/direct.hpp"
 #include "cpd/matrix.hpp"
 #include "cpd/rigid.hpp"
 #include "cpd/runner.hpp"
@@ -56,9 +56,9 @@ public:
 
 TEST_F(FishTest, AllowScaling) {
     m_fish_transformed = test_data_matrix("fish-distorted.csv");
-    DefaultComparer computer;
+    DirectComparer comparer;
     Probabilities probabilities =
-        computer.compute(m_fish, m_fish_transformed, 1.0, 0.1);
+        comparer.compute(m_fish, m_fish_transformed, 1.0, 0.1);
     Rigid rigid;
     rigid.scale(true);
     auto result = rigid.compute(m_fish, m_fish_transformed, probabilities, 1.0);
@@ -67,7 +67,7 @@ TEST_F(FishTest, AllowScaling) {
 
 TEST_F(FishTest, NoScaling) {
     m_fish_transformed = test_data_matrix("fish-distorted.csv");
-    DefaultComparer computer;
+    DirectComparer computer;
     Probabilities probabilities =
         computer.compute(m_fish, m_fish_transformed, 1.0, 0.1);
     Rigid rigid;
@@ -87,7 +87,7 @@ TEST_F(FishTest, Normalize) {
 }
 
 TEST_F(FishTest, DifferentlySized) {
-    Runner<Rigid, DirectComparer> runner;
+    Runner<Rigid> runner;
     runner.normalize(false);
     Rigid::Result result = runner.run(
         m_fish, m_fish.block(0, 0, m_fish.rows() - 1, m_fish.cols()));

@@ -23,13 +23,13 @@
 namespace cpd {
 
 TEST_F(FishTest, Works) {
-    Runner<Nonrigid, DirectComparer> runner;
+    Runner<Nonrigid> runner;
     auto result = runner.run(m_fish, m_fish_transformed);
     EXPECT_TRUE(result.points.isApprox(m_fish, 0.1));
 }
 
 TEST_F(FaceTest, Works) {
-    Runner<Nonrigid, DirectComparer> runner;
+    Runner<Nonrigid> runner;
     runner.normalize(false).sigma2(1.0).outliers(0.1);
     auto result = runner.run(m_face, m_face_transformed);
     EXPECT_TRUE(result.points.row(0).isApprox(m_face.row(0), 0.01));
