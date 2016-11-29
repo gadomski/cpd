@@ -11,6 +11,7 @@ function(cpd_example name)
     set_target_properties(${target} PROPERTIES OUTPUT_NAME ${name})
     target_link_libraries(${target} PRIVATE Cpd::Library-C++ ${ARGN})
     target_include_directories(${target} PRIVATE "${DOCOPT_DIR}")
+    target_compile_options(${target} PRIVATE -std=c++11)
 endfunction()
 
 option(WITH_RIGID "Build the rigid registration example" ON)
