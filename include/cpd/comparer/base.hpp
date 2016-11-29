@@ -16,17 +16,33 @@
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 /// \file
-/// Typedef the default comparer.
-///
-/// For now, this is hardcoded, but down the road this could be configured via
-/// CMake.
+/// Base class for comparers.
 
 #pragma once
 
-#include <cpd/comparer/direct.hpp>
+#include <cpd/matrix.hpp>
+#include <cpd/probabilities.hpp>
+#include <memory>
 
 namespace cpd {
 
-/// The default comparer.
-typedef DirectComparer DefaultComparer;
+/// An abstract base class.
+///
+/// Comparers compare two data sets and produce several probability matrices
+/// that describe the alignment between those two data sets.
+class Comparer {
+public:
+    /// Creates the default comparer.
+    static std::unique_ptr<Comparer> create();
+
+    /// Creates a default comparer from the provided name.
+    ///
+    /// Acceptable names are "direct" and (if cpd is compiled with fgt support)
+    /// "fgt").
+    static std::unique_ptr<Comparer> from_name(const std::string& name);
+
+    /// Computes the probabilities of alignment between fixed and moving.
+    virtual Probabilities compute(const Matrix& fixed, const Matrix& moving,
+                                  double sigma2, double outliers) const = 0;
+};
 }

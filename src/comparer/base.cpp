@@ -15,21 +15,28 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-/// \file
-/// Compute correpondence proabilities using the direct method.
-
-#pragma once
-
-#include <cpd/comparer/base.hpp>
-#include <cpd/matrix.hpp>
-#include <cpd/probabilities.hpp>
+#include "cpd/comparer/base.hpp"
+#include "cpd/comparer/direct.hpp"
+#include "cpd/exceptions.hpp"
+#ifdef CPD_WITH_FGT
+#include "cpd/comparer/fgt.hpp"
+#endif
 
 namespace cpd {
 
-/// Use Myronenko's slow direct method to calculate probabilities.
-class DirectComparer : public Comparer {
-public:
-    Probabilities compute(const Matrix& fixed, const Matrix& moving,
-                          double sigma2, double outliers) const;
-};
+std::unique_ptr<Comparer> Comparer::create() {
+    return std::unique_ptr<Comparer>(new DirectComparer());
+}
+
+std::unique_ptr<Comparer> Comparer::from_name(const std::string& name) {
+    if (name == "direct") {
+        return std::unique_ptr<Comparer>(new DirectComparer());
+    }
+#ifdef CPD_WITH_FGT
+    if (name == "fgt") {
+        return std::unique_ptr<Comparer>(new FgtComparer());
+    }
+#endif
+    throw unknown_comparer(name);
+}
 }

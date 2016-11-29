@@ -40,14 +40,13 @@ int main(int argc, char** argv) {
 More advanced configuration can be accomplished by using a `Runner`:
 
 ```cpp
-#include <cpd/comparer.hpp>
 #include <cpd/rigid.hpp>
 #include <cpd/runner.hpp>
 
 int main(int argc, char** argv) {
     cpd::Matrix fixed = load_points_from_somewhere();
     cpd::Matrix moving = load_points_from_somewhere();
-    cpd::Runner<cpd::Rigid, cpd::FgtComparer> runner;
+    cpd::Runner<cpd::Rigid> runner;
     runner.correspondence(true).outliers(0.2);
     cpd::Rigid::Result result = runner.run(fixed, moving);
 }

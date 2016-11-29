@@ -16,20 +16,23 @@
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 /// \file
-/// Compute correpondence proabilities using the direct method.
+/// Exceptions.
 
 #pragma once
 
-#include <cpd/comparer/base.hpp>
-#include <cpd/matrix.hpp>
-#include <cpd/probabilities.hpp>
-
 namespace cpd {
 
-/// Use Myronenko's slow direct method to calculate probabilities.
-class DirectComparer : public Comparer {
+/// Base class for all cpd errors.
+class cpd_error : public std::runtime_error {
 public:
-    Probabilities compute(const Matrix& fixed, const Matrix& moving,
-                          double sigma2, double outliers) const;
+    cpd_error(const std::string& what)
+      : std::runtime_error(what) {}
+};
+
+/// The requested comparer is unknown.
+class unknown_comparer : public cpd_error {
+public:
+    unknown_comparer(const std::string& name)
+      : cpd_error(name) {}
 };
 }
