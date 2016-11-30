@@ -7,13 +7,22 @@ find_package(Cpd REQUIRED)
 find_package(PDAL QUIET)
 
 function(cpd_example name)
+    set(options WITH_DOCOPT)
+    set(multi_value_args LINK_LIBRARIES)
+    cmake_parse_arguments(cpd_example "${options}" "" "${multi_value_args}" ${ARGN})
+
     set(target ${name}-example)
-    set(multi_value_args ADDITIONAL_SOURCES LINK_LIBRARIES INCLUDE_DIRECTORIES)
-    cmake_parse_arguments(cpd_example "" "" "${multi_value_args}" ${ARGN})
-    add_executable(${target} ${name}.cpp ${cpd_example_ADDITIONAL_SOURCES})
+    set(src ${name}.cpp)
+    if(cpd_example_WITH_DOCOPT)
+        list(APPEND src "${DOCOPT_DIR}/docopt.cpp")
+    endif()
+
+    add_executable(${target} ${src})
     set_target_properties(${target} PROPERTIES OUTPUT_NAME ${name})
     target_link_libraries(${target} PRIVATE Cpd::Library-C++ ${cpd_example_LINK_LIBRARIES})
-    target_include_directories(${target} PRIVATE ${cpd_example_INCLUDE_DIRECTORIES})
+    if(cpd_example_WITH_DOCOPT)
+        target_include_directories(${target} PRIVATE "${DOCOPT_DIR}")
+    endif()
 endfunction()
 
 option(WITH_RIGID "Build the rigid registration example" ON)
@@ -24,8 +33,5 @@ endif()
 option(WITH_ARTIFICIAL_DISPLACEMENT "Build the artificial displacement example (requires PDAL)" ${PDAL_FOUND})
 if(${WITH_ARTIFICIAL_DISPLACEMENT})
     find_package(PDAL REQUIRED)
-    cpd_example(artificial-displacement
-        ADDITIONAL_SOURCES "${DOCOPT_DIR}/docopt.cpp"
-        INCLUDE_DIRECTORIES "${DOCOPT_DIR}"
-        LINK_LIBRARIES ${PDAL_LIBRARIES})
+    cpd_example(artificial-displacement WITH_DOCOPT LINK_LIBRARIES ${PDAL_LIBRARIES})
 endif()
