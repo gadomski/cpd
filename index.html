@@ -83,7 +83,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="contents">
 <div class="textblock"><p><b>Coherent Point Drift (CPD)</b> is a point-set registration algorithm, originally developed by <a href="https://sites.google.com/site/myronenko/research/cpd">Andriy Myronenko</a> et al. This is a C++ library that runs CPD.</p>
 <p>CPD can be compared to <a href="https://en.wikipedia.org/wiki/Iterative_closest_point">Iterative Closest Point</a>, another point-set registration algorithm that is widely used. While ICP minimizes point-to-point distances, CPD uses a <a href="https://en.wikipedia.org/wiki/Mixture_model">Gaussian Mixture Model</a> to minimize the error between a point and <em>all other points</em>. If you're thinking that this is very computationally intensive, you're right — both the CPD algorithm and the underlying error calculations take a lot of time, which is why we've created <a href="https://github.com/gadomski/fgt">fgt</a> to speed up those Gauss transforms. We hope this library provides a freer and more performant alternative to the original reference Matlab implementation.</p>
-<p>This library supports two variants of CPD:</p>
+<p>This library supports three variants of CPD:</p>
 <ul>
 <li><b>rigid</b>: Uses a rigid transformation (i.e. rotation and translation, with an optional scaling) to align the two datasets.</li>
 <li><b>affine</b>: Uses an affine transformation, with a translation, to align the two datasets.</li>
