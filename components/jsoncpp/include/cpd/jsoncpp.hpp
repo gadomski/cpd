@@ -15,19 +15,19 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-#include <cpd/jsoncpp.hpp>
-#include <cpd/rigid.hpp>
-#include <iostream>
+#pragma once
 
-int main(int argc, char** argv) {
-    if (argc != 3) {
-        std::cout << "ERROR: invalid usage" << std::endl;
-        std::cout << "USAGE: cpd-rigid <fixed> <moving>" << std::endl;
-        return 1;
-    }
-    cpd::Matrix fixed = cpd::matrix_from_path(argv[1]);
-    cpd::Matrix moving = cpd::matrix_from_path(argv[2]);
-    cpd::RigidResult result = cpd::rigid(fixed, moving);
-    std::cout << cpd::to_json(result) << std::endl;
-    return 0;
+#include <cpd/affine.hpp>
+#include <cpd/nonrigid.hpp>
+#include <cpd/rigid.hpp>
+#include <json/json.h>
+#include <ostream>
+
+namespace cpd {
+
+Json::Value to_json(const Result& result);
+Json::Value to_json(const RigidResult& result);
+Json::Value to_json(const AffineResult& result);
+Json::Value to_json(const NonrigidResult& result);
+Json::Value to_json(const Matrix& matrix);
 }

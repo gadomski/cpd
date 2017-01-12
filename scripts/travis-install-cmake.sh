@@ -3,6 +3,6 @@
 
 set -ex
 
-wget https://github.com/Viq111/travis-container-packets/releases/download/cmake-2.8.12/cmake.tar.bz2
+wget https://github.com/Viq111/travis-container-packets/releases/download/cmake-3.1.2/cmake.tar.bz2
 tar xjf cmake.tar.bz2
 rm cmake.tar.bz2

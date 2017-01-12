@@ -1,5 +1,5 @@
 // cpd - Coherent Point Drift
-// Copyright (C) 2016 Pete Gadomski <pete.gadomski@gmail.com>
+// Copyright (C) 2017 Pete Gadomski <pete.gadomski@gmail.com>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -16,15 +16,12 @@
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 /// \file
-/// Nonrigid cpd registration.
+///
+/// Nonrigid coherent point drift transform.
 
 #pragma once
 
-#include <chrono>
-
-#include <cpd/matrix.hpp>
-#include <cpd/normalize.hpp>
-#include <cpd/probabilities.hpp>
+#include <cpd/transform.hpp>
 
 namespace cpd {
 
@@ -33,68 +30,47 @@ const double DEFAULT_BETA = 3.0;
 /// Default value for lambda.
 const double DEFAULT_LAMBDA = 3.0;
 
-/// A nonrigid registration.
-class Nonrigid {
+/// The result of a nonrigid coherent point drift run.
+struct NonrigidResult : public Result {};
+
+/// Nonrigid coherent point drift.
+class Nonrigid : public Transform<NonrigidResult> {
 public:
-    /// The result of a nonrigid transformation.
-    struct Result {
-        /// The resultant points.
-        Matrix points;
-        /// The last sigma2.
-        double sigma2;
-        /// The correspondence vector (optional).
-        IndexVector correspondence;
-        /// The runtime.
-        std::chrono::microseconds runtime;
-        /// The number of iterations until convergence.
-        size_t iterations;
-    };
-
-    /// Creates a default nonrigid registration.
     Nonrigid()
-      : m_beta(DEFAULT_BETA)
+      : Transform()
       , m_lambda(DEFAULT_LAMBDA)
-      , m_g()
-      , m_w() {}
+      , m_beta(DEFAULT_BETA) {}
 
-    /// Returns the value for beta.
-    double beta() const { return m_beta; }
+    /// Initialize this transform for the provided matrices.
+    void init(const Matrix& fixed, const Matrix& moving);
 
-    /// Sets the beta value.
+    /// Modifies the probabilities with some affinity and weight information.
+    void modify_probabilities(Probabilities& probabilities) const;
+
+    /// Sets the beta.
     Nonrigid& beta(double beta) {
         m_beta = beta;
         return *this;
     }
 
-    /// Returns the lambda value.
-    double lambda() const { return m_lambda; }
-
-    /// Sets the lambda value.
+    /// Sets the lambda.
     Nonrigid& lambda(double lambda) {
         m_lambda = lambda;
         return *this;
     }
 
-    /// Initializes the nonrigid transformation.
-    void init(const Matrix& fixed, const Matrix& moving);
-
-    /// Modifies the probabilities after calculation.
-    void modify_probabilities(Probabilities& probabilities) const;
-
     /// Computes one iteration of the nonrigid transformation.
-    Result compute(const Matrix& fixed, const Matrix& moving,
-                   const Probabilities& probabilities, double sigma2);
-
-    /// Denormalizes a result.
-    void denormalize(const Normalization& normalization, Result& result) const;
+    NonrigidResult compute_one(const Matrix& fixed, const Matrix& moving,
+                               const Probabilities& probabilities,
+                               double sigma2) const;
 
 private:
-    double m_beta;
-    double m_lambda;
     Matrix m_g;
     Matrix m_w;
+    double m_lambda;
+    double m_beta;
 };
 
-/// Runs nonrigid registration using sensible defaults.
-Nonrigid::Result nonrigid(const Matrix& fixed, const Matrix& moving);
+/// Runs a nonrigid registration on two matrices.
+NonrigidResult nonrigid(const Matrix& fixed, const Matrix& moving);
 }

@@ -1,5 +1,5 @@
 // cpd - Coherent Point Drift
-// Copyright (C) 2016 Pete Gadomski <pete.gadomski@gmail.com>
+// Copyright (C) 2017 Pete Gadomski <pete.gadomski@gmail.com>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -16,7 +16,8 @@
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 /// \file
-/// typedefs for matrices used in cpd.
+///
+/// Basic typedefs for our flavors of Eigen matrices.
 
 #pragma once
 
@@ -24,7 +25,7 @@
 
 namespace cpd {
 
-/// Typedef for our specific type of matrix.
+/// Our base matrix class.
 typedef Eigen::MatrixXd Matrix;
 
 /// Typedef for our specific type of vector.

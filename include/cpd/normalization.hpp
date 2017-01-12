@@ -15,19 +15,31 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-#include <cpd/jsoncpp.hpp>
-#include <cpd/rigid.hpp>
-#include <iostream>
+/// \file
+///
+/// Utility to scale/offset points to (roughly) conform to unit shape centered
+/// at zero.
 
-int main(int argc, char** argv) {
-    if (argc != 3) {
-        std::cout << "ERROR: invalid usage" << std::endl;
-        std::cout << "USAGE: cpd-rigid <fixed> <moving>" << std::endl;
-        return 1;
-    }
-    cpd::Matrix fixed = cpd::matrix_from_path(argv[1]);
-    cpd::Matrix moving = cpd::matrix_from_path(argv[2]);
-    cpd::RigidResult result = cpd::rigid(fixed, moving);
-    std::cout << cpd::to_json(result) << std::endl;
-    return 0;
+#pragma once
+
+#include <cpd/matrix.hpp>
+
+namespace cpd {
+
+/// The results of normalizing data to a unit cube (or whatever dimensionality).
+struct Normalization {
+    /// The average of the fixed points, that was subtracted from those data.
+    Vector fixed_mean;
+    /// The fixed points.
+    Matrix fixed;
+    /// The average of the moving points, that was subtracted from those data.
+    Vector moving_mean;
+    /// The moving points.
+    Matrix moving;
+    /// The scaling factor for the points.
+    double scale;
+
+    /// Creates a new normalization for the provided matrices.
+    Normalization(const Matrix& fixed, const Matrix& moving);
+};
 }

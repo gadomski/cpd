@@ -33,22 +33,39 @@ Basic, default usage can be accomplished via some namespace-level methods:
 int main(int argc, char** argv) {
     cpd::Matrix fixed = load_points_from_somewhere();
     cpd::Matrix moving = load_points_from_somewhere();
-    cpd::Rigid::Result result = cpd::rigid(fixed, moving);
+    cpd::RigidResult result = cpd::rigid(fixed, moving);
+    return 0;
 }
 ```
 
-More advanced configuration can be accomplished by using a `Runner`:
+Configuration is possible via `Rigid`, `Nonrigid`, and `Affine`:
 
 ```cpp
 #include <cpd/rigid.hpp>
-#include <cpd/runner.hpp>
 
 int main(int argc, char** argv) {
     cpd::Matrix fixed = load_points_from_somewhere();
     cpd::Matrix moving = load_points_from_somewhere();
-    cpd::Runner<cpd::Rigid> runner;
-    runner.correspondence(true).outliers(0.2);
-    cpd::Rigid::Result result = runner.run(fixed, moving);
+    cpd::Rigid rigid;
+    rigid.correspondence(true).outliers(0.2);
+    cpd::RigidResult result = runner.run(fixed, moving);
+    return 0;
+}
+```
+
+If cpd is built with the `jsoncpp` component (see `examples/` for a demonstration of the CMake configuration), the results of the cpd run can be converted to json:
+
+```cpp
+#include <iostream>
+#include <cpd/jsoncpp.hpp>
+#include <cpd/rigid.hpp>
+
+int main(int argc, char** argv) {
+    cpd::Matrix fixed = load_points_from_somewhere();
+    cpd::Matrix moving = load_points_from_somewhere();
+    cpd::RigidResult result = cpd::rigid(fixed, moving);
+    std::cout << cpd::to_json(result) << std::endl;
+    return 0;
 }
 ```
 
@@ -62,6 +79,7 @@ See `examples/` in this code repository for some basic usage examples, including
 
 **cpd** depends on and [CMake](https://cmake.org/) and [Eigen](http://eigen.tuxfamily.org/index.php?title=Main_Page) at build time only — no runtime dependencies.
 For additional speed, it can also built with [fgt](https://github.com/gadomski/fgt).
+For json output of results, it can be built with [jsoncpp](https://github.com/open-source-parsers/jsoncpp).
 
 ### On OSX
 
@@ -100,6 +118,14 @@ target_link_libraries(my-great-library
 
 The `Cpd::Library-C++` target includes all the interface settings you need, so you shouldn't need any other calls to get set up.
 
+If you'd like to enable json support, use the jsoncpp component:
+
+```cmake
+find_package(Cpd COMPONENTS jsoncpp REQUIRED)
+add_library(my-great-library the_code.cpp)
+target_link_libraries(my-great-library PUBLIC Cpd::Library-C++ Cpd::Jsoncpp)
+```
+
 ## OpenMP
 
 Both fgt and Eigen support OpenMP for some operations.
@@ -124,9 +150,15 @@ If you require some of that old functionality, use the [v0.2](https://github.com
 If you need armadillo-5.x, which is required for the old **cpd** but is no longer available from the armadillo website, you can use [my mirror](https://github.com/gadomski/armadillo).
 Thanks for your understanding during this switch.
 
+## Publications
+
+This library has been used in the following publications:
+
+- Gadomski, P.J. (December 2016). *Measuring Glacier Surface Velocities With LiDAR: A Comparison of Three-Dimensional Change Detection Methods*. Master's thesis, University of Houston, Geosensing Systems Engineering and Sciences.
+
 ## License
 
-This library is GPL2, copyright 2016 Peter J. Gadomski.
+This library is GPL2, copyright 2017 Peter J. Gadomski.
 See LICENSE.txt for the full license text.
 
 This work is directly inspired by Andriy Myronenko's reference implementation, and we owe him many thanks.
