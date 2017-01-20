@@ -1,5 +1,5 @@
 // cpd - Coherent Point Drift
-// Copyright (C) 2016 Pete Gadomski <pete.gadomski@gmail.com>
+// Copyright (C) 2017 Pete Gadomski <pete.gadomski@gmail.com>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -15,13 +15,11 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-#include "cpd/nonrigid.hpp"
-#include "affinity.hpp"
-#include "cpd/runner.hpp"
+#include <cpd/nonrigid.hpp>
 
 namespace cpd {
 
-void Nonrigid::init(const Matrix&, const Matrix& moving) {
+void Nonrigid::init(const Matrix& fixed, const Matrix& moving) {
     m_g = affinity(moving, moving, m_beta);
     m_w = Matrix::Zero(moving.rows(), moving.cols());
 }
@@ -30,17 +28,18 @@ void Nonrigid::modify_probabilities(Probabilities& probabilities) const {
     probabilities.l += m_lambda / 2.0 * (m_w.transpose() * m_g * m_w).trace();
 }
 
-Nonrigid::Result Nonrigid::compute(const Matrix& fixed, const Matrix& moving,
-                                   const Probabilities& probabilities,
-                                   double sigma2) {
+NonrigidResult Nonrigid::compute_one(const Matrix& fixed, const Matrix& moving,
+                                     const Probabilities& probabilities,
+                                     double sigma2) const {
     size_t cols = fixed.cols();
     auto dp = probabilities.p1.asDiagonal();
-    m_w = (dp * m_g +
-           m_lambda * sigma2 * Matrix::Identity(moving.rows(), moving.rows()))
-              .colPivHouseholderQr()
-              .solve(probabilities.px - dp * moving);
-    Nonrigid::Result result;
-    result.points = moving + m_g * m_w;
+    Matrix w =
+        (dp * m_g +
+         m_lambda * sigma2 * Matrix::Identity(moving.rows(), moving.rows()))
+            .colPivHouseholderQr()
+            .solve(probabilities.px - dp * moving);
+    NonrigidResult result;
+    result.points = moving + m_g * w;
     double np = probabilities.p1.sum();
     result.sigma2 = std::abs(
         ((fixed.array().pow(2) * probabilities.pt1.replicate(1, cols).array())
@@ -53,14 +52,8 @@ Nonrigid::Result Nonrigid::compute(const Matrix& fixed, const Matrix& moving,
     return result;
 }
 
-void Nonrigid::denormalize(const Normalization& normalization,
-                           Nonrigid::Result& result) const {
-    result.points =
-        result.points * normalization.scale +
-        normalization.fixed_mean.transpose().replicate(result.points.rows(), 1);
-}
-
-Nonrigid::Result nonrigid(const Matrix& fixed, const Matrix& moving) {
-    return run<Nonrigid>(fixed, moving);
+NonrigidResult nonrigid(const Matrix& fixed, const Matrix& moving) {
+    Nonrigid nonrigid;
+    return nonrigid.run(fixed, moving);
 }
 }

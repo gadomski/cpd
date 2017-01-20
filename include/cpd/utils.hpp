@@ -1,5 +1,5 @@
 // cpd - Coherent Point Drift
-// Copyright (C) 2016 Pete Gadomski <pete.gadomski@gmail.com>
+// Copyright (C) 2017 Pete Gadomski <pete.gadomski@gmail.com>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -16,9 +16,12 @@
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 /// \file
-/// Utility functions.
+///
+/// The always-present, always-ambiguous utils file.
 
-#include "cpd/matrix.hpp"
+#pragma once
+
+#include <cpd/matrix.hpp>
 
 namespace cpd {
 
@@ -27,4 +30,7 @@ Matrix matrix_from_path(const std::string& path);
 
 /// Computes the default sigma2 for the given matrices.
 double default_sigma2(const Matrix& fixed, const Matrix& moving);
+
+/// Computes the affinity matrix between the two matrices.
+Matrix affinity(const Matrix& fixed, const Matrix& moving, double beta);
 }

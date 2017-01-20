@@ -1,5 +1,5 @@
 // cpd - Coherent Point Drift
-// Copyright (C) 2016 Pete Gadomski <pete.gadomski@gmail.com>
+// Copyright (C) 2017 Pete Gadomski <pete.gadomski@gmail.com>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -70,5 +70,20 @@ double default_sigma2(const Matrix& fixed, const Matrix& moving) {
             (fixed.rows() * (moving.transpose() * moving).trace()) -
             2 * fixed.colwise().sum() * moving.colwise().sum().transpose()) /
            (fixed.rows() * moving.rows() * fixed.cols());
+}
+
+Matrix affinity(const Matrix& x, const Matrix& y, double beta) {
+    double k = -2.0 * beta * beta;
+    size_t x_rows = x.rows();
+    size_t y_rows = y.rows();
+    Matrix g(x_rows, y_rows);
+    for (size_t i = 0; i < y_rows; ++i) {
+        g.col(i) = ((x.array() - y.row(i).replicate(x_rows, 1).array())
+                        .pow(2)
+                        .rowwise()
+                        .sum() /
+                    k).exp();
+    }
+    return g;
 }
 }

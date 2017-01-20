@@ -26,6 +26,7 @@ before_install:
 install:
   - scripts/travis-install-cmake.sh && export PATH=$(pwd)/cmake/bin:$PATH
   - scripts/travis-install-eigen3.sh
+  - scripts/travis-install-jsoncpp.sh
   - scripts/travis-install-doxygen.sh
   - if [ "$CPD_WITH_FGT" = "ON" ]; then scripts/travis-install-fgt.sh; fi
 

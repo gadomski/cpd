@@ -15,19 +15,10 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-#include <cpd/jsoncpp.hpp>
-#include <cpd/rigid.hpp>
-#include <iostream>
+#include <cpd/gauss_transform.hpp>
 
-int main(int argc, char** argv) {
-    if (argc != 3) {
-        std::cout << "ERROR: invalid usage" << std::endl;
-        std::cout << "USAGE: cpd-rigid <fixed> <moving>" << std::endl;
-        return 1;
-    }
-    cpd::Matrix fixed = cpd::matrix_from_path(argv[1]);
-    cpd::Matrix moving = cpd::matrix_from_path(argv[2]);
-    cpd::RigidResult result = cpd::rigid(fixed, moving);
-    std::cout << cpd::to_json(result) << std::endl;
-    return 0;
+namespace cpd {
+std::unique_ptr<GaussTransform> GaussTransform::make_default() {
+    return std::unique_ptr<GaussTransform>(new GaussTransformDirect());
+}
 }

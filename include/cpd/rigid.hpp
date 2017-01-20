@@ -1,5 +1,5 @@
 // cpd - Coherent Point Drift
-// Copyright (C) 2016 Pete Gadomski <pete.gadomski@gmail.com>
+// Copyright (C) 2017 Pete Gadomski <pete.gadomski@gmail.com>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -16,92 +16,64 @@
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 /// \file
-/// Rigid cpd registration.
+///
+/// Rigid coherent point drift.
 
 #pragma once
 
-#include <chrono>
-
-#include <cpd/matrix.hpp>
-#include <cpd/normalize.hpp>
-#include <cpd/probabilities.hpp>
+#include <cpd/transform.hpp>
 
 namespace cpd {
 
 /// Should rigid registrations allow reflections by default?
-const bool DEFAULT_ALLOW_REFLECTIONS = false;
+const bool DEFAULT_REFLECTIONS = false;
 /// Should rigid registrations scale the data by default?
 const bool DEFAULT_SCALE = false;
 
+/// The result of a rigid coherent point drift run.
+struct RigidResult : public Result {
+    /// The rotation component of the transformation.
+    Matrix rotation;
+    /// The translation component of the transformation.
+    Vector translation;
+    /// The scaling component of the transformation.
+    double scale;
+
+    void denormalize(const Normalization& normalization);
+};
+
 /// Rigid coherent point drift.
 ///
-/// Rotation, translation, and possibly scaling.
-class Rigid {
+/// Scaling and reflections can be turned on and off.
+class Rigid : public Transform<RigidResult> {
 public:
-    /// The result of a rigid transformation.
-    struct Result {
-        /// The rotation from the moving points onto the fixed points.
-        Matrix rotation;
-        /// The translation from the moving points onto the fixed points.
-        Vector translation;
-        /// The scaling factor.
-        double scale;
-        /// The transformed points.
-        Matrix points;
-        /// The final sigma2.
-        double sigma2;
-        /// The correspondence vector (optional).
-        IndexVector correspondence;
-        /// The runtime.
-        std::chrono::microseconds runtime;
-        /// The number of iterations until convergence.
-        size_t iterations;
-    };
-
-    /// Creates a default rigid transformation.
     Rigid()
-      : m_allow_reflections(DEFAULT_ALLOW_REFLECTIONS)
+      : Transform()
+      , m_reflections(DEFAULT_REFLECTIONS)
       , m_scale(DEFAULT_SCALE) {}
 
-    /// No initialization necessary.
-    void init(const Matrix&, const Matrix&) {}
-
-    /// No modification of probabilities necessary.
-    void modify_probabilities(Probabilities&) const {}
-
-    /// Returns whether this rigid transformation allows reflections.
-    bool allow_reflections() const { return m_allow_reflections; }
-
-    /// Sets whether this rigid allows reflections.
-    Rigid& allow_reflections(bool allow_reflections) {
-        m_allow_reflections = allow_reflections;
+    /// Sets whether this rigid transform allows reflections.
+    Rigid& reflections(bool reflections) {
+        m_reflections = reflections;
         return *this;
     }
 
-    /// Returns whether this rigid allows scaling.
-    bool scale() const { return m_scale; }
-
-    /// Sets whether this rigid allows scaling or not.
+    /// Sets whether this rigid transform allows scaling.
     Rigid& scale(bool scale) {
         m_scale = scale;
         return *this;
     }
 
     /// Computes one iteration of the rigid transformation.
-    Result compute(const Matrix& fixed, const Matrix& moving,
-                   const Probabilities& probabilities, double sigma2) const;
-
-    /// Denormalizes a result.
-    void denormalize(const Normalization& normalization, Result& result) const;
+    RigidResult compute_one(const Matrix& fixed, const Matrix& moving,
+                            const Probabilities& probabilities,
+                            double sigma2) const;
 
 private:
-    bool m_allow_reflections;
+    bool m_reflections;
     bool m_scale;
 };
 
-/// Computes a rigid transformation from the target onto the source.
-Rigid::Result rigid(const Matrix& fixed, const Matrix& moving);
-
-/// Prints the rigid result to an ostream.
-std::ostream& operator<<(std::ostream& stream, const Rigid::Result& result);
+/// Runs a rigid registration on two matrices.
+RigidResult rigid(const Matrix& fixed, const Matrix& moving);
 }

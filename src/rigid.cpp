@@ -1,5 +1,5 @@
 // cpd - Coherent Point Drift
-// Copyright (C) 2016 Pete Gadomski <pete.gadomski@gmail.com>
+// Copyright (C) 2017 Pete Gadomski <pete.gadomski@gmail.com>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -15,14 +15,14 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-#include "cpd/rigid.hpp"
-#include "cpd/probabilities.hpp"
-#include "cpd/runner.hpp"
+#include <cpd/normalization.hpp>
+#include <cpd/rigid.hpp>
 
 namespace cpd {
 
-Rigid::Result Rigid::compute(const Matrix& fixed, const Matrix& moving,
-                             const Probabilities& probabilities, double) const {
+RigidResult Rigid::compute_one(const Matrix& fixed, const Matrix& moving,
+                               const Probabilities& probabilities,
+                               double sigma2) const {
     size_t cols = fixed.cols();
     double np = probabilities.pt1.sum();
     Vector mu_x = fixed.transpose() * probabilities.pt1 / np;
@@ -33,11 +33,11 @@ Rigid::Result Rigid::compute(const Matrix& fixed, const Matrix& moving,
         a, Eigen::ComputeThinU | Eigen::ComputeThinV);
     Matrix s = svd.singularValues().asDiagonal();
     Matrix c = Matrix::Identity(cols, cols);
-    if (!m_allow_reflections) {
+    if (!m_reflections) {
         c(cols - 1, cols - 1) =
             (svd.matrixU() * svd.matrixV().transpose()).determinant();
     }
-    Rigid::Result result;
+    RigidResult result;
     result.rotation = svd.matrixU() * c * svd.matrixV().transpose();
     if (m_scale) {
         result.scale =
@@ -70,29 +70,14 @@ Rigid::Result Rigid::compute(const Matrix& fixed, const Matrix& moving,
     return result;
 }
 
-void Rigid::denormalize(const Normalization& normalization,
-                        Rigid::Result& result) const {
-    result.translation =
-        normalization.scale * result.translation + normalization.fixed_mean -
-        result.scale * result.rotation * normalization.moving_mean;
-    result.points =
-        result.points * normalization.scale +
-        normalization.fixed_mean.transpose().replicate(result.points.rows(), 1);
+RigidResult rigid(const Matrix& fixed, const Matrix& moving) {
+    Rigid rigid;
+    return rigid.run(fixed, moving);
 }
 
-Rigid::Result rigid(const Matrix& fixed, const Matrix& moving) {
-    return run<Rigid>(fixed, moving);
-}
-
-std::ostream& operator<<(std::ostream& stream, const Rigid::Result& result) {
-    Eigen::IOFormat json_format(Eigen::StreamPrecision, 0, ", ", ",", "[", "]",
-                                "[", "]");
-    stream << "{\n"
-           << "    \"translation\": "
-           << result.translation.transpose().format(json_format)
-           << ",\n    \"rotation\": "
-           << result.rotation.transpose().format(json_format)
-           << ",\n    \"scale\": " << result.scale << "\n}";
-    return stream;
+void RigidResult::denormalize(const Normalization& normalization) {
+    Result::denormalize(normalization);
+    translation = normalization.scale * translation + normalization.fixed_mean -
+                  scale * rotation * normalization.moving_mean;
 }
 }

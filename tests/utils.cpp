@@ -15,19 +15,26 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-#include <cpd/jsoncpp.hpp>
-#include <cpd/rigid.hpp>
-#include <iostream>
+#include "fixtures/fish.hpp"
+#include "fixtures/helheim.hpp"
+#include "gtest/gtest.h"
 
-int main(int argc, char** argv) {
-    if (argc != 3) {
-        std::cout << "ERROR: invalid usage" << std::endl;
-        std::cout << "USAGE: cpd-rigid <fixed> <moving>" << std::endl;
-        return 1;
-    }
-    cpd::Matrix fixed = cpd::matrix_from_path(argv[1]);
-    cpd::Matrix moving = cpd::matrix_from_path(argv[2]);
-    cpd::RigidResult result = cpd::rigid(fixed, moving);
-    std::cout << cpd::to_json(result) << std::endl;
-    return 0;
+namespace cpd {
+TEST_F(FishTest, DefaultSigma2) {
+    double sigma2 = cpd::default_sigma2(m_fish, m_fish_distorted);
+    EXPECT_NEAR(1.0, sigma2, 0.1);
+}
+
+TEST_F(HelheimTest, DefaultSigma2) {
+    double sigma2 = cpd::default_sigma2(m_helheim, m_helheim);
+    EXPECT_NEAR(23235., sigma2, 1.0);
+}
+
+TEST_F(FishTest, AffinityMatrix) {
+    Matrix matrix = cpd::affinity(m_fish, m_fish_distorted, 3.0);
+    ASSERT_EQ(91, matrix.rows());
+    ASSERT_EQ(91, matrix.cols());
+    EXPECT_NEAR(0.9911, matrix(0, 0), 1e-4);
+    EXPECT_NEAR(0.9969, matrix(90, 90), 1e-4);
+}
 }

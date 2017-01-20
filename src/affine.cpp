@@ -1,5 +1,5 @@
 // cpd - Coherent Point Drift
-// Copyright (C) 2016 Pete Gadomski <pete.gadomski@gmail.com>
+// Copyright (C) 2017 Pete Gadomski <pete.gadomski@gmail.com>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -15,18 +15,13 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-#include "cpd/affine.hpp"
-#include "cpd/runner.hpp"
+#include <cpd/affine.hpp>
 
 namespace cpd {
 
-Affine::Result affine(const Matrix& fixed, const Matrix& moving) {
-    return run<Affine>(fixed, moving);
-}
-
-Affine::Result Affine::compute(const Matrix& fixed, const Matrix& moving,
-                               const Probabilities& probabilities,
-                               double sigma2) const {
+AffineResult Affine::compute_one(const Matrix& fixed, const Matrix& moving,
+                                 const Probabilities& probabilities,
+                                 double sigma2) const {
     double np = probabilities.p1.sum();
     Vector mu_x = fixed.transpose() * probabilities.pt1 / np;
     Vector mu_y = moving.transpose() * probabilities.p1 / np;
@@ -38,7 +33,7 @@ Affine::Result Affine::compute(const Matrix& fixed, const Matrix& moving,
                 .matrix() *
             moving -
         np * mu_y * mu_y.transpose();
-    Affine::Result result;
+    AffineResult result;
     result.transform = b1 * b2.inverse();
     result.translation = mu_x - result.transform * mu_y;
     result.sigma2 =
@@ -53,14 +48,14 @@ Affine::Result Affine::compute(const Matrix& fixed, const Matrix& moving,
     return result;
 }
 
-void Affine::denormalize(const Normalization& normalization,
-                         Result& result) const {
-    result.translation = normalization.scale * result.translation +
-                         normalization.fixed_mean -
-                         result.transform * normalization.moving_mean;
-    result.points =
-        result.points * normalization.scale +
-        normalization.fixed_mean.transpose().replicate(result.points.rows(), 1);
-    return;
+void AffineResult::denormalize(const Normalization& normalization) {
+    Result::denormalize(normalization);
+    translation = normalization.scale * translation + normalization.fixed_mean -
+                  transform * normalization.moving_mean;
+}
+
+AffineResult affine(const Matrix& fixed, const Matrix& moving) {
+    Affine affine;
+    return affine.run(fixed, moving);
 }
 }

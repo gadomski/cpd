@@ -1,5 +1,5 @@
 // cpd - Coherent Point Drift
-// Copyright (C) 2017 Pete Gadomski <pete.gadomski@gmail.com>
+// Copyright (C) 2016 Pete Gadomski <pete.gadomski@gmail.com>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -15,19 +15,24 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-#include <cpd/jsoncpp.hpp>
-#include <cpd/rigid.hpp>
-#include <iostream>
+#include "fixtures/face.hpp"
+#include "fixtures/fish.hpp"
+#include "tests/support.hpp"
+#include "gtest/gtest.h"
+#include <cpd/nonrigid.hpp>
 
-int main(int argc, char** argv) {
-    if (argc != 3) {
-        std::cout << "ERROR: invalid usage" << std::endl;
-        std::cout << "USAGE: cpd-rigid <fixed> <moving>" << std::endl;
-        return 1;
-    }
-    cpd::Matrix fixed = cpd::matrix_from_path(argv[1]);
-    cpd::Matrix moving = cpd::matrix_from_path(argv[2]);
-    cpd::RigidResult result = cpd::rigid(fixed, moving);
-    std::cout << cpd::to_json(result) << std::endl;
-    return 0;
+namespace cpd {
+
+TEST_F(FishTest, Works) {
+    NonrigidResult result = nonrigid(m_fish, m_fish_distorted);
+    EXPECT_TRUE(result.points.isApprox(m_fish, 0.1));
+}
+
+TEST_F(FaceTest, Works) {
+    Nonrigid nonrigid;
+    nonrigid.normalize(false).sigma2(1.0).outliers(0.1);
+    NonrigidResult result = nonrigid.run(m_face, m_face_distorted);
+    EXPECT_TRUE(result.points.row(0).isApprox(m_face.row(0), 0.01));
+    EXPECT_TRUE(result.points.row(391).isApprox(m_face.row(391), 0.5));
+}
 }

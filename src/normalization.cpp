@@ -15,19 +15,18 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-#include <cpd/jsoncpp.hpp>
-#include <cpd/rigid.hpp>
-#include <iostream>
+#include <cpd/normalization.hpp>
 
-int main(int argc, char** argv) {
-    if (argc != 3) {
-        std::cout << "ERROR: invalid usage" << std::endl;
-        std::cout << "USAGE: cpd-rigid <fixed> <moving>" << std::endl;
-        return 1;
-    }
-    cpd::Matrix fixed = cpd::matrix_from_path(argv[1]);
-    cpd::Matrix moving = cpd::matrix_from_path(argv[2]);
-    cpd::RigidResult result = cpd::rigid(fixed, moving);
-    std::cout << cpd::to_json(result) << std::endl;
-    return 0;
+namespace cpd {
+
+Normalization::Normalization(const Matrix& f, const Matrix& m)
+  : fixed_mean(f.colwise().mean())
+  , fixed(f - fixed_mean.transpose().replicate(f.rows(), 1))
+  , moving_mean(m.colwise().mean())
+  , moving(m - moving_mean.transpose().replicate(m.rows(), 1))
+  , scale(std::max(std::sqrt(fixed.array().pow(2).sum() / fixed.rows()),
+                   std::sqrt(moving.array().pow(2).sum() / moving.rows()))) {
+    fixed /= scale;
+    moving /= scale;
+}
 }
