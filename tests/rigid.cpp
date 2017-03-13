@@ -45,4 +45,12 @@ TEST_F(FishTest, Normalize) {
     EXPECT_TRUE(result.rotation.isApprox(rotation.transpose(), 1e-4));
     EXPECT_EQ(result.points.rows(), m_fish.rows());
 }
+
+TEST_F(FishTest, Scale) {
+    m_fish_distorted = m_fish * 10.0;
+    Rigid rigid;
+    rigid.scale(true);
+    RigidResult result = rigid.run(m_fish_distorted, m_fish);
+    EXPECT_NEAR(10.0, result.scale, 0.1);
+}
 }
