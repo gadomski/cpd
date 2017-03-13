@@ -37,7 +37,7 @@ cd html
 rm -rf .git/index
 git clean -df
 cd ../..
-make docs
+make doc
 cd docs/html
 git add --all
 git diff-index --quiet HEAD || git commit -m "scripts/gh-pages.sh"
