@@ -101,6 +101,8 @@ cmake ..
 make
 ```
 
+If you're using a home-built version of jsoncpp, make sure you set `JSONCPP_WITH_CMAKE_PACKAGE=ON` and `BUILD_SHARED_LIBS=ON`.
+
 ### Using downstream
 
 **cpd** provides CMake export targets that you can import and use in your own project:
