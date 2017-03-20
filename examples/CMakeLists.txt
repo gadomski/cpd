@@ -8,3 +8,6 @@ target_link_libraries(cpd-rigid PRIVATE Cpd::Library-C++ Cpd::Jsoncpp)
 find_package(Cpd REQUIRED)
 add_executable(cpd-version version.cpp)
 target_link_libraries(cpd-version PRIVATE Cpd::Library-C++)
+
+add_executable(cpd-random random.cpp)
+target_link_libraries(cpd-random PRIVATE Cpd::Library-C++)
