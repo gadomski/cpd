@@ -20,6 +20,7 @@
 #include "tests/support.hpp"
 #include "gtest/gtest.h"
 #include <cpd/gauss_transform_fgt.hpp>
+#include <cpd/rigid.hpp>
 
 namespace cpd {
 
@@ -65,5 +66,11 @@ TEST_F(FishTest, CorrespondencesMatchReference) {
         tests::fixture("fish_correspondence.csv").cast<Matrix::Index>();
     ASSERT_EQ(correspondence.size(), probabilities.correspondence.size());
     EXPECT_EQ(correspondence, probabilities.correspondence);
+}
+
+TEST(Fgt, Setting) {
+    std::unique_ptr<GaussTransform> fgt(new GaussTransformFgt());
+    cpd::Rigid rigid;
+    rigid.gauss_transform(std::move(fgt));
 }
 }

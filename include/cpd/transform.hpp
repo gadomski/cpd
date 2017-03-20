@@ -90,7 +90,7 @@ public:
     /// Sets the gauss transform.
     Transform& gauss_transform(
         std::unique_ptr<GaussTransform> gauss_transform) {
-        m_gauss_transform = gauss_transform;
+        m_gauss_transform = std::move(gauss_transform);
         return *this;
     }
 
