@@ -76,7 +76,15 @@ Matrix affinity(const Matrix& x, const Matrix& y, double beta) {
     double k = -2.0 * beta * beta;
     size_t x_rows = x.rows();
     size_t y_rows = y.rows();
-    Matrix g(x_rows, y_rows);
+    Matrix g;
+    try {
+        g = Matrix(x_rows, y_rows);
+    } catch (const std::bad_alloc& err) {
+        std::stringstream msg;
+        msg << "Unable to allocate " << x_rows << " by " << y_rows
+            << " affinity matrix, try again with fewer points";
+        throw std::runtime_error(msg.str());
+    }
     for (size_t i = 0; i < y_rows; ++i) {
         g.col(i) = ((x.array() - y.row(i).replicate(x_rows, 1).array())
                         .pow(2)
