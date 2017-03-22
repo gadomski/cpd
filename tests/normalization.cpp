@@ -24,8 +24,10 @@ namespace cpd {
 TEST_F(FishTest, CanBeRetrieved) {
     Normalization normalization(m_fish, m_fish);
     ASSERT_EQ(m_fish.rows(), normalization.fixed.rows());
-    EXPECT_TRUE(m_fish.isApprox(normalization.fixed * normalization.scale +
-                                    normalization.fixed_mean,
-                                1e-4));
+    EXPECT_TRUE(
+        m_fish.isApprox(normalization.fixed * normalization.scale +
+                            normalization.fixed_mean.transpose().replicate(
+                                normalization.fixed.rows(), 1),
+                        1e-4));
 }
 }
