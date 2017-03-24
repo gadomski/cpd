@@ -36,4 +36,4 @@ typedef Eigen::Matrix<Matrix::Index, Eigen::Dynamic, 1> IndexVector;
 
 /// Typedef for our specific type of array.
 typedef Eigen::ArrayXd Array;
-}
+} // namespace cpd

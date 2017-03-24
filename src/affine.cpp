@@ -58,4 +58,4 @@ AffineResult affine(const Matrix& fixed, const Matrix& moving) {
     Affine affine;
     return affine.run(fixed, moving);
 }
-}
+} // namespace cpd

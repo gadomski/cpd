@@ -33,11 +33,10 @@ NonrigidResult Nonrigid::compute_one(const Matrix& fixed, const Matrix& moving,
                                      double sigma2) const {
     size_t cols = fixed.cols();
     auto dp = probabilities.p1.asDiagonal();
-    Matrix w =
-        (dp * m_g +
-         m_lambda * sigma2 * Matrix::Identity(moving.rows(), moving.rows()))
-            .colPivHouseholderQr()
-            .solve(probabilities.px - dp * moving);
+    Matrix w = (dp * m_g + m_lambda * sigma2 *
+                               Matrix::Identity(moving.rows(), moving.rows()))
+                   .colPivHouseholderQr()
+                   .solve(probabilities.px - dp * moving);
     NonrigidResult result;
     result.points = moving + m_g * w;
     double np = probabilities.p1.sum();
@@ -56,4 +55,4 @@ NonrigidResult nonrigid(const Matrix& fixed, const Matrix& moving) {
     Nonrigid nonrigid;
     return nonrigid.run(fixed, moving);
 }
-}
+} // namespace cpd

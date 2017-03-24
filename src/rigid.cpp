@@ -80,4 +80,4 @@ void RigidResult::denormalize(const Normalization& normalization) {
     translation = normalization.scale * translation + normalization.fixed_mean -
                   scale * rotation * normalization.moving_mean;
 }
-}
+} // namespace cpd

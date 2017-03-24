@@ -73,4 +73,4 @@ private:
 
 /// Runs a nonrigid registration on two matrices.
 NonrigidResult nonrigid(const Matrix& fixed, const Matrix& moving);
-}
+} // namespace cpd

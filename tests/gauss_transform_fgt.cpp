@@ -73,4 +73,4 @@ TEST(Fgt, Setting) {
     cpd::Rigid rigid;
     rigid.gauss_transform(std::move(fgt));
 }
-}
+} // namespace cpd

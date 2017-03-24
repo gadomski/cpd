@@ -42,4 +42,4 @@ struct Normalization {
     /// Creates a new normalization for the provided matrices.
     Normalization(const Matrix& fixed, const Matrix& moving);
 };
-}
+} // namespace cpd

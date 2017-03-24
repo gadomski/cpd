@@ -23,4 +23,4 @@ namespace cpd {
 TEST(Version, Links) {
     cpd::version();
 }
-}
+} // namespace cpd

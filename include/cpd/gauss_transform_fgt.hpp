@@ -81,4 +81,4 @@ private:
     double m_epsilon;
     FgtMethod m_method;
 };
-}
+} // namespace cpd

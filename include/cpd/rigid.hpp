@@ -76,4 +76,4 @@ private:
 
 /// Runs a rigid registration on two matrices.
 RigidResult rigid(const Matrix& fixed, const Matrix& moving);
-}
+} // namespace cpd

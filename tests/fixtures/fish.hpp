@@ -30,4 +30,4 @@ public:
     Matrix m_fish;
     Matrix m_fish_distorted;
 };
-}
+} // namespace cpd

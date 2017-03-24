@@ -30,4 +30,4 @@ public:
     Matrix m_face;
     Matrix m_face_distorted;
 };
-}
+} // namespace cpd

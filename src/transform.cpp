@@ -23,4 +23,4 @@ void Result::denormalize(const Normalization& normalization) {
     points = points * normalization.scale +
              normalization.fixed_mean.transpose().replicate(points.rows(), 1);
 }
-}
+} // namespace cpd

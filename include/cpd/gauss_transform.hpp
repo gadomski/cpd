@@ -59,4 +59,4 @@ public:
     Probabilities compute(const Matrix& fixed, const Matrix& moving,
                           double sigma2, double outliers) const;
 };
-}
+} // namespace cpd

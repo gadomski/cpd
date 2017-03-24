@@ -21,4 +21,4 @@ namespace cpd {
 std::unique_ptr<GaussTransform> GaussTransform::make_default() {
     return std::unique_ptr<GaussTransform>(new GaussTransformDirect());
 }
-}
+} // namespace cpd

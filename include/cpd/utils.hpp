@@ -33,4 +33,4 @@ double default_sigma2(const Matrix& fixed, const Matrix& moving);
 
 /// Computes the affinity matrix between the two matrices.
 Matrix affinity(const Matrix& fixed, const Matrix& moving, double beta);
-}
+} // namespace cpd

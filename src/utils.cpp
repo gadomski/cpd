@@ -90,8 +90,9 @@ Matrix affinity(const Matrix& x, const Matrix& y, double beta) {
                         .pow(2)
                         .rowwise()
                         .sum() /
-                    k).exp();
+                    k)
+                       .exp();
     }
     return g;
 }
-}
+} // namespace cpd

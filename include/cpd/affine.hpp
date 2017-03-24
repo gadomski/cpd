@@ -48,4 +48,4 @@ public:
 
 /// Runs a affine registration on two matrices.
 AffineResult affine(const Matrix& fixed, const Matrix& moving);
-}
+} // namespace cpd

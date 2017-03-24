@@ -56,4 +56,4 @@ Probabilities GaussTransformDirect::compute(const Matrix& fixed,
     l += cols * fixed.rows() * std::log(sigma2) / 2;
     return { p1, pt1, px, l, correspondence };
 }
-}
+} // namespace cpd

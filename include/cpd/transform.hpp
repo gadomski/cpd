@@ -205,4 +205,4 @@ private:
     double m_sigma2;
     double m_tolerance;
 };
-}
+} // namespace cpd

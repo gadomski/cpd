@@ -35,4 +35,4 @@ TEST_F(FaceTest, Works) {
     EXPECT_TRUE(result.points.row(0).isApprox(m_face.row(0), 0.01));
     EXPECT_TRUE(result.points.row(391).isApprox(m_face.row(391), 0.5));
 }
-}
+} // namespace cpd

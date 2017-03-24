@@ -29,4 +29,4 @@ Normalization::Normalization(const Matrix& f, const Matrix& m)
     fixed /= scale;
     moving /= scale;
 }
-}
+} // namespace cpd

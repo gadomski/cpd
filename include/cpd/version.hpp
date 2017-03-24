@@ -24,4 +24,4 @@ namespace cpd {
 
 /// Returns this library's version.
 const char* version();
-}
+} // namespace cpd

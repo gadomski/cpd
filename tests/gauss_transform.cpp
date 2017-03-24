@@ -66,4 +66,4 @@ TEST_F(FishTest, CorrespondencesMatchReference) {
     ASSERT_EQ(correspondence.size(), probabilities.correspondence.size());
     EXPECT_EQ(correspondence, probabilities.correspondence);
 }
-}
+} // namespace cpd

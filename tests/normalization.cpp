@@ -30,4 +30,4 @@ TEST_F(FishTest, CanBeRetrieved) {
                                 normalization.fixed.rows(), 1),
                         1e-4));
 }
-}
+} // namespace cpd

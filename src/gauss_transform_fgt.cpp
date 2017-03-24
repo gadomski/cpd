@@ -64,4 +64,4 @@ std::unique_ptr<fgt::Transform> GaussTransformFgt::create_transform(
             }
     }
 }
-}
+} // namespace cpd

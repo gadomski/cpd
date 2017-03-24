@@ -37,4 +37,4 @@ TEST_F(FishTest, AffinityMatrix) {
     EXPECT_NEAR(0.9911, matrix(0, 0), 1e-4);
     EXPECT_NEAR(0.9969, matrix(90, 90), 1e-4);
 }
-}
+} // namespace cpd
