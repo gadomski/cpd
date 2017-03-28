@@ -58,4 +58,13 @@ TEST(Affine, Linked) {
     affine.linked(false);
     EXPECT_FALSE(affine.linked());
 }
+
+TEST_F(FishTest, AffineMatrix) {
+    AffineResult result = affine(m_fish_distorted, m_fish);
+    Matrix transform = result.matrix();
+    ASSERT_EQ(transform.rows(), 3);
+    ASSERT_EQ(transform.cols(), 3);
+    Matrix fish = apply_transformation_matrix(m_fish, transform);
+    EXPECT_TRUE(result.points.isApprox(fish, 1e-4));
+}
 } // namespace cpd

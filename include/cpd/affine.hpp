@@ -33,6 +33,9 @@ struct AffineResult : public Result {
     /// The translation vector.
     Vector translation;
 
+    /// Returns the transform and the translation as one matrix.
+    Matrix matrix() const;
+
     /// Denormalize this result.
     void denormalize(const Normalization& normalization);
 };

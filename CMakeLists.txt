@@ -49,6 +49,7 @@ configure_file(src/version.cpp.in "${PROJECT_BINARY_DIR}/src/version.cpp")
 set(library-src
     src/affine.cpp
     src/gauss_transform.cpp
+    src/matrix.cpp
     src/nonrigid.cpp
     src/normalization.cpp
     src/rigid.cpp

@@ -75,6 +75,20 @@ RigidResult rigid(const Matrix& fixed, const Matrix& moving) {
     return rigid.run(fixed, moving);
 }
 
+Matrix RigidResult::matrix() const {
+    Matrix::Index rows = rotation.rows() + 1;
+    Matrix::Index cols = rotation.cols() + 1;
+    Matrix matrix = Matrix::Zero(rows, cols);
+    for (Matrix::Index row = 0; row < rotation.rows(); ++row) {
+        for (Matrix::Index col = 0; col < rotation.cols(); ++col) {
+            matrix(row, col) = rotation(row, col) * scale;
+        }
+        matrix(row, cols - 1) = translation(row);
+    }
+    matrix(rows - 1, cols - 1) = 1;
+    return matrix;
+}
+
 void RigidResult::denormalize(const Normalization& normalization) {
     Result::denormalize(normalization);
     scale = scale * normalization.fixed_scale / normalization.moving_scale;

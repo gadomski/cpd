@@ -48,6 +48,20 @@ AffineResult Affine::compute_one(const Matrix& fixed, const Matrix& moving,
     return result;
 }
 
+Matrix AffineResult::matrix() const {
+    Matrix::Index rows = transform.rows() + 1;
+    Matrix::Index cols = transform.cols() + 1;
+    Matrix matrix = Matrix::Zero(rows, cols);
+    for (Matrix::Index row = 0; row < transform.rows(); ++row) {
+        for (Matrix::Index col = 0; col < transform.cols(); ++col) {
+            matrix(row, col) = transform(row, col);
+        }
+        matrix(row, cols - 1) = translation(row);
+    }
+    matrix(rows - 1, cols - 1) = 1;
+    return matrix;
+}
+
 void AffineResult::denormalize(const Normalization& normalization) {
     Result::denormalize(normalization);
     translation = normalization.fixed_scale * translation + normalization.fixed_mean -

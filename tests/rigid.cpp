@@ -61,4 +61,13 @@ TEST(Rigid, Linked) {
     rigid.scale(false);
     EXPECT_TRUE(rigid.linked());
 }
+
+TEST_F(FishTest, OneMatrix) {
+    RigidResult result = rigid(m_fish_distorted, m_fish);
+    Matrix transform = result.matrix();
+    ASSERT_EQ(transform.rows(), 3);
+    ASSERT_EQ(transform.cols(), 3);
+    Matrix fish = apply_transformation_matrix(m_fish, transform);
+    EXPECT_TRUE(result.points.isApprox(fish, 1e-4));
+}
 } // namespace cpd
