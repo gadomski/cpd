@@ -15,30 +15,16 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-/// \file
-///
-/// Basic typedefs for our flavors of Eigen matrices.
-
-#pragma once
-
-#include <Eigen/Dense>
+#include <cpd/matrix.hpp>
 
 namespace cpd {
 
-/// Our base matrix class.
-typedef Eigen::MatrixXd Matrix;
-
-/// Typedef for our specific type of vector.
-typedef Eigen::VectorXd Vector;
-
-/// Typedef for an index vector, used to index other matrices.
-typedef Eigen::Matrix<Matrix::Index, Eigen::Dynamic, 1> IndexVector;
-
-/// Typedef for our specific type of array.
-typedef Eigen::ArrayXd Array;
-
-/// Apply a transformation matrix to a set of points.
-///
-/// The transformation matrix should be one column wider than the point matrix.
-Matrix apply_transformation_matrix(Matrix points, const Matrix& transform);
+Matrix apply_transformation_matrix(Matrix points, const Matrix& transform) {
+    Matrix::Index rows = points.rows();
+    Matrix::Index cols = points.cols() + 1;
+    points.conservativeResize(rows, cols);
+    points.col(cols - 1) = Vector::Ones(rows);
+    Matrix transformed_points = points * transform.transpose();
+    return transformed_points.leftCols(cols - 1);
+}
 } // namespace cpd

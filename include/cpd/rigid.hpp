@@ -39,6 +39,10 @@ struct RigidResult : public Result {
     /// The scaling component of the transformation.
     double scale;
 
+    /// Returns a single matrix that contains all the transformation
+    /// information.
+    Matrix matrix() const;
+
     void denormalize(const Normalization& normalization);
 };
 
