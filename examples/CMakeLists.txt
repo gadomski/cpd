@@ -19,3 +19,6 @@ target_link_libraries(cpd-version PRIVATE Cpd::Library-C++)
 
 add_executable(cpd-random random.cpp)
 target_link_libraries(cpd-random PRIVATE Cpd::Library-C++)
+
+add_executable(cpd-transform transform.cpp)
+target_link_libraries(cpd-transform PRIVATE Cpd::Library-C++)
