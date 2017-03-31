@@ -48,7 +48,7 @@ int main(int argc, char** argv) {
     cpd::Matrix moving = load_points_from_somewhere();
     cpd::Rigid rigid;
     rigid.correspondence(true).outliers(0.2);
-    cpd::RigidResult result = runner.run(fixed, moving);
+    cpd::RigidResult result = rigid.run(fixed, moving);
     return 0;
 }
 ```
