@@ -17,17 +17,25 @@
 
 #include <cpd/jsoncpp.hpp>
 #include <cpd/rigid.hpp>
+#include <fstream>
 #include <iostream>
 
 int main(int argc, char** argv) {
-    if (argc != 3) {
+    if (!(argc == 3 || argc == 4)) {
         std::cout << "ERROR: invalid usage" << std::endl;
-        std::cout << "USAGE: cpd-rigid <fixed> <moving>" << std::endl;
+        std::cout << "USAGE: cpd-rigid <fixed> <moving> [outfile]" << std::endl;
         return 1;
     }
     cpd::Matrix fixed = cpd::matrix_from_path(argv[1]);
     cpd::Matrix moving = cpd::matrix_from_path(argv[2]);
-    cpd::RigidResult result = cpd::rigid(fixed, moving);
+    cpd::Rigid rigid;
+    rigid.scale(true);
+    cpd::RigidResult result = rigid.run(fixed, moving);
     std::cout << cpd::to_json(result) << std::endl;
+    if (argc == 4) {
+        std::ofstream outfile(argv[3]);
+        outfile << result.points << std::endl;
+        outfile.close();
+    }
     return 0;
 }
