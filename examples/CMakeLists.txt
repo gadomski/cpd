@@ -1,9 +1,10 @@
 project(cpd-examples CXX)
 cmake_minimum_required(VERSION 2.8.12)
 
-find_package(Cpd COMPONENTS jsoncpp)
+find_package(Cpd REQUIRED)
 
-if("${jsoncpp_FOUND}")
+if("${CPD_WITH_JSONCPP}")
+    find_package(Cpd COMPONENTS jsoncpp)
     add_executable(cpd-rigid rigid.cpp)
     target_link_libraries(cpd-rigid PRIVATE Cpd::Library-C++ Cpd::Jsoncpp)
 
