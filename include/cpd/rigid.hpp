@@ -28,7 +28,7 @@ namespace cpd {
 /// Should rigid registrations allow reflections by default?
 const bool DEFAULT_REFLECTIONS = false;
 /// Should rigid registrations scale the data by default?
-const bool DEFAULT_SCALE = false;
+const bool DEFAULT_SCALE = !DEFAULT_LINKED;
 
 /// The result of a rigid coherent point drift run.
 struct RigidResult : public Result {
@@ -68,6 +68,8 @@ public:
     RigidResult compute_one(const Matrix& fixed, const Matrix& moving,
                             const Probabilities& probabilities,
                             double sigma2) const;
+
+    virtual bool linked() const { return !m_scale; }
 
 private:
     bool m_reflections;

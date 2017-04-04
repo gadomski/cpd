@@ -77,7 +77,8 @@ RigidResult rigid(const Matrix& fixed, const Matrix& moving) {
 
 void RigidResult::denormalize(const Normalization& normalization) {
     Result::denormalize(normalization);
-    translation = normalization.scale * translation + normalization.fixed_mean -
+    scale = scale * normalization.fixed_scale / normalization.moving_scale;
+    translation = normalization.fixed_scale * translation + normalization.fixed_mean -
                   scale * rotation * normalization.moving_mean;
 }
 } // namespace cpd

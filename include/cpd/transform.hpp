@@ -45,6 +45,8 @@ const double DEFAULT_TOLERANCE = 1e-5;
 const double DEFAULT_SIGMA2 = 0.0;
 /// Whether correspondence vector should be computed by default.
 const bool DEFAULT_CORRESPONDENCE = false;
+/// Are the scalings of the two datasets linked by default?
+const bool DEFAULT_LINKED = true;
 
 /// The result of a generic transform run.
 struct Result {
@@ -127,7 +129,7 @@ public:
     /// Runs this transform for the provided matrices.
     Result run(Matrix fixed, Matrix moving) {
         auto tic = std::chrono::high_resolution_clock::now();
-        Normalization normalization(fixed, moving);
+        Normalization normalization(fixed, moving, linked());
         if (m_normalize) {
             fixed = normalization.fixed;
             moving = normalization.moving;
@@ -140,7 +142,7 @@ public:
         if (m_sigma2 == 0.0) {
             result.sigma2 = cpd::default_sigma2(fixed, moving);
         } else if (m_normalize) {
-            result.sigma2 = m_sigma2 / normalization.scale;
+            result.sigma2 = m_sigma2 / normalization.fixed_scale;
         } else {
             result.sigma2 = m_sigma2;
         }
@@ -195,6 +197,11 @@ public:
     virtual Result compute_one(const Matrix& fixed, const Matrix& moving,
                                const Probabilities& probabilities,
                                double sigma2) const = 0;
+
+    /// Returns true if the normalization should be linked.
+    ///
+    /// No effect if no normalization is applied.
+    virtual bool linked() const = 0;
 
 private:
     bool m_correspondence;

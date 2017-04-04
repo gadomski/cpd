@@ -53,4 +53,12 @@ TEST_F(FishTest, Scale) {
     RigidResult result = rigid.run(m_fish_distorted, m_fish);
     EXPECT_NEAR(10.0, result.scale, 0.1);
 }
+
+TEST(Rigid, Linked) {
+    Rigid rigid;
+    rigid.scale(true);
+    EXPECT_FALSE(rigid.linked());
+    rigid.scale(false);
+    EXPECT_TRUE(rigid.linked());
+}
 } // namespace cpd

@@ -40,10 +40,25 @@ struct AffineResult : public Result {
 /// Affine coherent point drift.
 class Affine : public Transform<AffineResult> {
 public:
+    Affine()
+      : Transform()
+      , m_linked(DEFAULT_LINKED) {}
+
     /// Computes one iteration of the affine transformation.
     AffineResult compute_one(const Matrix& fixed, const Matrix& moving,
                              const Probabilities& probabilities,
                              double sigma2) const;
+
+    /// Sets whether the scalings of the two datasets are linked.
+    Affine& linked(bool linked) {
+        m_linked = linked;
+        return *this;
+    }
+
+    virtual bool linked() const { return m_linked; }
+
+private:
+    bool m_linked;
 };
 
 /// Runs a affine registration on two matrices.

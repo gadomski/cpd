@@ -50,4 +50,12 @@ TEST_F(FaceTest, Affine) {
     EXPECT_TRUE(result.transform.isApprox(transform.transpose(), 1e-4));
     EXPECT_TRUE(result.translation.isApprox(translation, 1e-4));
 }
+
+TEST(Affine, Linked) {
+    Affine affine;
+    affine.linked(true);
+    EXPECT_TRUE(affine.linked());
+    affine.linked(false);
+    EXPECT_FALSE(affine.linked());
+}
 } // namespace cpd
