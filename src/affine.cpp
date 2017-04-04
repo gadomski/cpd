@@ -50,8 +50,9 @@ AffineResult Affine::compute_one(const Matrix& fixed, const Matrix& moving,
 
 void AffineResult::denormalize(const Normalization& normalization) {
     Result::denormalize(normalization);
-    translation = normalization.scale * translation + normalization.fixed_mean -
+    translation = normalization.fixed_scale * translation + normalization.fixed_mean -
                   transform * normalization.moving_mean;
+    transform = transform * normalization.fixed_scale / normalization.moving_scale;
 }
 
 AffineResult affine(const Matrix& fixed, const Matrix& moving) {

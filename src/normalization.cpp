@@ -19,14 +19,19 @@
 
 namespace cpd {
 
-Normalization::Normalization(const Matrix& f, const Matrix& m)
+Normalization::Normalization(const Matrix& f, const Matrix& m, bool linked)
   : fixed_mean(f.colwise().mean())
   , fixed(f - fixed_mean.transpose().replicate(f.rows(), 1))
+  , fixed_scale(std::sqrt(fixed.array().pow(2).sum() / fixed.rows()))
   , moving_mean(m.colwise().mean())
   , moving(m - moving_mean.transpose().replicate(m.rows(), 1))
-  , scale(std::max(std::sqrt(fixed.array().pow(2).sum() / fixed.rows()),
-                   std::sqrt(moving.array().pow(2).sum() / moving.rows()))) {
-    fixed /= scale;
-    moving /= scale;
+  , moving_scale(std::sqrt(moving.array().pow(2).sum() / moving.rows())) {
+    if (linked) {
+        double scale = std::max(fixed_scale, moving_scale);
+        fixed_scale = scale;
+        moving_scale = scale;
+    }
+    fixed /= fixed_scale;
+    moving /= moving_scale;
 }
 } // namespace cpd

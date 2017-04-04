@@ -39,7 +39,8 @@ public:
     Nonrigid()
       : Transform()
       , m_lambda(DEFAULT_LAMBDA)
-      , m_beta(DEFAULT_BETA) {}
+      , m_beta(DEFAULT_BETA)
+      , m_linked(DEFAULT_LINKED) {}
 
     /// Initialize this transform for the provided matrices.
     void init(const Matrix& fixed, const Matrix& moving);
@@ -64,11 +65,20 @@ public:
                                const Probabilities& probabilities,
                                double sigma2) const;
 
+    /// Sets whether the scalings of the two datasets are linked.
+    Nonrigid& linked(bool linked) {
+        m_linked = linked;
+        return *this;
+    }
+
+    virtual bool linked() const { return m_linked; }
+
 private:
     Matrix m_g;
     Matrix m_w;
     double m_lambda;
     double m_beta;
+    bool m_linked;
 };
 
 /// Runs a nonrigid registration on two matrices.

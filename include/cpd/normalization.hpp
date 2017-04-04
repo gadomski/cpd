@@ -32,14 +32,24 @@ struct Normalization {
     Vector fixed_mean;
     /// The fixed points.
     Matrix fixed;
+    /// The scaling factor for the fixed points.
+    double fixed_scale;
     /// The average of the moving points, that was subtracted from those data.
     Vector moving_mean;
     /// The moving points.
     Matrix moving;
-    /// The scaling factor for the points.
-    double scale;
+    /// The scaling factor for the moving points.
+    double moving_scale;
 
     /// Creates a new normalization for the provided matrices.
-    Normalization(const Matrix& fixed, const Matrix& moving);
+    ///
+    /// If `linked = true`, apply the same scaling to both sets of points. This
+    /// is recommended if you are working with data that should not be scaled,
+    /// e.g. LiDAR data. If `linked = false`, each point set is scaled
+    /// seperately.
+    ///
+    /// Myronenko's original implementation only had `linked = false` logic.
+    Normalization(const Matrix& fixed, const Matrix& moving,
+                  bool linked = true);
 };
 } // namespace cpd
