@@ -8,5 +8,6 @@ var searchData=
   ['method',['method',['../classcpd_1_1_gauss_transform_fgt.html#aaf2eb1f00a01f4fe60b885c965aae5ee',1,'cpd::GaussTransformFgt']]],
   ['modify_5fprobabilities',['modify_probabilities',['../classcpd_1_1_nonrigid.html#afce4538a97e123bcb1b984340719e7ab',1,'cpd::Nonrigid::modify_probabilities()'],['../classcpd_1_1_transform.html#a1de72b60bd1148e190a9d718aba6047a',1,'cpd::Transform::modify_probabilities()']]],
   ['moving',['moving',['../structcpd_1_1_normalization.html#ac93d7d752245736440a7cd95978605bc',1,'cpd::Normalization']]],
-  ['moving_5fmean',['moving_mean',['../structcpd_1_1_normalization.html#a6fd65c328d50566c941a3b115842e795',1,'cpd::Normalization']]]
+  ['moving_5fmean',['moving_mean',['../structcpd_1_1_normalization.html#a6fd65c328d50566c941a3b115842e795',1,'cpd::Normalization']]],
+  ['moving_5fscale',['moving_scale',['../structcpd_1_1_normalization.html#a09dfcad246c8108d4cb380158ee5db77',1,'cpd::Normalization']]]
 ];

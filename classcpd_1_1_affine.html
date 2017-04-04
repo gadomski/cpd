@@ -116,6 +116,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a0f0b1bc5791b9171927bd45b6f91e78c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcpd_1_1_affine_result.html">AffineResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcpd_1_1_affine.html#a0f0b1bc5791b9171927bd45b6f91e78c">compute_one</a> (const <a class="el" href="namespacecpd.html#ae17f59c1f6eeb435087329fc8c54081e">Matrix</a> &amp;fixed, const <a class="el" href="namespacecpd.html#ae17f59c1f6eeb435087329fc8c54081e">Matrix</a> &amp;moving, const <a class="el" href="structcpd_1_1_probabilities.html">Probabilities</a> &amp;probabilities, double <a class="el" href="classcpd_1_1_transform.html#ae6bca8dc8febabf5ec075c5d47292522">sigma2</a>) const </td></tr>
 <tr class="memdesc:a0f0b1bc5791b9171927bd45b6f91e78c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes one iteration of the affine transformation.  <a href="#a0f0b1bc5791b9171927bd45b6f91e78c">More...</a><br /></td></tr>
 <tr class="separator:a0f0b1bc5791b9171927bd45b6f91e78c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0a9eceec22df022149a0cf662d13a12"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcpd_1_1_affine.html">Affine</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcpd_1_1_affine.html#ac0a9eceec22df022149a0cf662d13a12">linked</a> (bool linked)</td></tr>
+<tr class="memdesc:ac0a9eceec22df022149a0cf662d13a12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets whether the scalings of the two datasets are linked.  <a href="#ac0a9eceec22df022149a0cf662d13a12">More...</a><br /></td></tr>
+<tr class="separator:ac0a9eceec22df022149a0cf662d13a12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b7ac7cd7fb2fece66b9ac0284ab0f9e"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcpd_1_1_affine.html#a5b7ac7cd7fb2fece66b9ac0284ab0f9e">linked</a> () const </td></tr>
+<tr class="memdesc:a5b7ac7cd7fb2fece66b9ac0284ab0f9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the normalization should be linked.  <a href="#a5b7ac7cd7fb2fece66b9ac0284ab0f9e">More...</a><br /></td></tr>
+<tr class="separator:a5b7ac7cd7fb2fece66b9ac0284ab0f9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classcpd_1_1_transform"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classcpd_1_1_transform')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classcpd_1_1_transform.html">cpd::Transform&lt; AffineResult &gt;</a></td></tr>
 <tr class="memitem:a0736065ac09ccb4c9022939cd507533d inherit pub_methods_classcpd_1_1_transform"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcpd_1_1_transform.html">Transform</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcpd_1_1_transform.html#a0736065ac09ccb4c9022939cd507533d">correspondence</a> (bool correspondence)</td></tr>
 <tr class="memdesc:a0736065ac09ccb4c9022939cd507533d inherit pub_methods_classcpd_1_1_transform"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets whether the correspondence vector will be computed.  <a href="#a0736065ac09ccb4c9022939cd507533d">More...</a><br /></td></tr>
@@ -198,6 +204,60 @@ Public Member Functions</h2></td></tr>
 <p>Computes one iteration of the affine transformation. </p>
 
 <p>Implements <a class="el" href="classcpd_1_1_transform.html#a834f592c0b5a1a7ed8785d9cf5caefb6">cpd::Transform&lt; AffineResult &gt;</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac0a9eceec22df022149a0cf662d13a12"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcpd_1_1_affine.html">Affine</a>&amp; cpd::Affine::linked </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>linked</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sets whether the scalings of the two datasets are linked. </p>
+
+</div>
+</div>
+<a class="anchor" id="a5b7ac7cd7fb2fece66b9ac0284ab0f9e"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool cpd::Affine::linked </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns true if the normalization should be linked. </p>
+<p>No effect if no normalization is applied. </p>
+
+<p>Implements <a class="el" href="classcpd_1_1_transform.html#af9e3183631072c2d44bbdef0a53b2ad2">cpd::Transform&lt; AffineResult &gt;</a>.</p>
 
 </div>
 </div>

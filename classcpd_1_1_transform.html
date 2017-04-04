@@ -137,6 +137,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a834f592c0b5a1a7ed8785d9cf5caefb6"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="structcpd_1_1_result.html">Result</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcpd_1_1_transform.html#a834f592c0b5a1a7ed8785d9cf5caefb6">compute_one</a> (const <a class="el" href="namespacecpd.html#ae17f59c1f6eeb435087329fc8c54081e">Matrix</a> &amp;fixed, const <a class="el" href="namespacecpd.html#ae17f59c1f6eeb435087329fc8c54081e">Matrix</a> &amp;moving, const <a class="el" href="structcpd_1_1_probabilities.html">Probabilities</a> &amp;probabilities, double <a class="el" href="classcpd_1_1_transform.html#ae6bca8dc8febabf5ec075c5d47292522">sigma2</a>) const  =0</td></tr>
 <tr class="memdesc:a834f592c0b5a1a7ed8785d9cf5caefb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes one iteration of the transform.  <a href="#a834f592c0b5a1a7ed8785d9cf5caefb6">More...</a><br /></td></tr>
 <tr class="separator:a834f592c0b5a1a7ed8785d9cf5caefb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9e3183631072c2d44bbdef0a53b2ad2"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcpd_1_1_transform.html#af9e3183631072c2d44bbdef0a53b2ad2">linked</a> () const  =0</td></tr>
+<tr class="memdesc:af9e3183631072c2d44bbdef0a53b2ad2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the normalization should be linked.  <a href="#af9e3183631072c2d44bbdef0a53b2ad2">More...</a><br /></td></tr>
+<tr class="separator:af9e3183631072c2d44bbdef0a53b2ad2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;typename Result&gt;<br />
@@ -291,6 +294,36 @@ template&lt;typename Result&gt; </div>
 <p>This is called before beginning each run, but after normalization. In general, transforms shouldn't need to be initialized, but the nonrigid does. </p>
 
 <p>Reimplemented in <a class="el" href="classcpd_1_1_nonrigid.html#af0cbc91d4a4409cb4f5821934384ee19">cpd::Nonrigid</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af9e3183631072c2d44bbdef0a53b2ad2"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Result&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool <a class="el" href="classcpd_1_1_transform.html">cpd::Transform</a>&lt; <a class="el" href="structcpd_1_1_result.html">Result</a> &gt;::linked </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns true if the normalization should be linked. </p>
+<p>No effect if no normalization is applied. </p>
+
+<p>Implemented in <a class="el" href="classcpd_1_1_nonrigid.html#a61371107c5753413e67c0fe5822c5535">cpd::Nonrigid</a>, <a class="el" href="classcpd_1_1_rigid.html#a344eeec1fa4e82adb6eb2e7449831173">cpd::Rigid</a>, and <a class="el" href="classcpd_1_1_affine.html#a5b7ac7cd7fb2fece66b9ac0284ab0f9e">cpd::Affine</a>.</p>
 
 </div>
 </div>

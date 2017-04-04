@@ -207,7 +207,7 @@ Variables</h2></td></tr>
 <tr class="memitem:a05f3641962a8fc629856f4a311f4470e"><td class="memItemLeft" align="right" valign="top">const bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecpd.html#a05f3641962a8fc629856f4a311f4470e">DEFAULT_REFLECTIONS</a> = false</td></tr>
 <tr class="memdesc:a05f3641962a8fc629856f4a311f4470e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Should rigid registrations allow reflections by default?  <a href="#a05f3641962a8fc629856f4a311f4470e">More...</a><br /></td></tr>
 <tr class="separator:a05f3641962a8fc629856f4a311f4470e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0dedec7810330a1a4e4e47a246a5ad69"><td class="memItemLeft" align="right" valign="top">const bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecpd.html#a0dedec7810330a1a4e4e47a246a5ad69">DEFAULT_SCALE</a> = false</td></tr>
+<tr class="memitem:a0dedec7810330a1a4e4e47a246a5ad69"><td class="memItemLeft" align="right" valign="top">const bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecpd.html#a0dedec7810330a1a4e4e47a246a5ad69">DEFAULT_SCALE</a> = !<a class="el" href="namespacecpd.html#ad8c2c90b74d0c9384b948e5d3be51c88">DEFAULT_LINKED</a></td></tr>
 <tr class="memdesc:a0dedec7810330a1a4e4e47a246a5ad69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Should rigid registrations scale the data by default?  <a href="#a0dedec7810330a1a4e4e47a246a5ad69">More...</a><br /></td></tr>
 <tr class="separator:a0dedec7810330a1a4e4e47a246a5ad69"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0551efd7d09a3f751a3332b201285b6a"><td class="memItemLeft" align="right" valign="top">const size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecpd.html#a0551efd7d09a3f751a3332b201285b6a">DEFAULT_MAX_ITERATIONS</a> = 150</td></tr>
@@ -228,6 +228,9 @@ Variables</h2></td></tr>
 <tr class="memitem:a481ccb4650cc981d2b7312773f90b74b"><td class="memItemLeft" align="right" valign="top">const bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecpd.html#a481ccb4650cc981d2b7312773f90b74b">DEFAULT_CORRESPONDENCE</a> = false</td></tr>
 <tr class="memdesc:a481ccb4650cc981d2b7312773f90b74b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether correspondence vector should be computed by default.  <a href="#a481ccb4650cc981d2b7312773f90b74b">More...</a><br /></td></tr>
 <tr class="separator:a481ccb4650cc981d2b7312773f90b74b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8c2c90b74d0c9384b948e5d3be51c88"><td class="memItemLeft" align="right" valign="top">const bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecpd.html#ad8c2c90b74d0c9384b948e5d3be51c88">DEFAULT_LINKED</a> = true</td></tr>
+<tr class="memdesc:ad8c2c90b74d0c9384b948e5d3be51c88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Are the scalings of the two datasets linked by default?  <a href="#ad8c2c90b74d0c9384b948e5d3be51c88">More...</a><br /></td></tr>
+<tr class="separator:ad8c2c90b74d0c9384b948e5d3be51c88"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Top-level cpd namespace. </p>
@@ -581,6 +584,20 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ad8c2c90b74d0c9384b948e5d3be51c88"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const bool cpd::DEFAULT_LINKED = true</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Are the scalings of the two datasets linked by default? </p>
+
+</div>
+</div>
 <a class="anchor" id="a0551efd7d09a3f751a3332b201285b6a"></a>
 <div class="memitem">
 <div class="memproto">
@@ -642,7 +659,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const bool cpd::DEFAULT_SCALE = false</td>
+          <td class="memname">const bool cpd::DEFAULT_SCALE = !<a class="el" href="namespacecpd.html#ad8c2c90b74d0c9384b948e5d3be51c88">DEFAULT_LINKED</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
