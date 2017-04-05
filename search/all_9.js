@@ -1,7 +1,7 @@
 var searchData=
 [
   ['make_5fdefault',['make_default',['../classcpd_1_1_gauss_transform.html#ad575df897b414b23865d4704c7c1fa3c',1,'cpd::GaussTransform']]],
-  ['matrix',['Matrix',['../namespacecpd.html#ae17f59c1f6eeb435087329fc8c54081e',1,'cpd']]],
+  ['matrix',['matrix',['../structcpd_1_1_affine_result.html#a7110346bdae939a7c9d1a7ae05d646b3',1,'cpd::AffineResult::matrix()'],['../structcpd_1_1_rigid_result.html#a2aa14b87f9049e2ad1c9ab7c76de34f2',1,'cpd::RigidResult::matrix()'],['../namespacecpd.html#ae17f59c1f6eeb435087329fc8c54081e',1,'cpd::Matrix()']]],
   ['matrix_2ehpp',['matrix.hpp',['../matrix_8hpp.html',1,'']]],
   ['matrix_5ffrom_5fpath',['matrix_from_path',['../namespacecpd.html#a9f75bb5c51ea24db8c45439a4b1017a5',1,'cpd']]],
   ['max_5fiterations',['max_iterations',['../classcpd_1_1_transform.html#aa94babd3981e087699598f27cbedecde',1,'cpd::Transform']]],

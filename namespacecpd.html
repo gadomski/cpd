@@ -168,6 +168,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ae48e7014d830d55f3948d8e2218c9560"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcpd_1_1_affine_result.html">AffineResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecpd.html#ae48e7014d830d55f3948d8e2218c9560">affine</a> (const <a class="el" href="namespacecpd.html#ae17f59c1f6eeb435087329fc8c54081e">Matrix</a> &amp;fixed, const <a class="el" href="namespacecpd.html#ae17f59c1f6eeb435087329fc8c54081e">Matrix</a> &amp;moving)</td></tr>
 <tr class="memdesc:ae48e7014d830d55f3948d8e2218c9560"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs a affine registration on two matrices.  <a href="#ae48e7014d830d55f3948d8e2218c9560">More...</a><br /></td></tr>
 <tr class="separator:ae48e7014d830d55f3948d8e2218c9560"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b9d3b5836b7d741e1aeb3775264ecc3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacecpd.html#ae17f59c1f6eeb435087329fc8c54081e">Matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecpd.html#a2b9d3b5836b7d741e1aeb3775264ecc3">apply_transformation_matrix</a> (<a class="el" href="namespacecpd.html#ae17f59c1f6eeb435087329fc8c54081e">Matrix</a> points, const <a class="el" href="namespacecpd.html#ae17f59c1f6eeb435087329fc8c54081e">Matrix</a> &amp;transform)</td></tr>
+<tr class="memdesc:a2b9d3b5836b7d741e1aeb3775264ecc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply a transformation matrix to a set of points.  <a href="#a2b9d3b5836b7d741e1aeb3775264ecc3">More...</a><br /></td></tr>
+<tr class="separator:a2b9d3b5836b7d741e1aeb3775264ecc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af74923357dbbadddeab1caf4c492e1a9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcpd_1_1_nonrigid_result.html">NonrigidResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecpd.html#af74923357dbbadddeab1caf4c492e1a9">nonrigid</a> (const <a class="el" href="namespacecpd.html#ae17f59c1f6eeb435087329fc8c54081e">Matrix</a> &amp;fixed, const <a class="el" href="namespacecpd.html#ae17f59c1f6eeb435087329fc8c54081e">Matrix</a> &amp;moving)</td></tr>
 <tr class="memdesc:af74923357dbbadddeab1caf4c492e1a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs a nonrigid registration on two matrices.  <a href="#af74923357dbbadddeab1caf4c492e1a9">More...</a><br /></td></tr>
 <tr class="separator:af74923357dbbadddeab1caf4c492e1a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -377,6 +380,35 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Computes the affinity matrix between the two matrices. </p>
+
+</div>
+</div>
+<a class="anchor" id="a2b9d3b5836b7d741e1aeb3775264ecc3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacecpd.html#ae17f59c1f6eeb435087329fc8c54081e">Matrix</a> cpd::apply_transformation_matrix </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecpd.html#ae17f59c1f6eeb435087329fc8c54081e">Matrix</a>&#160;</td>
+          <td class="paramname"><em>points</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespacecpd.html#ae17f59c1f6eeb435087329fc8c54081e">Matrix</a> &amp;&#160;</td>
+          <td class="paramname"><em>transform</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Apply a transformation matrix to a set of points. </p>
+<p>The transformation matrix should be one column wider than the point matrix. </p>
 
 </div>
 </div>
