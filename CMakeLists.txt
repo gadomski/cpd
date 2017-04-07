@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.1)
 set(CPD_LANGUAGES CXX)
-set(CPD_VERSION 0.5.0)
+set(CPD_VERSION 0.5.1)
 set(CPD_SOVERSION 0)
 
 
