@@ -15,7 +15,10 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+#define _USE_MATH_DEFINES
+
 #include <cpd/gauss_transform.hpp>
+#include <cmath>
 
 namespace cpd {
 Probabilities GaussTransformDirect::compute(const Matrix& fixed,
