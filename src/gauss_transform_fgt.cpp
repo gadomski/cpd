@@ -15,7 +15,10 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+#define _USE_MATH_DEFINES
+
 #include <cpd/gauss_transform_fgt.hpp>
+#include <cmath>
 
 namespace cpd {
 std::unique_ptr<GaussTransform> GaussTransform::make_default() {
