@@ -25,11 +25,14 @@
 #pragma once
 
 #include <chrono>
+#include <memory>
+#include <functional>
+#include <vector>
+
 #include <cpd/gauss_transform.hpp>
 #include <cpd/matrix.hpp>
 #include <cpd/normalization.hpp>
 #include <cpd/utils.hpp>
-#include <memory>
 
 namespace cpd {
 
@@ -82,6 +85,15 @@ public:
       , m_outliers(DEFAULT_OUTLIERS)
       , m_sigma2(DEFAULT_SIGMA2)
       , m_tolerance(DEFAULT_TOLERANCE) {}
+
+    using TCallback = std::function<void(const Result&)>;
+    using TCallbackVector = std::vector<TCallback>;
+
+    /// Add a callback (function pointer, member function, or lambda).
+    Transform& add_callback(TCallback cb) {
+        this->m_callbacks.push_back(cb);
+        return *this;
+    }
 
     /// Sets whether the correspondence vector will be computed.
     Transform& correspondence(bool correspondence) {
@@ -161,6 +173,9 @@ public:
 
             result =
                 this->compute_one(fixed, moving, probabilities, result.sigma2);
+            for (const auto &cb : this->m_callbacks) {
+                cb(result);
+            }
             ++iter;
         }
 
@@ -211,5 +226,6 @@ private:
     double m_outliers;
     double m_sigma2;
     double m_tolerance;
+    TCallbackVector m_callbacks;
 };
 } // namespace cpd
