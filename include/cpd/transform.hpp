@@ -183,8 +183,9 @@ public:
             result.denormalize(normalization);
         }
         if (m_correspondence) {
-            Probabilities probabilities = m_gauss_transform->compute(
-                fixed, result.points, m_sigma2, m_outliers);
+            GaussTransformDirect direct;
+            Probabilities probabilities = direct.compute(
+                fixed, result.points, result.sigma2, m_outliers);
             result.correspondence = probabilities.correspondence;
             assert(result.correspondence.rows() > 0);
         }

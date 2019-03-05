@@ -67,4 +67,11 @@ TEST_F(FishTest, AffineMatrix) {
     Matrix fish = apply_transformation_matrix(m_fish, transform);
     EXPECT_TRUE(result.points.isApprox(fish, 1e-4));
 }
+
+TEST_F(FishTest, Correspondences) {
+    Affine affine;
+    affine.correspondence(true);
+    AffineResult result = affine.run(m_fish_distorted, m_fish);
+    EXPECT_TRUE((result.correspondence.array() > 0).any());
+}
 } // namespace cpd
