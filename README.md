@@ -17,7 +17,7 @@ This library supports three variants of CPD:
 Andriy's reference implementation comes with one other type of registration, **nonrigid_lowrank**, which is not implemented in the latest version of this library (yet) (see [History](#history) for information on how to find and use a previous version of this library that has **nonrigid_lowrank**).
 
 This code lives [on Github](https://github.com/gadomski/cpd).
-It has some [Doxygen documentation](http://gadomski.github.io/cpd) and is tested [by Travis](https://travis-ci.org/gadomski/cpd) and [by AppVeyor](https://ci.appveyor.com/project/gadomski/cpd/branch/master).
+It has some [Doxygen documentation](http://gadomski.github.io/cpd) and is tested [by Travis](https://travis-ci.org/gadomski/cpd).
 We also have a [gitter chatroom](https://gitter.im/gadomski/cpd).
 
 [![Build Status](https://travis-ci.org/gadomski/cpd.svg?branch=master)](https://travis-ci.org/gadomski/cpd)
