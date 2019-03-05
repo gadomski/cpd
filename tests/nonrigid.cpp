@@ -43,4 +43,11 @@ TEST(Nonrigid, Linked) {
     nonrigid.linked(false);
     EXPECT_FALSE(nonrigid.linked());
 }
+
+TEST_F(FishTest, Correspondences) {
+    Nonrigid nonrigid;
+    nonrigid.correspondence(true);
+    NonrigidResult result = nonrigid.run(m_fish_distorted, m_fish);
+    EXPECT_TRUE((result.correspondence.array() > 0).any());
+}
 } // namespace cpd
