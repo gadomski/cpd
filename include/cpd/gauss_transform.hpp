@@ -51,6 +51,8 @@ public:
     /// Computes the Gauss transform.
     virtual Probabilities compute(const Matrix& fixed, const Matrix& moving,
                                   double sigma2, double outliers) const = 0;
+
+    virtual ~GaussTransform() {}
 };
 
 /// The direct Gauss transform.
