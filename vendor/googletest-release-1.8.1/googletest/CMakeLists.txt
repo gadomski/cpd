@@ -44,13 +44,17 @@ if (CMAKE_VERSION VERSION_LESS 3.0)
   project(gtest CXX C)
 else()
   cmake_policy(SET CMP0048 NEW)
-  project(gtest VERSION ${GOOGLETEST_VERSION} LANGUAGES CXX C)
+  project(gtest VERSION 1.9.0 LANGUAGES CXX C)
 endif()
 cmake_minimum_required(VERSION 2.6.4)
 
 if (POLICY CMP0063) # Visibility
   cmake_policy(SET CMP0063 NEW)
 endif (POLICY CMP0063)
+
+if (POLICY CMP0042)
+  cmake_policy(SET CMP0042 NEW)
+endif (POLICY CMP0042)
 
 if (COMMAND set_up_hermetic_build)
   set_up_hermetic_build()
