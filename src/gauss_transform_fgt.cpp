@@ -66,5 +66,7 @@ std::unique_ptr<fgt::Transform> GaussTransformFgt::create_transform(
                     new fgt::DirectTree(points, bandwidth, m_epsilon));
             }
     }
+    return nullptr;
 }
+
 } // namespace cpd
