@@ -41,6 +41,7 @@ Probabilities GaussTransformDirect::compute(const Matrix& fixed,
         double sp = 0;
         for (Matrix::Index j = 0; j < moving.rows(); ++j) {
             double razn = (fixed.row(i) - moving.row(j)).array().pow(2).sum();
+            razn = std::sqrt(razn);
             p(j) = std::exp(razn / ksig);
             sp += p(j);
         }
