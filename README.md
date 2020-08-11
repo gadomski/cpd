@@ -1,5 +1,7 @@
 # cpd
 
+[![Build Status](https://travis-ci.org/gadomski/cpd.svg?branch=master)](https://travis-ci.org/gadomski/cpd)
+
 **Coherent Point Drift (CPD)** is a point-set registration algorithm, originally developed by [Andriy Myronenko](https://sites.google.com/site/myronenko/research/cpd) et al.
 This is a C++ library that runs CPD.
 
@@ -18,9 +20,6 @@ Andriy's reference implementation comes with one other type of registration, **n
 
 This code lives [on Github](https://github.com/gadomski/cpd).
 It has some [Doxygen documentation](http://gadomski.github.io/cpd) and is tested [by Travis](https://travis-ci.org/gadomski/cpd).
-We also have a [gitter chatroom](https://gitter.im/gadomski/cpd).
-
-[![Build Status](https://travis-ci.org/gadomski/cpd.svg?branch=master)](https://travis-ci.org/gadomski/cpd)
 
 ## Usage
 
@@ -100,7 +99,10 @@ cmake ..
 make
 ```
 
-If you're using a home-built version of jsoncpp, make sure you set `JSONCPP_WITH_CMAKE_PACKAGE=ON` and `BUILD_SHARED_LIBS=ON`.
+If you're using a home-built version of jsoncpp, make sure you set the following options when building and installing jsoncpp (this allows cpd to find jsoncpp):
+
+- `JSONCPP_WITH_CMAKE_PACKAGE=ON`
+- `BUILD_SHARED_LIBS=ON`
 
 ### Using downstream
 
