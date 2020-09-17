@@ -4,7 +4,7 @@ on:
 
 jobs:
   base:
-    name: Base ${{ matrix.os }}
+    name: CPD ${{ matrix.os }} w/ FGT ${{ matrix.fgt }}
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: true
@@ -23,8 +23,7 @@ jobs:
         shell: bash -l {0}
         run: |
             conda update -n base -c defaults conda -y
-            conda install ninja compilers cmake ninja eigen3 jsoncpp -y
-        continue-on-error: true
+            conda install ninja compilers cmake ninja eigen jsoncpp -y
 
       - name: FGT
         shell: bash -l {0}
