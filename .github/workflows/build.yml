@@ -1,0 +1,73 @@
+on:
+  push:
+    branches: '*'
+
+jobs:
+  base:
+    name: Base ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: true
+      matrix:
+        os: ['ubuntu-latest', 'macos-latest', 'windows-latest']
+        fgt: ['ON', 'OFF']
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ilammy/msvc-dev-cmd@v1
+      - uses: goanpeca/setup-miniconda@v1
+        with:
+          channels: conda-forge
+          auto-update-conda: true
+
+      - name: Setup
+        shell: bash -l {0}
+        run: |
+            conda update -n base -c defaults conda -y
+            conda install ninja compilers cmake ninja eigen3 jsoncpp -y
+        continue-on-error: true
+
+      - name: FGT
+        shell: bash -l {0}
+        if: matrix.fgt == 'ON'
+        run: |
+            git clone https://github.com/gadomski/fgt.git
+            mkdir fgt/build
+            cd fgt/build
+            cmake .. \
+                -G Ninja \
+                -DCMAKE_INSTALL_PREFIX=$CONDA_PREFIX \
+                -DWITH_TESTS=OFF \
+                -DCMAKE_BUILD_TYPE=Release \
+                -DBUILD_SHARED_LIBS=ON
+            ninja
+            ninja install
+
+      - name: Configure
+        shell: bash -l {0}
+        run: |
+            if [ "$RUNNER_OS" == "Windows" ]; then
+              export CC=cl.exe
+              export CXX=cl.exe
+            fi
+            mkdir build; cd build;
+            cmake .. \
+                -G Ninja \
+                -DBUILD_SHARED_LIBS=ON \
+                -DCMAKE_BUILD_TYPE=Release \
+                -DCMAKE_INSTALL_PREFIX=$CONDA_PREFIX \
+                -DWITH_DOCS=OFF \
+                -DWITH_FGT=${{ matrix.fgt }} \
+                -DWITH_JSONCPP=ON \
+                -DWITH_STRICT_WARNINGS=ON \
+                -DWITH_TESTS=ON
+      - name: Build
+        shell: bash -l {0}
+        working-directory: ./build
+        run: |
+            ninja
+      - name: Test
+        shell: bash -l {0}
+        working-directory: ./build
+        run: |
+            ctest
+
