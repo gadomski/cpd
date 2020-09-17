@@ -34,7 +34,7 @@ jobs:
             mkdir build
             cd build
             cmake .. \
-                -DCRAKE_INSTALL_PREFIX=$CONDA_PREFIX \
+                -DCMAKE_INSTALL_PREFIX=$CONDA_PREFIX \
                 -DBUILD_SHARED_LIBS=ON \
                 -DJSONCPP_WITH_CMAKE_PACKAGE=ON \
                 -DJSONCPP_WITH_TESTS=OFF \
