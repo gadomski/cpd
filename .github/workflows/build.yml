@@ -23,7 +23,7 @@ jobs:
         shell: bash -l {0}
         run: |
             conda update -n base -c defaults conda -y
-            conda install ninja compilers cmake ninja eigen jsoncpp -y
+            conda install ninja compilers cmake ninja eigen wget jsoncpp -y
       - name: JSONCPP
         shell: bash -l {0}
         run: |
