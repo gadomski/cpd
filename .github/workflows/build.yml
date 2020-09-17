@@ -24,6 +24,22 @@ jobs:
         run: |
             conda update -n base -c defaults conda -y
             conda install ninja compilers cmake ninja eigen jsoncpp -y
+      - name: JSONCPP
+        shell: bash -l {0}
+        run: |
+            wget https://github.com/open-source-parsers/jsoncpp/archive/1.9.3.tar.gz
+            tar xzf 1.9.3.tar.gz
+            rm 1.9.3.tar.gz
+            cd jsoncpp-1.9.3
+            mkdir build
+            cd build
+            cmake .. \
+                -DCRAKE_INSTALL_PREFIX=$CONDA_PREFIX \
+                -DBUILD_SHARED_LIBS=ON \
+                -DJSONCPP_WITH_CMAKE_PACKAGE=ON \
+                -DJSONCPP_WITH_TESTS=OFF \
+                -DJSONCPP_WITH_POST_BUILD_UNITTEST=OFF
+            make install
 
       - name: FGT
         shell: bash -l {0}
