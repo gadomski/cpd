@@ -38,6 +38,7 @@ jobs:
             git checkout 1.9.3
             mkdir build
             cd build
+            echo "lint" "platform: $PLATFORM"
             if [ "$PLATFORM" == "windows-latest" ]; then
 
             export CC=cl.exe
@@ -46,7 +47,7 @@ jobs:
             echo "hello"
             else
             conda install compilers -y
-            echo "lint"
+            echo "lint" "$PLATFORM"
             fi
 
             cmake .. \
