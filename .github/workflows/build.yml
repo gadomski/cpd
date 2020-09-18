@@ -4,8 +4,8 @@ on:
 
 jobs:
   base:
-    name: CPD ${{ matrix.os }} w/ FGT ${{ matrix.fgt }}
-    runs-on: ${{ matrix.os }}
+    name: CPD ${{ matrix.platform }} w/ FGT ${{ matrix.fgt }}
+    runs-on: ${{ matrix.platform }}
     strategy:
       fail-fast: true
       matrix:
