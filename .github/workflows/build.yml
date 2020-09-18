@@ -22,14 +22,15 @@ jobs:
           channels: conda-forge
           auto-update-conda: true
 
+      - uses: ilammy/msvc-dev-cmd@v1
+        if: ${{matrix.platform}} == 'windows-latest'
+
       - name: Setup
         shell: bash -l {0}
         run: |
             conda update -n base -c defaults conda -y
-            conda install ninja cmake ninja eigen jsoncpp -y
+            conda install ninja cmake ninja eigen compilers jsoncpp -y
 
-      - uses: ilammy/msvc-dev-cmd@v1
-        if: ${{matrix.platform}} == 'windows-latest'
       - name: JSONCPP
         shell: bash -l {0}
         run: |
@@ -38,16 +39,9 @@ jobs:
             git checkout 1.9.3
             mkdir build
             cd build
-            echo "lint" "platform: $PLATFORM"
             if [ "$PLATFORM" == "windows-latest" ]; then
-
-            export CC=cl.exe
-            export CXX=cl.exe
-            where cl
-            echo "hello"
-            else
-            conda install compilers -y
-            echo "lint" "$PLATFORM"
+                export CC=cl.exe
+                export CXX=cl.exe
             fi
 
             cmake .. \
@@ -67,17 +61,15 @@ jobs:
             mkdir fgt/build
             cd fgt/build
             if [ "$PLATFORM" == "windows-latest" ]; then
-
-            export CC=cl.exe
-            export CXX=cl.exe
-            where cl
+                export CC=cl.exe
+                export CXX=cl.exe
             fi
             cmake .. \
                 -G Ninja \
                 -DCMAKE_INSTALL_PREFIX=$CONDA_PREFIX \
                 -DWITH_TESTS=OFF \
                 -DCMAKE_BUILD_TYPE=Release \
-                -DBUILD_SHARED_LIBS=ON
+                -DBUILD_SHARED_LIBS=OFF
             ninja
             ninja install
 
@@ -86,10 +78,8 @@ jobs:
         run: |
             mkdir build; cd build;
             if [ "$PLATFORM" == "windows-latest" ]; then
-
-            export CC=cl.exe
-            export CXX=cl.exe
-            where cl
+                export CC=cl.exe
+                export CXX=cl.exe
             fi
             cmake .. \
                 -G Ninja \
