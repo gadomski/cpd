@@ -9,7 +9,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        os: ['ubuntu-latest', 'macos-latest', 'windows-latest']
+        platform: ['ubuntu-latest', 'macos-latest', 'windows-latest']
         fgt: ['ON', 'OFF']
 
     env:
@@ -29,7 +29,7 @@ jobs:
             conda install ninja cmake ninja eigen jsoncpp -y
 
       - uses: ilammy/msvc-dev-cmd@v1
-        if: matrix.platform == 'windows-latest'
+        if: ${{matrix.platform}} == 'windows-latest'
       - name: JSONCPP
         shell: bash -l {0}
         run: |
