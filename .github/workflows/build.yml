@@ -26,9 +26,10 @@ jobs:
         shell: bash -l {0}
         run: |
             conda update -n base -c defaults conda -y
-            conda install ninja compilers cmake ninja eigen jsoncpp -y
+            conda install ninja cmake ninja eigen jsoncpp -y
 
       - uses: ilammy/msvc-dev-cmd@v1
+        if: matrix.platform == 'windows-latest'
       - name: JSONCPP
         shell: bash -l {0}
         run: |
@@ -37,9 +38,9 @@ jobs:
             git checkout 1.9.3
             mkdir build
             cd build
-            if [ "$PLATFORM" == "windows-latest" ]; then
+            conda install compilers -y
+            if [ ${{ matrix.pathform }}  == "windows-latest" ]; then
 
-            conda install compilers ninja -y
             export CC=cl.exe
             export CXX=cl.exe
             where cl
