@@ -13,7 +13,6 @@ jobs:
         fgt: ['ON', 'OFF']
     steps:
       - uses: actions/checkout@v2
-      - uses: ilammy/msvc-dev-cmd@v1
       - uses: goanpeca/setup-miniconda@v1
         with:
           channels: conda-forge
@@ -24,6 +23,8 @@ jobs:
         run: |
             conda update -n base -c defaults conda -y
             conda install ninja compilers cmake ninja eigen jsoncpp -y
+
+      - uses: ilammy/msvc-dev-cmd@v1
       - name: JSONCPP
         shell: bash -l {0}
         run: |
