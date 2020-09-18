@@ -66,7 +66,7 @@ else()
     list(APPEND library-src src/gauss_transform_make_default.cpp)
 endif()
 
-add_library(Library-C++ ${library-src})
+add_library(Library-C++ STATIC ${library-src})
 set_target_properties(Library-C++ PROPERTIES
     OUTPUT_NAME cpd
     VERSION ${CPD_VERSION}
