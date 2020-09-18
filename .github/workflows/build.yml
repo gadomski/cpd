@@ -27,10 +27,9 @@ jobs:
       - name: JSONCPP
         shell: bash -l {0}
         run: |
-            curl -O https://github.com/open-source-parsers/jsoncpp/archive/1.9.3.tar.gz
-            tar xzf 1.9.3.tar.gz
-            rm 1.9.3.tar.gz
-            cd jsoncpp-1.9.3
+            git clone https://github.com/open-source-parsers/jsoncpp.git
+            git checkout 1.9.3
+            cd jsoncpp
             mkdir build
             cd build
             cmake .. \
