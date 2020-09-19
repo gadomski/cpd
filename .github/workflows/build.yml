@@ -103,6 +103,7 @@ jobs:
         working-directory: ./build
         run: |
             if [ "$PLATFORM" == "windows-latest" ]; then
+            echo "::add-path::/didthiswork"
                 echo "##[add-path]$GITHUB_WORKSPACE/bin"
                 echo "##[add-path]$GITHUB_WORKSPACE/build/bin"
                 echo "##[add-path]$GITHUB_WORKSPACE/components/jsoncpp"
