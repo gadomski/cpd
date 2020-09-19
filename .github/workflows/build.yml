@@ -103,7 +103,12 @@ jobs:
         working-directory: ./build
         run: |
             if [ "$PLATFORM" == "windows-latest" ]; then
+            echo "setting windows paths"
             echo "::add-path::/didthiswork"
+            echo "::add-path::./didthiswork"
+            echo "::add-path::./bin"
+            echo "::add-path::./build/bin"
+            echo "::add-path::./components/jsoncpp"
                 echo "##[add-path]$GITHUB_WORKSPACE/bin"
                 echo "##[add-path]$GITHUB_WORKSPACE/build/bin"
                 echo "##[add-path]$GITHUB_WORKSPACE/components/jsoncpp"
