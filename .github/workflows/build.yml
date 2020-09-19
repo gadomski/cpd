@@ -98,9 +98,10 @@ jobs:
         run: |
             ninja
 
-      - name: Test
+      - name: Paths
         shell: bash -l {0}
         working-directory: ./build
+        if: ${{matrix.platform}} == 'windows-latest'
         run: |
             if [ "$PLATFORM" == "windows-latest" ]; then
             echo "setting windows paths"
@@ -109,9 +110,11 @@ jobs:
             echo "::add-path::./bin"
             echo "::add-path::./build/bin"
             echo "::add-path::./components/jsoncpp"
-                echo "##[add-path]$GITHUB_WORKSPACE/bin"
-                echo "##[add-path]$GITHUB_WORKSPACE/build/bin"
-                echo "##[add-path]$GITHUB_WORKSPACE/components/jsoncpp"
             fi
+
+      - name: Test
+        shell: bash -l {0}
+        working-directory: ./build
+        run: |
             ctest
 
