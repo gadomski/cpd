@@ -23,7 +23,7 @@ jobs:
           auto-update-conda: true
 
       - uses: ilammy/msvc-dev-cmd@v1
-        if: ${{matrix.platform}} == 'windows-latest'
+        if: matrix.platform == 'windows-latest'
 
       - name: Setup
         shell: bash -l {0}
@@ -100,17 +100,17 @@ jobs:
 
       - name: Paths
         shell: bash -l {0}
-        working-directory: ./build
-        if: ${{matrix.platform}} == 'windows-latest'
+        if: matrix.platform == 'windows-latest'
         run: |
-            if [ "$PLATFORM" == "windows-latest" ]; then
             echo "setting windows paths"
             echo "::add-path::/didthiswork"
+            echo "::add-path::D:/a/cpd/cpd/build/bin"
+            echo "::add-path::D:/a/cpd/cpd/build/components/jsoncpp"
             echo "::add-path::./didthiswork"
             echo "::add-path::./bin"
             echo "::add-path::./build/bin"
+            echo "::add-path::./bin"
             echo "::add-path::./components/jsoncpp"
-            fi
 
       - name: Test
         shell: bash -l {0}
