@@ -102,7 +102,8 @@ jobs:
         working-directory: ./build
         run: |
             if [ "$PLATFORM" == "windows-latest" ]; then
-                export PATH=%PATH%;%cd%\bin;%cd%\components\jsoncpp
+                echo "::add-path::$GITHUB_WORKSPACE/build/bin"
+                echo "::add-path::$GITHUB_WORKSPACE/build/components/jsoncpp"
             fi
             ctest
 
