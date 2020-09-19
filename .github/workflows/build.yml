@@ -50,8 +50,8 @@ jobs:
                 -DBUILD_SHARED_LIBS=ON \
                 -DJSONCPP_WITH_CMAKE_PACKAGE=ON \
                 -DJSONCPP_WITH_TESTS=OFF \
-                -DJSONCPP_WITH_POST_BUILD_UNITTEST=OFF
-                -DCMAKE_BUILD_TYPE=Release \
+                -DJSONCPP_WITH_POST_BUILD_UNITTEST=OFF \
+                -DCMAKE_BUILD_TYPE=Release
             ninja install
 
       - name: FGT
