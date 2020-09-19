@@ -101,5 +101,8 @@ jobs:
         shell: bash -l {0}
         working-directory: ./build
         run: |
+            if [ "$PLATFORM" == "windows-latest" ]; then
+                export PATH=%PATH%;%cd%\bin;%cd%\components\jsoncpp
+            fi
             ctest
 
