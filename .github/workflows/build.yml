@@ -102,15 +102,8 @@ jobs:
         shell: bash -l {0}
         if: matrix.platform == 'windows-latest'
         run: |
-            echo "setting windows paths"
-            echo "::add-path::/didthiswork"
             echo "::add-path::D:/a/cpd/cpd/build/bin"
             echo "::add-path::D:/a/cpd/cpd/build/components/jsoncpp"
-            echo "::add-path::./didthiswork"
-            echo "::add-path::./bin"
-            echo "::add-path::./build/bin"
-            echo "::add-path::./bin"
-            echo "::add-path::./components/jsoncpp"
 
       - name: Test
         shell: bash -l {0}
