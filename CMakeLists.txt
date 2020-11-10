@@ -2,6 +2,9 @@ cmake_minimum_required(VERSION 3.1)
 set(CPD_LANGUAGES CXX)
 set(CPD_VERSION 0.5.1)
 set(CPD_SOVERSION 0)
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 
 
 # Policies
@@ -32,11 +35,11 @@ endif()
 
 
 # Configuration
-if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
-    option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
-else()
-    option(BUILD_SHARED_LIBS "Build shared libraries" ON)
-endif()
+#if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
+#    option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
+#else()
+#    option(BUILD_SHARED_LIBS "Build shared libraries" ON)
+#endif()
 
 include(CMakePackageConfigHelpers)
 write_basic_package_version_file("${PROJECT_BINARY_DIR}/cmake/cpd-config-version.cmake" VERSION ${CPD_VERSION} COMPATIBILITY AnyNewerVersion)
@@ -63,7 +66,7 @@ else()
     list(APPEND library-src src/gauss_transform_make_default.cpp)
 endif()
 
-add_library(Library-C++ ${library-src})
+add_library(Library-C++ STATIC ${library-src})
 set_target_properties(Library-C++ PROPERTIES
     OUTPUT_NAME cpd
     VERSION ${CPD_VERSION}
@@ -75,7 +78,6 @@ target_include_directories(Library-C++
     $<INSTALL_INTERFACE:include>
     ${EIGEN3_INCLUDE_DIR}
     )
-target_compile_options(Library-C++ PUBLIC -std=c++11)
 if(WITH_FGT)
     target_link_libraries(Library-C++ PUBLIC Fgt::Library-C++)
     target_compile_definitions(Library-C++ PUBLIC CPD_WITH_FGT)
@@ -93,7 +95,8 @@ endif()
 option(WITH_TESTS "Build test suite" ON)
 if(WITH_TESTS)
     enable_testing()
-    add_subdirectory("${PROJECT_SOURCE_DIR}/vendor/googletest-release-1.8.1/googletest")
+    set(GOOGLETEST_VERSION 1.10.0)
+    add_subdirectory("${PROJECT_SOURCE_DIR}/vendor/googletest-release-1.10.0/googletest")
     add_subdirectory(tests)
 endif()
 

@@ -1,4 +1,4 @@
-add_library(Jsoncpp src/jsoncpp.cpp)
+add_library(Jsoncpp STATIC src/jsoncpp.cpp)
 if(${BUILD_SHARED_LIBS})
 	if(NOT TARGET jsoncpp_lib)
 		message(FATAL_ERROR "Target jsoncpp_lib is not defined, but is required because cpd is building shared libs. Make sure `BUILD_SHARED_LIBS` is enabled in your jsoncpp installation.")

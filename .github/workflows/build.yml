@@ -1,0 +1,113 @@
+on:
+  push:
+    branches: '*'
+
+jobs:
+  base:
+    name: CPD ${{ matrix.platform }} w/ FGT ${{ matrix.fgt }}
+    runs-on: ${{ matrix.platform }}
+    strategy:
+      fail-fast: true
+      matrix:
+        platform: ['ubuntu-latest', 'macos-latest', 'windows-latest']
+        fgt: ['ON', 'OFF']
+
+    env:
+      PLATFORM: ${{ matrix.platform }}
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: goanpeca/setup-miniconda@v1
+        with:
+          channels: conda-forge
+          auto-update-conda: true
+
+      - uses: ilammy/msvc-dev-cmd@v1
+        if: matrix.platform == 'windows-latest'
+
+      - name: Setup
+        shell: bash -l {0}
+        run: |
+            conda update -n base -c defaults conda -y
+            conda install ninja cmake ninja eigen compilers jsoncpp -y
+
+      - name: JSONCPP
+        shell: bash -l {0}
+        run: |
+            git clone https://github.com/open-source-parsers/jsoncpp.git
+            cd jsoncpp
+            git checkout 1.9.3
+            mkdir build
+            cd build
+            if [ "$PLATFORM" == "windows-latest" ]; then
+                export CC=cl.exe
+                export CXX=cl.exe
+            fi
+
+            cmake .. \
+                -G Ninja \
+                -DCMAKE_INSTALL_PREFIX=$CONDA_PREFIX \
+                -DBUILD_SHARED_LIBS=ON \
+                -DJSONCPP_WITH_CMAKE_PACKAGE=ON \
+                -DJSONCPP_WITH_TESTS=OFF \
+                -DJSONCPP_WITH_POST_BUILD_UNITTEST=OFF \
+                -DCMAKE_BUILD_TYPE=Release
+            ninja install
+
+      - name: FGT
+        shell: bash -l {0}
+        if: matrix.fgt == 'ON'
+        run: |
+            git clone https://github.com/gadomski/fgt.git
+            mkdir fgt/build
+            cd fgt/build
+            if [ "$PLATFORM" == "windows-latest" ]; then
+                export CC=cl.exe
+                export CXX=cl.exe
+            fi
+            cmake .. \
+                -G Ninja \
+                -DCMAKE_INSTALL_PREFIX=$CONDA_PREFIX \
+                -DWITH_TESTS=OFF \
+                -DCMAKE_BUILD_TYPE=Release \
+                -DBUILD_SHARED_LIBS=OFF
+            ninja
+            ninja install
+
+      - name: Configure
+        shell: bash -l {0}
+        run: |
+            mkdir build; cd build;
+            if [ "$PLATFORM" == "windows-latest" ]; then
+                export CC=cl.exe
+                export CXX=cl.exe
+            fi
+            cmake .. \
+                -G Ninja \
+                -DBUILD_SHARED_LIBS=ON \
+                -DCMAKE_BUILD_TYPE=Release \
+                -DCMAKE_INSTALL_PREFIX=$CONDA_PREFIX \
+                -DWITH_DOCS=OFF \
+                -DWITH_FGT=${{ matrix.fgt }} \
+                -DWITH_JSONCPP=OFF \
+                -DWITH_STRICT_WARNINGS=ON \
+                -DWITH_TESTS=ON
+      - name: Build
+        shell: bash -l {0}
+        working-directory: ./build
+        run: |
+            ninja
+
+      - name: Paths
+        shell: bash -l {0}
+        if: matrix.platform == 'windows-latest'
+        run: |
+            echo "::add-path::D:/a/cpd/cpd/build/bin"
+            echo "::add-path::D:/a/cpd/cpd/build/components/jsoncpp"
+
+      - name: Test
+        shell: bash -l {0}
+        working-directory: ./build
+        run: |
+            ctest
+
