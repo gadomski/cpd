@@ -15,7 +15,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: goanpeca/setup-miniconda@v1
+      - uses: goanpeca/setup-miniconda@v2
         with:
           channels: conda-forge
           auto-update-conda: true
@@ -100,8 +100,8 @@ jobs:
         shell: bash -l {0}
         if: matrix.platform == 'windows-latest'
         run: |
-            echo "::add-path::D:/a/cpd/cpd/build/bin"
-            echo "::add-path::D:/a/cpd/cpd/build/components/jsoncpp"
+            echo "D:/a/cpd/cpd/build/bin" >> $GITHUB_PATH
+            echo "D:/a/cpd/cpd/build/components/jsoncpp" >> $GITHUB_PATH
 
       - name: Test
         shell: bash -l {0}
