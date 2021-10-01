@@ -66,27 +66,27 @@ else()
     list(APPEND library-src src/gauss_transform_make_default.cpp)
 endif()
 
-add_library(Library-C++ STATIC ${library-src})
-set_target_properties(Library-C++ PROPERTIES
+add_library(cpd STATIC ${library-src})
+set_target_properties(cpd PROPERTIES
     OUTPUT_NAME cpd
     VERSION ${CPD_VERSION}
     SOVERSION ${CPD_SOVERSION}
     )
-target_include_directories(Library-C++
+target_include_directories(cpd
     PUBLIC
     $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
     ${EIGEN3_INCLUDE_DIR}
     )
 if(WITH_FGT)
-    target_link_libraries(Library-C++ PUBLIC Fgt::Library-C++)
-    target_compile_definitions(Library-C++ PUBLIC CPD_WITH_FGT)
+    target_link_libraries(cpd PUBLIC Fgt::fgt)
+    target_compile_definitions(cpd PUBLIC CPD_WITH_FGT)
 endif()
 
 option(WITH_STRICT_WARNINGS "Build with stricter warnings" ON)
 if(WITH_STRICT_WARNINGS)
     if("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
-        target_compile_options(Library-C++ PRIVATE -Wall -pedantic -Wno-gnu-zero-variadic-macro-arguments)
+        target_compile_options(cpd PRIVATE -Wall -pedantic -Wno-gnu-zero-variadic-macro-arguments)
     endif()
 endif()
 
@@ -102,7 +102,7 @@ endif()
 
 
 # Install
-install(TARGETS Library-C++ DESTINATION lib EXPORT cpd-targets)
+install(TARGETS cpd DESTINATION lib EXPORT cpd-targets)
 install(DIRECTORY include/cpd DESTINATION include)
 install(EXPORT cpd-targets NAMESPACE Cpd:: DESTINATION lib/cmake/cpd)
 
