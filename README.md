@@ -1,5 +1,7 @@
 # cpd
 
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/gadomski/cpd/build.yml?style=for-the-badge)](https://github.com/gadomski/cpd/actions/workflows/build.yml)
+
 **Coherent Point Drift (CPD)** is a point-set registration algorithm, originally developed by [Andriy Myronenko](https://sites.google.com/site/myronenko/research/cpd) et al.
 This is a C++ library that runs CPD.
 
@@ -17,7 +19,7 @@ This library supports three variants of CPD:
 Andriy's reference implementation comes with one other type of registration, **nonrigid_lowrank**, which is not implemented in the latest version of this library (yet) (see [History](#history) for information on how to find and use a previous version of this library that has **nonrigid_lowrank**).
 
 This code lives [on Github](https://github.com/gadomski/cpd).
-It has some [Doxygen documentation](http://gadomski.github.io/cpd) and is tested [by Travis](https://travis-ci.org/gadomski/cpd).
+It has some [Doxygen documentation](http://gadomski.github.io/cpd).
 
 ## Usage
 

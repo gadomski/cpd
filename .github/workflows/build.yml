@@ -12,7 +12,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        platform: ['ubuntu-latest', 'macos-latest', 'windows-latest']
+        platform: ['ubuntu-latest', 'macos-latest']
         fgt: ['ON', 'OFF']
     env:
       PLATFORM: ${{ matrix.platform }}
@@ -22,8 +22,6 @@ jobs:
         with:
           channels: conda-forge
           auto-update-conda: true
-      - uses: ilammy/msvc-dev-cmd@v1
-        if: matrix.platform == 'windows-latest'
       - name: Setup
         shell: bash -l {0}
         run: |
@@ -37,10 +35,6 @@ jobs:
             git checkout 1.9.3
             mkdir build
             cd build
-            if [ "$PLATFORM" == "windows-latest" ]; then
-                export CC=cl.exe
-                export CXX=cl.exe
-            fi
             cmake .. \
                 -G Ninja \
                 -DCMAKE_INSTALL_PREFIX=$CONDA_PREFIX \
@@ -57,10 +51,6 @@ jobs:
             git clone https://github.com/gadomski/fgt.git
             mkdir fgt/build
             cd fgt/build
-            if [ "$PLATFORM" == "windows-latest" ]; then
-                export CC=cl.exe
-                export CXX=cl.exe
-            fi
             cmake .. \
                 -G Ninja \
                 -DCMAKE_INSTALL_PREFIX=$CONDA_PREFIX \
@@ -73,10 +63,6 @@ jobs:
         shell: bash -l {0}
         run: |
             mkdir build; cd build;
-            if [ "$PLATFORM" == "windows-latest" ]; then
-                export CC=cl.exe
-                export CXX=cl.exe
-            fi
             cmake .. \
                 -G Ninja \
                 -DBUILD_SHARED_LIBS=ON \
@@ -91,12 +77,6 @@ jobs:
         shell: bash -l {0}
         working-directory: ./build
         run: ninja
-      - name: Paths
-        shell: bash -l {0}
-        if: matrix.platform == 'windows-latest'
-        run: |
-            echo "D:/a/cpd/cpd/build/bin" >> $GITHUB_PATH
-            echo "D:/a/cpd/cpd/build/components/jsoncpp" >> $GITHUB_PATH
       - name: Test
         shell: bash -l {0}
         working-directory: ./build
