@@ -19,8 +19,11 @@
 
 namespace cpd {
 
-void Result::denormalize(const Normalization& normalization) {
+template <typename M, typename V>
+void Result<M, V>::denormalize(const Normalization<M, V>& normalization) {
     points = points * normalization.fixed_scale +
              normalization.fixed_mean.transpose().replicate(points.rows(), 1);
 }
+template class Result<Matrix, Vector>;
+template class Result<MatrixF, VectorF>;
 } // namespace cpd

@@ -19,18 +19,19 @@
 
 #include "fixtures/fish.hpp"
 #include "gtest/gtest.h"
-#include <cpd/rigid.hpp>
 #include <cmath>
+#include <cpd/rigid.hpp>
 
+#include <iostream>
 namespace cpd {
 
 TEST_F(FishTest, ComputeOneMatchesReference) {
-    GaussTransformDirect direct;
+    GaussTransformDirect<Matrix, Vector> direct;
     Probabilities probabilities =
         direct.compute(m_fish, m_fish_distorted, 1.0, 0.1);
-    Rigid rigid;
+    Rigid<Matrix, Vector> rigid;
     rigid.scale(true);
-    RigidResult result =
+    RigidResult<Matrix, Vector> result =
         rigid.compute_one(m_fish, m_fish_distorted, probabilities, 1.0);
     EXPECT_NEAR(0.4165, result.sigma2, 1e-2);
 
@@ -41,24 +42,24 @@ TEST_F(FishTest, ComputeOneMatchesReference) {
 
 TEST_F(FishTest, Normalize) {
     m_fish = m_fish * 10.0;
-    Matrix rotation =
-        Eigen::Rotation2D<double>(M_PI * 20.0 / 180.0).toRotationMatrix();
+    Matrix rotation = Eigen::Rotation2D<Matrix::Scalar>(M_PI * 20.0 / 180.0)
+                          .toRotationMatrix();
     m_fish_distorted = m_fish * rotation;
-    RigidResult result = rigid(m_fish_distorted, m_fish);
+    auto result = rigid<Matrix, Vector>(m_fish_distorted, m_fish);
     EXPECT_TRUE(result.rotation.isApprox(rotation.transpose(), 1e-4));
     EXPECT_EQ(result.points.rows(), m_fish.rows());
 }
 
 TEST_F(FishTest, Scale) {
     m_fish_distorted = m_fish * 10.0;
-    Rigid rigid;
+    Rigid<Matrix, Vector> rigid;
     rigid.scale(true);
-    RigidResult result = rigid.run(m_fish_distorted, m_fish);
+    RigidResult<Matrix, Vector> result = rigid.run(m_fish_distorted, m_fish);
     EXPECT_NEAR(10.0, result.scale, 0.1);
 }
 
 TEST(Rigid, Linked) {
-    Rigid rigid;
+    Rigid<Matrix, Vector> rigid;
     rigid.scale(true);
     EXPECT_FALSE(rigid.linked());
     rigid.scale(false);
@@ -66,18 +67,20 @@ TEST(Rigid, Linked) {
 }
 
 TEST_F(FishTest, OneMatrix) {
-    RigidResult result = rigid(m_fish_distorted, m_fish);
+    RigidResult<Matrix, Vector> result =
+        rigid<Matrix, Vector>(m_fish_distorted, m_fish);
     Matrix transform = result.matrix();
     ASSERT_EQ(transform.rows(), 3);
     ASSERT_EQ(transform.cols(), 3);
-    Matrix fish = apply_transformation_matrix(m_fish, transform);
+    Matrix fish =
+        apply_transformation_matrix<Matrix, Vector>(m_fish, transform);
     EXPECT_TRUE(result.points.isApprox(fish, 1e-4));
 }
 
 TEST_F(FishTest, Correspondences) {
-    Rigid rigid;
+    Rigid<Matrix, Vector> rigid;
     rigid.correspondence(true);
-    RigidResult result = rigid.run(m_fish_distorted, m_fish);
+    RigidResult<Matrix, Vector> result = rigid.run(m_fish_distorted, m_fish);
     EXPECT_TRUE((result.correspondence.array() > 0).any());
 }
 } // namespace cpd

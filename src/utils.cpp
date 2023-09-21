@@ -23,7 +23,8 @@
 
 namespace cpd {
 
-Matrix matrix_from_path(const std::string& path) {
+template <typename M>
+M matrix_from_path(const std::string& path) {
     std::ifstream file(path);
     if (!file.is_open()) {
         std::stringstream msg;
@@ -31,11 +32,11 @@ Matrix matrix_from_path(const std::string& path) {
         throw std::runtime_error(msg.str());
     }
     std::string line;
-    std::vector<std::vector<double>> rows;
+    std::vector<std::vector<typename M::Scalar>> rows;
     while (std::getline(file, line)) {
-        std::vector<double> row;
+        std::vector<typename M::Scalar> row;
         std::stringstream ss(line);
-        double n;
+        typename M::Scalar n;
         while (ss >> n) {
             row.push_back(n);
             // TODO support other delimiters than commas
@@ -52,11 +53,11 @@ Matrix matrix_from_path(const std::string& path) {
         rows.push_back(row);
     }
     if (rows.empty()) {
-        return Matrix(0, 0);
+        return M(0, 0);
     }
     size_t nrows = rows.size();
     size_t ncols = rows[0].size();
-    Matrix matrix(nrows, ncols);
+    M matrix(nrows, ncols);
     for (size_t i = 0; i < nrows; ++i) {
         for (size_t j = 0; j < ncols; ++j) {
             matrix(i, j) = rows[i][j];
@@ -65,20 +66,22 @@ Matrix matrix_from_path(const std::string& path) {
     return matrix;
 }
 
-double default_sigma2(const Matrix& fixed, const Matrix& moving) {
+template <typename M>
+typename M::Scalar default_sigma2(const M& fixed, const M& moving) {
     return ((moving.rows() * (fixed.transpose() * fixed).trace()) +
             (fixed.rows() * (moving.transpose() * moving).trace()) -
             2 * fixed.colwise().sum() * moving.colwise().sum().transpose()) /
            (fixed.rows() * moving.rows() * fixed.cols());
 }
 
-Matrix affinity(const Matrix& x, const Matrix& y, double beta) {
-    double k = -2.0 * beta * beta;
+template <typename M>
+M affinity(const M& x, const M& y, typename M::Scalar beta) {
+    typename M::Scalar k = -2.0 * beta * beta;
     size_t x_rows = x.rows();
     size_t y_rows = y.rows();
-    Matrix g;
+    M g;
     try {
-        g = Matrix(x_rows, y_rows);
+        g = M(x_rows, y_rows);
     } catch (const std::bad_alloc& err) {
         std::stringstream msg;
         msg << "Unable to allocate " << x_rows << " by " << y_rows
@@ -95,4 +98,15 @@ Matrix affinity(const Matrix& x, const Matrix& y, double beta) {
     }
     return g;
 }
+template Matrix matrix_from_path(const std::string& path);
+template Matrix affinity(const Matrix& x, const Matrix& y, Matrix::Scalar beta);
+template Matrix::Scalar default_sigma2(const Matrix& fixed,
+                                       const Matrix& moving);
+
+template MatrixF matrix_from_path(const std::string& path);
+template MatrixF affinity(const MatrixF& x, const MatrixF& y,
+                          MatrixF::Scalar beta);
+template MatrixF::Scalar default_sigma2(const MatrixF& fixed,
+                                        const MatrixF& moving);
+
 } // namespace cpd

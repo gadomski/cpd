@@ -21,12 +21,12 @@
 
 namespace cpd {
 TEST_F(FishTest, DefaultSigma2) {
-    double sigma2 = cpd::default_sigma2(m_fish, m_fish_distorted);
+    Matrix::Scalar sigma2 = cpd::default_sigma2(m_fish, m_fish_distorted);
     EXPECT_NEAR(1.0, sigma2, 0.1);
 }
 
 TEST_F(HelheimTest, DefaultSigma2) {
-    double sigma2 = cpd::default_sigma2(m_helheim, m_helheim);
+    Matrix::Scalar sigma2 = cpd::default_sigma2(m_helheim, m_helheim);
     EXPECT_NEAR(23235., sigma2, 1.0);
 }
 

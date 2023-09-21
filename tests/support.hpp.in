@@ -23,7 +23,8 @@
 namespace cpd {
 namespace tests {
 Matrix fixture(const std::string& filename) {
-    return matrix_from_path("@PROJECT_SOURCE_DIR@/tests/fixtures/" + filename);
+    return matrix_from_path<Matrix>("@PROJECT_SOURCE_DIR@/tests/fixtures/" +
+                                    filename);
 }
-}
-}
+} // namespace tests
+} // namespace cpd

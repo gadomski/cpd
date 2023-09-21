@@ -19,21 +19,21 @@
 
 namespace cpd {
 
-AffineResult Affine::compute_one(const Matrix& fixed, const Matrix& moving,
-                                 const Probabilities& probabilities,
-                                 double sigma2) const {
-    double np = probabilities.p1.sum();
-    Vector mu_x = fixed.transpose() * probabilities.pt1 / np;
-    Vector mu_y = moving.transpose() * probabilities.p1 / np;
-    Matrix b1 =
-        probabilities.px.transpose() * moving - np * mu_x * mu_y.transpose();
-    Matrix b2 =
+template <typename M, typename V>
+AffineResult<M, V> Affine<M, V>::compute_one(
+    const M& fixed, const M& moving, const Probabilities<M, V>& probabilities,
+    typename M::Scalar sigma2) const {
+    typename M::Scalar np = probabilities.p1.sum();
+    V mu_x = fixed.transpose() * probabilities.pt1 / np;
+    V mu_y = moving.transpose() * probabilities.p1 / np;
+    M b1 = probabilities.px.transpose() * moving - np * mu_x * mu_y.transpose();
+    M b2 =
         (moving.array() * probabilities.p1.replicate(1, moving.cols()).array())
                 .transpose()
                 .matrix() *
             moving -
         np * mu_y * mu_y.transpose();
-    AffineResult result;
+    AffineResult<M, V> result;
     result.transform = b1 * b2.inverse();
     result.translation = mu_x - result.transform * mu_y;
     result.sigma2 =
@@ -48,12 +48,13 @@ AffineResult Affine::compute_one(const Matrix& fixed, const Matrix& moving,
     return result;
 }
 
-Matrix AffineResult::matrix() const {
-    Matrix::Index rows = transform.rows() + 1;
-    Matrix::Index cols = transform.cols() + 1;
-    Matrix matrix = Matrix::Zero(rows, cols);
-    for (Matrix::Index row = 0; row < transform.rows(); ++row) {
-        for (Matrix::Index col = 0; col < transform.cols(); ++col) {
+template <typename M, typename V>
+M AffineResult<M, V>::matrix() const {
+    typename M::Index rows = transform.rows() + 1;
+    typename M::Index cols = transform.cols() + 1;
+    M matrix = M::Zero(rows, cols);
+    for (typename M::Index row = 0; row < transform.rows(); ++row) {
+        for (typename M::Index col = 0; col < transform.cols(); ++col) {
             matrix(row, col) = transform(row, col);
         }
         matrix(row, cols - 1) = translation(row);
@@ -62,15 +63,29 @@ Matrix AffineResult::matrix() const {
     return matrix;
 }
 
-void AffineResult::denormalize(const Normalization& normalization) {
-    Result::denormalize(normalization);
-    translation = normalization.fixed_scale * translation + normalization.fixed_mean -
+template <typename M, typename V>
+void AffineResult<M, V>::denormalize(const Normalization<M, V>& normalization) {
+    Result<M, V>::denormalize(normalization);
+    translation = normalization.fixed_scale * translation +
+                  normalization.fixed_mean -
                   transform * normalization.moving_mean;
-    transform = transform * normalization.fixed_scale / normalization.moving_scale;
+    transform =
+        transform * normalization.fixed_scale / normalization.moving_scale;
 }
 
-AffineResult affine(const Matrix& fixed, const Matrix& moving) {
-    Affine affine;
+template <typename M, typename V>
+AffineResult<M, V> affine(const M& fixed, const M& moving) {
+    Affine<M, V> affine;
     return affine.run(fixed, moving);
 }
+
+template class Affine<Matrix, Vector>;
+template class AffineResult<Matrix, Vector>;
+template AffineResult<Matrix, Vector> affine(const Matrix& fixed,
+                                             const Matrix& moving);
+
+template class Affine<MatrixF, VectorF>;
+template class AffineResult<MatrixF, VectorF>;
+template AffineResult<MatrixF, VectorF> affine(const MatrixF& fixed,
+                                               const MatrixF& moving);
 } // namespace cpd

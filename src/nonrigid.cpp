@@ -19,27 +19,31 @@
 
 namespace cpd {
 
-void Nonrigid::init(const Matrix& fixed, const Matrix& moving) {
+template <typename M, typename V>
+void Nonrigid<M, V>::init(const M& fixed, const M& moving) {
     m_g = affinity(moving, moving, m_beta);
-    m_w = Matrix::Zero(moving.rows(), moving.cols());
+    m_w = M::Zero(moving.rows(), moving.cols());
 }
 
-void Nonrigid::modify_probabilities(Probabilities& probabilities) const {
+template <typename M, typename V>
+void Nonrigid<M, V>::modify_probabilities(
+    Probabilities<M, V>& probabilities) const {
     probabilities.l += m_lambda / 2.0 * (m_w.transpose() * m_g * m_w).trace();
 }
 
-NonrigidResult Nonrigid::compute_one(const Matrix& fixed, const Matrix& moving,
-                                     const Probabilities& probabilities,
-                                     double sigma2) const {
+template <typename M, typename V>
+NonrigidResult<M, V> Nonrigid<M, V>::compute_one(
+    const M& fixed, const M& moving, const Probabilities<M, V>& probabilities,
+    typename M::Scalar sigma2) const {
     size_t cols = fixed.cols();
     auto dp = probabilities.p1.asDiagonal();
-    Matrix w = (dp * m_g + m_lambda * sigma2 *
-                               Matrix::Identity(moving.rows(), moving.rows()))
-                   .colPivHouseholderQr()
-                   .solve(probabilities.px - dp * moving);
-    NonrigidResult result;
+    M w = (dp * m_g +
+           m_lambda * sigma2 * M::Identity(moving.rows(), moving.rows()))
+              .colPivHouseholderQr()
+              .solve(probabilities.px - dp * moving);
+    NonrigidResult<M, V> result;
     result.points = moving + m_g * w;
-    double np = probabilities.p1.sum();
+    typename M::Scalar np = probabilities.p1.sum();
     result.sigma2 = std::abs(
         ((fixed.array().pow(2) * probabilities.pt1.replicate(1, cols).array())
              .sum() +
@@ -51,8 +55,17 @@ NonrigidResult Nonrigid::compute_one(const Matrix& fixed, const Matrix& moving,
     return result;
 }
 
-NonrigidResult nonrigid(const Matrix& fixed, const Matrix& moving) {
-    Nonrigid nonrigid;
+template <typename M, typename V>
+NonrigidResult<M, V> nonrigid(const M& fixed, const M& moving) {
+    Nonrigid<M, V> nonrigid;
     return nonrigid.run(fixed, moving);
 }
+template class Nonrigid<Matrix, Vector>;
+template class NonrigidResult<Matrix, Vector>;
+template NonrigidResult<Matrix, Vector> nonrigid(const Matrix& fixed,
+                                                 const Matrix& moving);
+template class Nonrigid<MatrixF, VectorF>;
+template class NonrigidResult<MatrixF, VectorF>;
+template NonrigidResult<MatrixF, VectorF> nonrigid(const MatrixF& fixed,
+                                                   const MatrixF& moving);
 } // namespace cpd

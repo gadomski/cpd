@@ -17,36 +17,38 @@
 
 #define _USE_MATH_DEFINES
 
-#include <cpd/gauss_transform.hpp>
 #include <cmath>
+#include <cpd/gauss_transform.hpp>
 
 namespace cpd {
-Probabilities GaussTransformDirect::compute(const Matrix& fixed,
-                                            const Matrix& moving, double sigma2,
-                                            double outliers) const {
-    double ksig = -2.0 * sigma2;
+template <typename M, typename V>
+Probabilities<M, V> GaussTransformDirect<M, V>::compute(
+    const M& fixed, const M& moving, typename M::Scalar sigma2,
+    typename M::Scalar outliers) const {
+    typename M::Scalar ksig = -2.0 * sigma2;
     size_t cols = fixed.cols();
-    double outlier_tmp =
+    typename M::Scalar outlier_tmp =
         (outliers * moving.rows() * std::pow(-ksig * M_PI, 0.5 * cols)) /
         ((1 - outliers) * fixed.rows());
-    Vector p = Vector::Zero(moving.rows());
-    Vector p1 = Vector::Zero(moving.rows());
-    Vector p1_max = Vector::Zero(moving.rows());
-    Vector pt1 = Vector::Zero(fixed.rows());
-    Matrix px = Matrix::Zero(moving.rows(), cols);
+    V p = V::Zero(moving.rows());
+    V p1 = V::Zero(moving.rows());
+    V p1_max = V::Zero(moving.rows());
+    V pt1 = V::Zero(fixed.rows());
+    M px = M::Zero(moving.rows(), cols);
     IndexVector correspondence = IndexVector::Zero(moving.rows());
-    double l = 0.0;
+    typename M::Scalar l = 0.0;
 
-    for (Matrix::Index i = 0; i < fixed.rows(); ++i) {
-        double sp = 0;
-        for (Matrix::Index j = 0; j < moving.rows(); ++j) {
-            double razn = (fixed.row(i) - moving.row(j)).array().pow(2).sum();
+    for (typename M::Index i = 0; i < fixed.rows(); ++i) {
+        typename M::Scalar sp = 0;
+        for (typename M::Index j = 0; j < moving.rows(); ++j) {
+            typename M::Scalar razn =
+                (fixed.row(i) - moving.row(j)).array().pow(2).sum();
             p(j) = std::exp(razn / ksig);
             sp += p(j);
         }
         sp += outlier_tmp;
         pt1(i) = 1 - outlier_tmp / sp;
-        for (Matrix::Index j = 0; j < moving.rows(); ++j) {
+        for (typename M::Index j = 0; j < moving.rows(); ++j) {
             p1(j) += p(j) / sp;
             px.row(j) += fixed.row(i) * p(j) / sp;
             if (p(j) / sp > p1_max(j)) {
@@ -59,4 +61,14 @@ Probabilities GaussTransformDirect::compute(const Matrix& fixed,
     l += cols * fixed.rows() * std::log(sigma2) / 2;
     return { p1, pt1, px, l, correspondence };
 }
+template struct Probabilities<Matrix, Vector>;
+template class GaussTransform<Matrix, Vector>;
+template class GaussTransformDirect<Matrix, Vector>;
+std::unique_ptr<GaussTransform<Matrix, Vector>> dummy;
+
+template struct Probabilities<MatrixF, VectorF>;
+template class GaussTransform<MatrixF, VectorF>;
+template class GaussTransformDirect<MatrixF, VectorF>;
+std::unique_ptr<GaussTransform<MatrixF, VectorF>> dummyF;
+
 } // namespace cpd

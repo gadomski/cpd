@@ -26,47 +26,49 @@
 namespace cpd {
 
 /// Default value for beta.
-const double DEFAULT_BETA = 3.0;
+const Matrix::Scalar DEFAULT_BETA = 3.0;
 /// Default value for lambda.
-const double DEFAULT_LAMBDA = 3.0;
+const Matrix::Scalar DEFAULT_LAMBDA = 3.0;
 
 /// The result of a nonrigid coherent point drift run.
-struct NonrigidResult : public Result {};
+template <typename M, typename V>
+class NonrigidResult : public Result<M, V> {};
 
 /// Nonrigid coherent point drift.
-class Nonrigid : public Transform<NonrigidResult> {
+template <typename M, typename V>
+class Nonrigid : public Transform<M, V, NonrigidResult> {
 public:
     Nonrigid()
-      : Transform()
+      : Transform<M, V, NonrigidResult>()
       , m_lambda(DEFAULT_LAMBDA)
       , m_beta(DEFAULT_BETA)
       , m_linked(DEFAULT_LINKED) {}
 
     /// Initialize this transform for the provided matrices.
-    void init(const Matrix& fixed, const Matrix& moving);
+    void init(const M& fixed, const M& moving);
 
     /// Modifies the probabilities with some affinity and weight information.
-    void modify_probabilities(Probabilities& probabilities) const;
+    void modify_probabilities(Probabilities<M, V>& probabilities) const;
 
     /// Sets the beta.
-    Nonrigid& beta(double beta) {
+    Nonrigid<M, V>& beta(double beta) {
         m_beta = beta;
         return *this;
     }
 
     /// Sets the lambda.
-    Nonrigid& lambda(double lambda) {
+    Nonrigid<M, V>& lambda(double lambda) {
         m_lambda = lambda;
         return *this;
     }
 
     /// Computes one iteration of the nonrigid transformation.
-    NonrigidResult compute_one(const Matrix& fixed, const Matrix& moving,
-                               const Probabilities& probabilities,
-                               double sigma2) const;
+    NonrigidResult<M, V> compute_one(const M& fixed, const M& moving,
+                                     const Probabilities<M, V>& probabilities,
+                                     typename M::Scalar sigma2) const;
 
     /// Sets whether the scalings of the two datasets are linked.
-    Nonrigid& linked(bool linked) {
+    Nonrigid<M, V>& linked(bool linked) {
         m_linked = linked;
         return *this;
     }
@@ -74,13 +76,14 @@ public:
     virtual bool linked() const { return m_linked; }
 
 private:
-    Matrix m_g;
-    Matrix m_w;
+    M m_g;
+    M m_w;
     double m_lambda;
     double m_beta;
     bool m_linked;
 };
 
 /// Runs a nonrigid registration on two matrices.
-NonrigidResult nonrigid(const Matrix& fixed, const Matrix& moving);
+template <typename M, typename V>
+NonrigidResult<M, V> nonrigid(const M& fixed, const M& moving);
 } // namespace cpd

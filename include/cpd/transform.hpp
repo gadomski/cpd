@@ -25,8 +25,8 @@
 #pragma once
 
 #include <chrono>
-#include <memory>
 #include <functional>
+#include <memory>
 #include <vector>
 
 #include <cpd/gauss_transform.hpp>
@@ -37,26 +37,28 @@
 namespace cpd {
 
 /// The default number of iterations allowed.
-const size_t DEFAULT_MAX_ITERATIONS = 150;
+const size_t DEFAULT_MAX_ITERATIONS = 30;
 /// Whether points should be normalized by default.
 const bool DEFAULT_NORMALIZE = true;
 /// The default outlier weight.
-const double DEFAULT_OUTLIERS = 0.1;
+const Matrix::Scalar DEFAULT_OUTLIERS = 0.1;
 /// The default tolerance.
-const double DEFAULT_TOLERANCE = 1e-5;
+const Matrix::Scalar DEFAULT_TOLERANCE = 1e-5;
 /// The default sigma2.
-const double DEFAULT_SIGMA2 = 0.0;
+const Matrix::Scalar DEFAULT_SIGMA2 = 0.0;
 /// Whether correspondence vector should be computed by default.
 const bool DEFAULT_CORRESPONDENCE = false;
 /// Are the scalings of the two datasets linked by default?
 const bool DEFAULT_LINKED = true;
 
 /// The result of a generic transform run.
-struct Result {
+template <typename M, typename V>
+class Result {
+public:
     /// The final moved points.
-    Matrix points;
+    M points;
     /// The final sigma2 value.
-    double sigma2;
+    typename M::Scalar sigma2;
     /// The correspondence vector.
     IndexVector correspondence;
     /// The runtime.
@@ -68,25 +70,25 @@ struct Result {
     ///
     /// Generally, this scales the points back, and sometimes adjust transforms
     /// or shifts or the like.
-    virtual void denormalize(const Normalization& normalization);
+    virtual void denormalize(const Normalization<M, V>& normalization);
 };
 
 /// Generic coherent point drift transform.
 ///
 /// An abstract base class for real transforms, e.g. `Rigid` or `Nonrigid`.
-template <typename Result>
+template <typename M, typename V, template <typename, typename> class Result>
 class Transform {
 public:
     Transform()
       : m_correspondence(DEFAULT_CORRESPONDENCE)
-      , m_gauss_transform(GaussTransform::make_default())
+      , m_gauss_transform(GaussTransform<M, V>::make_default())
       , m_max_iterations(DEFAULT_MAX_ITERATIONS)
       , m_normalize(DEFAULT_NORMALIZE)
       , m_outliers(DEFAULT_OUTLIERS)
       , m_sigma2(DEFAULT_SIGMA2)
       , m_tolerance(DEFAULT_TOLERANCE) {}
 
-    using TCallback = std::function<void(const Result&)>;
+    using TCallback = std::function<void(const Result<M, V>&)>;
     using TCallbackVector = std::vector<TCallback>;
 
     /// Add a callback (function pointer, member function, or lambda).
@@ -103,7 +105,7 @@ public:
 
     /// Sets the gauss transform.
     Transform& gauss_transform(
-        std::unique_ptr<GaussTransform> gauss_transform) {
+        std::unique_ptr<GaussTransform<M, V>> gauss_transform) {
         m_gauss_transform = std::move(gauss_transform);
         return *this;
     }
@@ -138,10 +140,59 @@ public:
         return *this;
     }
 
-    /// Runs this transform for the provided matrices.
-    Result run(Matrix fixed, Matrix moving) {
+    Result<M, V> constRun(const M& fixed, const M& moving) {
         auto tic = std::chrono::high_resolution_clock::now();
-        Normalization normalization(fixed, moving, linked());
+        Normalization<M, V> normalization(fixed, moving, linked());
+
+        this->init(fixed, moving);
+
+        Result<M, V> result;
+        result.points = moving;
+        if (m_sigma2 == 0.0) {
+            result.sigma2 = cpd::default_sigma2(fixed, moving);
+        } else {
+            result.sigma2 = m_sigma2;
+        }
+
+        size_t iter = 0;
+        typename M::Scalar ntol = m_tolerance + 10.0;
+        typename M::Scalar l = 0.;
+        while (iter < m_max_iterations && ntol > m_tolerance &&
+               result.sigma2 >
+                   10 * std::numeric_limits<typename M::Scalar>::epsilon()) {
+            Probabilities<M, V> probabilities = m_gauss_transform->compute(
+                fixed, result.points, result.sigma2, m_outliers);
+            this->modify_probabilities(probabilities);
+
+            ntol = std::abs((probabilities.l - l) / probabilities.l);
+            l = probabilities.l;
+
+            result =
+                this->compute_one(fixed, moving, probabilities, result.sigma2);
+            for (const auto& cb : this->m_callbacks) {
+                cb(result);
+            }
+            ++iter;
+        }
+
+        if (m_correspondence) {
+            GaussTransformDirect<M, V> direct;
+            Probabilities<M, V> probabilities =
+                direct.compute(fixed, result.points, result.sigma2, m_outliers);
+            result.correspondence = probabilities.correspondence;
+            assert(result.correspondence.rows() > 0);
+        }
+        auto toc = std::chrono::high_resolution_clock::now();
+        result.runtime =
+            std::chrono::duration_cast<std::chrono::microseconds>(toc - tic);
+        result.iterations = iter;
+        return result;
+    }
+
+    /// Runs this transform for the provided matrices.
+    Result<M, V> run(M fixed, M moving) {
+        auto tic = std::chrono::high_resolution_clock::now();
+        Normalization<M, V> normalization(fixed, moving, linked());
         if (m_normalize) {
             fixed = normalization.fixed;
             moving = normalization.moving;
@@ -149,7 +200,7 @@ public:
 
         this->init(fixed, moving);
 
-        Result result;
+        Result<M, V> result;
         result.points = moving;
         if (m_sigma2 == 0.0) {
             result.sigma2 = cpd::default_sigma2(fixed, moving);
@@ -160,11 +211,12 @@ public:
         }
 
         size_t iter = 0;
-        double ntol = m_tolerance + 10.0;
-        double l = 0.;
+        typename M::Scalar ntol = m_tolerance + 10.0;
+        typename M::Scalar l = 0.;
         while (iter < m_max_iterations && ntol > m_tolerance &&
-               result.sigma2 > 10 * std::numeric_limits<double>::epsilon()) {
-            Probabilities probabilities = m_gauss_transform->compute(
+               result.sigma2 >
+                   10 * std::numeric_limits<typename M::Scalar>::epsilon()) {
+            Probabilities<M, V> probabilities = m_gauss_transform->compute(
                 fixed, result.points, result.sigma2, m_outliers);
             this->modify_probabilities(probabilities);
 
@@ -173,7 +225,7 @@ public:
 
             result =
                 this->compute_one(fixed, moving, probabilities, result.sigma2);
-            for (const auto &cb : this->m_callbacks) {
+            for (const auto& cb : this->m_callbacks) {
                 cb(result);
             }
             ++iter;
@@ -183,9 +235,9 @@ public:
             result.denormalize(normalization);
         }
         if (m_correspondence) {
-            GaussTransformDirect direct;
-            Probabilities probabilities = direct.compute(
-                fixed, result.points, result.sigma2, m_outliers);
+            GaussTransformDirect<M, V> direct;
+            Probabilities<M, V> probabilities =
+                direct.compute(fixed, result.points, result.sigma2, m_outliers);
             result.correspondence = probabilities.correspondence;
             assert(result.correspondence.rows() > 0);
         }
@@ -201,18 +253,19 @@ public:
     /// This is called before beginning each run, but after normalization. In
     /// general, transforms shouldn't need to be initialized, but the nonrigid
     /// does.
-    virtual void init(const Matrix& fixed, const Matrix& moving) {}
+    virtual void init(const M& fixed, const M& moving) {}
 
     /// Modifies `Probabilities` in some way.
     ///
     /// Some types of transform need to tweak the probabilities before moving on
     /// with an interation. The default behavior is to do nothing.
-    virtual void modify_probabilities(Probabilities& probabilities) const {}
+    virtual void modify_probabilities(
+        Probabilities<M, V>& probabilities) const {}
 
     /// Computes one iteration of the transform.
-    virtual Result compute_one(const Matrix& fixed, const Matrix& moving,
-                               const Probabilities& probabilities,
-                               double sigma2) const = 0;
+    virtual Result<M, V> compute_one(const M& fixed, const M& moving,
+                                     const Probabilities<M, V>& probabilities,
+                                     typename M::Scalar sigma2) const = 0;
 
     /// Returns true if the normalization should be linked.
     ///
@@ -221,12 +274,12 @@ public:
 
 private:
     bool m_correspondence;
-    std::unique_ptr<GaussTransform> m_gauss_transform;
+    std::unique_ptr<GaussTransform<M, V>> m_gauss_transform;
     size_t m_max_iterations;
     bool m_normalize;
-    double m_outliers;
-    double m_sigma2;
-    double m_tolerance;
+    typename M::Scalar m_outliers;
+    typename M::Scalar m_sigma2;
+    typename M::Scalar m_tolerance;
     TCallbackVector m_callbacks;
 };
 } // namespace cpd

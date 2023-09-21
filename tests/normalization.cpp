@@ -22,7 +22,7 @@
 namespace cpd {
 
 TEST_F(FishTest, CanBeRetrieved) {
-    Normalization normalization(m_fish, m_fish);
+    Normalization<Matrix, Vector> normalization(m_fish, m_fish);
     ASSERT_EQ(m_fish.rows(), normalization.fixed.rows());
     EXPECT_TRUE(
         m_fish.isApprox(normalization.fixed * normalization.fixed_scale +
@@ -32,7 +32,7 @@ TEST_F(FishTest, CanBeRetrieved) {
 }
 
 TEST_F(FishTest, Unlinked) {
-    Normalization normalization(m_fish, m_fish * 2, false);
+    Normalization<Matrix, Vector> normalization(m_fish, m_fish * 2, false);
     EXPECT_NEAR(normalization.fixed_scale, normalization.moving_scale / 2.0,
                 1e-4);
 }

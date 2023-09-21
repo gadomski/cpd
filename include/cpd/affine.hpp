@@ -26,31 +26,34 @@
 namespace cpd {
 
 /// The result of a affine coherent point drift run.
-struct AffineResult : public Result {
+template <typename M, typename V>
+class AffineResult : public Result<M, V> {
+public:
     /// The affine transformation.
-    Matrix transform;
+    M transform;
 
     /// The translation vector.
-    Vector translation;
+    V translation;
 
     /// Returns the transform and the translation as one matrix.
-    Matrix matrix() const;
+    M matrix() const;
 
     /// Denormalize this result.
-    void denormalize(const Normalization& normalization);
+    void denormalize(const Normalization<M, V>& normalization);
 };
 
 /// Affine coherent point drift.
-class Affine : public Transform<AffineResult> {
+template <typename M, typename V>
+class Affine : public Transform<M, V, AffineResult> {
 public:
     Affine()
-      : Transform()
+      : Transform<M, V, AffineResult>()
       , m_linked(DEFAULT_LINKED) {}
 
     /// Computes one iteration of the affine transformation.
-    AffineResult compute_one(const Matrix& fixed, const Matrix& moving,
-                             const Probabilities& probabilities,
-                             double sigma2) const;
+    AffineResult<M, V> compute_one(const M& fixed, const M& moving,
+                                   const Probabilities<M, V>& probabilities,
+                                   typename M::Scalar sigma2) const;
 
     /// Sets whether the scalings of the two datasets are linked.
     Affine& linked(bool linked) {
@@ -65,5 +68,6 @@ private:
 };
 
 /// Runs a affine registration on two matrices.
-AffineResult affine(const Matrix& fixed, const Matrix& moving);
+template <typename M, typename V>
+AffineResult<M, V> affine(const M& fixed, const M& moving);
 } // namespace cpd
