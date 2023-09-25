@@ -19,12 +19,19 @@
 
 namespace cpd {
 
-Matrix apply_transformation_matrix(Matrix points, const Matrix& transform) {
-    Matrix::Index rows = points.rows();
-    Matrix::Index cols = points.cols() + 1;
+template <typename M, typename V>
+M apply_transformation_matrix(M points, const M& transform) {
+    typename M::Index rows = points.rows();
+    typename M::Index cols = points.cols() + 1;
     points.conservativeResize(rows, cols);
-    points.col(cols - 1) = Vector::Ones(rows);
-    Matrix transformed_points = points * transform.transpose();
+    points.col(cols - 1) = V::Ones(rows);
+    M transformed_points = points * transform.transpose();
     return transformed_points.leftCols(cols - 1);
 }
+template Matrix apply_transformation_matrix<Matrix, Vector>(
+    Matrix points, const Matrix& transform);
+/*
+template MatrixF apply_transformation_matrix<MatrixF, VectorF>(
+  MatrixF points, const MatrixF& transform);
+*/
 } // namespace cpd

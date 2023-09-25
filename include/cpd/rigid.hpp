@@ -31,28 +31,30 @@ const bool DEFAULT_REFLECTIONS = false;
 const bool DEFAULT_SCALE = !DEFAULT_LINKED;
 
 /// The result of a rigid coherent point drift run.
-struct RigidResult : public Result {
+template <typename M, typename V>
+struct RigidResult : public Result<M, V> {
     /// The rotation component of the transformation.
-    Matrix rotation;
+    M rotation;
     /// The translation component of the transformation.
-    Vector translation;
+    V translation;
     /// The scaling component of the transformation.
     double scale;
 
     /// Returns a single matrix that contains all the transformation
     /// information.
-    Matrix matrix() const;
+    M matrix() const;
 
-    void denormalize(const Normalization& normalization);
+    void denormalize(const Normalization<M, V>& normalization);
 };
 
 /// Rigid coherent point drift.
 ///
 /// Scaling and reflections can be turned on and off.
-class Rigid : public Transform<RigidResult> {
+template <typename M, typename V>
+class Rigid : public Transform<M, V, RigidResult> {
 public:
     Rigid()
-      : Transform()
+      : Transform<M, V, RigidResult>()
       , m_reflections(DEFAULT_REFLECTIONS)
       , m_scale(DEFAULT_SCALE) {}
 
@@ -69,9 +71,9 @@ public:
     }
 
     /// Computes one iteration of the rigid transformation.
-    RigidResult compute_one(const Matrix& fixed, const Matrix& moving,
-                            const Probabilities& probabilities,
-                            double sigma2) const;
+    RigidResult<M, V> compute_one(const M& fixed, const M& moving,
+                                  const Probabilities<M, V>& probabilities,
+                                  typename M::Scalar sigma2) const;
 
     virtual bool linked() const { return !m_scale; }
 
@@ -81,5 +83,6 @@ private:
 };
 
 /// Runs a rigid registration on two matrices.
-RigidResult rigid(const Matrix& fixed, const Matrix& moving);
+template <typename M, typename V>
+RigidResult<M, V> rigid(const M& fixed, const M& moving);
 } // namespace cpd

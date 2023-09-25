@@ -24,8 +24,8 @@
 namespace cpd {
 
 TEST_F(FishTest, MatchesReference) {
-    GaussTransformDirect direct;
-    Probabilities probabilities =
+    GaussTransformDirect<Matrix, Vector> direct;
+    Probabilities<Matrix, Vector> probabilities =
         direct.compute(m_fish, m_fish_distorted, 1.0, 0.1);
     ASSERT_EQ(91, probabilities.p1.size());
     EXPECT_NEAR(0.6850, probabilities.p1(0), 1e-4);
@@ -41,8 +41,8 @@ TEST_F(FishTest, MatchesReference) {
 }
 
 TEST_F(FaceTest, MatchesReference) {
-    GaussTransformDirect direct;
-    Probabilities probabilities =
+    GaussTransformDirect<Matrix, Vector> direct;
+    Probabilities<Matrix, Vector> probabilities =
         direct.compute(m_face, m_face_distorted, 1.0, 0.1);
     ASSERT_EQ(392, probabilities.p1.size());
     EXPECT_NEAR(0.6171, probabilities.p1(0), 1e-4);
@@ -58,7 +58,7 @@ TEST_F(FaceTest, MatchesReference) {
 }
 
 TEST_F(FishTest, CorrespondencesMatchReference) {
-    GaussTransformDirect direct;
+    GaussTransformDirect<Matrix, Vector> direct;
     Probabilities probabilities =
         direct.compute(m_fish, m_fish_distorted, 1.0, 0.1);
     IndexVector correspondence =

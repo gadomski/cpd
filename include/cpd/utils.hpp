@@ -26,11 +26,16 @@
 namespace cpd {
 
 /// Loads a matrix from a delimited text file.
-Matrix matrix_from_path(const std::string& path);
+template <typename M>
+M matrix_from_path(const std::string& path);
 
 /// Computes the default sigma2 for the given matrices.
-double default_sigma2(const Matrix& fixed, const Matrix& moving);
+template <typename M>
+typename M::Scalar default_sigma2(const M& fixed, const M& moving);
+
+// typedef decltype(m1*m2)::Scalar ResScalar;
 
 /// Computes the affinity matrix between the two matrices.
-Matrix affinity(const Matrix& fixed, const Matrix& moving, double beta);
+template <typename M>
+M affinity(const M& fixed, const M& moving, typename M::Scalar beta);
 } // namespace cpd

@@ -4,12 +4,12 @@
 #include <cpd/nonrigid.hpp>
 #include <cpd/rigid.hpp>
 
-void RigidCallback(const cpd::Result &r) {
-  std::cout << r.points << std::endl << std::endl;
+void RigidCallback(const cpd::Result& r) {
+    std::cout << r.points << std::endl << std::endl;
 }
 
-void NonrigidCallback(const cpd::NonrigidResult &r) {
-  std::cout << r.points << std::endl << std::endl;
+void NonrigidCallback(const cpd::NonrigidResult& r) {
+    std::cout << r.points << std::endl << std::endl;
 }
 
 int main(int argc, char** argv) {
@@ -26,12 +26,12 @@ int main(int argc, char** argv) {
 
     if (method == "rigid") {
         cpd::Rigid rigid;
-        auto *cb = RigidCallback;
+        auto* cb = RigidCallback;
         rigid.add_callback(cb);
         auto rigid_result = rigid.run(fixed, moving);
     } else if (method == "nonrigid") {
         cpd::Nonrigid nonrigid;
-        auto *cb = NonrigidCallback;
+        auto* cb = NonrigidCallback;
         nonrigid.add_callback(cb);
         auto nonrigid_result = nonrigid.run(fixed, moving);
     } else {
@@ -41,5 +41,3 @@ int main(int argc, char** argv) {
     std::cout << "Registration completed OK" << std::endl;
     return 0;
 }
-
-

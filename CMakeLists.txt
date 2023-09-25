@@ -94,10 +94,9 @@ endif()
 # Tests
 option(WITH_TESTS "Build test suite" ON)
 if(WITH_TESTS)
-    enable_testing()
-    set(GOOGLETEST_VERSION 1.10.0)
-    add_subdirectory("${PROJECT_SOURCE_DIR}/vendor/googletest-release-1.10.0/googletest")
-    add_subdirectory(tests)
+  find_package(GTest REQUIRED)
+  enable_testing()
+  add_subdirectory(tests)
 endif()
 
 

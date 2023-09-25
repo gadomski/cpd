@@ -64,4 +64,4 @@ Json::Value to_json(const Matrix& matrix) {
 std::ostream& operator<<(std::ostream& ostream, const Result& result) {
     return ostream;
 }
-}
+} // namespace cpd

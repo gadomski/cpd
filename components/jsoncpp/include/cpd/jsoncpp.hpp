@@ -30,4 +30,4 @@ Json::Value to_json(const RigidResult& result);
 Json::Value to_json(const AffineResult& result);
 Json::Value to_json(const NonrigidResult& result);
 Json::Value to_json(const Matrix& matrix);
-}
+} // namespace cpd

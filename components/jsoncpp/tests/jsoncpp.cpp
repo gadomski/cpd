@@ -25,4 +25,4 @@ TEST(RigidResult, ConvertsToJson) {
     RigidResult result;
     Json::Value json = cpd::to_json(result);
 }
-}
+} // namespace cpd

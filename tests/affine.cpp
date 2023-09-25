@@ -29,7 +29,8 @@ TEST_F(FishTest, MatchesReference) {
     translation << 1., 2.;
     m_fish_distorted = m_fish * transform +
                        translation.transpose().replicate(m_fish.rows(), 1);
-    AffineResult result = affine(m_fish_distorted, m_fish);
+    AffineResult<Matrix, Vector> result =
+        affine<Matrix, Vector>(m_fish_distorted, m_fish);
     ASSERT_EQ(result.points.rows(), m_fish.rows());
     EXPECT_TRUE(result.points.isApprox(m_fish_distorted, 1e-4));
     EXPECT_TRUE(result.transform.isApprox(transform.transpose(), 1e-4));
@@ -44,7 +45,7 @@ TEST_F(FaceTest, Affine) {
     translation << 1.0, 2.0, 3.0;
     m_face_distorted = m_face * transform +
                        translation.transpose().replicate(m_face.rows(), 1);
-    AffineResult result = affine(m_face_distorted, m_face);
+    AffineResult result = affine<Matrix, Vector>(m_face_distorted, m_face);
     ASSERT_EQ(result.points.rows(), m_face.rows());
     EXPECT_TRUE(result.points.isApprox(m_face_distorted, 1e-4));
     EXPECT_TRUE(result.transform.isApprox(transform.transpose(), 1e-4));
@@ -52,7 +53,7 @@ TEST_F(FaceTest, Affine) {
 }
 
 TEST(Affine, Linked) {
-    Affine affine;
+    Affine<Matrix, Vector> affine;
     affine.linked(true);
     EXPECT_TRUE(affine.linked());
     affine.linked(false);
@@ -60,18 +61,20 @@ TEST(Affine, Linked) {
 }
 
 TEST_F(FishTest, AffineMatrix) {
-    AffineResult result = affine(m_fish_distorted, m_fish);
+    AffineResult<Matrix, Vector> result =
+        affine<Matrix, Vector>(m_fish_distorted, m_fish);
     Matrix transform = result.matrix();
     ASSERT_EQ(transform.rows(), 3);
     ASSERT_EQ(transform.cols(), 3);
-    Matrix fish = apply_transformation_matrix(m_fish, transform);
+    Matrix fish =
+        apply_transformation_matrix<Matrix, Vector>(m_fish, transform);
     EXPECT_TRUE(result.points.isApprox(fish, 1e-4));
 }
 
 TEST_F(FishTest, Correspondences) {
-    Affine affine;
+    Affine<Matrix, Vector> affine;
     affine.correspondence(true);
-    AffineResult result = affine.run(m_fish_distorted, m_fish);
+    AffineResult<Matrix, Vector> result = affine.run(m_fish_distorted, m_fish);
     EXPECT_TRUE((result.correspondence.array() > 0).any());
 }
 } // namespace cpd

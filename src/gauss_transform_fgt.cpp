@@ -17,39 +17,43 @@
 
 #define _USE_MATH_DEFINES
 
-#include <cpd/gauss_transform_fgt.hpp>
 #include <cmath>
+#include <cpd/gauss_transform_fgt.hpp>
 
 namespace cpd {
-std::unique_ptr<GaussTransform> GaussTransform::make_default() {
-    return std::unique_ptr<GaussTransform>(new GaussTransformFgt());
+template <typename M, typename V, typename A>
+std::unique_ptr<GaussTransform<M, V>> GaussTransform<M, V>::make_default() {
+    return std::unique_ptr<GaussTransform>(new GaussTransformFgt<M, V>());
 }
 
-Probabilities GaussTransformFgt::compute(const Matrix& fixed,
-                                         const Matrix& moving, double sigma2,
-                                         double outliers) const {
-    double bandwidth = std::sqrt(2.0 * sigma2);
-    size_t cols = fixed.cols();
+template <typename M, typename V, typename A>
+Probabilities GaussTransformFgt<M, V, A>::compute(
+    const M& fixed, const M& moving, typename M::Scalar sigma2,
+    typename M::Scalar outliers) const {
+    typename M::Scalar bandwidth = std::sqrt(2.0 * sigma2);
+    typename M::Index cols = fixed.cols();
     std::unique_ptr<fgt::Transform> transform =
         create_transform(moving, bandwidth);
     auto kt1 = transform->compute(fixed);
-    double ndi = outliers / (1.0 - outliers) * moving.rows() / fixed.rows() *
-                 std::pow(2.0 * M_PI * sigma2, 0.5 * cols);
+    typename M::Scalar ndi = outliers / (1.0 - outliers) * moving.rows() /
+                             fixed.rows() *
+                             std::pow(2.0 * M_PI * sigma2, 0.5 * cols);
     Array denom_p = kt1.array() + ndi;
-    Vector pt1 = 1 - ndi / denom_p;
+    V pt1 = 1 - ndi / denom_p;
     transform = create_transform(fixed, bandwidth);
-    Vector p1 = transform->compute(moving, 1 / denom_p);
-    Matrix px(moving.rows(), cols);
-    for (size_t i = 0; i < cols; ++i) {
+    V p1 = transform->compute(moving, 1 / denom_p);
+    M px(moving.rows(), cols);
+    for (typename M::Index i = 0; i < cols; ++i) {
         px.col(i) = transform->compute(moving, fixed.col(i).array() / denom_p);
     }
-    double l =
+    typename M::Scalar l =
         -denom_p.log().sum() + cols * fixed.rows() * std::log(sigma2) / 2;
     return { p1, pt1, px, l };
 }
 
+template <typename M, typename V>
 std::unique_ptr<fgt::Transform> GaussTransformFgt::create_transform(
-    const Matrix& points, double bandwidth) const {
+    const M& points, typename M::Scalar bandwidth) const {
     switch (m_method) {
         case FgtMethod::DirectTree:
             return std::unique_ptr<fgt::Transform>(
@@ -68,5 +72,7 @@ std::unique_ptr<fgt::Transform> GaussTransformFgt::create_transform(
     }
     return nullptr;
 }
+template class GaussTransformFgt<Matrix, Vector, Array>;
+template class GaussTransformFgt<MatrixF, VectorF, ArrayF>;
 
 } // namespace cpd

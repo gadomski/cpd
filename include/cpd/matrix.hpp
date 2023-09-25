@@ -27,18 +27,22 @@ namespace cpd {
 
 /// Our base matrix class.
 typedef Eigen::MatrixXd Matrix;
+typedef Eigen::MatrixXf MatrixF;
 
 /// Typedef for our specific type of vector.
 typedef Eigen::VectorXd Vector;
+typedef Eigen::VectorXf VectorF;
+
+/// Typedef for our specific type of array. (TODO: Support this)
+typedef Eigen::ArrayXd Array;
+typedef Eigen::ArrayXf ArrayF;
 
 /// Typedef for an index vector, used to index other matrices.
 typedef Eigen::Matrix<Matrix::Index, Eigen::Dynamic, 1> IndexVector;
 
-/// Typedef for our specific type of array.
-typedef Eigen::ArrayXd Array;
-
 /// Apply a transformation matrix to a set of points.
 ///
-/// The transformation matrix should be one column wider than the point matrix.
-Matrix apply_transformation_matrix(Matrix points, const Matrix& transform);
+/// The transformation matrix should be one column wider than the point matrix
+template <typename M, typename V>
+M apply_transformation_matrix(M points, const M& transform);
 } // namespace cpd

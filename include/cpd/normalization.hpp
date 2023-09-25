@@ -27,19 +27,20 @@
 namespace cpd {
 
 /// The results of normalizing data to a unit cube (or whatever dimensionality).
+template <typename M, typename V>
 struct Normalization {
     /// The average of the fixed points, that was subtracted from those data.
-    Vector fixed_mean;
+    V fixed_mean;
     /// The fixed points.
-    Matrix fixed;
+    M fixed;
     /// The scaling factor for the fixed points.
-    double fixed_scale;
+    typename M::Scalar fixed_scale;
     /// The average of the moving points, that was subtracted from those data.
-    Vector moving_mean;
+    V moving_mean;
     /// The moving points.
-    Matrix moving;
+    M moving;
     /// The scaling factor for the moving points.
-    double moving_scale;
+    typename M::Scalar moving_scale;
 
     /// Creates a new normalization for the provided matrices.
     ///
@@ -49,7 +50,6 @@ struct Normalization {
     /// seperately.
     ///
     /// Myronenko's original implementation only had `linked = false` logic.
-    Normalization(const Matrix& fixed, const Matrix& moving,
-                  bool linked = true);
+    Normalization(const M& fixed, const M& moving, bool linked = true);
 };
 } // namespace cpd

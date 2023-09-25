@@ -24,20 +24,20 @@
 namespace cpd {
 
 TEST_F(FishTest, Works) {
-    NonrigidResult result = nonrigid(m_fish, m_fish_distorted);
+    auto result = nonrigid<Matrix, Vector>(m_fish, m_fish_distorted);
     EXPECT_TRUE(result.points.isApprox(m_fish, 0.1));
 }
 
 TEST_F(FaceTest, Works) {
-    Nonrigid nonrigid;
+    Nonrigid<Matrix, Vector> nonrigid;
     nonrigid.normalize(false).sigma2(1.0).outliers(0.1);
-    NonrigidResult result = nonrigid.run(m_face, m_face_distorted);
+    auto result = nonrigid.run(m_face, m_face_distorted);
     EXPECT_TRUE(result.points.row(0).isApprox(m_face.row(0), 0.01));
     EXPECT_TRUE(result.points.row(391).isApprox(m_face.row(391), 0.5));
 }
 
 TEST(Nonrigid, Linked) {
-    Nonrigid nonrigid;
+    Nonrigid<Matrix, Vector> nonrigid;
     nonrigid.linked(true);
     EXPECT_TRUE(nonrigid.linked());
     nonrigid.linked(false);
@@ -45,7 +45,7 @@ TEST(Nonrigid, Linked) {
 }
 
 TEST_F(FishTest, Correspondences) {
-    Nonrigid nonrigid;
+    Nonrigid<Matrix, Vector> nonrigid;
     nonrigid.correspondence(true);
     NonrigidResult result = nonrigid.run(m_fish_distorted, m_fish);
     EXPECT_TRUE((result.correspondence.array() > 0).any());

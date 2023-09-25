@@ -29,36 +29,41 @@ namespace cpd {
 
 /// Probability matrices produced by comparing two data sets with a
 /// `GaussTransform`.
+template <typename M, typename V>
 struct Probabilities {
     /// The probability matrix, multiplied by the identity matrix.
-    Vector p1;
+    V p1;
     /// The probability matrix, transposes, multiplied by the identity matrix.
-    Vector pt1;
+    V pt1;
     /// The probability matrix multiplied by the fixed points.
-    Matrix px;
+    M px;
     /// The total error.
-    double l;
+    typename M::Scalar l;
     /// The correspondence vector between the two datasets.
     IndexVector correspondence;
 };
 
 /// Abstract base class for Gauss transforms.
+template <typename M, typename V>
 class GaussTransform {
 public:
     /// Returns the default Gauss transform as a unique ptr.
-    static std::unique_ptr<GaussTransform> make_default();
+    static std::unique_ptr<GaussTransform<M, V>> make_default();
 
     /// Computes the Gauss transform.
-    virtual Probabilities compute(const Matrix& fixed, const Matrix& moving,
-                                  double sigma2, double outliers) const = 0;
+    virtual Probabilities<M, V> compute(const M& fixed, const M& moving,
+                                        typename M::Scalar sigma2,
+                                        typename M::Scalar outliers) const = 0;
 
     virtual ~GaussTransform() {}
 };
 
 /// The direct Gauss transform.
-class GaussTransformDirect : public GaussTransform {
+template <typename M, typename V>
+class GaussTransformDirect : public GaussTransform<M, V> {
 public:
-    Probabilities compute(const Matrix& fixed, const Matrix& moving,
-                          double sigma2, double outliers) const;
+    Probabilities<M, V> compute(const M& fixed, const M& moving,
+                                typename M::Scalar sigma2,
+                                typename M::Scalar outliers) const;
 };
 } // namespace cpd

@@ -18,7 +18,14 @@
 #include <cpd/gauss_transform.hpp>
 
 namespace cpd {
-std::unique_ptr<GaussTransform> GaussTransform::make_default() {
-    return std::unique_ptr<GaussTransform>(new GaussTransformDirect());
+template <typename M, typename V>
+std::unique_ptr<GaussTransform<M, V>> GaussTransform<M, V>::make_default() {
+    return std::unique_ptr<GaussTransform<M, V>>(
+        new GaussTransformDirect<M, V>());
 }
+template std::unique_ptr<GaussTransform<Matrix, Vector>>
+GaussTransform<Matrix, Vector>::make_default();
+template std::unique_ptr<GaussTransform<MatrixF, VectorF>>
+GaussTransform<MatrixF, VectorF>::make_default();
+
 } // namespace cpd
