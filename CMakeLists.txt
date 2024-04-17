@@ -1,36 +1,19 @@
-cmake_minimum_required(VERSION 3.1)
+cmake_minimum_required(VERSION 3.13)
 set(CPD_LANGUAGES CXX)
 set(CPD_VERSION 0.5.4)
 set(CPD_SOVERSION 0)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-
-
-# Policies
-if(POLICY CMP0048) # Project version
-    cmake_policy(SET CMP0048 NEW)
-    project(cpd LANGUAGES ${CPD_LANGUAGES} VERSION ${CPD_VERSION})
-else()
-    project(cpd ${CPD_LANGUAGES})
-endif()
-
-if(POLICY CMP0042) # MACOSX_RPATH
-    cmake_policy(SET CMP0042 NEW)
-endif()
-
-if(POLICY CMP0054) # Quoted variables in if statements
-    cmake_policy(SET CMP0054 NEW)
-endif()
-
+project(cpd LANGUAGES ${CPD_LANGUAGES} VERSION ${CPD_VERSION})
 
 # Upstream
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
-find_package(Eigen3 REQUIRED)
-find_package(Fgt QUIET)
+find_package(Eigen3 REQUIRED CONFIG)
+find_package(Fgt QUIET CONFIG)
 option(WITH_FGT "Build with fgt" ${Fgt_FOUND})
 if(WITH_FGT)
-    find_package(Fgt REQUIRED)
+    find_package(Fgt REQUIRED CONFIG)
 endif()
 
 
