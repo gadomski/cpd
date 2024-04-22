@@ -62,8 +62,8 @@ target_include_directories(Library-C++
     ${EIGEN3_INCLUDE_DIR}
     )
 if(WITH_FGT)
-    target_link_libraries(Library-C++ PUBLIC Fgt::Library-C++)
-    target_compile_definitions(Library-C++ PUBLIC CPD_WITH_FGT)
+    target_link_libraries(Library-C++ PRIVATE Fgt::Library-C++)
+    target_compile_definitions(Library-C++ PRIVATE CPD_WITH_FGT)
 endif()
 
 option(WITH_STRICT_WARNINGS "Build with stricter warnings" ON)
