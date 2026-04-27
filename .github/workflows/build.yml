@@ -18,7 +18,7 @@ jobs:
       PLATFORM: ${{ matrix.platform }}
     steps:
       - uses: actions/checkout@v6
-      - uses: conda-incubator/setup-miniconda@v3
+      - uses: conda-incubator/setup-miniconda@v4
         with:
           channels: conda-forge
           auto-update-conda: true
